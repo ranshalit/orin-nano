@@ -2,6 +2,10 @@
 
 !IMPORTANT: and new finding about flash programing or connectivity to device (serial, ethernet, etc) should be added to this file and the README.md files, and the instructions should be updated to reflect the new understanding. For example, if we find that the serial console is not working due to permissions, we should add instructions for setting up udev rules to allow access to the serial devices.
 
+# Configuration
+this device is using nvme - not mmc !
+!IMPORTNAT - for flash programing do not use mmc but nvme
+
 ## Scope
 - This root workspace includes documentation archives, downloaded NVIDIA bundles, and active development under `nvidia_sdk/`.
 - Prefer edits in source/config/workflow files, not large binary artifacts (for example `*.tbz2`, model weights, generated run outputs).
@@ -30,7 +34,20 @@
   - `sudo reboot forced-recovery` on the target (or equivalent remote command)
 - Match board profile to intent:
   - QSPI-only updates: `jetson-orin-nano-devkit-qspi` (`NO_ROOTFS=1`, `EMMC_CFG=flash_t234_qspi.xml`)
+  - Rootfs-only APP updates on this NVMe-based Orin Nano: use `flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`.
+  - Full device flash on this NVMe-based Orin Nano: use `flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`.
   - Kernel DTB updates: prefer `flash.sh -k <A_kernel-dtb|B_kernel-dtb>` with non-`-qspi` board profile.
+  - On this NVMe-based Orin Nano setup, use `jetson-orin-nano-devkit-nvme internal` for direct `A_kernel-dtb` and `B_kernel-dtb` updates with the non-super DTB file `kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb`.
+  - Avoid manually mixing `-c bootloader/generic/cfg/flash_t234_qspi.xml` with `nvme0n1p1` for this DTB-only flow; it failed here with `Can not find partition type for a_kernel-dtb`.
+- Flash command examples from `Linux_for_Tegra`:
+  - QSPI-only flash: `sudo ./flash.sh jetson-orin-nano-devkit-qspi internal`
+  - Rootfs-only APP flash to NVMe: `sudo ./flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`
+  - Full NVMe flash: `sudo ./flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`
+  - Device-tree-only flash to slot A: `sudo ./flash.sh -k A_kernel-dtb jetson-orin-nano-devkit nvme0n1p1`
+  - For slot B device-tree updates, replace `A_kernel-dtb` with `B_kernel-dtb`.
+  - Validated NVMe DTB update to slot A: `sudo ./flash.sh -k A_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
+  - Validated NVMe DTB update to slot B: `sudo ./flash.sh -k B_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
+- If a custom kernel DTB should be loaded from rootfs, add `FDT /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv.dtb` to `/boot/extlinux/extlinux.conf` and copy the matching DTB into `/boot/dtb/`; otherwise UEFI falls back to the flashed DTB partition.
 - Treat `Flashing completed` and `has been flashed successfully` as required success markers.
 - After flash, verify board returns to normal boot and network reachability (`192.168.55.1` when applicable).
 - Do not start flashing if APX/recovery is not confirmed.
@@ -70,6 +87,8 @@
 ## Critical workflows (host)
 - Default flash from `Linux_for_Tegra`: `sudo ./nvautoflash.sh`.
 - Explicit flash path: `sudo ./flash.sh <target_board> <rootdev>`.
+- Rootfs-only APP flash for this NVMe Orin Nano: `sudo ./flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`.
+- Full NVMe flash for this Orin Nano: `sudo ./flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`.
 - Safe prechecks before flashing: `sudo ./nvsdkmanager_flash.sh --check-all` (or `--check-target-only`, `--check-network-only`).
 - External storage/initrd flash: `sudo ./nvsdkmanager_flash.sh --storage nvme0n1p1`.
 - Rootfs binary sync before image generation: `sudo ./apply_binaries.sh -r ./rootfs`.
@@ -104,6 +123,7 @@
 - Requests that say "on device", "in device", or target `192.168.55.1` should use `.github/skills/terminal-command-inject`, which is SSH-first and can fall back to serial when needed.
 - File copy, deploy, and copy-then-run workflows should use `.github/skills/scp-file-copy`.
 - For commands requiring privilege (for example `sudo ls /home/ -al`), execute them remotely through the SSH-first skill and return the remote output.
+- When the workspace is using password-based SSH access, prefer non-interactive `sshpass`/`scp` style execution or an equivalent non-interactive password injection path; do not rely on an interactive `sudo` password prompt because it can leave the terminal waiting indefinitely.
 - Host `bash` is only for host-side operations; never use it as a substitute for device-side command requests.
 
 ## Tool availability preflight

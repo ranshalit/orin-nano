@@ -35,6 +35,21 @@ DEFAULT_SSH_CONNECT_TIMEOUT_S = 5.0
 DEFAULT_PROMPT_REGEX = TARGET_DEFAULTS.prompt_regex
 
 
+def _prepare_remote_command(cmd: str) -> Tuple[str, bool]:
+    stripped = cmd.lstrip()
+    if not stripped.startswith("sudo"):
+        return cmd, False
+    if len(stripped) == 4 or not stripped[4].isspace():
+        return cmd, False
+
+    # If the caller already chose a sudo input mode, preserve it.
+    if re.search(r"(^|\s)(-S|--stdin|-A|--askpass|-n|--non-interactive)(\s|$)", stripped):
+        return cmd, False
+
+    leading = cmd[: len(cmd) - len(stripped)]
+    return f"{leading}sudo -S -p ''{stripped[4:]}", True
+
+
 @dataclass
 class RunnerConfig:
     transport: str
@@ -183,8 +198,21 @@ def _try_run_commands_over_ssh(cfg: RunnerConfig, commands: List[str]) -> Tuple[
             transcript.append(f"===== COMMAND {i}/{len(commands)} =====")
             transcript.append(f"$ {cmd}")
 
+            remote_cmd, sudo_password_required = _prepare_remote_command(cmd)
+            if sudo_password_required:
+                transcript.append("[terminal-runner] NOTE: auto-supplying sudo password")
+
             try:
-                stdin, stdout, stderr = client.exec_command(cmd, get_pty=True, timeout=per_cmd_timeout)
+                stdin, stdout, stderr = client.exec_command(
+                    remote_cmd,
+                    get_pty=not sudo_password_required,
+                    timeout=per_cmd_timeout,
+                )
+                if stdin and sudo_password_required:
+                    stdin.write(cfg.password + "\n")
+                    stdin.flush()
+                    if hasattr(stdin, "channel") and stdin.channel is not None:
+                        stdin.channel.shutdown_write()
                 out = stdout.read().decode("utf-8", errors="replace") if stdout else ""
                 err = stderr.read().decode("utf-8", errors="replace") if stderr else ""
                 status = stdout.channel.recv_exit_status() if stdout and stdout.channel else 0

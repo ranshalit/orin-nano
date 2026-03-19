@@ -171,6 +171,7 @@ Interactive prompt behavior during command execution:
 - For yes/no prompts, prefer affirmative answers by default unless the user asked otherwise.
 - If a TUI/editor takes over (for example `vim`, `less`, `top`), send a safe exit sequence and continue with remaining commands.
 - If the prompt cannot be answered automatically, stop that command and return a short remediation hint.
+- For SSH commands that begin with `sudo`, the runner now rewrites them to non-interactive `sudo -S -p '' ...` and proactively sends the configured password. This avoids hanging on a password prompt when the command would otherwise block waiting for terminal input.
 
 Additional output options:
 

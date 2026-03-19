@@ -44,7 +44,8 @@ That is the correct recovery-mode USB ID for this Orin Nano target.
 6. Ran the actual QSPI flash  
 From the correct `Linux_for_Tegra` directory, I executed:
 ```bash
-cd /media/ranshal/jetson/L4T/nvidia_sdk/JetPack_6.2.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra && sudo ./flash.sh jetson-orin-nano-devkit-qspi internal
+cd /media/ranshal/jetson/L4T/nvidia_sdk/JetPack_6.2.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra && sudo ./flash.sh jetson-
+nano-devkit-qspi internal
 ```
 
 7. Verified that QSPI partitions were written  
@@ -97,3 +98,4 @@ That means:
 	- Replug USB-C data cable and prefer a direct host USB port (avoid hubs/docks).
 	- Retry `sudo ./nvautoflash.sh --print_boardid` before any `flash.sh` command.
 	- Only proceed when board detection succeeds (not just APX visibility).
+

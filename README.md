@@ -27,6 +27,7 @@ using .github skills of terminal-command-inject and copy scp-copy-files skill fo
 - Workspace MCP config: `.vscode/mcp.json`
 - Tracked SSH key profile: `.vscode/ssh-mcp.profile.json`
 - Copilot CLI note: put MCP JSON config under `~/.copilot/` so the CLI can load it.
+- For password-based host-to-device command or copy operations, prefer non-interactive `sshpass`/`scp` usage rather than waiting on an interactive `sudo` password prompt.
 
 ### How SSH MCP server was added
 Use this in Copilot CLI: `copilot` -> `/mcp add` (the command is interactive; there is not a documented full inline `/mcp add ...` form).
@@ -94,3 +95,28 @@ change into relative files
 - Confirm actual flash readiness with:
 	- `sudo ./nvautoflash.sh --print_boardid`
 - If it reports `0 connections found`, re-enter forced recovery, reconnect USB-C (prefer direct host port), and retry probe before flashing.
+
+## DTB flashing notes (March 2026)
+- This Orin Nano setup boots from NVMe, so DTB partition updates should use the dedicated NVMe board profile, not an MMC root device.
+- Rootfs-only APP updates on NVMe use:
+	- `sudo ./flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`
+- Full device flash on NVMe use:
+	- `sudo ./flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`
+- Validated commands from `nvidia_sdk/JetPack_6.2.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra`:
+	- `sudo ./flash.sh -k A_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
+	- `sudo ./flash.sh -k B_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
+- Success marker to require in the flash log:
+	- `*** The [A_kernel-dtb] has been updated successfully. ***`
+	- `*** The [B_kernel-dtb] has been updated successfully. ***`
+- A manual `-c bootloader/generic/cfg/flash_t234_qspi.xml ... nvme0n1p1` override failed for this flow with `Can not find partition type for a_kernel-dtb`; prefer the `jetson-orin-nano-devkit-nvme` board profile instead.
+- If you want UEFI to boot a custom DTB from rootfs, add `FDT /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv.dtb` to `/boot/extlinux/extlinux.conf` and copy the matching custom DTB into `/boot/dtb/`. Without a valid `FDT` entry and file, UEFI falls back to the flashed DTB partition.
+
+# pinmux
+So the full picture is:
+Layer  ===  	What it is  							=== Contains pinmux?
+MB1-BCT			Binary BCT compiled from pinmux.dtsi	Yes — electrical config
+Base DTB		Main platform DTS compiled to DTB		Yes — pinmux@2430000 kernel config
+DTBO overlays	Patches applied on top of base DTB		Sometimes — e.g. camera overlays may include pinmux fragments
+
+Scope	MB1-BCT										Kernel DTB
+		ALL pins must be configured for safe boot	Only pins used by kernel driversWho changes itSpreadsheetManual DTS editingCan be skipped?No — required for bootTechnically kernel falls back to MB1 state if not configured
