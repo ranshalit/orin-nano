@@ -1,0 +1,31 @@
+verbose on
+timeout 45
+
+print "[runscript] waiting for login prompt"
+send ""
+sleep 1
+send ""
+sleep 1
+send ""
+sleep 1
+expect {
+  "ubuntu login:" send "ubuntu"
+  "login:" send "ubuntu"
+  timeout 15 exit 1
+}
+
+print "[runscript] waiting for password prompt"
+expect {
+  "Password:" send "ubuntu"
+  timeout 15 exit 2
+}
+
+print "[runscript] password sent"
+sleep 4
+send ""
+sleep 1
+print "[runscript] running ls"
+send "ls"
+sleep 5
+! killall -9 minicom
+exit 0

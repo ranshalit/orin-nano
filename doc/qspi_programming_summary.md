@@ -84,3 +84,16 @@ After the flash finished:
 That means:
 - QSPI programming succeeded
 - the board cold-booted back into normal runtime Linux
+
+## Connectivity finding (March 2026)
+
+- Recovery USB enumeration alone is not always sufficient for flashing.
+- We observed cases where `lsusb` shows `0955:7523` (APX), but `flash.sh` fails with:
+	- `Error: probing the target board failed.`
+	- empty `ECID`
+	- `nvautoflash.sh --print_boardid` reports `0 connections found`.
+- If this happens:
+	- Re-enter forced recovery (`sudo reboot forced-recovery` from target when reachable).
+	- Replug USB-C data cable and prefer a direct host USB port (avoid hubs/docks).
+	- Retry `sudo ./nvautoflash.sh --print_boardid` before any `flash.sh` command.
+	- Only proceed when board detection succeeds (not just APX visibility).

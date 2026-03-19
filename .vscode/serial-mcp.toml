@@ -1,0 +1,40 @@
+[server]
+max_connections = 10
+connection_timeout_seconds = 30
+enable_metrics = false
+metrics_interval_seconds = 60
+
+[serial]
+default_baud_rate = 115200
+default_data_bits = 8
+default_stop_bits = "One"
+default_parity = "None"
+default_flow_control = "None"
+default_timeout_ms = 1000
+max_buffer_size = 8192
+retry_count = 3
+retry_delay_ms = 1000
+auto_discovery = false
+discovery_interval_seconds = 5
+allow_port_sharing = false
+default_line_ending = "\n"
+
+[security]
+restrict_ports = true
+allowed_ports = ["/dev/ttyACM0"]
+blocked_ports = []
+max_data_size = 65536
+rate_limit_enabled = false
+rate_limit_requests_per_second = 100
+enable_authentication = false
+allowed_clients = []
+
+[logging]
+level = "info"
+format = "text"
+timestamp_format = "rfc3339"
+include_location = false
+include_thread_names = false
+rotate_logs = false
+max_log_files = 10
+max_log_size_mb = 10

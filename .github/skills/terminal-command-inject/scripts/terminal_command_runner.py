@@ -57,6 +57,27 @@ class RunnerConfig:
     serial_username: Optional[str]
 
 
+def _write_transcript(path: Optional[str], content: str) -> None:
+    if not path:
+        return
+    try:
+        p = Path(path).expanduser()
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content, encoding="utf-8")
+    except Exception as exc:
+        print(f"[terminal-runner] WARNING: failed to write transcript file {path}: {exc}", file=sys.stderr)
+
+
+def _print_summary(transport: str, rc: int, started_at: float, transcript: str) -> None:
+    duration = _now() - started_at
+    command_count = transcript.count("===== COMMAND")
+    print("[terminal-runner] summary:")
+    print(f"[terminal-runner]   transport={transport}")
+    print(f"[terminal-runner]   commands={command_count}")
+    print(f"[terminal-runner]   rc={int(rc)}")
+    print(f"[terminal-runner]   duration_s={duration:.2f}")
+
+
 def _now() -> float:
     return time.monotonic()
 
@@ -66,14 +87,28 @@ def _run(
     *,
     timeout: Optional[float] = None,
 ) -> Tuple[int, str, str]:
-    proc = subprocess.run(
-        argv,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        timeout=timeout,
-    )
-    return proc.returncode, proc.stdout, proc.stderr
+    try:
+        proc = subprocess.run(
+            argv,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=timeout,
+        )
+        return proc.returncode, proc.stdout, proc.stderr
+    except subprocess.TimeoutExpired as exc:
+        out = exc.stdout if isinstance(exc.stdout, str) else ""
+        err = exc.stderr if isinstance(exc.stderr, str) else ""
+        timeout_msg = (
+            f"[terminal-runner] ERROR: subprocess timed out after {float(exc.timeout):.1f}s"
+            if exc.timeout is not None
+            else "[terminal-runner] ERROR: subprocess timed out"
+        )
+        if err:
+            err = f"{err.rstrip()}\n{timeout_msg}\n"
+        else:
+            err = timeout_msg + "\n"
+        return 124, out, err
 
 
 def _deadline_from_timeout(timeout_s: float) -> float:
@@ -207,7 +242,7 @@ def _run_commands_over_serial_fallback(cfg: RunnerConfig, commands: List[str]) -
         "--overall-timeout",
         str(cfg.overall_timeout),
         "--command-timeout",
-        str(cfg.overall_timeout if cfg.command_timeout <= 0 else cfg.command_timeout),
+        str(cfg.command_timeout),
         "--line-ending",
         cfg.serial_line_ending,
     ]
@@ -222,7 +257,8 @@ def _run_commands_over_serial_fallback(cfg: RunnerConfig, commands: List[str]) -
     for cmd in commands:
         argv += ["--command", cmd]
 
-    rc, out, err = _run(argv, timeout=None if cfg.overall_timeout <= 0 else cfg.overall_timeout)
+    subprocess_timeout = None if cfg.overall_timeout <= 0 else (cfg.overall_timeout + 5.0)
+    rc, out, err = _run(argv, timeout=subprocess_timeout)
     return rc, out, err
 
 
@@ -372,6 +408,11 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         default=300,
         help="Per-command timeout seconds. Use 0 for no per-command limit (overall timeout still applies).",
     )
+    p.add_argument(
+        "--transcript-file",
+        default=None,
+        help="Optional path to write full runner transcript output.",
+    )
 
     # Prompt regex (primarily for serial fallback; kept for backwards compatibility)
     p.add_argument("--prompt-regex", default=DEFAULT_PROMPT_REGEX)
@@ -416,6 +457,7 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
 
 def main(argv: List[str]) -> int:
     args = parse_args(argv)
+    started_at = _now()
 
     cfg = RunnerConfig(
         transport=str(args.transport),
@@ -439,37 +481,61 @@ def main(argv: List[str]) -> int:
     if cfg.transport == "ssh":
         ssh_ok, exit_code, transcript = _try_run_commands_over_ssh(cfg, commands)
         print(transcript, file=sys.stderr if not ssh_ok else sys.stdout)
-        return int(exit_code if ssh_ok else 255)
+        final_rc = int(exit_code if ssh_ok else 255)
+        _write_transcript(args.transcript_file, transcript)
+        _print_summary("ssh", final_rc, started_at, transcript)
+        return final_rc
 
     if cfg.transport == "serial":
+        serial_transcript_parts: List[str] = []
         print("[terminal-runner] serial mode selected; cleaning up serial holders", file=sys.stderr)
-        print(_terminate_serial_holders(cfg), file=sys.stderr)
+        cleanup_text = _terminate_serial_holders(cfg)
+        print(cleanup_text, file=sys.stderr)
+        serial_transcript_parts.append(cleanup_text)
 
         rc, out, err = _run_commands_over_serial_fallback(cfg, commands)
         if out:
             print(out, end="" if out.endswith("\n") else "\n")
+            serial_transcript_parts.append(out)
         if err:
             print(err, file=sys.stderr, end="" if err.endswith("\n") else "\n")
+            serial_transcript_parts.append(err)
+
+        serial_transcript = "\n".join(serial_transcript_parts)
 
         if rc == 0:
+            _write_transcript(args.transcript_file, serial_transcript)
+            _print_summary("serial", 0, started_at, serial_transcript)
             return 0
 
         if _is_serial_alive_no_linux_shell_result(rc, out, err):
             print("[terminal-runner] serial is alive, but no linux shell", file=sys.stderr)
-            return int(ALIVE_NO_LINUX_SHELL_EXIT_CODE)
+            final_rc = int(ALIVE_NO_LINUX_SHELL_EXIT_CODE)
+            _write_transcript(args.transcript_file, serial_transcript)
+            _print_summary("serial", final_rc, started_at, serial_transcript)
+            return final_rc
 
         if _is_no_serial_connection_result(rc, out, err) or _is_serial_unavailable_result(out, err):
             print("[terminal-runner] no terminal", file=sys.stderr)
-            return int(NO_SERIAL_CONNECTION_EXIT_CODE)
+            final_rc = int(NO_SERIAL_CONNECTION_EXIT_CODE)
+            _write_transcript(args.transcript_file, serial_transcript)
+            _print_summary("serial", final_rc, started_at, serial_transcript)
+            return final_rc
 
         print("[terminal-runner] serial failed", file=sys.stderr)
-        return int(rc)
+        final_rc = int(rc)
+        _write_transcript(args.transcript_file, serial_transcript)
+        _print_summary("serial", final_rc, started_at, serial_transcript)
+        return final_rc
 
     # auto (default): SSH-first then serial fallback
     ssh_ok, exit_code, transcript = _try_run_commands_over_ssh(cfg, commands)
     if ssh_ok:
         print(transcript)
-        return int(exit_code)
+        final_rc = int(exit_code)
+        _write_transcript(args.transcript_file, transcript)
+        _print_summary("auto(ssh)", final_rc, started_at, transcript)
+        return final_rc
 
     print(transcript, file=sys.stderr)
 
@@ -501,7 +567,11 @@ def main(argv: List[str]) -> int:
         print(out, end="" if out.endswith("\n") else "\n")
     if err:
         print(err, file=sys.stderr, end="" if err.endswith("\n") else "\n")
-    return int(rc)
+    combined = "\n".join([transcript, out or "", err or ""]).strip()
+    final_rc = int(rc)
+    _write_transcript(args.transcript_file, combined)
+    _print_summary("auto(serial-fallback)", final_rc, started_at, combined)
+    return final_rc
 
 
 if __name__ == "__main__":

@@ -63,6 +63,10 @@ If `target_serial_device` is missing for serial runs, ask in AI chat and update 
 - Only run the commands the user provides.
 - Do not run destructive commands unless the user explicitly asks.
 - Do not print the password in logs or transcripts.
+- For unattended runs, auto-answer interactive prompts when possible, even when this is risky.
+- Treat these as auto-answer prompts unless the user explicitly requests strict fail-fast behavior: `sudo` password prompts, SSH host-key confirmation prompts, package-manager confirmation prompts, and common yes/no confirmations.
+- When a command may require privilege escalation, provide configured credentials automatically and continue execution.
+- If auto-answer is not possible, return a clear error with the prompt text and stop that command.
 
 ## Procedure
 
@@ -130,6 +134,7 @@ Example:
   --password <target_password> \
   --overall-timeout 1800 \
   --command-timeout 300 \
+  --transcript-file /tmp/terminal-runner.log \
   --command '<cmd1>' \
   --command '<cmd2>' \
   --command '<cmdN>'`
@@ -150,12 +155,27 @@ Serial-first behavior now classifies connection state immediately as one of:
 
 Serial probe order in `--transport serial` is:
 
-1. Try username first (assume `login:` state).
-2. If `Password:` is seen, send password and check for Linux prompt.
-3. If no Linux shell but any output characters are observed, classify as alive/no-linux-shell.
-4. If no output is observed, classify as no terminal.
+1. Recognize Jetson login prompts that may appear as `<hostname> login:` rather than bare `login:`.
+2. If the console appears stuck without a visible login/password prompt, reset it back to a visible login prompt before retrying credentials.
+3. Submit login credentials with carriage return on this console, even if shell commands use a different line ending.
+4. After sending the username, wait about 2-3 seconds for the console to advance before sending the password.
+5. If `Password:` is seen, send password and check for Linux prompt.
+6. If no Linux shell but any output characters are observed, classify as alive/no-linux-shell.
+7. If no output is observed, classify as no terminal.
 
 If SSH fails (auth, network, host key prompt, connection refused), proceed to the serial fallback.
+
+Interactive prompt behavior during command execution:
+
+- If output indicates an interactive prompt (password/confirmation prompt), attempt to auto-answer and continue command execution.
+- For yes/no prompts, prefer affirmative answers by default unless the user asked otherwise.
+- If a TUI/editor takes over (for example `vim`, `less`, `top`), send a safe exit sequence and continue with remaining commands.
+- If the prompt cannot be answered automatically, stop that command and return a short remediation hint.
+
+Additional output options:
+
+- `--transcript-file <path>`: writes the full transcript to a local file.
+- The runner prints a final summary (`transport`, command count, return code, duration) on completion.
 
 ### 4) Serial fallback runner (only if SSH unavailable)
 
@@ -194,6 +214,8 @@ Examples:
 If a login prompt appears, include:
 
 - `--username <username> --password <password>` (avoid printing passwords in transcripts)
+- The serial runner now waits `2.5s` after writing the username before attempting the password step. Use `--post-username-delay <seconds>` if the console needs a different delay.
+- On this Jetson console, username/password submission works reliably with carriage return during login and a configurable shell line ending afterward.
 
 Liveness behavior:
 
@@ -205,9 +227,13 @@ Liveness behavior:
 
 Return the captured transcript to the user, grouped per command, and clearly indicate whether SSH or serial was used.
 
+When `--transcript-file` is provided, include the transcript file path in your handoff so users can inspect the complete log.
+
 ## Notes / common issues
 
 - If SSH is flaky, confirm the link (USB gadget ethernet vs. direct Ethernet) and that the device is booted.
 - Boot logs over serial can be noisy; prompt detection may take time until Linux finishes booting.
 - If serial is disconnected/unresponsive, the runner now exits quickly after active probe attempts with no returned output.
+- On this Jetson serial console, auto-login may fail if the password is sent immediately after the username; allow roughly `2-3s` between those steps.
+- This console may present the prompt as `ubuntu login:` and can sometimes be left in a hidden password state after an interrupted attempt; the runner now resets that state before retrying.
 - If your prompt differs from `target_prompt_regex`, pass a different `--prompt-regex`.

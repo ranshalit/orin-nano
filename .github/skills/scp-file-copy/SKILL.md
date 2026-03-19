@@ -124,6 +124,14 @@ The runner supports both authentication styles:
 
 By default (`--auth auto`), it will **try SSH keys first** and **fall back to sshpass**.
 
+Reliability options:
+
+- `--overall-timeout <seconds>`: caps total runtime for the full action list (`0` means no overall limit).
+- `--scp-timeout <seconds>`: per-transfer timeout (`0` means no per-transfer limit).
+- `--scp-retries <count>`: retry failed SCP/rsync transfers this many times.
+- `--retry-delay <seconds>`: delay between retries.
+- `--scp-resume`: use `rsync --partial --append-verify` for resumable transfers (requires `rsync` on host and target).
+
 Examples:
 
 - SCP push (host → device):
@@ -141,6 +149,16 @@ Examples:
 
   `python3 .github/skills/scp-file-copy/scripts/ssh_scp_runner.py \
     --scp-pull /var/log/syslog ./syslog.from_target`
+
+- Resumable transfer with retries (recommended for large files):
+
+  `python3 .github/skills/scp-file-copy/scripts/ssh_scp_runner.py \
+    --scp-push ./big_image.raw /tmp/big_image.raw \
+    --scp-resume \
+    --scp-retries 3 \
+    --retry-delay 2 \
+    --scp-timeout 0 \
+    --overall-timeout 3600`
 
 - Multiple transfers in one run:
 
@@ -182,6 +200,7 @@ The runner will:
 3. Capture output and exit status for each transfer and each command.
 4. Stop immediately on failure and report what failed (unless `--continue-on-error` is used).
 5. Return a transcript grouped per transfer and per command.
+6. Print a final action summary with per-item status, attempt count, and elapsed duration.
 
 ## Notes / common issues
 

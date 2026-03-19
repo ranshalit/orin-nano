@@ -29,7 +29,7 @@ except Exception as exc:  # pragma: no cover
 
 
 DEFAULT_SCAN_GLOBS = ["/dev/ttyUSB*", "/dev/ttyACM*"]
-DEFAULT_LOGIN_REGEX = r"(^|\r?\n)login:\s*$"
+DEFAULT_LOGIN_REGEX = r"(^|\r?\n)(?:[^\r\n:]+\s+)?login:\s*$"
 DEFAULT_PASSWORD_REGEX = r"(^|\r?\n)Password:\s*$"
 DEFAULT_READY_MARKER = "__COPILOT_SERIAL_READY__"
 DEFAULT_LINUX_CHECK_COMMAND = "uname -s"
@@ -38,6 +38,9 @@ FALLBACK_SHELL_PROMPT_REGEX = r"(?:^|\r?\n)[^\r\n]*@[a-zA-Z0-9_.-]+:[^\r\n]*[$#]
 DEFAULT_SERIAL_DEVICE = TARGET_DEFAULTS.serial_device
 SERIAL_OPEN_RETRIES = 3
 SERIAL_OPEN_RETRY_DELAY_S = 0.6
+DEFAULT_POST_USERNAME_DELAY_S = 2.5
+SERIAL_WAKE_PROBE_WINDOW_S = 0.25
+SERIAL_AUTH_LINE_ENDING = "\r"
 SERIAL_RETRY_ERROR_SNIPPETS = (
     "device reports readiness to read but returned no data",
     "multiple access on port",
@@ -62,6 +65,7 @@ class RunnerConfig:
     command_timeout: float
     scan_timeout: float
     line_ending: str
+    post_username_delay: float
     skip_linux_check: bool
     linux_check_command: str
     linux_check_regex: str
@@ -168,6 +172,58 @@ def _probe_for_any_output(
     return "".join(chunks)
 
 
+def _wait_for_output_window(
+    ser: "serial.Serial",
+    deadline: float,
+    window_s: float,
+) -> str:
+    """Read serial output for up to window_s while respecting the overall deadline."""
+
+    effective_window = min(window_s, max(0.0, deadline - _now()))
+    if effective_window <= 0:
+        return ""
+    return _probe_for_any_output(ser, deadline=deadline, window_s=effective_window)
+
+
+def _wait_after_username(
+    ser: "serial.Serial",
+    prompt_re: re.Pattern,
+    fallback_prompt_re: re.Pattern,
+    password_re: re.Pattern,
+    login_re: re.Pattern,
+    deadline: float,
+    wait_s: float,
+) -> Tuple[Optional[int], str]:
+    """Wait briefly after sending the username, returning as soon as the console advances."""
+
+    effective_deadline = min(deadline, _now() + max(0.0, wait_s))
+    if effective_deadline <= _now():
+        return None, ""
+    return _read_until_any(
+        ser,
+        patterns=[prompt_re, fallback_prompt_re, password_re, login_re],
+        deadline=effective_deadline,
+    )
+
+
+def _write_auth_line(ser: "serial.Serial", text: str) -> None:
+    _write_line(ser, text, line_ending=SERIAL_AUTH_LINE_ENDING)
+
+
+def _reset_login_console(ser: "serial.Serial", deadline: float) -> str:
+    """Try to bring the serial console back to a visible login prompt."""
+
+    try:
+        ser.write(b"\x03")
+        ser.flush()
+    except Exception:
+        return ""
+
+    time.sleep(0.2)
+    _write_auth_line(ser, "")
+    return _probe_for_any_output(ser, deadline=deadline, window_s=1.2)
+
+
 def _has_any_output(text: str) -> bool:
     return bool(text)
 
@@ -233,6 +289,7 @@ def _wake_and_wait_for_console(
     line_ending: str,
     username: Optional[str],
     password: Optional[str],
+    post_username_delay: float,
 ) -> Tuple[bool, str]:
     """Try to reach a shell prompt (optionally logging in). Returns (ready, transcript)."""
 
@@ -242,6 +299,16 @@ def _wake_and_wait_for_console(
 
     def _has_shell_now() -> bool:
         return _looks_like_shell_prompt("".join(transcript_parts), prompt_re=prompt_re, fallback_prompt_re=fallback_prompt_re)
+
+    def _current_state_idx() -> Optional[int]:
+        combined = "".join(transcript_parts)
+        if prompt_re.search(combined) or fallback_prompt_re.search(combined):
+            return 0
+        if login_re.search(combined):
+            return 2
+        if password_re.search(combined):
+            return 3
+        return None
 
     def _mark_probe_output(text: str) -> bool:
         nonlocal silent_probes
@@ -260,18 +327,31 @@ def _wake_and_wait_for_console(
 
     # Wake prompt: send newline a few times in case console is idle
     for _ in range(2):
-        _write_line(ser, "", line_ending=line_ending)
-        probe_out = _probe_for_any_output(ser, deadline=deadline)
+        _write_auth_line(ser, "")
+        probe_out = _probe_for_any_output(ser, deadline=deadline, window_s=SERIAL_WAKE_PROBE_WINDOW_S)
         _mark_probe_output(probe_out)
         if _has_shell_now():
             return True, "".join(transcript_parts)
         if silent_probes >= SERIAL_MAX_CONSECUTIVE_SILENT_PROBES:
             return False, _fail_no_output_message()
 
+    if _current_state_idx() is None and not _has_shell_now():
+        reset_out = _reset_login_console(ser, deadline=deadline)
+        _mark_probe_output(reset_out)
+        if _has_shell_now():
+            return True, "".join(transcript_parts)
+
     patterns = [prompt_re, fallback_prompt_re, login_re, password_re]
+    login_attempts = 0
+    max_login_attempts = 2
 
     while _now() < deadline:
-        idx, out = _read_until_any(ser, patterns=patterns, deadline=min(deadline, _now() + 1.5))
+        current_idx = _current_state_idx()
+        if current_idx is not None:
+            idx = current_idx
+            out = ""
+        else:
+            idx, out = _read_until_any(ser, patterns=patterns, deadline=min(deadline, _now() + 1.5))
         if out:
             transcript_parts.append(out)
             if _has_shell_now():
@@ -279,7 +359,7 @@ def _wake_and_wait_for_console(
 
         if idx is None:
             # keep trying; periodically poke
-            _write_line(ser, "", line_ending=line_ending)
+            _write_auth_line(ser, "")
             probe_out = _probe_for_any_output(ser, deadline=deadline)
             _mark_probe_output(probe_out)
             if _has_shell_now():
@@ -294,16 +374,79 @@ def _wake_and_wait_for_console(
         if idx == 2:
             if not username:
                 return False, "".join(transcript_parts) + "\n[serial-runner] login prompt detected but no --username provided\n"
-            _write_line(ser, username, line_ending=line_ending)
-            probe_out = _probe_for_any_output(ser, deadline=deadline)
-            if not _mark_probe_output(probe_out):
-                return False, _fail_no_output_message()
+            if login_attempts >= max_login_attempts:
+                return False, "".join(transcript_parts) + "\n[serial-runner] login prompt repeated after credential attempts\n"
+            login_attempts += 1
+            _write_auth_line(ser, username)
+            username_sent_at = _now()
+            wait_idx, wait_out = _wait_after_username(
+                ser,
+                prompt_re=prompt_re,
+                fallback_prompt_re=fallback_prompt_re,
+                password_re=password_re,
+                login_re=login_re,
+                deadline=deadline,
+                wait_s=post_username_delay,
+            )
+            if wait_out:
+                transcript_parts.append(wait_out)
+                if _has_shell_now():
+                    return True, "".join(transcript_parts)
+            if wait_idx in (0, 1):
+                return True, "".join(transcript_parts)
+            remaining_delay = post_username_delay - (_now() - username_sent_at)
+            if remaining_delay > 0:
+                settle_out = _wait_for_output_window(ser, deadline=deadline, window_s=remaining_delay)
+                if settle_out:
+                    transcript_parts.append(settle_out)
+                    if _has_shell_now():
+                        return True, "".join(transcript_parts)
+            combined_after_username = "".join(transcript_parts)
+            if password and not login_re.search(combined_after_username):
+                _write_auth_line(ser, password)
+                final_idx, final_out = _read_until_any(
+                    ser,
+                    patterns=[prompt_re, fallback_prompt_re, login_re, password_re],
+                    deadline=min(deadline, _now() + 3.0),
+                )
+                if final_out:
+                    transcript_parts.append(final_out)
+                if final_idx in (0, 1):
+                    return True, "".join(transcript_parts)
+                if final_idx in (2, 3):
+                    continue
+            next_idx, next_out = _read_until_any(
+                ser,
+                patterns=[prompt_re, fallback_prompt_re, password_re, login_re],
+                deadline=min(deadline, _now() + 0.8),
+            )
+            if next_out:
+                transcript_parts.append(next_out)
+            if next_idx in (0, 1):
+                return True, "".join(transcript_parts)
+            if next_idx == 2:
+                if not password:
+                    return False, "".join(transcript_parts) + "\n[serial-runner] password prompt detected but no --password provided\n"
+                _write_line(ser, password, line_ending=line_ending)
+                final_idx, final_out = _read_until_any(
+                    ser,
+                    patterns=[prompt_re, fallback_prompt_re, login_re, password_re],
+                    deadline=min(deadline, _now() + 4.0),
+                )
+                if final_out:
+                    transcript_parts.append(final_out)
+                if final_idx in (0, 1):
+                    return True, "".join(transcript_parts)
+            elif next_idx is None:
+                probe_out = _probe_for_any_output(ser, deadline=deadline)
+                if not _mark_probe_output(probe_out):
+                    return False, _fail_no_output_message()
             continue
 
         if idx == 3:
             if not password:
                 return False, "".join(transcript_parts) + "\n[serial-runner] password prompt detected but no --password provided\n"
-            _write_line(ser, password, line_ending=line_ending)
+            _write_auth_line(ser, password)
             probe_out = _probe_for_any_output(ser, deadline=deadline)
             if not _mark_probe_output(probe_out):
                 return False, _fail_no_output_message()
@@ -374,6 +517,20 @@ def _probe_port(cfg: RunnerConfig, device: str) -> Optional[PortProbeResult]:
                         transcript_parts.append(out)
                     return out
 
+                def _wait_after_username_probe() -> Optional[int]:
+                    idx, out = _wait_after_username(
+                        ser,
+                        prompt_re=prompt_re,
+                        fallback_prompt_re=fallback_prompt_re,
+                        password_re=password_re,
+                        login_re=login_re,
+                        deadline=deadline,
+                        wait_s=cfg.post_username_delay,
+                    )
+                    if out:
+                        transcript_parts.append(out)
+                    return idx
+
                 def _combined() -> str:
                     return "".join(transcript_parts)
 
@@ -381,28 +538,40 @@ def _probe_port(cfg: RunnerConfig, device: str) -> Optional[PortProbeResult]:
                     return _looks_like_shell_prompt(_combined(), prompt_re=prompt_re, fallback_prompt_re=fallback_prompt_re)
 
                 # Step A: assume shell already exists; send empty lines and check prompt first.
-                _write_line(ser, "", line_ending=cfg.line_ending)
+                _write_auth_line(ser, "")
                 _probe_output()
                 if not _is_shell():
-                    _write_line(ser, "", line_ending=cfg.line_ending)
+                    _write_auth_line(ser, "")
                     _probe_output()
 
                 # Step B fallback: assume login prompt and try username.
-                if not _is_shell() and cfg.username:
-                    _write_line(ser, cfg.username, line_ending=cfg.line_ending)
-                    _probe_output()
+                if not _is_shell() and login_re.search(_combined()) and cfg.username:
+                    _write_auth_line(ser, cfg.username)
+                    wait_idx = _wait_after_username_probe()
+                    if wait_idx == 2 and cfg.password:
+                        _write_auth_line(ser, cfg.password)
+                        _probe_output()
+                    elif not _is_shell() and cfg.password and not login_re.search(_combined()):
+                        _write_auth_line(ser, cfg.password)
+                        _probe_output()
 
                 # Step C fallback: if waiting for password, provide password.
                 if not _is_shell() and password_re.search(_combined()) and cfg.password:
-                    _write_line(ser, cfg.password, line_ending=cfg.line_ending)
+                    _write_auth_line(ser, cfg.password)
                     _probe_output()
 
                 # Final login->password fallback sequence if login appears after first tries.
                 if not _is_shell() and login_re.search(_combined()) and cfg.username:
-                    _write_line(ser, cfg.username, line_ending=cfg.line_ending)
-                    _probe_output()
-                    if password_re.search(_combined()) and cfg.password:
-                        _write_line(ser, cfg.password, line_ending=cfg.line_ending)
+                    _write_auth_line(ser, cfg.username)
+                    wait_idx = _wait_after_username_probe()
+                    if wait_idx == 2 and cfg.password:
+                        _write_auth_line(ser, cfg.password)
+                        _probe_output()
+                    elif not _is_shell() and cfg.password and not login_re.search(_combined()):
+                        _write_auth_line(ser, cfg.password)
+                        _probe_output()
+                    elif password_re.search(_combined()) and cfg.password:
+                        _write_auth_line(ser, cfg.password)
                         _probe_output()
 
                 transcript = _combined()
@@ -489,6 +658,12 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         default="CR",
         help="Line ending used when sending commands (default CR for serial consoles)",
     )
+    p.add_argument(
+        "--post-username-delay",
+        type=float,
+        default=DEFAULT_POST_USERNAME_DELAY_S,
+        help="Seconds to wait for the password prompt after sending the username (default: 2.5).",
+    )
 
     p.add_argument(
         "--skip-linux-check",
@@ -542,6 +717,7 @@ def main(argv: List[str]) -> int:
         command_timeout=float(args.command_timeout),
         scan_timeout=float(args.scan_timeout),
         line_ending=line_ending,
+        post_username_delay=float(args.post_username_delay),
         skip_linux_check=bool(args.skip_linux_check),
         linux_check_command=str(args.linux_check_command),
         linux_check_regex=str(args.linux_check_regex),
@@ -592,6 +768,7 @@ def main(argv: List[str]) -> int:
                     line_ending=cfg.line_ending,
                     username=cfg.username,
                     password=cfg.password,
+                    post_username_delay=cfg.post_username_delay,
                 )
                 if not ready:
                     if _is_no_serial_connection_output(ready_out):

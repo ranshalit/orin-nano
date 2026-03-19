@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "ssh-server": {
+      "tools": [
+        "ssh_connect",
+        "ssh_exec",
+        "ssh_upload_file",
+        "ssh_download_file",
+        "ssh_list_files",
+        "ssh_disconnect"
+      ],
+      "type": "local",
+      "command": "node",
+      "args": [
+        "/media/ranshal/mcpserver/ssh-mcp/build/index.js"
+      ],
+      "env": {
+        "NODE_NO_WARNINGS": "1"
+      },
+      "source": "workspace"
+    },
+    "serial-server": {
+      "type": "local",
+      "command": "/media/ranshal/jetson/orin/mcpserver/serial-mcp-server/target/release/serial-mcp-server",
+      "tools": [
+        "open",
+        "write",
+        "read",
+        "close"
+      ],
+      "args": [
+        "--config",
+        "/media/ranshal/jetson/orin/.vscode/serial-mcp.toml"
+      ]
+    }
+  }
+}

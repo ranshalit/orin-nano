@@ -63,6 +63,18 @@ class ScpPullSpec:
     local_path: str
 
 
+@dataclass
+class ActionResult:
+    name: str
+    rc: int
+    duration_s: float
+    details: str
+
+
+def _effective_timeout(timeout_seconds: int) -> Optional[int]:
+    return None if int(timeout_seconds) <= 0 else int(timeout_seconds)
+
+
 def _print_section_header(title: str) -> None:
     sys.stdout.write("\n" + "=" * 80 + "\n")
     sys.stdout.write(title.rstrip() + "\n")
@@ -117,7 +129,7 @@ def _run_scp(
             scp_command,
             capture_output=True,
             text=True,
-            timeout=timeout_seconds,
+            timeout=_effective_timeout(timeout_seconds),
         )
         out = (completed.stdout or "") + (completed.stderr or "")
         return int(completed.returncode), out
@@ -154,7 +166,7 @@ def _run_ssh_command(
             ssh_cmd,
             capture_output=True,
             text=True,
-            timeout=timeout_seconds,
+            timeout=_effective_timeout(timeout_seconds),
         )
         out = (completed.stdout or "") + (completed.stderr or "")
         return int(completed.returncode), out
@@ -180,7 +192,7 @@ def _run_scp_with_sshpass(
             cmd,
             capture_output=True,
             text=True,
-            timeout=timeout_seconds,
+            timeout=_effective_timeout(timeout_seconds),
         )
         out = (completed.stdout or "") + (completed.stderr or "")
         return int(completed.returncode), out
@@ -229,7 +241,7 @@ def _run_ssh_command_with_sshpass(
             cmd,
             capture_output=True,
             text=True,
-            timeout=timeout_seconds,
+            timeout=_effective_timeout(timeout_seconds),
         )
         out = (completed.stdout or "") + (completed.stderr or "")
         return int(completed.returncode), out
@@ -246,6 +258,45 @@ def _check_expectations(spec: CommandSpec, output: str) -> Optional[str]:
         if not re.search(spec.expect_regex, output, flags=re.MULTILINE):
             return f"Expected regex not matched: {spec.expect_regex!r}"
     return None
+
+
+def _run_rsync(
+    rsync_command: List[str],
+    timeout_seconds: int,
+) -> Tuple[int, str]:
+    try:
+        completed = subprocess.run(
+            rsync_command,
+            capture_output=True,
+            text=True,
+            timeout=_effective_timeout(timeout_seconds),
+        )
+        out = (completed.stdout or "") + (completed.stderr or "")
+        return int(completed.returncode), out
+    except subprocess.TimeoutExpired as e:
+        out = (e.stdout or "") + (e.stderr or "")
+        return 124, out + f"\nrsync timed out after {timeout_seconds}s.\n"
+
+
+def _run_with_retries(
+    name: str,
+    retries: int,
+    retry_delay_s: float,
+    run_once,
+) -> Tuple[int, str, int]:
+    attempts = max(1, int(retries) + 1)
+    last_rc = 1
+    last_out = ""
+    for attempt in range(1, attempts + 1):
+        rc, out = run_once()
+        last_rc, last_out = rc, out
+        if rc == 0:
+            return rc, out, attempt
+        if attempt < attempts:
+            sys.stderr.write(f"[{name}] attempt {attempt}/{attempts} failed (rc={rc}), retrying in {retry_delay_s:.1f}s...\n")
+            sys.stderr.flush()
+            time.sleep(max(0.0, float(retry_delay_s)))
+    return last_rc, last_out, attempts
 
 
 def parse_args(argv: Sequence[str]) -> argparse.Namespace:
@@ -314,6 +365,29 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
         default=300,
         help="Timeout for each scp operation in seconds",
     )
+    parser.add_argument(
+        "--overall-timeout",
+        type=int,
+        default=0,
+        help="Overall timeout in seconds for all actions combined. Use 0 for no overall limit.",
+    )
+    parser.add_argument(
+        "--scp-retries",
+        type=int,
+        default=0,
+        help="Number of retry attempts for each SCP transfer on failure.",
+    )
+    parser.add_argument(
+        "--retry-delay",
+        type=float,
+        default=2.0,
+        help="Delay in seconds between retries.",
+    )
+    parser.add_argument(
+        "--scp-resume",
+        action="store_true",
+        help="Use rsync resume mode when possible (fallback to scp if rsync unavailable).",
+    )
 
     parser.add_argument(
         "--continue-on-error",
@@ -353,6 +427,30 @@ def parse_args(argv: Sequence[str]) -> argparse.Namespace:
 
 def main(argv: Sequence[str]) -> int:
     args = parse_args(argv)
+    action_results: List[ActionResult] = []
+    stop_requested = False
+    start_all = time.monotonic()
+    overall_deadline = None if int(args.overall_timeout) <= 0 else (start_all + int(args.overall_timeout))
+
+    def remaining_budget(default_timeout: int) -> int:
+        if overall_deadline is None:
+            return int(default_timeout)
+        remaining = int(overall_deadline - time.monotonic())
+        if remaining <= 0:
+            return 1
+        if int(default_timeout) <= 0:
+            return remaining
+        return min(int(default_timeout), remaining)
+
+    def ensure_overall_time() -> bool:
+        if overall_deadline is None:
+            return True
+        if time.monotonic() <= overall_deadline:
+            return True
+        msg = "Overall timeout exceeded before next action."
+        sys.stderr.write(msg + "\n")
+        action_results.append(ActionResult(name="overall-timeout", rc=124, duration_s=0.0, details=msg))
+        return False
 
     # Build specs
     command_specs: List[CommandSpec] = []
@@ -400,55 +498,156 @@ def main(argv: Sequence[str]) -> int:
     if args.scp_recursive:
         scp_base.insert(1, "-r")
 
+    rsync_available = bool(shutil.which("rsync"))
+
     for spec in scp_push_specs:
+        if stop_requested:
+            break
+        if not ensure_overall_time():
+            stop_requested = True
+            break
         _print_section_header(f"SCP PUSH: {spec.local_path} -> {args.user}@{DEVICE_IP}:{spec.remote_path}")
-        scp_cmd = [
-            *scp_base,
-            spec.local_path,
-            f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
-        ]
-        if use_key:
-            rc, out = _run_scp(scp_cmd, timeout_seconds=args.scp_timeout)
-        else:
-            rc, out = _run_scp_with_sshpass(scp_cmd, ssh_password=args.password, timeout_seconds=args.scp_timeout)
+        step_start = time.monotonic()
+        step_timeout = remaining_budget(args.scp_timeout)
+
+        def run_once() -> Tuple[int, str]:
+            if args.scp_resume and rsync_available:
+                ssh_part = (
+                    f"ssh -p {int(args.port)} "
+                    "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null "
+                    "-oPreferredAuthentications=password,keyboard-interactive "
+                    "-oPubkeyAuthentication=no -oPasswordAuthentication=yes "
+                    f"-oConnectTimeout={int(args.connect_timeout)}"
+                )
+                rsync_cmd = [
+                    "rsync",
+                    "-az",
+                    "--partial",
+                    "--append-verify",
+                    "-e",
+                    ssh_part,
+                    spec.local_path,
+                    f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
+                ]
+                if use_key:
+                    return _run_rsync(rsync_cmd, timeout_seconds=step_timeout)
+                _require_sshpass()
+                return _run_rsync(["sshpass", "-p", args.password, *rsync_cmd], timeout_seconds=step_timeout)
+
+            scp_cmd = [
+                *scp_base,
+                spec.local_path,
+                f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
+            ]
+            if use_key:
+                return _run_scp(scp_cmd, timeout_seconds=step_timeout)
+            return _run_scp_with_sshpass(scp_cmd, ssh_password=args.password, timeout_seconds=step_timeout)
+
+        rc, out, attempts_used = _run_with_retries(
+            name="scp-push",
+            retries=int(args.scp_retries),
+            retry_delay_s=float(args.retry_delay),
+            run_once=run_once,
+        )
         sys.stdout.write(out)
         sys.stdout.flush()
+        action_results.append(
+            ActionResult(
+                name=f"scp-push:{spec.local_path}->{spec.remote_path}",
+                rc=int(rc),
+                duration_s=(time.monotonic() - step_start),
+                details=f"attempts={attempts_used}",
+            )
+        )
         if rc != 0 and not args.continue_on_error:
             sys.stderr.write(f"\nSCP push failed with exit code {rc}. Stopping.\n")
             if "Permission denied" in out:
                 sys.stderr.write("Tip: check username/password or configure SSH keys; you can force with --auth.\n")
-            return rc
+            stop_requested = True
+            break
 
     for spec in scp_pull_specs:
+        if stop_requested:
+            break
+        if not ensure_overall_time():
+            stop_requested = True
+            break
         _print_section_header(f"SCP PULL: {args.user}@{DEVICE_IP}:{spec.remote_path} -> {spec.local_path}")
-        scp_cmd = [
-            *scp_base,
-            f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
-            spec.local_path,
-        ]
-        if use_key:
-            rc, out = _run_scp(scp_cmd, timeout_seconds=args.scp_timeout)
-        else:
-            rc, out = _run_scp_with_sshpass(scp_cmd, ssh_password=args.password, timeout_seconds=args.scp_timeout)
+        step_start = time.monotonic()
+        step_timeout = remaining_budget(args.scp_timeout)
+
+        def run_once() -> Tuple[int, str]:
+            if args.scp_resume and rsync_available:
+                ssh_part = (
+                    f"ssh -p {int(args.port)} "
+                    "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null "
+                    "-oPreferredAuthentications=password,keyboard-interactive "
+                    "-oPubkeyAuthentication=no -oPasswordAuthentication=yes "
+                    f"-oConnectTimeout={int(args.connect_timeout)}"
+                )
+                rsync_cmd = [
+                    "rsync",
+                    "-az",
+                    "--partial",
+                    "--append-verify",
+                    "-e",
+                    ssh_part,
+                    f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
+                    spec.local_path,
+                ]
+                if use_key:
+                    return _run_rsync(rsync_cmd, timeout_seconds=step_timeout)
+                _require_sshpass()
+                return _run_rsync(["sshpass", "-p", args.password, *rsync_cmd], timeout_seconds=step_timeout)
+
+            scp_cmd = [
+                *scp_base,
+                f"{args.user}@{DEVICE_IP}:{spec.remote_path}",
+                spec.local_path,
+            ]
+            if use_key:
+                return _run_scp(scp_cmd, timeout_seconds=step_timeout)
+            return _run_scp_with_sshpass(scp_cmd, ssh_password=args.password, timeout_seconds=step_timeout)
+
+        rc, out, attempts_used = _run_with_retries(
+            name="scp-pull",
+            retries=int(args.scp_retries),
+            retry_delay_s=float(args.retry_delay),
+            run_once=run_once,
+        )
         sys.stdout.write(out)
         sys.stdout.flush()
+        action_results.append(
+            ActionResult(
+                name=f"scp-pull:{spec.remote_path}->{spec.local_path}",
+                rc=int(rc),
+                duration_s=(time.monotonic() - step_start),
+                details=f"attempts={attempts_used}",
+            )
+        )
         if rc != 0 and not args.continue_on_error:
             sys.stderr.write(f"\nSCP pull failed with exit code {rc}. Stopping.\n")
             if "Permission denied" in out:
                 sys.stderr.write("Tip: check username/password or configure SSH keys; you can force with --auth.\n")
-            return rc
+            stop_requested = True
+            break
 
-    if command_specs:
+    if command_specs and not stop_requested and (not action_results or action_results[-1].rc == 0 or args.continue_on_error):
         _print_section_header(f"SSH COMMANDS: {args.user}@{DEVICE_IP}")
         for idx, spec in enumerate(command_specs, start=1):
+            if not ensure_overall_time():
+                stop_requested = True
+                break
             _print_section_header(f"COMMAND {idx}: {spec.command}")
+            step_start = time.monotonic()
+            cmd_timeout = remaining_budget(args.command_timeout)
             if use_key:
                 rc, out = _run_ssh_command(
                     user=args.user,
                     port=args.port,
                     command=spec.command,
                     connect_timeout_seconds=args.connect_timeout,
-                    timeout_seconds=args.command_timeout,
+                    timeout_seconds=cmd_timeout,
                 )
             else:
                 rc, out = _run_ssh_command_with_sshpass(
@@ -457,7 +656,7 @@ def main(argv: Sequence[str]) -> int:
                     port=args.port,
                     command=spec.command,
                     connect_timeout_seconds=args.connect_timeout,
-                    timeout_seconds=args.command_timeout,
+                    timeout_seconds=cmd_timeout,
                 )
 
             sys.stdout.write(out)
@@ -466,17 +665,57 @@ def main(argv: Sequence[str]) -> int:
             expectation_error = _check_expectations(spec, out)
             if expectation_error:
                 sys.stderr.write("\n" + expectation_error + "\n")
+                action_results.append(
+                    ActionResult(
+                        name=f"ssh-cmd:{idx}",
+                        rc=2,
+                        duration_s=(time.monotonic() - step_start),
+                        details="expectation-failed",
+                    )
+                )
                 if not args.continue_on_error:
                     sys.stderr.write("Stopping due to expectation failure.\n")
-                    return 2
+                    stop_requested = True
+                    break
 
             if rc != 0:
                 sys.stderr.write(f"\nCommand exit code: {rc}\n")
                 if "Permission denied" in out:
                     sys.stderr.write("Tip: check username/password or configure SSH keys; you can force with --auth.\n")
+                action_results.append(
+                    ActionResult(
+                        name=f"ssh-cmd:{idx}",
+                        rc=int(rc),
+                        duration_s=(time.monotonic() - step_start),
+                        details="non-zero-exit",
+                    )
+                )
                 if not args.continue_on_error:
                     sys.stderr.write("Stopping due to non-zero exit code.\n")
-                    return rc
+                    stop_requested = True
+                    break
+            else:
+                action_results.append(
+                    ActionResult(
+                        name=f"ssh-cmd:{idx}",
+                        rc=0,
+                        duration_s=(time.monotonic() - step_start),
+                        details="ok",
+                    )
+                )
+
+    total_s = time.monotonic() - start_all
+    _print_section_header("SUMMARY")
+    for res in action_results:
+        sys.stdout.write(
+            f"- {res.name}: rc={res.rc} duration={res.duration_s:.2f}s details={res.details}\n"
+        )
+    sys.stdout.write(f"Total duration: {total_s:.2f}s\n")
+    sys.stdout.flush()
+
+    failing = [r for r in action_results if r.rc != 0]
+    if failing and not args.continue_on_error:
+        return int(failing[0].rc)
 
     return 0
 
