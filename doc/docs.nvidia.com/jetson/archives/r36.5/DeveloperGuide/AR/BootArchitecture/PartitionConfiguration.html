@@ -1,0 +1,1104 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Partition Configuration &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AR/BootArchitecture/PartitionConfiguration';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Jetson Orin Series" href="../../SO/JetsonOrinSeries.html" />
+    <link rel="prev" title="Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow" href="JetsonOrinSeriesBootFlow.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="PartitionConfiguration.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../BootArchitecture.html">Boot Architecture</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="PartitionConfiguration.html#">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SD/FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../SD/Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../SD/Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../SD/Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../SD/Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../SD/Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../SD/Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../SD/PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SD/TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../BootArchitecture.html" class="nav-link">Boot Architecture</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Partition...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="partition-configuration">
+<h1>Partition Configuration<a class="headerlink" href="PartitionConfiguration.html#partition-configuration" title="Link to this heading">#</a></h1>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux supports formatting mass storage media into multiple partitions for storing data, such as the device OS image, bootloader image, device firmware, and bootloader splash screen.</p>
+<section id="how-jetson-partition-configurations-are-described">
+<h2>How Jetson Partition Configurations Are Described<a class="headerlink" href="PartitionConfiguration.html#how-jetson-partition-configurations-are-described" title="Link to this heading">#</a></h2>
+<p>Some Jetson platforms have similar characteristics, such as identical partition configurations. This topic groups these platforms and provides information about each group. The supported platforms are grouped in the following way:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Group</p></th>
+<th class="head"><p>Includes platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="html">NVIDIA<sup><small>®</small></sup></span></p>
+<p><span class="html">Jetson AGX Orin&trade;</span> series</p>
+</td>
+<td><div class="line-block">
+<div class="line">Jetson AGX Orin 32GB (P3701-0000, for development only)</div>
+<div class="line">Jetson AGX Orin 32GB (P3701-0004)</div>
+<div class="line">Jetson AGX Orin 64GB (P3701-0005)</div>
+<div class="line">Jetson AGX Orin Industrial (P3701-0008)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><span class="html">NVIDIA<sup><small>®</small></sup></span>
+<span class="html">Jetson Orin&trade; NX</span> series</p></td>
+<td><div class="line-block">
+<div class="line">Jetson Orin NX 16GB (P3767-0000)</div>
+<div class="line">Jetson Orin NX 16GB (P3767-0001)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><span class="html">NVIDIA<sup><small>®</small></sup></span>
+<span class="html">Jetson Orin&trade; Nano</span> series</p></td>
+<td><div class="line-block">
+<div class="line">Jetson Orin Nano 8GB (P3767-0003)</div>
+<div class="line">Jetson Orin Nano 4GB (P3767-0004)</div>
+<div class="line">Jetson Orin Nano 8GB (P3767-0005, for development only)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="partition-configuration-files">
+<h2>Partition Configuration Files<a class="headerlink" href="PartitionConfiguration.html#partition-configuration-files" title="Link to this heading">#</a></h2>
+<p>A partition configuration file describes the mass storage devices and partitions on a platform.</p>
+<p>The following table describes the definitions of all of the partition configurations supported by Jetson Linux. The <strong>File</strong> column specifies the filename of the partition configuration file the defines the configuration, and the <strong>Device</strong> columns specify the <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> block in that file that defines the configuration (refer to <a class="reference internal" href="PartitionConfiguration.html#device-element-tag-attributes">&lt;device&gt; Element Tag Attributes</a> for more information).</p>
+<div class="pst-scrollable-table-container"><table class="table" id="ar-bootarchitecture-partitionconfiguration-partitionconfigurationfiles-table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform &amp; Configuration</p></th>
+<th class="head"><p>Boot Partition Device</p></th>
+<th class="head"><p>User Partition Device</p></th>
+<th class="head"><p>File</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetson AGX Orin Developer-Kit</p></td>
+<td><p>QSPI_NOR</p></td>
+<td><p>sdmmc_user on 32GB eMMC</p></td>
+<td><p>flash_t234_qspi_sdmmc.xml</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Orin Nano Developer-Kit</p></td>
+<td><p>QSPI-NOR</p></td>
+<td><p>SD card/USB/NVMe drive</p></td>
+<td><p>flash_t234_qspi_sd.xml</p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple">
+<dt>Commercial Modules:</dt><dd><ul class="simple">
+<li><p>Jetson AGX Orin 32GB (P3701-0004)</p></li>
+<li><p>Jetson AGX Orin 64GB (P3701-0005)</p></li>
+<li><p>Jetson AGX Orin Industrial (P3701-0008)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+<td><p>QSPI_NOR</p></td>
+<td><p>sdmmc_user on eMMC</p></td>
+<td><p>flash_t234_qspi_sdmmc.xml</p></td>
+</tr>
+<tr class="row-odd"><td><dl class="simple">
+<dt>Commercial Modules:</dt><dd><ul class="simple">
+<li><p>Jetson Orin 16GB (P3767-0000)</p></li>
+<li><p>Jetson Orin 8GB (P3767-0001)</p></li>
+<li><p>Jetson Orin 8GB (P3767-0003)</p></li>
+<li><p>Jetson Orin 4GB (P3767-0004)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+<td><p>QSPI_NOR</p></td>
+<td><p>USB/NVMe drive</p></td>
+<td><p>flash_t234_qspi_sd.xml</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each file’s name typically incorporates its processor name (<code class="docutils literal notranslate"><span class="pre">t234</span></code> or <code class="docutils literal notranslate"><span class="pre">t234</span></code>), the type of memory the partitions are flashed to (<code class="docutils literal notranslate"><span class="pre">sd</span></code> for SD Card, <code class="docutils literal notranslate"><span class="pre">spi</span></code> for SPI, or <code class="docutils literal notranslate"><span class="pre">emmc</span></code> for eMMC), and in some cases, the module’s part number, for example, <code class="docutils literal notranslate"><span class="pre">p3668</span></code>).</p>
+<p>During the flashing procedure, <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code>:</p>
+<ul class="simple">
+<li><p>Reads the partition configuration file <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;.xml</span></code></p></li>
+<li><p>Translates keywords into values specified in <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;.conf</span></code> or in command line options</p></li>
+<li><p>Saves the translated data in <code class="docutils literal notranslate"><span class="pre">bootloader/flash.xml</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">bootloader/tegraflash.py</span></code> reads in <code class="docutils literal notranslate"><span class="pre">bootloader/flash.xml</span></code> and flashes the device that was specified by <code class="docutils literal notranslate"><span class="pre">bootloader/flash.xml</span></code>.</p>
+<p>Refer to <a class="reference external" href="PartitionConfiguration.html#list-of-translated-keywords">List of Translated Keywords</a> for more information.</p>
+</section>
+<section id="format-of-a-partition-configuration-file">
+<h2>Format of a Partition Configuration File<a class="headerlink" href="PartitionConfiguration.html#format-of-a-partition-configuration-file" title="Link to this heading">#</a></h2>
+<p>Each partition configuration file defines one or more partition layouts for a specific configuration of a specific Jetson device. The file is composed of the following XML elements:</p>
+<ul class="simple">
+<li><p>A standard XML prolog.</p></li>
+<li><p>One or more <code class="docutils literal notranslate"><span class="pre">&lt;partition_layout&gt;</span></code> elements, each of which defines one partition layout.</p></li>
+<li><p>In each <code class="docutils literal notranslate"><span class="pre">&lt;partition_layout&gt;</span></code> element, a <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> element for each device, for example, each type of flashed memory, that the layout uses.</p></li>
+<li><p>In each <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> element, a <code class="docutils literal notranslate"><span class="pre">&lt;partition&gt;</span></code> element for each partition in that device’s partition layout.</p></li>
+<li><p>In each <code class="docutils literal notranslate"><span class="pre">&lt;partition&gt;</span></code> element, a group of other elements that specify various properties of the partition.</p></li>
+</ul>
+<section id="partition-layout-element">
+<h3>&lt;partition_layout&gt; Element<a class="headerlink" href="PartitionConfiguration.html#partition-layout-element" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;partition_layout&gt;</span></code> element has the following syntax:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;partition_layout version=&quot;01.00.0000&quot;&gt;
+    &lt;!-- Device elements go here. --&gt;
+&lt;/partition&gt;
+</pre></div>
+</div>
+</section>
+<section id="device-element">
+<h3>&lt;device&gt; Element<a class="headerlink" href="PartitionConfiguration.html#device-element" title="Link to this heading">#</a></h3>
+<p>The partition configuration file contains a device element for each subdevice; for example, for the eMMC boot and user hardware partitions. This element must be present even if the devices are not divided into subdevices.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> element has the following syntax:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;device type=&quot;&lt;device type&gt;&quot; instance=&quot;&lt;instance&gt;&quot;&gt;
+    &lt;!-- Partition elements go here. --&gt;
+&lt;/device&gt;
+</pre></div>
+</div>
+<section id="device-element-tag-attributes">
+<h4>&lt;device&gt; Element Tag Attributes<a class="headerlink" href="PartitionConfiguration.html#device-element-tag-attributes" title="Link to this heading">#</a></h4>
+<p>The following table describes the <code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> tag’s attributes and their legal values.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device
+attributes</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>device type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sdmmc_boot</span></code>;
+<code class="docutils literal notranslate"><span class="pre">sdmmc_user</span> <span class="pre">SPI</span></code>;
+<code class="docutils literal notranslate"><span class="pre">nvme</span></code></p></td>
+<td><p><strong>Required.</strong> Specifies the type of
+device. eMMC <code class="docutils literal notranslate"><span class="pre">boot0</span></code> and <code class="docutils literal notranslate"><span class="pre">boot1</span></code>
+hardware partitions are treated as a
+single <code class="docutils literal notranslate"><span class="pre">sdmmc_boot</span></code> entry.</p></td>
+</tr>
+<tr class="row-odd"><td><p>instance</p></td>
+<td><p>0-3</p></td>
+<td><p><strong>Required.</strong> Specifies the device
+instance: 0 for SPI or NVMe, or 3
+(typically) for eMMC.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="partition-element">
+<h3>&lt;partition&gt; Element<a class="headerlink" href="PartitionConfiguration.html#partition-element" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">&lt;partition&gt;</span></code> element has the following syntax:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;partition name=&quot;&lt;name&gt;&quot; type=&quot;&lt;type&gt;&quot; oem_sign=&quot;true &quot;&gt;
+    &lt;!-- partition properties go here --&gt;
+&lt;/partition&gt;
+</pre></div>
+</div>
+<section id="partition-element-tag-attributes">
+<h4>&lt;partition&gt; Element Tag Attributes<a class="headerlink" href="PartitionConfiguration.html#partition-element-tag-attributes" title="Link to this heading">#</a></h4>
+<p>This table describes the attributes supported for partition elements and their legal values.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device
+attributes</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>See the files listed in the table of
+<a class="reference external" href="PartitionConfiguration.html#partition-configuration-files">partition configuration files</a>.</p></td>
+<td><p><strong>Required.</strong> Specifies a name for the
+partition. The name can have a maximum
+of 36 characters. There are three
+kinds of partitions: mandatory,
+optional, and user-defined. All
+mandatory and optional partition names
+must be associated with the specific
+partition type. All user-defined
+partition names must be associated
+with partition type <cite>data</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>See the files listed in the table of
+<a class="reference external" href="PartitionConfiguration.html#partition-configuration-files">partition configuration files</a>.</p></td>
+<td><p><strong>Required.</strong> Specifies the type of
+partition. Certain partition types are
+valid only when they are associated
+with specific partition names.</p></td>
+</tr>
+<tr class="row-even"><td><p>oem_sign</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+or unspecified.</p></td>
+<td><p><strong>Jetson Orin series only</strong>:
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, append a generic
+signature header to the binary and
+perform OEM signing on it. If
+<code class="docutils literal notranslate"><span class="pre">False</span></code>, append a NULL signature
+header to the binary and perform NULL
+signing on it.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="partition-child-elements">
+<h3>&lt;partition&gt; Child Elements<a class="headerlink" href="PartitionConfiguration.html#partition-child-elements" title="Link to this heading">#</a></h3>
+<p>The following tags specify the properties of a <code class="docutils literal notranslate"><span class="pre">&lt;partition&gt;</span></code> element:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;allocation_policy&gt;</span></code></p></td>
+<td><p>sequential</p></td>
+<td><p>Specifies the type of allocation policy. Sequential partitions begin immediately after the preceding partition.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;filesystem_type&gt;</span></code></p></td>
+<td><p>basic</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">filesystem_type</span></code> value <code class="docutils literal notranslate"><span class="pre">basic</span></code> specifies a “raw” partition. (The legacy “ext2” file system has been deprecated.)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;size&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;partition_size&gt;</span></code></p></td>
+<td><p><strong>Required.</strong> Specifies the size of the partition in bytes. May be a decimal number or a hexadecimal number of up to 16 digits.</p>
+<p>The partition size may be equal to or greater than the size of the file to be written to the partition. Specifying a greater size allows you to increase the file size later without changing the partition configuration file.</p>
+<p>If the partition size is less than an erase block size, it aligns itself to the partition erase block boundary.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">size</span></code> property of the secondary GPT partition, which is defined at the end of each device, must always be <code class="docutils literal notranslate"><span class="pre">0xffffffffffffffff</span></code>. TegraFlash calculates this partition’s size automatically; the preceding partition is extended to fill any free space before the secondary GPT.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;file_system_attribute&gt;</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Not implemented.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;allocation_attribute&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x008</span></code> or <code class="docutils literal notranslate"><span class="pre">0x808</span></code></p></td>
+<td><p>Must be <code class="docutils literal notranslate"><span class="pre">0x808</span></code> for the partition immediately preceding the secondary GPT.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;percent_reserved&gt;</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Reserved for future use.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&lt;filename&gt;</span></code> or empty</p></td>
+<td><p>Specifies the name of the file to write into the partition. If the filename is empty, no data is written to the partition.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="list-of-translated-keywords">
+<h3>List of Translated Keywords<a class="headerlink" href="PartitionConfiguration.html#list-of-translated-keywords" title="Link to this heading">#</a></h3>
+<p>The following table provides keywords that you can use as the text for some <code class="docutils literal notranslate"><span class="pre">&lt;partition&gt;</span></code> child elements. When the partition configuration file processor encounters one of these keywords, it substitutes the value shown or described in the table.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Default translated value in <code class="docutils literal notranslate"><span class="pre">flash.xml</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MB1FILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mb1_t234_prod.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SPEFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">spe_t234.bin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>TEGRABOOT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nvtboot_t234.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>MTSPREBOOT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">preboot_c10_prod_cr.bin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>APPSIZE</p></td>
+<td><p>30064771072</p></td>
+</tr>
+<tr class="row-odd"><td><p>APPFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">system.img</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>MTS_MCE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mce_c10_prod_cr.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>MTSPROPER</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mts_c10_prod_cr.bin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>TBCFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uefi_jetson.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>TBCDTB-FILE</p></td>
+<td><p>Appropriate bootloader DTB file name</p></td>
+</tr>
+<tr class="row-even"><td><p>TOSFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tos_t234.img</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>EKSFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">eks.img</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>BPFFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bpmp_t234.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>BPFDTB-FILE</p></td>
+<td><p>Appropriate BPMP DTB file name</p></td>
+</tr>
+<tr class="row-even"><td><p>CAMERAFW</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">camera-rtcpu-rce.bin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>WBOBOOT</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">warmboot_t234_prod.bin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>LNXSIZE</p></td>
+<td><p>67108864</p></td>
+</tr>
+<tr class="row-odd"><td><p>LNXFILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boot.img</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>DTB_FILE</p></td>
+<td><p>Appropriate kernel DTB file name</p></td>
+</tr>
+<tr class="row-odd"><td><p>RECFILE</p></td>
+<td><p>Name of appropriate recovery kernel image</p></td>
+</tr>
+<tr class="row-even"><td><p>RECDTB-FILE</p></td>
+<td><p>Name of appropriate recovery kernel dtb file</p></td>
+</tr>
+<tr class="row-odd"><td><p>BOOTCTRL-FILE</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">kernel_bootctrl.bin</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="external-storage-device-partition">
+<span id="ar-bootarchitecture-partitionconfiguration-externalstoragedevicepartition"></span><h2>External Storage Device Partition<a class="headerlink" href="PartitionConfiguration.html#external-storage-device-partition" title="Link to this heading">#</a></h2>
+<p>To create a partition configuration file for flashing to an external storage device, start with a default SD card partition table as a template (for example, the Jetson AGX Orin development module sdmmc_user partition from the table of
+<a class="reference external" href="PartitionConfiguration.html#partition-configuration-files">partition configuration files</a>).
+Change the device type to <code class="docutils literal notranslate"><span class="pre">nvme</span></code>, and the instance number to zero, as in the example below. An external partition configuration file must contain at least three partitions: <code class="docutils literal notranslate"><span class="pre">master_boot_record</span></code>, <code class="docutils literal notranslate"><span class="pre">primary_gpt</span></code>, and <code class="docutils literal notranslate"><span class="pre">secondary_gpt</span></code>.</p>
+<p>For both SCSI devices (e.g. SCSI flash drives and hard disk drives) and NVMe devices, for example NVMe SSDs, the device type is <code class="docutils literal notranslate"><span class="pre">nvme</span></code>. You must also update <code class="docutils literal notranslate"><span class="pre">num_sectors</span></code> to correctly specify the total amount of storage available on your external device. For example, if an NVMe device has 1024209543168 bytes available, you must change <code class="docutils literal notranslate"><span class="pre">num_sectors</span></code> to 1024209543168/512<span class="html">&nbsp;</span>= 2000409264 sectors.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;partition_layout</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;01.00.0000&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;device</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;nvme&quot;</span><span class="w"> </span><span class="na">instance=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">sector_size=</span><span class="s">&quot;512&quot;</span><span class="w"> </span><span class="na">num_sectors=</span><span class="s">&quot;61071360&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;partition</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;master_boot_record&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;protective_master_boot_record&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_policy&gt;</span><span class="w"> </span>sequential<span class="w"> </span><span class="nt">&lt;/allocation_policy&gt;</span>
+<span class="w">      </span><span class="nt">&lt;filesystem_type&gt;</span><span class="w"> </span>basic<span class="w"> </span><span class="nt">&lt;/filesystem_type&gt;</span>
+<span class="w">      </span><span class="nt">&lt;size&gt;</span><span class="w"> </span>512<span class="w"> </span><span class="nt">&lt;/size&gt;</span>
+<span class="w">      </span><span class="nt">&lt;file_system_attribute&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/file_system_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_attribute&gt;</span><span class="w"> </span>8<span class="w"> </span><span class="nt">&lt;/allocation_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;percent_reserved&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/percent_reserved&gt;</span>
+<span class="w">      </span><span class="nt">&lt;description&gt;</span><span class="w"> </span>**Required.**<span class="w"> </span>Contains<span class="w"> </span>protective<span class="w"> </span>MBR.<span class="w"> </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/partition&gt;</span>
+<span class="w">    </span><span class="nt">&lt;partition</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;primary_gpt&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;primary_gpt&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_policy&gt;</span><span class="w"> </span>sequential<span class="w"> </span><span class="nt">&lt;/allocation_policy&gt;</span>
+<span class="w">      </span><span class="nt">&lt;filesystem_type&gt;</span><span class="w"> </span>basic<span class="w"> </span><span class="nt">&lt;/filesystem_type&gt;</span>
+<span class="w">      </span><span class="nt">&lt;size&gt;</span><span class="w"> </span>PPTSIZE<span class="w"> </span><span class="nt">&lt;/size&gt;</span>
+<span class="w">      </span><span class="nt">&lt;file_system_attribute&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/file_system_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_attribute&gt;</span><span class="w"> </span>8<span class="w"> </span><span class="nt">&lt;/allocation_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;percent_reserved&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/percent_reserved&gt;</span>
+<span class="w">      </span><span class="nt">&lt;description&gt;</span><span class="w"> </span>**Required.**<span class="w"> </span>Contains<span class="w"> </span>primary<span class="w"> </span>GPT<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>`sdmmc_user`<span class="w"> </span>device.<span class="w"> </span>All
+<span class="w">        </span>partitions<span class="w"> </span>defined<span class="w"> </span>after<span class="w"> </span>this<span class="w"> </span>entry<span class="w"> </span>are<span class="w"> </span>configured<span class="w"> </span>in<span class="w"> </span>the<span class="w"> </span>kernel,<span class="w"> </span>and<span class="w"> </span>are
+<span class="w">        </span>accessible<span class="w"> </span>by<span class="w"> </span>standard<span class="w"> </span>partition<span class="w"> </span>tools<span class="w"> </span>such<span class="w"> </span>as<span class="w"> </span>gdisk<span class="w"> </span>and<span class="w"> </span>parted.<span class="w"> </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/partition&gt;</span>
+<span class="w">    </span><span class="nt">&lt;partition</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;secondary_gpt&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;secondary_gpt&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_policy&gt;</span><span class="w"> </span>sequential<span class="w"> </span><span class="nt">&lt;/allocation_policy&gt;</span>
+<span class="w">      </span><span class="nt">&lt;filesystem_type&gt;</span><span class="w"> </span>basic<span class="w"> </span><span class="nt">&lt;/filesystem_type&gt;</span>
+<span class="w">      </span><span class="nt">&lt;size&gt;</span><span class="w"> </span>0xFFFFFFFFFFFFFFFF<span class="w"> </span><span class="nt">&lt;/size&gt;</span>
+<span class="w">      </span><span class="nt">&lt;file_system_attribute&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/file_system_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;allocation_attribute&gt;</span><span class="w"> </span>8<span class="w"> </span><span class="nt">&lt;/allocation_attribute&gt;</span>
+<span class="w">      </span><span class="nt">&lt;percent_reserved&gt;</span><span class="w"> </span>0<span class="w"> </span><span class="nt">&lt;/percent_reserved&gt;</span>
+<span class="w">      </span><span class="nt">&lt;description&gt;</span><span class="w"> </span>**Required.**<span class="w"> </span>Contains<span class="w"> </span>secondary<span class="w"> </span>GPT<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>`sdmmc_user`
+<span class="w">        </span>device.<span class="w"> </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/partition&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/device&gt;</span>
+<span class="nt">&lt;/partition_layout&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="JetsonOrinSeriesBootFlow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../SO/JetsonOrinSeries.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Jetson Orin Series</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#how-jetson-partition-configurations-are-described">How Jetson Partition Configurations Are Described</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#partition-configuration-files">Partition Configuration Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#format-of-a-partition-configuration-file">Format of a Partition Configuration File</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#partition-layout-element">&lt;partition_layout&gt; Element</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#device-element">&lt;device&gt; Element</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#device-element-tag-attributes">&lt;device&gt; Element Tag Attributes</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#partition-element">&lt;partition&gt; Element</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#partition-element-tag-attributes">&lt;partition&gt; Element Tag Attributes</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#partition-child-elements">&lt;partition&gt; Child Elements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#list-of-translated-keywords">List of Translated Keywords</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="PartitionConfiguration.html#external-storage-device-partition">External Storage Device Partition</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1497 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Update and Redundancy &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Bootloader/UpdateAndRedundancy';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Kernel" href="../Kernel.html" />
+    <link rel="prev" title="UEFI Adaptation" href="UEFI.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="UpdateAndRedundancy.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="UpdateAndRedundancy.html#">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Bootloader.html" class="nav-link">Bootloader</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Update and...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="update-and-redundancy">
+<h1>Update and Redundancy<a class="headerlink" href="UpdateAndRedundancy.html#update-and-redundancy" title="Link to this heading">#</a></h1>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux supports Bootloader update and redundancy on all Jetson platforms.</p>
+<p>The Bootloader update process performs a safe Bootloader update and ensures
+that a workable Bootloader partition remains available during an
+update. It accomplishes this using <strong>A/B update</strong>, a feature that maintains
+two sets of Bootloader partitions, <strong>Slot A</strong> and <strong>Slot B</strong>, each of which is a
+complete set of the partitions that contain boot images.</p>
+<p>Bootloader redundancy is enabled by default.</p>
+<section id="a-b-slot-layout">
+<h2>A/B Slot Layout<a class="headerlink" href="UpdateAndRedundancy.html#a-b-slot-layout" title="Link to this heading">#</a></h2>
+<p>The principle of shadow copying enables multiple placeholders. All of the
+placeholders but one hold backup copies. Each backup copy is a
+candidate to boot from. However, based on runtime decisions,
+the correct copy of the binary is loaded to continue with the boot
+process. These two shadow copies are commonly referred to as Slot A and
+Slot B. This two-slot implementation is as follows:</p>
+<figure class="align-default" style="width: 300px">
+<img alt="../../_images/SlotImplementationLayout.svg" src="../../_images/SlotImplementationLayout.svg" />
+</figure>
+<p>The diagram above shows the slot implementation in conceptual form.</p>
+</section>
+<section id="a-b-system-update">
+<h2>A/B System Update<a class="headerlink" href="UpdateAndRedundancy.html#a-b-system-update" title="Link to this heading">#</a></h2>
+<section id="partition-selection">
+<h3>Partition Selection<a class="headerlink" href="UpdateAndRedundancy.html#partition-selection" title="Link to this heading">#</a></h3>
+<p>A/B system updates use two sets of partitions (slots). Each slot has several attributes:</p>
+<ul class="simple">
+<li><p>The slot that the running system booted from is called the <strong>current slot</strong>.
+The other slot is called the <strong>unused slot</strong>. The system exchanges the roles of the current and unused slot in the course of an
+update, or when the software fails repeatedly during or immediately after a boot.</p></li>
+<li><p>The slot that the system will use the next time it boots is called the <strong>active slot</strong>. In “steady state” device the bootable slot is also the active slot. When the system is being updated it may be different.</p></li>
+<li><p>A slot’s <strong>status attribute</strong> indicates whether the slot contains a
+system from which the device should be able to boot. When the system
+is running the current slot is bootable; the unused slot may have an
+older, identical, or newer version of the system, and may or may not
+be bootable.</p></li>
+</ul>
+<p>The bootable slot is the slot whose <strong>status attribute</strong> is <code class="docutils literal notranslate"><span class="pre">normal</span></code>.</p>
+<p>If a bootable slot fails to boot, Bootloader sets its status attribute as <code class="docutils literal notranslate"><span class="pre">unbootable</span></code> and switches the roles of the current and unused slots.
+The formerly unused, now current, slot typically contains boot software that is one update old (if the device was just updated with nonfunctional software)
+or current (if the former current slot has suffered data corruption).</p>
+</section>
+</section>
+<section id="bootloader-implementation">
+<h2>Bootloader Implementation<a class="headerlink" href="UpdateAndRedundancy.html#bootloader-implementation" title="Link to this heading">#</a></h2>
+<p>The A/B system uses the Scratch Register to store the slot status. It
+is used between the cpu-bootloader and early stage Bootloader. The early
+stage Bootloader runs the state machine to select the boot slot. It handles
+the update failure cases as follows:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="../../_images/UpdateFailure.svg" src="../../_images/UpdateFailure.svg" />
+</figure>
+<p>Here is the process flow:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; Nano</span>:
+BootRom uses the BR-BCT to find the current slot for cold boot,
+and it uses the Scratch Register to find the current slot for warm boot. It marks the current slot status
+as <code class="docutils literal notranslate"><span class="pre">invalid</span></code> and caches the current slot number, 0 (slot A) or 1 (slot B), with the status flag in scratch
+register 109. This slot number will be used by MB1, MB2, UEFI, or later stage loaders. When control reaches
+cpu-bootloader, it restores the status flag to <code class="docutils literal notranslate"><span class="pre">valid</span></code> and saves to the scratch register 109.</p></li>
+</ul>
+</div></blockquote>
+<p>If BootRom does not find a current slot, the device enters NVIDIA recovery mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Cpu-bootloader automatically updates the slot number in BR-BCT when the following conditions are met:</p>
+<ul class="simple">
+<li><p>The slot number in BR-BCT does not match the current slot number in the scratch register.</p></li>
+<li><p>The UEFI variable <code class="docutils literal notranslate"><span class="pre">AutoUpdateBrBct</span></code> is set to 1, and this value is configured by <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dts</span></code> in UEFI source.</p></li>
+</ul>
+</div>
+<section id="bootloader-scratch-register">
+<h3>Bootloader Scratch Register<a class="headerlink" href="UpdateAndRedundancy.html#bootloader-scratch-register" title="Link to this heading">#</a></h3>
+<p>This section provides information about the Scratch register definition.</p>
+<section id="for-nvidia-r-jetson-agx-orin-tm-nvidia-r-jetson-orin-tm-nx-and-nvidia-r-jetson-orin-tm-nano">
+<h4>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; Nano</span><a class="headerlink" href="UpdateAndRedundancy.html#for-nvidia-r-jetson-agx-orin-tm-nvidia-r-jetson-orin-tm-nx-and-nvidia-r-jetson-orin-tm-nano" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>Scratch register 109 layout</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Bits</p></th>
+<th class="head" colspan="2"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>31-6</p></td>
+<td colspan="2"><p>Reserved</p></td>
+</tr>
+<tr class="row-even"><td><p>5-4</p></td>
+<td colspan="2"><p>Current slot number</p></td>
+</tr>
+<tr class="row-odd"><td><p>3-0</p></td>
+<td colspan="2"><p>Boot slot status flag</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Where:</p>
+<ul>
+<li><p>The current slot number is <code class="docutils literal notranslate"><span class="pre">0</span></code> for slot A and <code class="docutils literal notranslate"><span class="pre">1</span></code> for slot B.</p></li>
+<li><p>The boot slot status flag uses bits to indicate the following slot statuses:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: valid</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: invalid</p></li>
+</ul>
+<p>For example, 0001b means slot A is invalid.</p>
+</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="partition-settings">
+<h3>Partition Settings<a class="headerlink" href="UpdateAndRedundancy.html#partition-settings" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; Nano</span><a class="headerlink" href="UpdateAndRedundancy.html#id1" title="Link to this heading">#</a></h4>
+<p>The A/B partitions must use the following naming convention:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A_mb1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_mb1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_mb2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_mb2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A_cpu-bootloader</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B_cpu-bootloader</span></code></p></li>
+<li><p>etc</p></li>
+</ul>
+<p>The name of the partition that is being loaded is derived as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>partition_name = &quot;&lt;slot_value&gt;&quot;_&lt;base_name&gt;
+slot value = &quot;A&quot; for slot 0
+slot value = &quot;B&quot; for slot 1
+</pre></div>
+</div>
+</section>
+</section>
+<section id="bootloader-version-in-qspi-flash">
+<h3>Bootloader Version in QSPI Flash<a class="headerlink" href="UpdateAndRedundancy.html#bootloader-version-in-qspi-flash" title="Link to this heading">#</a></h3>
+<p>The bootloader version is stored in the <code class="docutils literal notranslate"><span class="pre">A_VER</span></code> and <code class="docutils literal notranslate"><span class="pre">B_VER</span></code> partitions, located in the QSPI flash. UEFI gets the version from these partitions and passes it to kernel.
+Run the following command in the kernel to read the bootloader version via the sysfs node of DMI:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat /sys/class/dmi/id/bios_version
+</pre></div>
+</div>
+<p>The format of the output is <code class="docutils literal notranslate"><span class="pre">&lt;bsp_branch&gt;.&lt;bsp_major&gt;.&lt;bsp_minor&gt;-gcid-&lt;8</span> <span class="pre">digits</span> <span class="pre">build</span> <span class="pre">number&gt;</span></code>. For example, the release <code class="docutils literal notranslate"><span class="pre">36.4.0</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat /sys/class/dmi/id/bios_version
+36.4.0-gcid-37537400
+</pre></div>
+</div>
+<p>You can also use the following alternate ways to get the bootloader version:</p>
+<ul>
+<li><p>Read the <code class="docutils literal notranslate"><span class="pre">fw_version</span></code> of the ESRT table:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo cat /sys/firmware/efi/esrt/entries/entry0/fw_version
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The output value is a decimal number, so you need to convert it to a hexadecimal number in the <code class="docutils literal notranslate"><span class="pre">0xAABBCC</span></code> form where <code class="docutils literal notranslate"><span class="pre">0xAA</span></code> is the release branch, <code class="docutils literal notranslate"><span class="pre">0xBB</span></code> is the major version,
+and <code class="docutils literal notranslate"><span class="pre">0xCC</span></code> is the minor version. For example, the release <code class="docutils literal notranslate"><span class="pre">36.3.0</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2360064 = 0x240300 =&gt; [0x24].[0x03].[0x00] =&gt; 36.3.0
+</pre></div>
+</div>
+<ul>
+<li><p>Read the bootloader version by using the <code class="docutils literal notranslate"><span class="pre">fwupdate</span></code> utility:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo fwupdate -l
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The output includes the version that has the same format as the <code class="docutils literal notranslate"><span class="pre">fw_version</span></code>. For example, the release <code class="docutils literal notranslate"><span class="pre">36.3.0</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo fwupdate -l
+system-firmware type, {bf0d4599-20d4-414e-b2c5-3595b1cda402} version 2360064 can be updated to any version above 2360063
+
+2360064 = 0x240300 =&gt; [0x24].[0x03].[0x00] =&gt; 36.3.0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="update-bootloader">
+<h2>Update Bootloader<a class="headerlink" href="UpdateAndRedundancy.html#update-bootloader" title="Link to this heading">#</a></h2>
+<p>The bootloader is updated by UEFI Capsule update. Refer to <a class="reference external" href="UpdateAndRedundancy.html#manually-trigger-the-capsule-update">Manually Trigger the Capsule Update</a> for more information.</p>
+</section>
+<section id="bootloader-tools">
+<h2>Bootloader Tools<a class="headerlink" href="UpdateAndRedundancy.html#bootloader-tools" title="Link to this heading">#</a></h2>
+<p>NVIDIA provides tools for ease of use in the Bootloader update process.</p>
+<section id="boot-control">
+<h3>Boot Control<a class="headerlink" href="UpdateAndRedundancy.html#boot-control" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">nvbootctrl</span></code> is intended to be used for debugging, so it can be used to dump the slot information. You can also use it to set the active slot,
+which forces the boot slot to change for the next boot.</p>
+<p>To display the command usage, run the following command with no parameters:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo nvbootctrl
+</pre></div>
+</div>
+<p>For more information, refer to <a class="reference external" href="UpdateAndRedundancy.html#manually-modifying-boot-slots">Manually Modifying Boot Slots</a>.</p>
+</section>
+<section id="bootloader-update-payload-generator">
+<h3>Bootloader Update Payload Generator<a class="headerlink" href="UpdateAndRedundancy.html#bootloader-update-payload-generator" title="Link to this heading">#</a></h3>
+<p>The Bootloader Update Payload (BUP) is the payload that is packed into the Capsule payload. The BUP is generated by the
+<code class="docutils literal notranslate"><span class="pre">build_l4t_bup.sh</span></code> host tool, which is kept with <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> in the Linux for Jetson Board Support Package (BSP).</p>
+<p>This section describes procedures for generating a multi-spec BUP or a single-spec BUP.</p>
+<p>A <strong>multi-spec</strong> BUP includes firmware binaries and BCT images for each supported Jetson device. When you run the updater, it uses the appropriate binary of each type for the device you are updating.</p>
+<p>A <strong>single-spec</strong> BUP includes firmware binaries and BCT images for just one type of device. It is appropriate if you are updating just one type of Jetson device.</p>
+<ul class="simple">
+<li><p>To generate a multi-spec BUP or a single-spec BUP, refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-the-bootloader-update-payload-bup">Generating the Bootloader Update Payload (BUP)</a>.</p></li>
+</ul>
+<p>The multi-spec procedure stores a BUP at each of these locations for the
+respective group of processors. The single-spec procedure stores a BUP
+at just one location for the appropriate type of processor.</p>
+</section>
+</section>
+<section id="manually-modifying-boot-slots">
+<h2>Manually Modifying Boot Slots<a class="headerlink" href="UpdateAndRedundancy.html#manually-modifying-boot-slots" title="Link to this heading">#</a></h2>
+<p>NVIDIA provides the <code class="docutils literal notranslate"><span class="pre">nvbootctrl</span></code> tool for testing and development purposes. However, you may wish to switch boot slots manually from user space.</p>
+<section id="to-manually-modify-the-boot-slots">
+<h3>To manually modify the boot slots<a class="headerlink" href="UpdateAndRedundancy.html#to-manually-modify-the-boot-slots" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command to switch to superuser mode:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo su
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># nvbootctrl &lt;command&gt;
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;command&gt;</span></code> is one of the values in the following table:</p>
+</li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>get-number-slots</p></td>
+<td><p>Prints the number of slots.</p></td>
+</tr>
+<tr class="row-odd"><td><p>get-current-slot</p></td>
+<td><p>Prints the currently running slot.</p></td>
+</tr>
+<tr class="row-even"><td><p>dump-slots-info</p></td>
+<td><p>Prints information about the slots.</p></td>
+</tr>
+<tr class="row-odd"><td><p>set-active-boot-slot &lt;slot&gt;</p></td>
+<td><p>At the next boot, loads and executes <code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>verify</p></td>
+<td><p>Verifies the bootloader and the rootfs boot.</p></td>
+</tr>
+<tr class="row-odd"><td><p>is-rootfs-ab-enabled</p></td>
+<td><dl class="simple">
+<dt>Rootfs only, return:</dt><dd><ul class="simple">
+<li><p>0: Rootfs A/B is disabled.</p></li>
+<li><p>1: Rootfs A/B is enabled and current rootfs slot is A.</p></li>
+<li><p>2: Rootfs A/B is enabled and current rootfs slot is B.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;slot&gt;</span></code> is the zero-based slot number.</p></li>
+<li><p>The default setting for both slot 0 and slot 1 is “bootable”.</p></li>
+</ul>
+</div>
+</section>
+<section id="to-show-the-current-boot-slot">
+<h3>To show the current boot slot<a class="headerlink" href="UpdateAndRedundancy.html#to-show-the-current-boot-slot" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># nvbootctrl get-current-slot
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The command displays a single digit, 0 (slot A) or 1 (slot B).</p>
+</section>
+<section id="to-show-the-slot-status">
+<h3>To show the slot status<a class="headerlink" href="UpdateAndRedundancy.html#to-show-the-slot-status" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># nvbootctrl dump-slots-info
+</pre></div>
+</div>
+<p>The command displays the status of both slots:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Current version: 36.0.0
+Capsule update status: 0
+Current bootloader slot: A
+Active bootloader slot: A
+num_slots: 2
+slot: 0,             status: normal
+slot: 1,             status: normal
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="sample-boot-log">
+<h2>Sample Boot Log<a class="headerlink" href="UpdateAndRedundancy.html#sample-boot-log" title="Link to this heading">#</a></h2>
+<p>The boot slot is selected by BootRom, and MB1 and MB2 use the slot number. The message displayed from MB1 is available from an MB1 debug build
+that has messages enabled. Messages from MB2 are always available.</p>
+<section id="id2">
+<h3>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; Nano</span><a class="headerlink" href="UpdateAndRedundancy.html#id2" title="Link to this heading">#</a></h3>
+<p>The following sample log shows that slot 1 (slot B) is selected as the boot slot:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[0000.062] I&gt; MB1 (version: 1.4.0.1-t234-54845784-08e631ca)
+[0000.067] I&gt; t234-A01-1-Silicon (0x12347) Prod
+[0000.071] I&gt; Boot-mode : Coldboot
+[0000.075] I&gt; Entry timestamp: 0x00000000
+[0000.078] I&gt; last_boot_error: 0x0
+[0000.081] I&gt; BR-BCT: preprod_dev_sign: 0
+[0000.085] I&gt; rst_source: 0xb, rst_level: 0x1
+[0000.089] I&gt; Task: SE error check
+[0000.092] I&gt; Task: Bootchain select WAR set
+[0000.097] I&gt; Task: Enable SLCG
+[0000.099] I&gt; Task: CRC check
+[0000.102] I&gt; Task: Initialize MB2 params
+[0000.107] I&gt; MB2-params @ 0x40060000
+ . . .
+ . . .
+[0000.321] I&gt; Loading MEMBCT
+[0000.323] I&gt; Slot: 1
+[0000.325] I&gt; Binary[0] block-66816 (partition size: 0x40000)
+[0000.331] I&gt; Binary name: MEM-BCT-0
+ . . .
+ . . .
+I&gt; MB2 (version: 0.0.0.0-t234-54845784-2db4d185)
+I&gt; t234-A01-1-Silicon (0x12347)
+I&gt; Boot-mode : Coldboot
+I&gt; Emulation:
+I&gt; Entry timestamp: 0x001e49d5
+I&gt; Regular heap: [base:0x40040000, size:0x10000]
+ . . .
+ . . .
+I&gt; Partition name: B_spe-fw
+I&gt; Size of partition: 589824
+I&gt; Binary@ device:3/0 block-118016 (partition size: 0x90000), name: B_spe-fw
+I&gt; strt_pg_num(118016) num_of_pgs(16) read_buf(0x40066650)
+I&gt; strt_pg_num(118032) num_of_pgs(512) read_buf(0x272e00000)
+ . . .
+ . . .
+</pre></div>
+</div>
+</section>
+</section>
+<section id="generating-the-bootloader-update-payload-bup">
+<h2>Generating the Bootloader Update Payload (BUP)<a class="headerlink" href="UpdateAndRedundancy.html#generating-the-bootloader-update-payload-bup" title="Link to this heading">#</a></h2>
+<p>A Bootloader Update Payload (BUP) is used to implement Bootloader
+update. It contains firmware binaries of each type needed to update a
+Jetson device.</p>
+<p>This section describes the procedure for generating a single-spec BUP,
+which contains just one binary of each type and can be used to update
+just one Jetson device configuration.</p>
+<p>There is also a procedure for generating a multi-spec BUP, which
+includes multiple firmware binaries and BCT images of each type, and can
+be used to update any supported type of Jetson device. When you run the
+updater, it uses the appropriate binary of each type for the device you
+are updating. Refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-a-multi-spec-bup">Generating a multi-spec BUP</a> for more information.</p>
+<p>Before you generate BUPs, set the <code class="docutils literal notranslate"><span class="pre">ToT_BSP</span></code> environment variable to point to the complete path name of the BSPs for the current release (the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/</span></code> directory)
+in which <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> is stored.</p>
+<section id="generating-a-single-spec-bup">
+<h3>Generating a Single-Spec BUP<a class="headerlink" href="UpdateAndRedundancy.html#generating-a-single-spec-bup" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>To create a BUP image that will be stored in a file for a carrier board that is not connected to the host system:</p>
+<ul>
+<li><p>For a Jetson AGX Orin carrier board with the indicated values of <code class="docutils literal notranslate"><span class="pre">FAB</span></code>, <code class="docutils literal notranslate"><span class="pre">BOARDID</span></code>, <code class="docutils literal notranslate"><span class="pre">FUSELEVEL</span></code>, <code class="docutils literal notranslate"><span class="pre">BOARDSKU</span></code>, and <code class="docutils literal notranslate"><span class="pre">CHIP_SKU</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo FAB=000 BOARDID=3701 FUSELEVEL=fuselevel_production BOARDSKU=0000 CHIP_SKU=&quot;00:00:00:D0&quot; ./build_l4t_bup.sh jetson-agx-orin-devkit mmcblk0p1
+</pre></div>
+</div>
+</li>
+<li><p>For a Jetson Orin NX carrier board with the indicated values of <code class="docutils literal notranslate"><span class="pre">FAB</span></code>, <code class="docutils literal notranslate"><span class="pre">BOARDID</span></code>, <code class="docutils literal notranslate"><span class="pre">FUSELEVEL</span></code>, <code class="docutils literal notranslate"><span class="pre">BOARDSKU</span></code>, and <code class="docutils literal notranslate"><span class="pre">CHIP_SKU</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo FAB=000 BOARDID=3767 FUSELEVEL=fuselevel_production BOARDSKU=0000 CHIP_SKU=&quot;00:00:00:D3&quot; ./build_l4t_bup.sh jetson-orin-nano-devkit mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>To create a BUP image for a board that is connected to the host system:</p>
+<ol class="arabic">
+<li><p>Place the target board into <a class="reference internal" href="../../IN/QuickStart.html#in-quickstart-toflashjetsondeveloperkitoperatingsoftware-forcerecoverymode"><span class="std std-ref">Force Recovery Mode</span></a>.</p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./build_l4t_bup.sh &lt;device&gt; mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>Where &lt;device&gt; is:</p>
+<ul class="simple">
+<li><p>For the Jetson AGX Orin: <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></li>
+<li><p>For the Jetson Orin NX series and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>To create the PKC signed BUP image for a carrier board connected to the host system:</p>
+<ol class="arabic">
+<li><p>Place the target board into <a class="reference internal" href="../../IN/QuickStart.html#in-quickstart-toflashjetsondeveloperkitoperatingsoftware-forcerecoverymode"><span class="std std-ref">Force Recovery Mode</span></a>.</p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./build_l4t_bup.sh -u &lt;pkc_key_file&gt; -v &lt;sbk_key_file&gt; &lt;device&gt; mmcblk0p1
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;pkc_key_file&gt;</span></code> is the RSA private key file for your board. It must be in the <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/bootloader</span></code> directory, or you must specify its absolute pathname.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sbk_key_file&gt;</span></code> is the Secure Boot Key (SBK) key file for your board. It must be in the <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/bootloader</span></code> directory, or you must specify its absolute pathname. This option must used with PKC key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> is:</p>
+<ul>
+<li><p>For the Jetson AGX Orin series: <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></li>
+<li><p>For the Jetson Orin NX series and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="generating-a-specified-partition-bup">
+<h3>Generating a Specified Partition BUP<a class="headerlink" href="UpdateAndRedundancy.html#generating-a-specified-partition-bup" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>UEFI support for one partition image update is disabled in the default UEFI build. To enable this feature, complete the instructions in
+<a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki/CapsuleUpdate#single-image-capsule-update">Single Image Capsule Update</a>. To rebuild UEFI, refer to
+<a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki/Build">Building UEFI for NVIDIA Jetson</a>.</p>
+</div>
+<p>To create a specified partition BUP image for a carrier board connected to the host system:</p>
+<ol class="arabic">
+<li><p>Place the target board into <a class="reference internal" href="../../IN/QuickStart.html#in-quickstart-toflashjetsondeveloperkitoperatingsoftware-forcerecoverymode"><span class="std std-ref">Force Recovery Mode</span></a>.</p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./build_l4t_bup.sh --single-image-bup &lt;partition_name&gt; &lt;device&gt; mmcblk0p1
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;partition_name&gt;</span></code> is the partition name specified in flash.cfg.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;device&gt;</span></code> is:</p>
+<ul>
+<li><p>For the Jetson AGX Orin series: <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></li>
+<li><p>For the Jetson Orin NX series and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The generated BUP payload name is <code class="docutils literal notranslate"><span class="pre">&lt;partition_name&gt;_only_payload</span></code>.</p>
+</div>
+<p>Here is an example to generate a partition BUP image of <code class="docutils literal notranslate"><span class="pre">A_xusb-fw</span></code> for Jetson Orin NX:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./build_l4t_bup.sh --single-image-bup A_xusb-fw jetson-orin-nano-devkit mmcblk0p1
+</pre></div>
+</div>
+</section>
+<section id="generating-a-multi-spec-bup">
+<h3>Generating a Multi-Spec BUP<a class="headerlink" href="UpdateAndRedundancy.html#generating-a-multi-spec-bup" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./l4t_generate_soc_bup.sh [-u &lt;pkc_key_file&gt;] [ -v &lt;sbk_key_file&gt; ] [-b &lt;board&gt;] [-p &lt;option&gt;] [-f &lt;boardspec file&gt;] [-e &lt;boardspec entry&gt;] [-d] &lt;target_soc&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;pkc_key_file&gt;</span></code> is the RSA private key file for your Jetson carrier board. If it is a relative pathname, it is interpreted relative to the <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/bootloader/</span></code> directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sbk_key_file&gt;</span></code> is the SBK key file for your board. It must be in the <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/bootloader</span></code> directory, or you must specify its absolute pathname. This option must used with PKC key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;board&gt;</span></code> specifies one particular board for corresponding target_soc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;options&gt;</span></code> is a string of command line options to be passed to <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> to generate the BUP. If the string contains whitespace characters, it must be enclosed in quotes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;boardspec</span> <span class="pre">file&gt;</span></code> specifies a user-provided board spec file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;boardspec</span> <span class="pre">entry&gt;</span></code> specifies a board spec entry in a user provided board spec file, such as “t23x_agx_bl_spec” in “jetson_board_spec.cfg”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span></code> causes the script to run in debug mode, which keeps all boot firmware blob images in <code class="docutils literal notranslate"><span class="pre">bootloader/signed</span></code> and <code class="docutils literal notranslate"><span class="pre">bootloader/multi-signed</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;target_soc&gt;</span></code> is:</p>
+<ul>
+<li><p>For the Jetson AGX Orin series, the Orin NX series, and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">t23x</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Duplicated BUP entry is not allowed when customizing the BUP entries in the board spec files.</p>
+</div>
+</section>
+<section id="location-of-generated-bup-files">
+<h3>Location of Generated BUP Files<a class="headerlink" href="UpdateAndRedundancy.html#location-of-generated-bup-files" title="Link to this heading">#</a></h3>
+<p>Both procedures store the generated BUP(s) in the director(ies):</p>
+<ul class="simple">
+<li><p>For the Jetson AGX Orin series, the Orin NX series, and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/bootloader/payloads_t23x</span></code></p></li>
+</ul>
+</section>
+<section id="to-customize-the-bup">
+<span id="sd-bootloader-updateandredundancy-tocustomizethebup"></span><h3>To Customize the BUP<a class="headerlink" href="UpdateAndRedundancy.html#to-customize-the-bup" title="Link to this heading">#</a></h3>
+<p>Currently, the UEFI Capsule update supports an optional update for a pre-defined list of partitions, and this optional update is completed
+by packing or unpacking these images into the UEFI Capsule. Users can change the <code class="docutils literal notranslate"><span class="pre">SKIP</span></code> field settings between
+“0” and “1” for an image in the <code class="docutils literal notranslate"><span class="pre">t23x_bl_table</span></code> in the <code class="docutils literal notranslate"><span class="pre">bootloader/l4t_bup_gen.func</span></code> file, which is in the <code class="docutils literal notranslate"><span class="pre">${ToT_BSP}/Linux_for_Tegra/</span></code>
+directory. This way, the corresponding image will be packed (or unpacked) into BUP and then into the UEFI Capsule.</p>
+<p>For example, Add the <code class="docutils literal notranslate"><span class="pre">ist-config</span></code> into BUP:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;A_ist-config     1            1              0                0&#39;
+</pre></div>
+</div>
+<p>Unpack the <code class="docutils literal notranslate"><span class="pre">ist-config</span></code> to BUP:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;A_ist-config     1            1              0                1&#39;
+</pre></div>
+</div>
+<p>The list of images that support optional update:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>eks</p></li>
+<li><p>fsi-fw</p></li>
+<li><p>ist-bpmp</p></li>
+<li><p>ist-config</p></li>
+<li><p>ist-ucode</p></li>
+<li><p>tsec-fw</p></li>
+<li><p>xusb-fw</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the EKB image for the <code class="docutils literal notranslate"><span class="pre">eks</span></code> partition <strong>only</strong> when user keys are added or removed.</p>
+</div>
+</section>
+</section>
+<section id="generating-the-capsule-update-payload">
+<span id="sd-bootloader-updateandredundancy-generatingthecapsuleupdatepayload"></span><h2>Generating the Capsule Update Payload<a class="headerlink" href="UpdateAndRedundancy.html#generating-the-capsule-update-payload" title="Link to this heading">#</a></h2>
+<p>Currently, a Capsule update payload is used to implement the Bootloader update.
+This section provides information about how to generate a multi-spec Capsule payload, which contains multiple
+firmware binaries and BCT images of each type. The payload can be used to update any supported Jetson device.
+When you start the update, UEFI uses the appropriate binary of each type for the device you are updating.</p>
+<p>Before you generate Capsule update payloads, set the <code class="docutils literal notranslate"><span class="pre">ToT_BSP</span></code> environment variable to point to the complete path name of the BSPs for the current release (the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/</span></code> directory)
+in which <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> is stored.</p>
+<section id="generating-a-multi-spec-capsule-payload">
+<h3>Generating a Multi-Spec Capsule Payload<a class="headerlink" href="UpdateAndRedundancy.html#generating-a-multi-spec-capsule-payload" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>To generate a multi-spec BUP, refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-a-multi-spec-bup">Generating a Multi-Spec BUP</a> for more information.</p></li>
+<li><p>Run the following commands to generate multi-spec Capsule payload:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ ./generate_capsule/l4t_generate_soc_capsule.sh [-o &lt;output file&gt; [-i &lt;input file&gt;] [ --signer-private-cert &lt;signer private cert&gt; ] [ --other-public-cert &lt;other public cert&gt; ] [ --trusted-public-cert &lt;trusted public cert&gt; ] &lt;target_soc&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;output</span> <span class="pre">file&gt;</span></code> is the path and file name of the output Capsule image.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;input</span> <span class="pre">file&gt;</span></code> is the path and file name of the input BUP payload.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;signer</span> <span class="pre">private</span> <span class="pre">cert&gt;</span></code> specifies the OpenSSL signer private certificate filename. (By default, the public TestCert.pem is used.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;other</span> <span class="pre">public</span> <span class="pre">cert&gt;</span></code> specifies OpenSSL other public certificate filename. (By default, the public TestSub.pub.pem is used.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;trusted</span> <span class="pre">public</span> <span class="pre">cert&gt;</span></code> specifies OpenSSL trusted public certificate filename. (By default, the public TestRoot.pub.pem by default.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;target_soc&gt;</span></code> is:</p>
+<ul>
+<li><p>For the Jetson AGX Orin series, the Orin NX series, and the Orin Nano series: <code class="docutils literal notranslate"><span class="pre">t23x</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>For production, you must create or specify your own certificates to replace the test certificates, which include <code class="docutils literal notranslate"><span class="pre">signer</span> <span class="pre">private</span> <span class="pre">cert</span></code>,
+<code class="docutils literal notranslate"><span class="pre">other</span> <span class="pre">public</span> <span class="pre">cert</span></code>, and <code class="docutils literal notranslate"><span class="pre">trusted</span> <span class="pre">public</span> <span class="pre">cert</span></code>. Without specifying your own certificates, UEFI Capsule update security is highly vulnerable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When specifying your own certificates, you must also rebuild UEFI with these certificates. The certificates are located in the
+<code class="docutils literal notranslate"><span class="pre">edk2/BaseTools/Source/Python/Pkcs7Sign/</span></code> directory of the UEFI source. Please refer to the <code class="docutils literal notranslate"><span class="pre">edk2/BaseTools/Source/Python/Pkcs7Sign/Readme.md</span></code>
+for generating and replacing the certificates.</p>
+</div>
+<p>Here are the examples to generate multi-spec Capsule payloads for t23x:</p>
+<ul>
+<li><p>Generate a multi-spec, Capsule payload for the AGX Orin series:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+
+# For AGX Orin:
+$ sudo ./l4t_generate_soc_bup.sh -e t23x_agx_bl_spec t23x
+
+# For AGX Orin Industrial:
+$ sudo ./l4t_generate_soc_bup.sh -e t23x_agx_ind_bl_spec t23x
+
+$ ./generate_capsule/l4t_generate_soc_capsule.sh -i bootloader/payloads_t23x/bl_only_payload -o ./TEGRA_BL.Cap t234
+</pre></div>
+</div>
+</li>
+<li><p>Generate a multi-spec, Capsule payload for the Orin NX series and the Orin Nano series:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ sudo ./l4t_generate_soc_bup.sh -e t23x_3767_bl_spec t23x
+$ ./generate_capsule/l4t_generate_soc_capsule.sh -i bootloader/payloads_t23x/bl_only_payload -o ./TEGRA_BL.Cap t234
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="use-the-fwupdtool-to-trigger-the-capsule-update">
+<h3>Use the <code class="docutils literal notranslate"><span class="pre">fwupdtool</span></code> to Trigger the Capsule Update<a class="headerlink" href="UpdateAndRedundancy.html#use-the-fwupdtool-to-trigger-the-capsule-update" title="Link to this heading">#</a></h3>
+<p>To trigger the Capsule update with <code class="docutils literal notranslate"><span class="pre">fwupdtool</span></code>, run the following commands on the target:</p>
+<ol class="arabic">
+<li><p>Copy the generated Capsule payload to the target file system. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ scp user@&lt;payload_host_ip&gt;:${ToT_BSP}/TEGRA_BL.Cap /opt/ota_package/
+</pre></div>
+</div>
+</li>
+<li><p>Initialize the <code class="docutils literal notranslate"><span class="pre">OsIndications</span></code> UEFI variable:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /sys/firmware/efi/efivars/
+$ printf &quot;\x07\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+$ sudo dd if=/tmp/var_tmp.bin of=OsIndications-8be4df61-93ca-11d2-aa0d-00e098032b8c bs=12;sync
+</pre></div>
+</div>
+</li>
+<li><p>Get the <code class="docutils literal notranslate"><span class="pre">Device</span> <span class="pre">ID</span></code> of the <code class="docutils literal notranslate"><span class="pre">System</span> <span class="pre">Firmware</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ fwupdmgr get-devices
+</pre></div>
+</div>
+</li>
+<li><p>Trigger the Capsule update. Afterward, choose <code class="docutils literal notranslate"><span class="pre">y</span></code> to reboot and finish the update:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo fwupdtool install-blob &lt;payload file&gt; &lt;Device ID&gt;
+</pre></div>
+</div>
+<p>Where &lt;payload file&gt; is the file path of Capsule payload. &lt;Device ID&gt; is obtained in step 3.</p>
+<p>Here is an example to trigger Capsule update for AGX Orin:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo fwupdtool install-blob /opt/ota_package/TEGRA_BL.Cap a45df35ac0e948ee180fe216a5f703f32dda163f
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fwupdtool</span></code> does not support single partition image Capsule updates.</p>
+</div>
+</section>
+<section id="use-the-helper-script-to-trigger-the-capsule-update">
+<span id="sd-bootloader-updateandredundancy-usethehelperscripttotriggerthecapsuleupdate"></span><h3>Use the Helper Script to Trigger the Capsule Update<a class="headerlink" href="UpdateAndRedundancy.html#use-the-helper-script-to-trigger-the-capsule-update" title="Link to this heading">#</a></h3>
+<p>To trigger the Capsule update:</p>
+<ol class="arabic">
+<li><p>Copy the generated Capsule payload to the target file system.</p></li>
+<li><p>Run the following command to trigger Capsule update:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nv_bootloader_capsule_updater.sh [-h|--help] -q &lt;input file&gt;
+</pre></div>
+</div>
+<p>Where &lt;input file&gt; is the file path of Capsule payload.</p>
+<p>Here is an example to trigger Capsule update for AGX Orin:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nv_bootloader_capsule_updater.sh -q /opt/ota_package/t23x/TEGRA_BL_3701_agx.Cap
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the target system for updates to take effect.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The helper script does not support single partition image Capsule updates.</p>
+</div>
+</section>
+<section id="manually-trigger-the-capsule-update">
+<span id="sd-bootloader-updateandredundancy-manuallytriggerthecapsuleupdate"></span><h3>Manually Trigger the Capsule Update<a class="headerlink" href="UpdateAndRedundancy.html#manually-trigger-the-capsule-update" title="Link to this heading">#</a></h3>
+<p>The UEFI updates the non-current slot Bootloader when a Capsule update is triggered. The device boots from the updated non-current slot after the Capsule update has finished.</p>
+<ol class="arabic simple">
+<li><p>Copy the generated multi-spec Capsule payload to the <code class="docutils literal notranslate"><span class="pre">EFI/UpdateCapsule</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">esp</span></code> partition of the active boot media.
+Refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-a-multi-spec-capsule-payload">Generating a Multi-Spec Capsule Payload</a> for more information.</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>For a device that is booted from <strong>eMMC</strong>, copy the payload to the <code class="docutils literal notranslate"><span class="pre">esp</span></code> partition on eMMC.</p></li>
+<li><p>For a device that is booted from <strong>NVMe</strong>, copy the payload to the <code class="docutils literal notranslate"><span class="pre">esp</span></code> partition on NVMe.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>Set the bit2 of the <code class="docutils literal notranslate"><span class="pre">OsIndications</span></code> UEFI variable:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /sys/firmware/efi/efivars/
+$ printf &quot;\x07\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+$ sudo dd if=/tmp/var_tmp.bin of=OsIndications-8be4df61-93ca-11d2-aa0d-00e098032b8c bs=12;sync
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the Jetson device. UEFI will use the Capsule payload to update the non-current slot Bootloader.</p></li>
+<li><p>To check the <code class="docutils literal notranslate"><span class="pre">Capsule</span> <span class="pre">update</span> <span class="pre">status</span></code>, run the <code class="docutils literal notranslate"><span class="pre">nvbootctrl</span></code> command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo nvbootctrl dump-slots-info
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The output value of <code class="docutils literal notranslate"><span class="pre">Capsule</span> <span class="pre">update</span> <span class="pre">status</span></code> can be following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0 - No Capsule update
+1 - Capsule update successfully
+2 - Capsule install successfully but boot new firmware failed
+3 - Capsule install failed
+</pre></div>
+</div>
+</section>
+<section id="manually-sync-bootloader-a-b-slots-with-the-capsule-update">
+<h3>Manually Sync Bootloader A/B Slots with the Capsule Update<a class="headerlink" href="UpdateAndRedundancy.html#manually-sync-bootloader-a-b-slots-with-the-capsule-update" title="Link to this heading">#</a></h3>
+<p>Bootloader A/B slots can be synced by applying the Capsule update on a non-current slot.</p>
+<p>If the UEFI Capsule was previously successfully updated, the current slot boots up with the image from the Capsule. To update the
+non-current slot through Capsule Update, users must complete the steps below.</p>
+<p>If the UEFI Capsule was not previously successfully updated, to ensure that  slots A and B are updated with the same image, users
+must complete the following steps twice. For example, if the current slot is A, when you complete the following steps the first time,
+slot B is updated. After the devices boot up from slot B, when users complete the steps again, slot A will be updated with the Capsule.
+The device will now boot up from slot A.</p>
+<ol class="arabic simple">
+<li><p>Copy the Capsule payload that was used in step 1 in <a class="reference external" href="UpdateAndRedundancy.html#manually-trigger-the-capsule-update">Manually Trigger the Capsule Update</a> to the
+<code class="docutils literal notranslate"><span class="pre">EFI/UpdateCapsule</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">esp</span></code> partition of the active boot media.</p></li>
+<li><p>Set the bit2 of the <code class="docutils literal notranslate"><span class="pre">OsIndications</span></code> UEFI variable.</p></li>
+<li><p>Reboot the Jetson device. UEFI uses the Capsule payload to update the non-current slot Bootloader.</p></li>
+<li><p>To check the Capsule update status and current slot, run the <code class="docutils literal notranslate"><span class="pre">nvbootctrl</span></code> command. The Capsule update status is success.</p></li>
+</ol>
+</section>
+<section id="manually-triggering-the-single-partition-image-capsule-update">
+<h3>Manually Triggering the Single Partition Image Capsule Update<a class="headerlink" href="UpdateAndRedundancy.html#manually-triggering-the-single-partition-image-capsule-update" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Generate a specified partition BUP image. Refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-a-specified-partition-bup">Generating a specified partition BUP</a> for more information.</p></li>
+<li><p>Generate a Capsule payload by the specified partition BUP image. Refer to <a class="reference external" href="UpdateAndRedundancy.html#generating-a-multi-spec-capsule-payload">Generating a Multi-Spec Capsule Payload</a>
+for more information.</p>
+<p>Here is an example to generate a Capsule payload of <code class="docutils literal notranslate"><span class="pre">A_xusb-fw</span></code> for t23x:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${ToT_BSP}
+$ ./generate_capsule/l4t_generate_soc_capsule.sh -i bootloader/payloads_t23x/A_xusb-fw_only_payload -o ./TEGRA_BL.Cap t234
+</pre></div>
+</div>
+</li>
+<li><p>Customize the UEFI to enable the single image Capsule update. Refer to the <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/blob/main/Silicon/NVIDIA/Library/FmpDeviceLib/CapsuleUpdateJetson.md#single-image-capsule-update">Single Image Capsule Update</a>
+for more information.</p></li>
+<li><p>Copy the generated Capsule payload in step 2 to the <code class="docutils literal notranslate"><span class="pre">EFI/UpdateCapsule</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">esp</span></code> partition of the active boot media.
+Refer to the step 1 in <a class="reference external" href="UpdateAndRedundancy.html#manually-triggering-the-capsule-update">Manually Triggering the Capsule Update</a> for more information.</p></li>
+<li><p>Trigger the single partition image Capsule update. Refer to the <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/blob/main/Silicon/NVIDIA/Library/FmpDeviceLib/CapsuleUpdateJetson.md#single-image-capsule-update">Single Image Capsule Update</a>
+for more information.</p>
+<p>Users need to set the <code class="docutils literal notranslate"><span class="pre">FmpCapsuleSinglePartitionChain</span></code> and <code class="docutils literal notranslate"><span class="pre">OsIndications</span></code> variables.</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">FmpCapsuleSinglePartitionChain</span></code> with the desired boot chain to be updated (0: slot A, 1: slot B).</p></li>
+<li><p>Set the bit2 of the <code class="docutils literal notranslate"><span class="pre">OsIndications</span></code>. Refer to the step 2 in <a class="reference external" href="UpdateAndRedundancy.html#manually-triggering-the-capsule-update">Manually Triggering the Capsule Update</a>
+for more information.</p></li>
+</ul>
+<p>Here is an example to trigger <code class="docutils literal notranslate"><span class="pre">A_xusb-fw</span></code> single image Capsule update to slot B on t23x, current slot is A. Refer to
+<a class="reference external" href="UpdateAndRedundancy.html#manually-modifying-boot-slots">Manually Modifying Boot Slots</a> for the command that shows current slot:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /sys/firmware/efi/efivars/
+$ printf &quot;\x07\x00\x00\x00\x01&quot; &gt; /tmp/var_tmp.bin
+# In case to update chain A, the setting is:
+# $ printf &quot;\x07\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+$ sudo dd if=/tmp/var_tmp.bin of=FmpCapsuleSinglePartitionChain-781e084c-a330-417c-b678-38e696380cb9 bs=5;sync
+
+$ printf &quot;\x07\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+$ sudo dd if=/tmp/var_tmp.bin of=OsIndications-8be4df61-93ca-11d2-aa0d-00e098032b8c bs=12;sync
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the Jetson device. UEFI will use the single image Capsule payload to update the specified partition.</p></li>
+<li><p>To verify the single partition image Capsule update status, check the value of the <code class="docutils literal notranslate"><span class="pre">/sys/firmware/efi/esrt/entries/entry0/last_attempt_status</span></code> file after system boots up.
+0 means that the verification was successful. For other values, check the error code:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo cat /sys/firmware/efi/esrt/entries/entry0/last_attempt_status
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When single partition image Capsule update is complete, the <code class="docutils literal notranslate"><span class="pre">Capsule</span> <span class="pre">update</span> <span class="pre">status</span></code> in the output of <code class="docutils literal notranslate"><span class="pre">nvbootctrl</span></code> command is not reliable.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="UEFI.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">UEFI Adaptation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Kernel.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Kernel</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#a-b-slot-layout">A/B Slot Layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#a-b-system-update">A/B System Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#partition-selection">Partition Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#bootloader-implementation">Bootloader Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#bootloader-scratch-register">Bootloader Scratch Register</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#for-nvidia-r-jetson-agx-orin-tm-nvidia-r-jetson-orin-tm-nx-and-nvidia-r-jetson-orin-tm-nano">For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin™</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ Nano</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#partition-settings">Partition Settings</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#id1">For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin™</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ Nano</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#bootloader-version-in-qspi-flash">Bootloader Version in QSPI Flash</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#update-bootloader">Update Bootloader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#bootloader-tools">Bootloader Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#boot-control">Boot Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#bootloader-update-payload-generator">Bootloader Update Payload Generator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#manually-modifying-boot-slots">Manually Modifying Boot Slots</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#to-manually-modify-the-boot-slots">To manually modify the boot slots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#to-show-the-current-boot-slot">To show the current boot slot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#to-show-the-slot-status">To show the slot status</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#sample-boot-log">Sample Boot Log</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#id2">For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin™</span>, <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ NX</span>, and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin™ Nano</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-the-bootloader-update-payload-bup">Generating the Bootloader Update Payload (BUP)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-a-single-spec-bup">Generating a Single-Spec BUP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-a-specified-partition-bup">Generating a Specified Partition BUP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-a-multi-spec-bup">Generating a Multi-Spec BUP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#location-of-generated-bup-files">Location of Generated BUP Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#to-customize-the-bup">To Customize the BUP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-the-capsule-update-payload">Generating the Capsule Update Payload</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#generating-a-multi-spec-capsule-payload">Generating a Multi-Spec Capsule Payload</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#use-the-fwupdtool-to-trigger-the-capsule-update">Use the <code class="docutils literal notranslate"><span class="pre">fwupdtool</span></code> to Trigger the Capsule Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#use-the-helper-script-to-trigger-the-capsule-update">Use the Helper Script to Trigger the Capsule Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#manually-trigger-the-capsule-update">Manually Trigger the Capsule Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#manually-sync-bootloader-a-b-slots-with-the-capsule-update">Manually Sync Bootloader A/B Slots with the Capsule Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UpdateAndRedundancy.html#manually-triggering-the-single-partition-image-capsule-update">Manually Triggering the Single Partition Image Capsule Update</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1487 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BMI088 IMU Driver &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Kernel/Bmi088ImuIioDriver';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Kernel Boot Time Optimization" href="KernelBootTimeOptimization.html" />
+    <link rel="prev" title="Generic Timestamp Engine" href="GenericTimestampEngine.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="Bmi088ImuIioDriver.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="Bmi088ImuIioDriver.html#">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Kernel.html" class="nav-link">Kernel</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">BMI088 IMU Driver</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="bmi088-imu-driver">
+<h1>BMI088 IMU Driver<a class="headerlink" href="Bmi088ImuIioDriver.html#bmi088-imu-driver" title="Link to this heading">#</a></h1>
+<p>The Linux industrial IO (IIO) is framework used to implement sensor drivers such as ADC (analog to digital converters), temperature, light, IMU (inertial measurement unit). The BMI088 is <a class="reference external" href="https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi088/">Bosch IMU</a> which encompasses accelerometer, gyroscope and temperature. This I2C based driver implements accelerometer and gyroscope part of the IMU.</p>
+<section id="bmi088-driver">
+<h2>BMI088 Driver<a class="headerlink" href="Bmi088ImuIioDriver.html#bmi088-driver" title="Link to this heading">#</a></h2>
+<p>The BMI088 driver is enabled by default in the kernel config. It registers the accelerometer and gyroscope with the IIO framework as separate devices, since both sensors have separate I2C addresses and register spaces. This separation allows for individual control of each device, enabling or disabling one without affecting the other. Like all IIO-based devices, the accelerometer and gyroscope will appear at <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/</span></code> for the userspace. The user can determine the device node by reading <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/iio:deviceX/name</span></code>, which will yield <code class="docutils literal notranslate"><span class="pre">accelerometer</span></code> and <code class="docutils literal notranslate"><span class="pre">gyroscope</span></code>.</p>
+<p>The driver uses data-ready interrupts from both devices as an indication of the new data sets. Upon receiving such an interrupt, the driver reads the data registers to retrieve the data. The data-ready interrupts must be connected to the Jetson’s Always On (AON) GPIOs, which are capable of hardware timestamping to record the accurate time of the interrupt occurrences. The timestamp and the data are then passed to userspace through the IIO framework. The driver supports only the data-ready interrupt mode.</p>
+</section>
+<section id="device-tree">
+<h2>Device Tree<a class="headerlink" href="Bmi088ImuIioDriver.html#device-tree" title="Link to this heading">#</a></h2>
+<p>This section provides information about the device tree.</p>
+<section id="required-properties">
+<h3>Required Properties<a class="headerlink" href="Bmi088ImuIioDriver.html#required-properties" title="Link to this heading">#</a></h3>
+<p>Here is the list of the required properties:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">compatible</span></code>: Must be set to <code class="docutils literal notranslate"><span class="pre">bmi,bmi088</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accel_i2c_addr</span></code>: Must be set to the appropriate value based on the datasheet and platform configuration because the I2C address might be different based on how some pins are tied up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reg</span></code>: Must be set to the gyroscope I2C address based on the datasheet and platform configuration because the I2C address might be different based on how some pins are tied up.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gyro_irq-gpios</span></code>: The value is based on which GPIO line is connected to the gyroscope’s data-ready interrupt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accel_irq-gpios</span></code>: The value is based on the GPIO line that is connected to the accelerometer’s data-ready interrupt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: To enable the DT node, set to <code class="docutils literal notranslate"><span class="pre">okay</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timestamps</span></code>: List of GPIO lines for HTE timestamp</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timestamp-names</span></code>: Names for each sensor timestamp</p></li>
+</ul>
+</section>
+<section id="optional-properties">
+<h3>Optional Properties<a class="headerlink" href="Bmi088ImuIioDriver.html#optional-properties" title="Link to this heading">#</a></h3>
+<p>Here is the list of the optional properties:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">accel_matrix</span></code></dt><dd><ul>
+<li><p>An array in the accelerometer mount matrix.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">gyro_matrix</span></code></dt><dd><ul>
+<li><p>An array of gyroscope mount matrix.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">accel_reg_0x53</span></code></dt><dd><ul>
+<li><p>The accelerometer INT1 config register, and the driver default value is 0xA.</p></li>
+<li><p>The value 0xA makes INT1 line as the output and active high.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">accel_reg_0x54</span></code></dt><dd><ul>
+<li><p>The accelerometer INT2 config register, and driver default value is 0x0.</p></li>
+<li><p>By default driver uses INT1. Refer to the device datasheet for more information.</p></li>
+<li><p>Select INT1 or INT2 as the data-ready interrupt.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">gyro_reg_0x16</span></code></dt><dd><ul>
+<li><p>The gyroscope INT3/INT4 config register, and the driver default value is 0x1.</p></li>
+<li><p>The default value makes INT3 as active high output line.</p></li>
+<li><p>Refer to the device datasheet for more information.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">gyro_reg_0x18</span></code></dt><dd><ul>
+<li><p>The gyroscope INT3/INT4 mapping register, and the driver default value is 0x1.</p></li>
+<li><p>The default value maps INT3 the the data-ready interrupt.</p></li>
+<li><p>Refer to the device datasheet for more information.</p></li>
+<li><p>Select INT3 or INT4 as the data-ready interrupt.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Here is an example:</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>bmi088@69 {
+  compatible = &quot;bmi,bmi088&quot;;
+  accel_i2c_addr = &lt;0x19&gt;;
+  status = &quot;okay&quot;;
+  reg = &lt;0x69&gt;;
+  accel_irq-gpios = &lt;&amp;gpio_aon TEGRA234_AON_GPIO(BB, 0) GPIO_ACTIVE_HIGH&gt;;
+  gyro_irq-gpios = &lt;&amp;gpio_aon TEGRA234_AON_GPIO(BB, 1) GPIO_ACTIVE_HIGH&gt;;
+  accel_matrix = [01 00 00 00 01 00 00 00 01];
+  gyro_matrix = [01 00 00 00 01 00 00 00 01];
+  accel_reg_0x53 = &lt;0x0A&gt;;
+  gyro_reg_0x16 = &lt;0x01&gt;;
+  gyro_reg_0x18 = &lt;0x01&gt;;
+  timestamps = &lt;&amp;hte_aon TEGRA234_AON_GPIO(BB, 0)&gt;, &lt;&amp;hte_aon TEGRA234_AON_GPIO(BB, 1)&gt;;
+  timestamp-names = &quot;accelerometer&quot;, &quot;gyroscope&quot;;
+};
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="accelerometer-iio-attributes">
+<h2>Accelerometer IIO Attributes<a class="headerlink" href="Bmi088ImuIioDriver.html#accelerometer-iio-attributes" title="Link to this heading">#</a></h2>
+<p>The accelerometer IIO device files mentioned in the following table is available in the <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/iio:deviceX/</span></code> directory, where the X value is enumerated during IIO registration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following table assumes that user is in the <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/iio:deviceX/</span></code> directory.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>IIO sysfs Interface</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Possible value</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Buffer Management</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>buffer/enable</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><dl class="simple">
+<dt>Writing 1 enables buffer and data acquisition.</dt><dd><ul class="simple">
+<li><p>Before you enable the buffer, at least one axis needs to be enabled.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>buffer/length</p></td>
+<td><p>64</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Internally, the kernel uses <code class="docutils literal notranslate"><span class="pre">kmalloc</span></code> to allocate the required lengths.</dt><dd><ul class="simple">
+<li><p>The max value depends on the state of the system memory.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>buffer/watermark</p></td>
+<td><p>1</p></td>
+<td><p>1, buffer length</p></td>
+<td><p>The application using poll and friends will wait until this number of samples is collected.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Debug</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dev_err</p></td>
+<td><dl class="simple">
+<dt>Here are the values:</dt><dd><ul class="simple">
+<li><p>I2C Bus Errors:0</p></li>
+<li><p>HTE Timestamp Errors:0</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only, displays the current errors.</dt><dd><p>It records I2C bus and hardware timestamp errors when the driver fails to register with the Hardware Timestamping Engine (HTE).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>dev_state</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and displays the device state, for example, suspend/shutdown.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dump_regs</span></code></p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and dumps the current register values.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Common attributes</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>in_accel_sampling_frequency</p></td>
+<td><p>12.5</p></td>
+<td><p>12.5, 25, 50, 100, 200, 400, 800, 1600</p></td>
+<td><dl class="simple">
+<dt>This is the output data rate (ODR) in Hz, and the user can write any values from the list.</dt><dd><p>The I2C bus clock speed dictates what the user can program.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>in_accel_sampling_frequency_available</p></td>
+<td><p>12.5, 25, 50, 100, 200, 400, 800, 1600</p></td>
+<td><p>NA</p></td>
+<td><p>Read-only and displays the available ODRs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_accel_scale</p></td>
+<td><p>0.000897</p></td>
+<td><p>0.000897, 0.00179, 0.003591, 0.007182</p></td>
+<td><dl class="simple">
+<dt>This interface represents the resolution, and its value will be used to calculate the actual value from the raw data.</dt><dd><p>Stop the user space application <strong>before</strong> you change the scale value.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>in_accel_scale_available</p></td>
+<td><p>0.000897, 0.00179, 0.003591, 0.007182</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and displays available scales.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_accel_x_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches the raw X-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>in_accel_y_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches raw Y-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_accel_z_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches raw Z-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>mount_matrix</p></td>
+<td><p>1,0,0,0,1,0,0,0,1</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only, displays current mount matrix, by default its identity matrix.</dt><dd><p>Refer to <a class="github reference external" href="https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/iio/mount-matrix.txt">torvalds/linux</a> for more information.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p>“accelerometer”</p></td>
+<td><p>NA</p></td>
+<td><p>A read-only value.</p></td>
+</tr>
+<tr class="row-even"><td><p>part</p></td>
+<td><p>“bmi08x accelerometer”</p></td>
+<td><p>N/A</p></td>
+<td><p>A read-only value that displays the Bosch IMU model.</p></td>
+</tr>
+<tr class="row-odd"><td><p>trigger/current_trigger</p></td>
+<td><p>accelerometer-devX</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>The trigger comes from the device, and no other value is acceptable.</dt><dd><p>Here <code class="docutils literal notranslate"><span class="pre">X</span></code> is number that is the same as the enumerated IIO device.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Channel Attributes</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_accel_x_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables the X-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_accel_y_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables Y-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_accel_z_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables Z-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_timestamp_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables the timestamp channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_accel_x_index</p></td>
+<td><p>0</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_accel_x_index</p></td>
+<td><p>0</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_accel_y_index</p></td>
+<td><p>1</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_accel_z_index</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and provides the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_timestamp_index</p></td>
+<td><p>3</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only, gives channel index into dataset.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_accel_x_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how X-axis data is represented in the buffer.</dt><dd><p>This value means that the data is little endian-signed 16 bits and does not require a shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_accel_y_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how Y-axis data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 16 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_accel_z_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how Z-axis data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 16 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_timestamp_type</p></td>
+<td><p>“le:s64/64&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how timestamp data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 64 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="gyroscope-iio-attributes">
+<h2>Gyroscope IIO Attributes<a class="headerlink" href="Bmi088ImuIioDriver.html#gyroscope-iio-attributes" title="Link to this heading">#</a></h2>
+<p>The gyroscope IIO device files in the following table is available in the <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/iio:deviceX/</span></code> directory, where the X value is enumerated during IIO registration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following table assumes that user is in the <code class="docutils literal notranslate"><span class="pre">/sys/bus/iio/devices/iio:deviceX/</span></code> directory.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>IIO sysfs Interface</p></th>
+<th class="head"><p>Default value</p></th>
+<th class="head"><p>Possible value</p></th>
+<th class="head"><p>Usage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Buffer Management</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>buffer/enable</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables buffer and data acquisition.</p></td>
+</tr>
+<tr class="row-even"><td><p>buffer/length</p></td>
+<td><p>600</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Internally, the kernel uses <code class="docutils literal notranslate"><span class="pre">kmalloc</span></code> to allocate the required lengths.</dt><dd><ul class="simple">
+<li><p>The max value depends on the state of the system memory that is available to the kernel at the point of request.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>buffer/watermark</p></td>
+<td><p>1</p></td>
+<td><p>1, buffer length</p></td>
+<td><p>The application using poll and friends will wait until this number of samples is collected.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Debug</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>dev_err</p></td>
+<td><dl class="simple">
+<dt>Here are the values:</dt><dd><ul class="simple">
+<li><p>I2C Bus Errors: 0</p></li>
+<li><p>HTE Timestamp Errors: 0</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only, displays the current errors.</dt><dd><p>It records I2C bus and hardware timestamp errors when the driver fails to register with the Hardware Timestamping Engine (HTE).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>dev_state</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and displays the device state, for example, suspend/shutdown.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dump_regs</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and dumps the current register values.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Common attributes</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>in_anglvel_sampling_frequency</p></td>
+<td><p>100</p></td>
+<td><p>100, 200, 400, 1000, 2000</p></td>
+<td><dl class="simple">
+<dt>This is the output data rate (ODR) in Hz, and the user can write any values from the list.</dt><dd><p>The I2C bus clock speed dictates what the user can program.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>in_anglvel_sampling_frequency_available</p></td>
+<td><p>100, 200, 400, 1000, 2000</p></td>
+<td><p>NA</p></td>
+<td><p>Read-only and displays the available ODRs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_anglvel_scale</p></td>
+<td><p>0.001065</p></td>
+<td><p>0.001065, 0.000532, 0.000266, 0.000133, 0.000066</p></td>
+<td><dl class="simple">
+<dt>This interface represents the resolution, and its value will be used to calculate the actual value from the raw data.</dt><dd><p>Stop the user space application <strong>before</strong> you change the scale value.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>in_anglvel_scale_available</p></td>
+<td><p>0.000532, 0.000266, 0.000133, 0.000066</p></td>
+<td><p>N/A</p></td>
+<td><p>Read-only and displays available scales.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_anglvel_x_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches the raw X-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>in_anglvel_y_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches raw Y-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>in_anglvel_z_raw</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Fetches raw Z-axis value. To read, the respective scan element and device buffer must be enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>mount_matrix</p></td>
+<td><p>1,0,0,0,1,0,0,0,1</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only, displays current mount matrix, by default its identity matrix.</dt><dd><p>Refer to <a class="github reference external" href="https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/iio/mount-matrix.txt">torvalds/linux</a> for more information.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p>“gyroscope”</p></td>
+<td><p>NA</p></td>
+<td><p>A read-only value.</p></td>
+</tr>
+<tr class="row-even"><td><p>part</p></td>
+<td><p>“bmi08x gyroscope”</p></td>
+<td><p>N/A</p></td>
+<td><p>A read-only value that displays the Bosch IMU model.</p></td>
+</tr>
+<tr class="row-odd"><td><p>trigger/current_trigger</p></td>
+<td><p>gyroscope-devX</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>The trigger comes from the device, and no other value is acceptable.</dt><dd><p>Here <code class="docutils literal notranslate"><span class="pre">X</span></code> is number that is the same as the enumerated IIO device.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Channel Attributes</strong></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_x_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables the X-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_anglvel_y_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables Y-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_z_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables Z-axis/channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_timestamp_en</p></td>
+<td><p>0</p></td>
+<td><p>0,1</p></td>
+<td><p>Writing 1 enables the timestamp channel, and this setting needs to be made <strong>before</strong> you enable the buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_x_index</p></td>
+<td><p>0</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_anglvel_y_index</p></td>
+<td><p>0</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_z_index</p></td>
+<td><p>1</p></td>
+<td><p>NA</p></td>
+<td><dl class="simple">
+<dt>Read-only and puts the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_timestamp_index</p></td>
+<td><p>2</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and provides the channel index to the data set.</dt><dd><p>The data set is 6 + 8 bytes, where there are two bytes for each axis, and eight bytes for the timestamp.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_x_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how X-axis data is represented in the buffer.</dt><dd><p>This value means that the data is little endian-signed 16 bits and does not require a shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_anglvel_y_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how Y-axis data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 16 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>scan_elements/in_anglvel_z_type</p></td>
+<td><p>“le:s16/16&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how Z-axis data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 16 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>scan_elements/in_timestamp_type</p></td>
+<td><p>“le:s64/64&gt;&gt;0”</p></td>
+<td><p>N/A</p></td>
+<td><dl class="simple">
+<dt>Read-only and displays details about how timestamp data is represented in the buffer.</dt><dd><p>This value means data is little endian signed 64 bits and does not require shift operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="testing-bmi088-driver">
+<h2>Testing BMI088 Driver<a class="headerlink" href="Bmi088ImuIioDriver.html#testing-bmi088-driver" title="Link to this heading">#</a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">&lt;kernel</span> <span class="pre">source&gt;/tools/iio/</span></code> directory, there is a sample IIO utility where <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">source</span></code> is the kernel source repository.  The <code class="docutils literal notranslate"><span class="pre">iio_generic_buffer.c</span></code> sample application is used to demonstrate the driver. During the execution, application enables the scan elements and buffer for the specified device as described in the following procedure. After after the testing is complete, the application automatically disables the scan elements and buffer.</p>
+</section>
+<section id="hardware-timestampping-engine-hte">
+<h2>Hardware Timestampping Engine (HTE)<a class="headerlink" href="Bmi088ImuIioDriver.html#hardware-timestampping-engine-hte" title="Link to this heading">#</a></h2>
+<p>The IIO framework uses signed 64-bits, also known as s64, to represent the timestamp information that gets reflected in the <code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">iio_generic_buffer</span></code> userspace app in this section. However, the HTE uses unsigned 64bits, also known as u64.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To ensure that HTE uses signed bits, run the following code sample to update the <code class="docutils literal notranslate"><span class="pre">iio_generic_buffer.c</span> <span class="pre">file</span></code> <strong>before</strong> you complete the procedure in <em>Complile and Execute</em> procedure:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>diff --git a/iio_generic_buffer.c b/iio_generic_buffer.c
+index f90ea14..1cbde1e 100644
+--- a/iio_generic_buffer.c
++++ b/iio_generic_buffer.c
+@@ -158,7 +158,7 @@ void print8byte(uint64_t input, struct iio_channel_info *info)
+printf(&quot;%05f &quot;,
+((float)val + info-&gt;offset) * info-&gt;scale);
+} else {
+- printf(&quot;%05f &quot;, ((float)input + info-&gt;offset) * info-&gt;scale);
++ printf(&quot;%&quot; PRIu64 &quot; &quot;, input);
+}
+
+}
+</pre></div>
+</div>
+</div>
+</section>
+<section id="compile-and-execute">
+<h2>Compile and Execute<a class="headerlink" href="Bmi088ImuIioDriver.html#compile-and-execute" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">iio_generic_buffer.c</span></code>, <code class="docutils literal notranslate"><span class="pre">iio_utils.c</span></code>, <code class="docutils literal notranslate"><span class="pre">iio_utils.h</span></code>, and <code class="docutils literal notranslate"><span class="pre">bmi088.ko</span></code> files to DUT, for example, at <code class="docutils literal notranslate"><span class="pre">/home/ubuntu/</span></code>.</p></li>
+<li><p>To install gcc on DUT, run the following command.</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">gcc</span></code></p>
+</li>
+<li><p>To compile the <code class="docutils literal notranslate"><span class="pre">iio_generic_buffer</span></code>, run the following command.</p>
+<p><code class="docutils literal notranslate"><span class="pre">gcc</span> <span class="pre">-I</span> <span class="pre">/home/ubuntu/</span> <span class="pre">iio_utils.c</span> <span class="pre">iio_generic_buffer.c</span> <span class="pre">-o</span> <span class="pre">iio_generic_buffer</span></code></p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This command assumes that the user is in the <code class="docutils literal notranslate"><span class="pre">/home/ubuntu</span></code> directory and has copied the files to the same location.</p>
+<p>You can complete this step from the host machine by doing a cross-compile.</p>
+</div>
+<ol class="arabic">
+<li><p>Set the appropriate toolchain and cross-compile variables.</p>
+<p>The following commands assume that the user is in the <code class="docutils literal notranslate"><span class="pre">&lt;kernel</span> <span class="pre">source&gt;/tools/iio/</span></code> directory in the host machine.</p>
+<ol class="arabic simple">
+<li><p>Export <code class="docutils literal notranslate"><span class="pre">CROSS_COMPILE=&lt;&gt;</span></code>, for example, <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">CROSS_COMPILE=aarch64-linux-gnu-</span></code>.</p></li>
+<li><p>Export <code class="docutils literal notranslate"><span class="pre">PATH=$PATH:&lt;path</span></code> to <code class="docutils literal notranslate"><span class="pre">cross-compile</span> <span class="pre">toolchain&gt;</span></code>.</p></li>
+<li><p>Export <code class="docutils literal notranslate"><span class="pre">ARCH=arm64</span></code>.</p></li>
+</ol>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">iio_generic_buffer</span> <span class="pre">will</span> <span class="pre">generate</span> <span class="pre">the</span> <span class="pre">``iio_generic_buffer</span></code> binary in the same directory.</p></li>
+<li><p>Copy the binary file to DUT.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>To test accelerometer, complete the following steps:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following commands are executed as a root.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">./iio_generic_buffer</span> <span class="pre">-a</span> <span class="pre">-c</span> <span class="pre">10</span> <span class="pre">--device-name</span> <span class="pre">accelerometer</span> <span class="pre">-g</span> <span class="pre">-l</span> <span class="pre">2048</span></code>.</p>
+<ul class="simple">
+<li><p>If you execute <code class="docutils literal notranslate"><span class="pre">./iio_generic_buffer</span></code> without any options, a help message will display.</p></li>
+<li><p>The command in this step will fetch 10 samples in event mode.</p></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>To test gyroscope, complete the following steps:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following commands are executed as a root.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">./iio_generic_buffer</span> <span class="pre">-a</span> <span class="pre">-c</span> <span class="pre">10</span> <span class="pre">--device-name</span> <span class="pre">gyroscope</span> <span class="pre">-g</span> <span class="pre">-l</span> <span class="pre">2048</span></code>.</p></li>
+</ol>
+<ul class="simple">
+<li><p>If you execute <code class="docutils literal notranslate"><span class="pre">./iio_generic_buffer</span></code> without any options, a help message will display.</p></li>
+<li><p>The command in this step will fetch 10 samples in event mode.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For kernel 5.10.x and later, if the timestamp channel is specified, the IIO framework enables it by default. As a result, when you run the command above, the following error will occur:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@jetson:~# ./iio_generic_buffer -a -c 10 --device-name accelerometer -g -l 64
+iio device number being used is 0
+trigger-less mode selected
+Auto-channels selected but some channels are already activated in sysfs
+Proceeding without activating any channels
+Failed to enable buffer: Invalid argument
+</pre></div>
+</div>
+<p>To disable the timestamp channel, <strong>before</strong> you run <code class="docutils literal notranslate"><span class="pre">iio_generic_buffer</span></code> in the Jetson device, run <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">0</span> <span class="pre">&gt;</span> <span class="pre">/sys/bus/iio/&lt;iio</span> <span class="pre">device&gt;/scan_elements/in_timestamp_en</span></code> as a root user.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="accelerometer-sample-output">
+<h2>Accelerometer Sample Output<a class="headerlink" href="Bmi088ImuIioDriver.html#accelerometer-sample-output" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@tegra-ubuntu:~# ./iio_generic_buffer -a -c 10 --device-name accelerometer -g
+iio device number being used is 2
+trigger-less mode selected
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_y_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_x_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_timestamp_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_z_en , enabled:0
+No channels are enabled, enabling all channels
+Enabling: in_accel_y_en
+Enabling: in_accel_x_en
+Enabling: in_timestamp_en
+Enabling: in_accel_z_en
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_y_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_x_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_timestamp_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device2/scan_elements/in_accel_z_en , enabled:1
+buffer directory: /sys/bus/iio/devices/iio:device2/buffer
+X Axis   Y Axis    Z Axis   Timestamp [This row is not present in the output]
+-9.484633 -0.103250 1.109713 4515182411776
+-9.560051 -0.098761 1.115998 4515261579264
+-9.547482 -0.096965 1.116896 4515340746752
+-9.543890 -0.092476 1.117793 4515419914240
+-9.547482 -0.096067 1.112406 4515499606016
+-9.542993 -0.096965 1.112406 4515578773504
+-9.550175 -0.107739 1.112406 4515657940992
+-9.548379 -0.105046 1.115100 4515737108480
+-9.540298 -0.101454 1.109713 4515816275968
+-9.545686 -0.095170 1.116896 4515895443456
+Disabling: in_accel_y_en
+Disabling: in_accel_x_en
+Disabling: in_timestamp_en
+Disabling: in_accel_z_en
+</pre></div>
+</div>
+</section>
+<section id="gyroscope-sample-output">
+<h2>Gyroscope Sample Output<a class="headerlink" href="Bmi088ImuIioDriver.html#gyroscope-sample-output" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>root@tegra-ubuntu:~# ./iio_generic_buffer -a -c 10 --device-name gyroscope -g
+iio device number being used is 3
+trigger-less mode selected
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_z_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_timestamp_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_y_en , enabled:0
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_x_en , enabled:0
+No channels are enabled, enabling all channels
+Enabling: in_anglvel_z_en
+Enabling: in_timestamp_en
+Enabling: in_anglvel_y_en
+Enabling: in_anglvel_x_en
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_z_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_timestamp_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_y_en , enabled:1
+scan element filename:/sys/bus/iio/devices/iio:device3/scan_elements/in_anglvel_x_en , enabled:1
+buffer directory: /sys/bus/iio/devices/iio:device3/buffer
+X Axis   Y Axis    Z Axis   Timestamp [This row is not present in the output]
+0.000000 0.000000 -0.001064 4629188837376
+0.000000 0.000000 -0.002128 4629198798848
+0.001064 0.000000 -0.002128 4629208760320
+0.002128 0.000000 -0.002128 4629218721792
+0.002128 0.000000 -0.001064 4629228683264
+0.002128 0.000000 -0.001064 4629238644736
+0.002128 0.000000 -0.001064 4629248606208
+0.001064 0.000000 -0.001064 4629258567680
+0.001064 0.000000 -0.001064 4629268529152
+0.002128 -0.001064 -0.001064 4629278490624
+Disabling: in_anglvel_z_en
+Disabling: in_timestamp_en
+Disabling: in_anglvel_y_en
+Disabling: in_anglvel_x_en
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GenericTimestampEngine.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Generic Timestamp Engine</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="KernelBootTimeOptimization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Kernel Boot Time Optimization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#bmi088-driver">BMI088 Driver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#device-tree">Device Tree</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#required-properties">Required Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#optional-properties">Optional Properties</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#accelerometer-iio-attributes">Accelerometer IIO Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#gyroscope-iio-attributes">Gyroscope IIO Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#testing-bmi088-driver">Testing BMI088 Driver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#hardware-timestampping-engine-hte">Hardware Timestampping Engine (HTE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#compile-and-execute">Compile and Execute</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#accelerometer-sample-output">Accelerometer Sample Output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Bmi088ImuIioDriver.html#gyroscope-sample-output">Gyroscope Sample Output</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

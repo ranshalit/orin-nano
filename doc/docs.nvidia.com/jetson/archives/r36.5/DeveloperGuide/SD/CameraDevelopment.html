@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Camera Development &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/CameraDevelopment';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Camera Software Development Solution" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html" />
+    <link rel="prev" title="X Window System" href="WindowingSystems/XWindowSystem.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="CameraDevelopment.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="CameraDevelopment.html#">Camera Development</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Camera Development</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="camera-development">
+<h1>Camera Development<a class="headerlink" href="CameraDevelopment.html#camera-development" title="Link to this heading">#</a></h1>
+<p>This topic describes the camera software solution included in <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#camera-architecture-stack">Camera Architecture Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#camera-api-matrix">Camera API Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#approaches-for-validating-and-testing-the-v4l2-driver">Approaches for Validating and Testing the V4L2 Driver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#applications-using-libargus-low-level-apis">Applications Using libargus Low-Level APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-the-nvarguscamerasrc-plugin">Applications Using GStreamer with the nvarguscamerasrc Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-v4l2-source-plugin">Applications Using GStreamer with V4L2 Source Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#applications-using-v4l2-ioctl-directly">Applications Using V4L2 IOCTL Directly</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#isp-configuration">ISP Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#infinite-timeout-support">Infinite Timeout Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#symlinks-changed-by-mesa-installation">Symlinks Changed by Mesa Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html#other-references">Other References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#camera-core-library-interface">Camera Core Library Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#direct-v4l2-interface">Direct V4L2 Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#camera-modules-and-the-device-tree">Camera Modules and the Device Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-add-camera-modules-to-a-device-tree">To add camera modules to a device tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#module-properties">Module Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#individual-imaging-devices">Individual Imaging Devices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#device-properties">Device Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#example-piece-wise-linear-compression-function">Example Piece-Wise Linear Compression Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#example-digital-overlap-wdr-exposure-frame-3840times2160">Example Digital Overlap WDR Exposure Frame (3840<span class="html">&times;</span>2160)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#port-binding">Port Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#sensor-pixel-clock">Sensor Pixel Clock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#serdes-pixel-clock">SerDes Pixel Clock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#port-index">Port Index</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#v4l2-kernel-driver-version-1-0">V4L2 Kernel Driver (Version 1.0)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#macro-definitions">Macro Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#sensor-private-data">Sensor-Private Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#configuring-regmap">Configuring Regmap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#configuring-controls">Configuring Controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-link-the-controls-to-their-control-handlers">To link the controls to their control handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#setting-up-control-registers">Setting Up Control Registers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#power-functions">Power Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#setting-up-the-v4l2-subdevice-and-camera-common">Setting Up the V4L2 Subdevice and Camera Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#control-handlers">Control Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#device-tree-parser">Device Tree Parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#media-controller-setup">Media Controller Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#sensor-driver-probing">Sensor Driver Probing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#setup-of-media-controller">Setup of Media Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#removing-sensor-drivers">Removing Sensor Drivers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#v4l2-kernel-driver-version-2-0">V4L2 Kernel Driver (Version 2.0)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id10">Macro Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id11">Sensor-Private Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#register-map-regmap">Register map (regmap)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#sensor-controls">Sensor Controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#exposure-controls">Exposure Controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id13">Fixed Point Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id14">Control Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#setter-control-handlers-for-writing-settings">Setter Control Handlers (for Writing Settings)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#fill-string-control-handlers-for-reading-settings">Fill-String Control Handlers (for Reading Settings)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#how-controls-are-implemented">How Controls Are Implemented</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#registering-the-controls">Registering the Controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#how-to-provide-the-link-to-the-control-handlers">How to provide the link to the control handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#setting-up-registers-for-the-control-handler">Setting Up Registers for the Control Handler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id15">Read-Write Wrapper in the Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id16">Power Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#stream-functions">Stream Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#miscellaneous-functions">Miscellaneous Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#control-operations">Control Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#id19">Boot-Time Initialization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#loadable-kernel-module-lkm">Loadable Kernel Module (LKM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-configure-a-sensor-driver-as-a-loadable-module">To configure a sensor driver as a loadable module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-load-a-new-sensor-module">To load a new sensor module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#kernel-configuration">Kernel Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#device-registration">Device Registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#device-tree-overlay">Device-tree overlay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-create-and-apply-a-dtb-overlay-file">To Create and Apply a DTB Overlay File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#using-the-jetson-io-tool">Using the Jetson-IO Tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#using-the-main-platform-device-tree-file">Using the Main Platform Device Tree File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-register-a-device-using-the-main-platform-device-tree-file">To register a device using the main platform device tree file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#verifying-the-v4l2-sensor-driver">Verifying the V4L2 Sensor Driver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-run-a-v4l2-compliance-test">To run a v4l2-compliance test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-run-a-v4l2-ctl-test">To run a v4l2-ctl test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#debugging-tips">Debugging Tips</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-driver-name-matches-the-name-in-the-device-tree">To verify that driver name matches the name in the Device Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-all-device-names-match-the-device-tree">To verify that all device names match the device tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-the-device-tree-values-match-the-hardware">To verify that the Device tree values match the hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-functions-run-to-completion">To verify that functions run to completion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-default-values-are-correctly-linked">To verify that default values are correctly linked</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-control-register-values-are-correct">To verify that control register values are correct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-mode-specific-settings-are-correct">To verify that mode-specific settings are correct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-verify-that-i2c-accesses-are-working-properly">To verify that I2C accesses are working properly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#configuring-the-sensor-driver-as-a-loadable-kernel-module-lkm">Configuring the Sensor Driver as a Loadable Kernel Module (LKM)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#mode-tables">Mode Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#to-add-a-register-mode-table">To add a register mode table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#register-mode-table-considerations">Register mode table considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#camera-sensor-drivers-porting">Camera Sensor Drivers Porting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html#how-to-find-differences-between-release-35-and-the-current-release">How to find differences between release 35 and the current release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#reference-setup">Reference Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-protocol">GMSL Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-camera">GMSL Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#csi-connectivity">CSI Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin">Jetson AGX Orin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#jetson-orin-nx-series">Jetson Orin NX Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin-series">Jetson AGX Orin Series</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#hardware-module-connectivity">Hardware Module Connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#software-framework-and-programming">Software Framework and Programming</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#driver-framework">Driver Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#device-tree-programming">Device Tree Programming</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#constraints">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#known-issues">Known Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html#general-issues">General Issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#prerequisites-for-use">Prerequisites for Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#camera-sensor-modes">Camera Sensor Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#nvargus-nvraw-command">nvargus_nvraw Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#nvargus-nvraw-usage">nvargus_nvraw Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#basic-examples">Basic Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#displaying-sensor-information">Displaying Sensor Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#capturing-images">Capturing Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#other-operations">Other Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html#limitations">Limitations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html#configuration-changes">Configuration Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html#kernel-version-specific-code">Kernel Version-Specific Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html#dev-err-function">dev_err() Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html#i2c-api">I2C API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html#nvidia-capture-driver-code-path">NVIDIA Capture Driver Code Path</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="WindowingSystems/XWindowSystem.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">X Window System</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Camera Software Development Solution</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

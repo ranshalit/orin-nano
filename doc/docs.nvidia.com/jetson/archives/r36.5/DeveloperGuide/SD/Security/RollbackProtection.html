@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Rollback Protection &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Security/RollbackProtection';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Memory Encryption" href="MemoryEncryption.html" />
+    <link rel="prev" title="Firmware TPM" href="FirmwareTPM.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="RollbackProtection.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Security.html">Security</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="RollbackProtection.html#">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Security.html" class="nav-link">Security</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Rollback Protection</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="rollback-protection">
+<h1>Rollback Protection<a class="headerlink" href="RollbackProtection.html#rollback-protection" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Applies to</strong> the Jetson AGX Orin, Jetson Orin NX, and Jetson Orin Nano series.</p>
+</div></blockquote>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="RollbackProtection.html#overview" title="Link to this heading">#</a></h2>
+<p>Rollback protection prevents a computing system from being downgraded (rolled back) from a later version to an earlier one.</p>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> devices use an implementation of rollback protection called ratcheting.</p>
+<p>Ratcheting is based on a common rollback architecture that uses a software version number (SWVN) and a hardware version number (HWVN). The SWVN is a binary value that is stored in a software component or a header associated with it, and its value represents the software component’s version number. The HWVN is a value stored in hardware, typically in a fuse whose bits can each be burned (changed by software from 0 to 1), but cannot be changed back to 0.</p>
+<p>During the boot process, a Jetson device’s software performs several ratchet checks by comparing several SWVNs to the corresponding HWVNs.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If SWVN == HWVN, the device is loading the current version of the software component, and the boot process loads the component.</p></li>
+<li><p>If SWVN &gt; HWVN, the device is loading new versions of the software components. The boot process loads the component and performs a ratchet update by burning bits in the HWVN fuse to set it equal to the SWVN.</p></li>
+<li><p>If SWVN &lt; HWVN, the device is loading old versions of the software components, and the boot software aborts the boot process.</p></li>
+</ul>
+</div></blockquote>
+<p>Typically ratchet-checked version numbers are incremented in single steps. Version 0 is always followed by version 1, and version 1 is always followed by version 2, and so on. For each successive version, the SWVN is incremented by 1, and one additional bit is burned in the HWVN.</p>
+<p>An SWVN is ordinarily hard coded in the software component’s source code and becomes part of its compiled binary. You can also set the SWVN in your project build system and save it in a binary header, and this header is combined with the program binary before it is ready to be used.</p>
+<p>In Jetson devices that use the T234 processor (the Jetson AGX Orin), a software component’s SWVN is stored in its code or in its Boot Component Header (BCH), which is an NVIDIA binary header that stores many types of information about boot components.</p>
+</section>
+<section id="rollback-protection-for-mb1-bct-mb2-and-later-components">
+<h2>Rollback Protection for MB1-BCT, MB2, and Later Components<a class="headerlink" href="RollbackProtection.html#rollback-protection-for-mb1-bct-mb2-and-later-components" title="Link to this heading">#</a></h2>
+<p>MB2 and later components, for example, UEFI, TrustedOS, and so on, do not have HWVNs stored in fuses because an <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> processor does not have enough fuses to support these components. Also, the number and identity of these components are subject to change by customers, so a fixed hardware fuse cannot be assigned to each component.</p>
+<p>Instead, a copy of the HWVN for each of these components is stored in MB1-BCT and is used to ratchet-check the component’s actual SWVN. Each component’s actual SWVN is stored in the component’s BCH.</p>
+<p>MB1-BCT has hardware fuses to store its HWVN. When MB1 boots up, it ratchet-checks MB1-BCT before loading other components. This way, the HWVNs stored in MB1-BCT can be trusted after MB1-BCT has passed the ratchet checking test.</p>
+<section id="mb1-bct">
+<h3>MB1-BCT<a class="headerlink" href="RollbackProtection.html#mb1-bct" title="Link to this heading">#</a></h3>
+<p>In Jetson devices that use the T234 processor (the Jetson AGX Orin), the HWVN for MB1-BCT is stored in the following fuses:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>FUSE_SYSTEM_FW_FIELD_RATCHET0_0</p></li>
+<li><p>FUSE_SYSTEM_FW_FIELD_RATCHET1_0</p></li>
+<li><p>FUSE_SYSTEM_FW_FIELD_RATCHET2_0</p></li>
+<li><p>FUSE_SYSTEM_FW_FIELD_RATCHET3_0</p></li>
+</ul>
+</div></blockquote>
+<p>These fuses have four-byte values with 32 programmable bits, so the number of times MB1-BCT can be ratchet-updated is 4×32 = 128.</p>
+<p>MB1 ratchet-checks and loads MB1-BCT, and you can define the SWVN for MB1-BCT by updating the ratchet configuration file. Refer to <a class="reference external" href="RollbackProtection.html#mb2-and-later-components">MB2 and Later Components</a> for more information. The SWVN from the ratchet configuration file is stored in the MB1-BCT BCH.</p>
+<p>MB2 ratchet-updates the HWVN of MB1-BCT when the SWVN of MB1-BCT is greater than the HWVN. Unless an OPTIN fuse is burned, this feature is disabled by default:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>FUSE_OPT_CUSTOMER_OPTIN_FUSE_0</p></li>
+</ul>
+</div></blockquote>
+<p>This is an 1-bit fuse, and as long as the fuse is burned from 0 to 1, the ratchet-updating of MB1-BCT is enabled in MB2.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the odmfuse.sh script and the fuse XML file to burn fuses, the name of this OPTIN fuse is: <code class="docutils literal notranslate"><span class="pre">OptInEnable</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jetson Linux supports A/B slots for MB1-BCT. When this feature is enabled, there are two MB1-BCT binaries in the Jetson device. The small SWVN between these two MB1-BCT will determine whether the ratchet-updating of MB1-BCT should be completed.</p>
+</div>
+</section>
+<section id="mb2-and-later-components">
+<h3>MB2 and Later Components<a class="headerlink" href="RollbackProtection.html#mb2-and-later-components" title="Link to this heading">#</a></h3>
+<p>The ratchet configuration file defines the HWVNs for MB2 and later components. The ratchet configuration file for the Jetson AGX Orin is:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linux_for_Tegra/bootloader/generic/BCT/tegra234-mb1-bct-ratchet-p3701-0000.dts</p></li>
+</ul>
+</div></blockquote>
+<p>The ratchet configuration file for the Jetson Orin NX/Nano is:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linux_for_Tegra/bootloader/generic/BCT/tegra234-mb1-bct-ratchet-p3767-0000.dts</p></li>
+</ul>
+</div></blockquote>
+<p>Here are the initial contents of the ratchet configuration file for the Jetson AGX Orin:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">dts</span><span class="o">-</span><span class="n">v1</span><span class="o">/</span><span class="p">;</span>
+
+<span class="o">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ratchet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* name = &lt;index value&gt; */</span>
+<span class="w">        </span><span class="n">mb1bct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">membct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">bpmp_fw_dtb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">mb2rf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">mb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">5</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/* index 6 and 7 are reserved */</span>
+<span class="w">        </span><span class="n">mb2_applet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">8</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">fskp_fw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">9</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">        </span><span class="cm">/* index 15 is reserved */</span>
+<span class="w">        </span><span class="n">spe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">16</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/* index 17 and 18 are reserved */</span>
+<span class="w">        </span><span class="n">sce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">19</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">rce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">20</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">21</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">dce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">22</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">eks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">23</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">tos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">24</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="cm">/* index 25 is reserved */</span>
+<span class="w">        </span><span class="n">cpubl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">26</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">cpubl_dtb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">27</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The first setting, <code class="docutils literal notranslate"><span class="pre">mb1bct</span> <span class="pre">=</span> <span class="pre">&lt;1</span> <span class="pre">0&gt;</span></code>, defines the MB1-BCT SWVN. The settings follow a “Name = Value” syntax, where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Name:  the name of the boot component. The names in the ratchet configuration file are predefined and can not be changed.</p></li>
+<li><p>Value: the value contains two numbers. The first number is the index of the boot component that is used internally by MB1 and MB2, and it can not be changed. The second number defines the version of the boot component that can be changed according to the requirements. During flashing time, the number will be injected into the BCH of the boot component and act as the SWVN of this component. Meanwhile, the number will be injected into MB1-BCT as well and act as the HWVN of this component.</p></li>
+</ul>
+</div></blockquote>
+<p>The tool that flashes the Jetson device reads and parses the ratchet configuration file and incorporates its settings into the flashed image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although MB2 ratchet can be enabled independently, and is enabled by default, we strongly recommend users enable secure boot so that the root-of-trust can start from the BootROM.</p>
+</div>
+<section id="an-example">
+<h4>An Example<a class="headerlink" href="RollbackProtection.html#an-example" title="Link to this heading">#</a></h4>
+<p>This section demonstrates an example that tries to downgrade UEFI from version 3 to version 1. When the device is flashed, version 3 is incorporated into UEFI’s BCH as its SWVN and into MB1-BCT as its HWVN. If you try to update UEFI with an earlier version, version checking will compare the SWVN of the earlier version in the UEFI BCH to the HWVN of version 3 in MB1-BCT and stop the booting process. MB1-BCT has been ratchet-checked against a valid HWVN, so its contents, including the UEFI HWVN, is reliable.</p>
+<p>Here is an overview of this process:</p>
+<ol class="arabic simple">
+<li><p>The first command changes the version of UEFI from 0 to 3.</p></li>
+<li><p>The second command flashes the Jetson device.</p></li>
+<li><p>The version of UEFI is changed to 1, and the new UEFI image is flashed into the A and B slots. Since MB1-BCT is not updated, the HWVN of UEFI that is stored in MB1-BCT is still 3.</p></li>
+<li><p>At the next system boot, ratchet-checking in MB2 finds the version mismatch between HWVN and SWVN of UEFI, and the system stops booting.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/cpubl = &lt;26 0&gt;;/cpubl = &lt;26 3&gt;;/g&quot;</span><span class="w"> </span>bootloader/generic/BCT/tegra234-mb1-bct-ratchet-p3701-0000.dts
+sudo<span class="w"> </span>./flash.sh<span class="w"> </span>jetson-agx-orin-devkit<span class="w"> </span>mmcblk0p1
+
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/cpubl = &lt;26 3&gt;;/cpubl = &lt;26 1&gt;;/g&quot;</span><span class="w"> </span>bootloader/generic/BCT/tegra234-mb1-bct-ratchet-p3701-0000.dts
+sudo<span class="w"> </span>./flash.sh<span class="w"> </span>-r<span class="w"> </span>-k<span class="w"> </span>A_cpu-bootloader<span class="w"> </span>jetson-agx-orin-devkit<span class="w"> </span>mmcblk0p1
+sudo<span class="w"> </span>./flash.sh<span class="w"> </span>-r<span class="w"> </span>-k<span class="w"> </span>B_cpu-bootloader<span class="w"> </span>jetson-agx-orin-devkit<span class="w"> </span>mmcblk0p1
+
+I&gt;<span class="w"> </span>Partition<span class="w"> </span>name:<span class="w"> </span>B_cpu-bootloader
+I&gt;<span class="w"> </span>Size<span class="w"> </span>of<span class="w"> </span>partition:<span class="w"> </span><span class="m">3670016</span>
+I&gt;<span class="w"> </span>Binary@<span class="w"> </span>device:3/0<span class="w"> </span>block-87808<span class="w"> </span><span class="o">(</span>partition<span class="w"> </span>size:<span class="w"> </span>0x380000<span class="o">)</span>,<span class="w"> </span>name:<span class="w"> </span>B_cpu-bootloader
+E&gt;<span class="w"> </span>Binary<span class="o">(</span><span class="m">43</span><span class="o">)</span><span class="w"> </span>version<span class="w"> </span>mismatch
+E&gt;<span class="w"> </span>Expected<span class="w"> </span>version:<span class="w"> </span><span class="m">3</span>
+E&gt;<span class="w"> </span>Binary<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>
+C&gt;<span class="w"> </span>Task<span class="w"> </span>0x0<span class="w"> </span>failed<span class="w"> </span><span class="o">(</span>err:<span class="w"> </span>0x22228702<span class="o">)</span>
+E&gt;<span class="w"> </span>Top<span class="w"> </span><span class="nb">caller</span><span class="w"> </span>module:<span class="w"> </span>LOADER,<span class="w"> </span>error<span class="w"> </span>module:<span class="w"> </span>LOADER,<span class="w"> </span>reason:<span class="w"> </span>0x02,
+</pre></div>
+</div>
+</section>
+</section>
+<section id="incrementing-the-version-number-of-mb2-and-later-components">
+<h3>Incrementing the Version Number of MB2 and Later Components<a class="headerlink" href="RollbackProtection.html#incrementing-the-version-number-of-mb2-and-later-components" title="Link to this heading">#</a></h3>
+<p>The HWVNs for MB2 and later components are stored in MB1-BCT, instead of in burnable fuses, so they cannot be ratchet-updated at runtime. To complete a ratchet-update, the boot software has to patch the binary for MB1-BCT, and because the software is typically signed by a PKC key, the update is not feasible.</p>
+<p>To update one of these components and increment its version number:</p>
+<ol class="arabic simple">
+<li><p>Increment its version number setting in the ratchet configuration file.</p></li>
+<li><p>To reflect that MB1-BCT contains a new HWVN for the updated component, increment the MB1-BCT version in the ratchet configuration file.</p></li>
+<li><p>Reflash the device or perform an Over-the-Air (OTA) update of the updated component and MB1-BCT.</p></li>
+<li><p>The HWVNs stored in MB1-BCT for MB2 and later components can be used to ratchet-check MB2 and later components.</p></li>
+</ol>
+<p>If an updated component is updated later to an earlier version, it will fail the ratchet-check.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="FirmwareTPM.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Firmware TPM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="MemoryEncryption.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Memory Encryption</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#rollback-protection-for-mb1-bct-mb2-and-later-components">Rollback Protection for MB1-BCT, MB2, and Later Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#mb1-bct">MB1-BCT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#mb2-and-later-components">MB2 and Later Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#an-example">An Example</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="RollbackProtection.html#incrementing-the-version-number-of-mb2-and-later-components">Incrementing the Version Number of MB2 and Later Components</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

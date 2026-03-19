@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:v='http://schemas.microsoft.com/visio/2003/SVGExtensions/' xml:space='preserve' xmlns:xlink='http://www.w3.org/1999/xlink' width='400.8128pt' height='240.152pt' viewBox='0 0 400.8128 240.152'>
+ <v:documentProperties>
+  <v:userDefs>
+   <v:ud v:nameU='msvNoAutoConnect' v:val='1'/>
+   <v:ud v:nameU='msvWarnOnPersonalInfo' v:val='0'/>
+  </v:userDefs>
+ </v:documentProperties>
+ <g id='SFixTitle'/>
+ <g id='SContent'>
+  <g>
+   <g transform='matrix(1,0,0,-1,0,240.152)'>
+    <g transform='matrix(1,0,0,1,18.25,153.73961)' v:mID='1'>
+     <title>Rectangle.1</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='1'>
+      <title>Rectangle.1</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='66.62928' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>A_MB1</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,18.25,119.2516)' v:mID='2'>
+     <title>Rectangle.2</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='2'>
+      <title>Rectangle.2</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='66.62928' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>A_MB2</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,18.25,84.75639)' v:mID='3'>
+     <title>Rectangle.3</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='3'>
+      <title>Rectangle.3</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='24.632208' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>A_CPU-BOOTLOADER</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,18.25,50.2684)' v:mID='4'>
+     <title>Rectangle.4</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='4'>
+      <title>Rectangle.4</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='78.79921' y='7.2000003' class='TextStyle1' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>. . .</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,53.674,200.194)' v:mID='5'>
+     <title>Sheet.5</title>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='5'>
+      <title>Sheet.5</title>
+     </g>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='25.925037' y='7.2000003' class='TextStyle1' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,14.039999)'>Slot A</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,209.96442,154.5676)' v:mID='6'>
+     <title>Rectangle.6</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='6'>
+      <title>Rectangle.6</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='66.96034' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>B_MB1</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,209.96442,120.07959)' v:mID='7'>
+     <title>Rectangle.7</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='7'>
+      <title>Rectangle.7</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='66.96034' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>B_MB2</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,209.96442,85.5844)' v:mID='8'>
+     <title>Rectangle.8</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='8'>
+      <title>Rectangle.8</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='24.963266' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>B_CPU-BOOTLOADER</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,209.96442,51.0964)' v:mID='9'>
+     <title>Rectangle.9</title>
+     <userDefs>
+      <ud nameU='visVersion' val='15'/>
+     </userDefs>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='9'>
+      <title>Rectangle.9</title>
+      <userDefs>
+       <ud nameU='visVersion' val='15'/>
+      </userDefs>
+      <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#000000' stroke-width='0.25' stroke-linecap='round' fill='none' stroke-opacity='0'/>
+     </g>
+     <path d='M0,0 L172.598403931,0 L172.598403931,0 L172.598403931,34.487998962 L172.598403931,34.487998962 L0,34.487998962 L0,34.487998962 L0,0 Z' stroke='#7F7F7F' stroke-width='0.25' stroke-linecap='round' fill='#92D050'  fill-rule='evenodd'/>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='78.79921' y='7.2000003' class='TextStyle1' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,20.844)'>. . .</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,245.38841,201.02199)' v:mID='10'>
+     <title>Sheet.10</title>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='10'>
+      <title>Sheet.10</title>
+     </g>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='26.25609' y='7.2000003' class='TextStyle1' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,14.039999)'>Slot B</text>
+     </g>
+    </g>
+    <g transform='matrix(1,0,0,1,125.56599,18.25)' v:mID='11'>
+     <title>Sheet.11</title>
+     <g transform='matrix(1,0,0,1,0,0)' v:mID='11'>
+      <title>Sheet.11</title>
+     </g>
+     <g transform='matrix(1,0,0,1,0,0)'>
+      <text x='25.475958' y='7.2000003' class='TextStyle0' fill='#000000' opacity='1' transform='matrix(1,0,0,-1,0,14.039999)'>Two-slot implementation</text>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <style type='text/css'><![CDATA[ .TextStyle1 {font-family:Times New Roman;font-size:12px;font-weight:bold;}.TextStyle0 {font-family:Times New Roman;font-size:12px;} ]]></style>
+</svg>

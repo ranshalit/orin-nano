@@ -1,0 +1,896 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Camera Software Development Solution &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/CameraDevelopment/CameraSoftwareDevelopmentSolution';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sensor Software Driver Programming" href="SensorSoftwareDriverProgramming.html" />
+    <link rel="prev" title="Camera Development" href="../CameraDevelopment.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="CameraSoftwareDevelopmentSolution.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="CameraSoftwareDevelopmentSolution.html#">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../CameraDevelopment.html" class="nav-link">Camera Development</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Camera...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="camera-software-development-solution">
+<h1>Camera Software Development Solution<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#camera-software-development-solution" title="Link to this heading">#</a></h1>
+<p>This topic describes the <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> camera software solution, and explains the NVIDIA-supported and
+recommended camera software architecture for fast and optimal time to
+market. It outlines and explains development options for customizing the
+camera solution for USB, YUV, and Bayer camera support.</p>
+<section id="camera-architecture-stack">
+<h2>Camera Architecture Stack<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#camera-architecture-stack" title="Link to this heading">#</a></h2>
+<p>The NVIDIA camera software architecture includes NVIDIA components that
+allow for ease of development and customization:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Camera architecture stack" src="../../_images/ArchitectureStack.svg" />
+</figure>
+<p>The camera architecture includes the following NVIDIA components:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">libargus</span></code>: Provides a low-level API based on the camera core stack.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvarguscamerasrc</span></code>: NVIDIA camera GStreamer plugin that provides options to control ISP properties using the ARGUS API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">v4l2src</span></code>: A standard Linux V4L2 application that uses direct kernel IOCTL calls to access V4L2 functionality.</p></li>
+</ul>
+<p>NVIDIA provides OV5693 Bayer sensor as a sample. NVIDIA tunes this
+sensor for the <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> platform. The drive code, based
+on the media controller framework, is available at:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./kernel/nvidia-oot/drivers/media/i2c/nv_ov5693.c
+</pre></div>
+</div>
+<p>NVIDIA provides additional sensor support for Jetson Board Support
+Package (BSP) software releases. Developers must work with NVIDIA
+certified camera partners for any Bayer sensor and tuning support. The
+work involved includes:</p>
+<ul class="simple">
+<li><p>Sensor driver development</p></li>
+<li><p>Custom tools for sensor characterization</p></li>
+<li><p>Image quality tuning</p></li>
+</ul>
+<p>These tools and operating mechanisms are <em>not</em> part of the public Jetson
+Embedded Platform (JEP) Board Support Package release.</p>
+</section>
+<section id="camera-api-matrix">
+<h2>Camera API Matrix<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#camera-api-matrix" title="Link to this heading">#</a></h2>
+<p>The following table describes the camera APIs available for each camera configuration.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Camera API</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Use Jetson ISP (CSI Interface)</p></td>
+<td><p>libargus and GStreamer (GST-nvarguscamerasrc)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Does not use Jetson ISP[1] (CSI interface)</p></td>
+<td><p>V4L2</p></td>
+</tr>
+<tr class="row-even"><td><p>USB (UVC)[2] (USB interface)</p></td>
+<td><p>V4L2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here is additional information about the footnotes:</p>
+<ol class="arabic simple">
+<li><p>libargus is the preferred path to access the camera.</p></li>
+<li><p>Drivers are not provided by NVIDIA, so you must write them. You can support peripheral bus devices such as:
+- Ethernet
+- Non-UVC USB</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default OV5693 camera does not contain an integrated ISP. Use of the V4L2 API with the reference camera records “raw” Bayer data.</p>
+</div>
+</section>
+<section id="approaches-for-validating-and-testing-the-v4l2-driver">
+<h2>Approaches for Validating and Testing the V4L2 Driver<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#approaches-for-validating-and-testing-the-v4l2-driver" title="Link to this heading">#</a></h2>
+<p>Once your driver development is complete, use the provided tools or application to validate and test the V4L2 driver interface.</p>
+<p>For general GStreamer and multimedia operations, see <em>Multimedia User Guide</em>, available from the <a class="reference external" href="https://developer.nvidia.com/embedded/downloads">Jetson Download Center</a>.</p>
+<section id="applications-using-libargus-low-level-apis">
+<h3>Applications Using libargus Low-Level APIs<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#applications-using-libargus-low-level-apis" title="Link to this heading">#</a></h3>
+<p>The NVIDIA Multimedia API provides samples that demonstrate how to use
+the libargus APIs to preview, capture, and record the sensor stream.</p>
+<p>The Multimedia API may be installed with <span class="html">NVIDIA<sup><small>®</small></sup></span> <a class="reference external" href="https://developer.nvidia.com/embedded/downloads#?search=SDK%20Manager">SDK Manager</a> or as a standalone package.</p>
+<p>Multimedia API documentation is in <em>Jetson Linux API Reference</em>, included in the Jetson Linux documentation package, and available for downloading separately from the <a class="reference external" href="https://docs.nvidia.com/jetson/index.html">Jetson Software Documentation</a> page of the Jetson documentation site.</p>
+</section>
+<section id="applications-using-gstreamer-with-the-nvarguscamerasrc-plugin">
+<h3>Applications Using GStreamer with the nvarguscamerasrc Plugin<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-the-nvarguscamerasrc-plugin" title="Link to this heading">#</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">nvarguscamerasrc</span></code> GStreamer plugin supported camera features with ARGUS API to:</p>
+<ul class="simple">
+<li><p>Enable ISP processing for Bayer sensors</p></li>
+<li><p>Perform format conversion part of ISP for Bayer Capture</p></li>
+</ul>
+<p>For example, for a Bayer sensor with the format 1080p/30/BGGR:</p>
+<ul>
+<li><p>Save the preview into the file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=200 ! &#39;video/x-raw(memory:NVMM), width=1920, height=1080, framerate=30/1, format=NV12&#39; ! omxh264enc ! qtmux ! filesink location=test.mp4 -e
+</pre></div>
+</div>
+</li>
+<li><p>Render the preview to an <span class="html">HDMI<sup><small>®</small></sup></span> screen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc ! ‘video/x-raw(memory:NVMM), width=1920, height=1080, format=(string)NV12, framerate=(fraction)30/1&#39; ! nvoverlaysink -e
+</pre></div>
+</div>
+</li>
+</ul>
+<p>For more information about the ARGUS API, see the
+<a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__LibargusAPI.html">Libargus Camera API</a>
+page of the
+<a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/">Jetson Linux API Reference</a>.</p>
+</section>
+<section id="applications-using-gstreamer-with-v4l2-source-plugin">
+<h3>Applications Using GStreamer with V4L2 Source Plugin<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-v4l2-source-plugin" title="Link to this heading">#</a></h3>
+<p>Using the Bayer Sensor, YUV sensor, or USB camera, to output YUV images without
+ISP processing does not use the NVIDIA camera software stack.</p>
+<p>For example, for a USB camera with the format 480p/30/YUY2:</p>
+<ul>
+<li><p>Save the preview into a file (based on a software converter):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 v4l2src num-buffers=200 device=/dev/video0 ! &#39;video/x-raw, format=YUY2, width=640, height=480, framerate=30/1&#39; ! videoconvert ! omxh264enc ! qtmux ! filesink location=test.mp4 -ev
+</pre></div>
+</div>
+</li>
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">DISPLAY=:0</span></code> if you are operating from a remote console. Then render the preview to a screen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 v4l2src device=/dev/video0 ! &#39;video/x-raw, format=YUY2, width=640, height=480, framerate=30/1&#39; ! xvimagesink -ev
+</pre></div>
+</div>
+</li>
+</ul>
+<p>For a YUV sensor with the format 480p/30/UYVY:</p>
+<ul>
+<li><p>Save the preview into a file (based on a hardware-accelerated converter):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 -v v4l2src device=/dev/video0 ! &#39;video/x-raw, format=(string)UYVY, width=(int)640, height=(int)480, framerate=(fraction)30/1&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)NV12&#39; ! omxh264enc ! qtmux ! filesink location=test.mp4 -ev
+</pre></div>
+</div>
+</li>
+<li><p>Render the preview to a screen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ export DISPLAY=:0 //if you are operating from remote console
+$ gst-launch-1.0 v4l2src device=/dev/video0 ! &#39;video/x-raw, format=(string)UYVY, width=(int)640, height=(int)480, framerate=(fraction)30/1&#39; ! xvimagesink -ev
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="applications-using-v4l2-ioctl-directly">
+<h3>Applications Using V4L2 IOCTL Directly<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#applications-using-v4l2-ioctl-directly" title="Link to this heading">#</a></h3>
+<p>Use V4L2 IOCTL to verify basic functionality during sensor bringup.</p>
+<p>For example, to capture from a Bayer sensor with the format 1080p/30/RG10:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ v4l2-ctl --set-fmt-video=width=1920,height=1080,pixelformat=RG10 --stream-mmap --stream-count=1 -d /dev/video0 --stream-to=ov5693.raw
+</pre></div>
+</div>
+</section>
+</section>
+<section id="isp-configuration">
+<h2>ISP Configuration<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#isp-configuration" title="Link to this heading">#</a></h2>
+<p>The Camera Core release package includes model ISP configuration files for reference sensors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CSI cameras, with integrated ISP and USB camera, can work in ISP bypass mode. Provided ISP support is available for Jetson Developer Kit (OV5693) RAW camera module.</p>
+<p>Additional ISP support for other camera modules are supported using third party partners.</p>
+<p>If the <cite>v4l2-ctl</cite> utility captures sensor data successfully but the Argus app, such as <cite>argus_camera/nvarguscamerasrc</cite> does not work, the problem could be with incorrect data set by the sensor driver’s control function (CID), like <cite>ov5693_set_exposure()</cite>.
+This happens because the Argus AE control function continuously calls the CID, unlike <cite>v4l2-ctl</cite>.</p>
+</div>
+</section>
+<section id="infinite-timeout-support">
+<h2>Infinite Timeout Support<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#infinite-timeout-support" title="Link to this heading">#</a></h2>
+<p>This use case is different from typical camera use cases, in which the camera sensor streams frames continuously and the camera hardware and driver support finite timeouts while waiting for camera frames.</p>
+<p>In this use case, a camera sensor is triggered to generate a specified number of frames, after which it stops streaming indefinitely (referred to as the “infinite timeout”). Whenever the camera driver resumes streaming, it must resume capturing frames without timeout issues. The camera driver and hardware must always be ready to capture frames coming from the CSI sensor, even though camera driver is unaware of when streaming will resume.
+The infinite timeout is implemented consistently across all internal timeout settings. Once <code class="docutils literal notranslate"><span class="pre">enableCamInfiniteTimeout</span></code> is set, it overrides all timeouts throughout the driver.</p>
+<p>To support this use case, the camera sensor hardware module must support suspending and resuming streaming.</p>
+<p>To enable this feature, run the camera server (i.e. the <code class="docutils literal notranslate"><span class="pre">nvargus-daemon</span></code> service) by setting the <code class="docutils literal notranslate"><span class="pre">enableCamInfiniteTimeout</span></code> environment variable to 1:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo service nvargus-daemon stop
+$ sudo enableCamInfiniteTimeout=1 nvargus-daemon
+</pre></div>
+</div>
+</section>
+<section id="symlinks-changed-by-mesa-installation">
+<h2>Symlinks Changed by Mesa Installation<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#symlinks-changed-by-mesa-installation" title="Link to this heading">#</a></h2>
+<p>Installing Mesa EGL may create a <code class="docutils literal notranslate"><span class="pre">/usr/lib/&lt;ABI_directory&gt;/libEGL.so</span></code>
+symlink, overwriting the symlink to the implementation library that the driver must
+use, <code class="docutils literal notranslate"><span class="pre">/usr/lib/&lt;ABI_directory&gt;/tegra-egl/libEGL.so</span></code>. This
+disrupts any client of EGL<span class="html">&trade;</span>, including libraries in the release that use
+it for EGLStreams.</p>
+<p>In this release, the symlink is replaced when the system is rebooted,
+fixing this issue on reboot. Similar workarounds have been applied in
+previous releases for other libraries such as <code class="docutils literal notranslate"><span class="pre">libGL</span></code> and <code class="docutils literal notranslate"><span class="pre">libglx</span></code>.</p>
+</section>
+<section id="other-references">
+<h2>Other References<a class="headerlink" href="CameraSoftwareDevelopmentSolution.html#other-references" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For details on integrating with other Jetson Multimedia components
+using V4L2 or GStreamer, see the <em>Jetson Linux API Reference</em>.</p></li>
+<li><p>For details on Argus, see
+<a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__LibargusAPI.html">Libargus Camera API</a>
+in the
+<a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/">Jetson Linux API Reference</a>.</p></li>
+<li><p>For details on building a custom camera solution, consult a member of the
+<a class="reference external" href="https://developer.nvidia.com/embedded/community/partners">NVIDIA Preferred Partners Community</a>.
+has details on NVIDIA Preferred Partners Community</p></li>
+<li><p>For Jetson Partner Supported Cameras, refer the link below
+<a class="reference external" href="https://developer.nvidia.com/embedded/jetson-partner-supported-cameras?t1_max-resolution=4K">Jetson Partner Supported Cameras</a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../CameraDevelopment.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Camera Development</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SensorSoftwareDriverProgramming.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sensor Software Driver Programming</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#camera-architecture-stack">Camera Architecture Stack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#camera-api-matrix">Camera API Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#approaches-for-validating-and-testing-the-v4l2-driver">Approaches for Validating and Testing the V4L2 Driver</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#applications-using-libargus-low-level-apis">Applications Using libargus Low-Level APIs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-the-nvarguscamerasrc-plugin">Applications Using GStreamer with the nvarguscamerasrc Plugin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#applications-using-gstreamer-with-v4l2-source-plugin">Applications Using GStreamer with V4L2 Source Plugin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#applications-using-v4l2-ioctl-directly">Applications Using V4L2 IOCTL Directly</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#isp-configuration">ISP Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#infinite-timeout-support">Infinite Timeout Support</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#symlinks-changed-by-mesa-installation">Symlinks Changed by Mesa Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="CameraSoftwareDevelopmentSolution.html#other-references">Other References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

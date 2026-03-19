@@ -1,0 +1,1012 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Quick Start &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'IN/QuickStart';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Jetson Software Architecture" href="../AR/JetsonSoftwareArchitecture.html" />
+    <link rel="prev" title="Welcome" href="../index.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="QuickStart.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="QuickStart.html#">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SD/FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Quick Start</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="QuickStart.html#quick-start" title="Link to this heading">#</a></h1>
+<p>This topic will help you get started quickly using <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux with an NVIDIA Jetson developer kit.</p>
+<section id="types-and-models-of-jetson-devices">
+<h2>Types and Models of Jetson Devices<a class="headerlink" href="QuickStart.html#types-and-models-of-jetson-devices" title="Link to this heading">#</a></h2>
+<p>Both Jetson modules and Jetson developer kits are available from NVIDIA. A Jetson developer kit
+includes a non-production-specification Jetson module attached to a reference carrier board. You
+can use it with <span class="html">NVIDIA<sup><small>®</small></sup></span> JetPack<span class="html">&trade;</span> SDK to develop and test software for your use case. Jetson developer kits
+are not intended for production use.</p>
+<p>Jetson modules are suitable for deployment in a production environment throughout their operating
+lifetime. Each Jetson module ships with no software preinstalled; you attach it to a carrier board
+designed or procured for your end product and flash it with the software image you have developed.</p>
+<p>This release of Jetson Linux supports the following Jetson devices:</p>
+<ul class="simple">
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span> and Nano modules and the Jetson Orin Nano
+Developer Kit</p></li>
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span> modules and the Jetson AGX Orin
+Developer Kit</p></li>
+</ul>
+<p>For details about these Jetson devices, see the
+<a class="reference external" href="https://docs.nvidia.com/jetson/">Jetson Software Documentation</a>
+page of the
+<a class="reference external" href="https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/">NVIDIA Edge Computing</a>
+web site, and the
+<a class="reference external" href="https://developer.nvidia.com/embedded/faq">Jetson FAQ</a>.</p>
+</section>
+<section id="preparing-a-jetson-developer-kit-for-use">
+<h2>Preparing a Jetson Developer Kit for Use<a class="headerlink" href="QuickStart.html#preparing-a-jetson-developer-kit-for-use" title="Link to this heading">#</a></h2>
+<p>This section explains how to prepare a Jetson developer kit for use by flashing it with the appropriate software.</p>
+<p>Later sections of this guide explain in more detail how to:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html#hr-jetsondeveloperkitsetup"><span class="std std-ref">Set up</span></a>
+a Jetson developer kit</p></li>
+<li><p><a class="reference internal" href="../SD/FlashingSupport.html#sd-flashingsupport"><span class="std std-ref">Flashing Support</span></a>
+software to a Jetson developer kit</p></li>
+</ul>
+</section>
+<section id="assumptions">
+<span id="in-quickstart-assumptions"></span><h2>Assumptions<a class="headerlink" href="QuickStart.html#assumptions" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>You have a Jetson developer kit and a separate Linux (Ubuntu 22.04 or Ubuntu 20.04) host system.</p></li>
+<li><p>Your Jetson developer kit is powered off and is connected as follows.
+(Note that your Jetson developer kit may not come with the devices and cables listed below.)</p>
+<ul>
+<li><p>Linux host is connected for flashing through the appropriate USB Type-C port
+of the developer kit.</p>
+<p>For NVIDIA Jetson AGX Orin Developer Kit, use the USB-C port next to the 40 pin header.</p>
+<p>For other Jetson developer kits, please refer to the developer kit user guide document.</p>
+</li>
+<li><p>Any required USB peripherals such as keyboard and mouse are connected to the  Jetson developer. You may use a USB hub for this.</p></li>
+<li><p>A wired Ethernet connection with internet access is connected
+for installing optional software on the developer kit when Jetson Linux has been installed and is running.</p></li>
+<li><p>A display device or a serial console is connected.
+A serial console is a terminal program, such as minicom, that runs on the host computer or another connected computer.</p></li>
+<li><p>If flashing the rootfs to an SD card or USB flash drive on Orin NX or Orin Nano, the storage size must be 64GB or larger.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="QuickStart.html#environment-variables" title="Link to this heading">#</a></h2>
+<p>Your host system must be configured to set certain environment variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">${L4T_RELEASE_PACKAGE}</span></code> contains the name of the Jetson Linux release package:
+<code class="docutils literal notranslate"><span class="pre">Jetson_Linux_&lt;version&gt;_aarch64.tbz2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${SAMPLE_FS_PACKAGE}</span></code> contains the name of the sample file system package:
+<code class="docutils literal notranslate"><span class="pre">Tegra_Linux_Sample-Root-Filesystem_&lt;version&gt;_aarch64.tbz2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">${BOARD}</span></code> contains the name of a supported configuration
+of Jetson module and the carrier board. Common values for this field can be found in
+the Configuration column in the <a class="reference internal" href="QuickStart.html#jetson-modules-and-configurations">Jetson Modules and Configurations</a> table.</p></li>
+</ul>
+</section>
+<section id="to-flash-the-jetson-developer-kit-operating-software">
+<span id="in-quickstart-toflashjetsondeveloperkitoperatingsoftware"></span><h2>To Flash the Jetson Developer Kit Operating Software<a class="headerlink" href="QuickStart.html#to-flash-the-jetson-developer-kit-operating-software" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Download the latest Jetson Linux release package and sample file system
+for your Jetson developer kit from <a class="reference external" href="https://developer.nvidia.com/linux-tegra">https://developer.nvidia.com/linux-tegra</a></p></li>
+<li><p>Enter the following commands to untar the files and assemble the rootfs:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tar xf ${L4T_RELEASE_PACKAGE}
+$ sudo tar xpf ${SAMPLE_FS_PACKAGE} -C Linux_for_Tegra/rootfs/
+$ cd Linux_for_Tegra/
+$ sudo ./tools/l4t_flash_prerequisites.sh
+$ sudo ./apply_binaries.sh
+</pre></div>
+</div>
+</li>
+<li><p>Ensure that your Jetson developer kit is configured and
+connected to your Linux host as described in
+<a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/IN/IN.QuickStart.Assumptions">Assumptions</a>.</p>
+</li>
+<li id="in-quickstart-toflashjetsondeveloperkitoperatingsoftware-forcerecoverymode"><p>Put your Jetson developer kit into <strong>Force Recovery Mode</strong>.</p>
+<ul class="simple">
+<li><p>For the Jetson AGX Orin developer kit:</p>
+<ol class="arabic simple">
+<li><p>Ensure that the developer kit is powered off.</p></li>
+<li><p>Press and hold down the Force Recovery button.</p></li>
+<li><p>Press, then release the Power button.</p></li>
+<li><p>Release the Force Recovery button.</p></li>
+</ol>
+</li>
+<li><p>For the Jetson Orin Nano developer kit:</p>
+<ol class="arabic simple">
+<li><p>Disconnect the power cable to ensure that the developer kit is powered off.</p></li>
+<li><p>Place a jumper to short the REC and GND pins on the 12-pin button header.</p></li>
+<li><p>Reconnect the power cable.</p></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Confirm that the developer kit is in Force Recovery Mode
+by following the procedure
+<a class="reference internal" href="QuickStart.html#to-determine-whether-the-developer-kit-is-in-force-recovery-mode">To determine whether the developer kit is in force recovery mode</a>.</p>
+</li>
+<li id="in-quickstart-toflashjetsondeveloperkitoperatingsoftware-flashsupport"><p>Enter this command on your Linux host to install (flash)
+the Jetson release onto the Jetson developer kit.</p>
+<ul>
+<li><p>Jetson Orin Nano Developer Kit (NVMe):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson Orin Nano Developer Kit (USB):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device sda1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson Orin Nano Developer Kit (SD card):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device mmcblk0p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson Orin Nano Developer Kit with Super Configuration (NVMe) (for more information on Super configuration, refer to <a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-supportedmodesandpowerefficiency"><span class="std std-ref">Supported Modes and Power Efficiency</span></a>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit-super internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson Orin Nano Developer Kit with Super Configuration (USB):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device sda1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit-super internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson Orin Nano Developer Kit with Super Configuration (SD card):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device mmcblk0p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml -p &quot;-c bootloader/generic/cfg/flash_t234_qspi.xml&quot; \
+  --showlogs --network usb0 jetson-orin-nano-devkit-super internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson AGX Orin Developer Kit (eMMC):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./flash.sh jetson-agx-orin-devkit internal
+</pre></div>
+</div>
+</li>
+<li><p>Jetson AGX Orin Developer Kit (NVMe):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device nvme0n1p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml \
+  --showlogs --network usb0 jetson-agx-orin-devkit external
+</pre></div>
+</div>
+</li>
+<li><p>Jetson AGX Orin Developer Kit (USB):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device sda1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml \
+  --showlogs --network usb0 jetson-agx-orin-devkit external
+</pre></div>
+</div>
+</li>
+<li><p>Jetson AGX Orin Developer Kit (SD card):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./tools/kernel_flash/l4t_initrd_flash.sh --external-device mmcblk0p1 \
+  -c tools/kernel_flash/flash_l4t_t234_nvme.xml \
+  --showlogs --network usb0 jetson-agx-orin-devkit external
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When booting your system, make sure to select the corresponding flashed boot media from the UEFI menu to boot. For example, if flashing from an NVMe drive, make sure to select the NVMe drive as your boot option from the UEFI menu.</p>
+<p>Refer to <a class="reference internal" href="../SD/FlashingSupport.html#sd-flashingsupport-flashshorinnxnano"><span class="std std-ref">Using flash.sh with Orin NX and Nano</span></a> for more information.</p>
+</div>
+<p>A list of common configurations is provided in <a class="reference internal" href="QuickStart.html#jetson-modules-and-configurations">Jetson Modules and Configurations</a>.</p>
+</li>
+<li><p>The Jetson developer kit automatically reboots when
+the installation process is complete. At this point your Jetson developer kit is operational. Follow the prompts on the display to set up a user account and log in.</p></li>
+</ol>
+</section>
+<section id="jetson-modules-and-configurations">
+<span id="in-quickstart-jetsonmodulesandconfigurations"></span><h2>Jetson Modules and Configurations<a class="headerlink" href="QuickStart.html#jetson-modules-and-configurations" title="Link to this heading">#</a></h2>
+<p>Jetson Linux provides ready-made support for the following configurations.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Module Type</p></th>
+<th class="head"><p>Carrier Board</p></th>
+<th class="head"><p>Configuration</p></th>
+<th class="head"><p>Configuration Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetson Orin NX 16GB-DRAM (P3767-0000)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson Orin Nano reference carrier board
+(P3768-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> /
+<code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super</span></code> *</p></td>
+<td><p>Flashes QSPI-NOR and USB/NVMe drive
+(only supported via l4t_initrd_flash.sh)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Orin NX 8GB-DRAM (P3767-0001)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson Orin Nano reference carrier board
+(P3768-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> /
+<code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super</span></code> *</p></td>
+<td><p>Flashes QSPI-NOR and USB/NVMe drive
+(only supported via l4t_initrd_flash.sh)</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson Orin Nano 8GB-DRAM (P3767-0003)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson Orin Nano reference carrier board
+(P3768-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> /
+<code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super</span></code> *</p></td>
+<td><p>Flashes QSPI-NOR and USB/NVMe drive
+(only supported via l4t_initrd_flash.sh)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Orin Nano 4GB-DRAM (P3767-0004)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson Orin Nano reference carrier board
+(P3768-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> /
+<code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super</span></code> *</p></td>
+<td><p>Flashes QSPI-NOR and USB/NVMe drive
+(only supported via l4t_initrd_flash.sh)</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson Orin Nano 8GB-DRAM (P3767-0005)</p></td>
+<td><p>Development</p></td>
+<td><p>Jetson Orin Nano reference carrier board
+(P3768-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> /
+<code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super</span></code> *</p></td>
+<td><p>Flashes QSPI-NOR and microSD Card/USB/NVMe drive
+(only supported via l4t_initrd_flash.sh)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson AGX Orin Dev-Kit Module (P3701-0000)</p></td>
+<td><p>Development</p></td>
+<td><p>Jetson AGX Orin reference carrier board
+(P3737-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></td>
+<td><p>Flashes QSPI-NOR and eMMC</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson AGX Orin 32GB-DRAM (P3701-0004)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson AGX Orin reference carrier board
+(P3737-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></td>
+<td><p>Flashes QSPI-NOR and eMMC</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson AGX Orin 64GB-DRAM (P3701-0005)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson AGX Orin reference carrier board
+(P3737-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></td>
+<td><p>Flashes QSPI-NOR and eMMC</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson AGX Orin Industrial (P3701-0008)</p></td>
+<td><p>Production</p></td>
+<td><p>Jetson AGX Orin reference carrier board
+(P3737-0000)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit-industrial</span></code></p></td>
+<td><p>Flashes QSPI-NOR and eMMC</p></td>
+</tr>
+<tr class="row-odd"><td colspan="5"><p>* Compared to <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super.conf</span></code> has a higher power budget and extended clock-frequency steps. For more information on Super
+configuration, refer to <a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-supportedmodesandpowerefficiency"><span class="std std-ref">Supported Modes and Power Efficiency</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Development modules</strong> are sold only as the components of a developer kit. <strong>Production modules</strong> are compatible with the listed carrier boards and are mainly intended for production use, so they are only sold separately. Development and production modules are sold both ways.</p>
+<p>Each configuration shown in the preceding table has a corresponding file with the extension <code class="docutils literal notranslate"><span class="pre">.conf</span></code>. For example, the configuration file for <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code> is <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit.conf</span></code> / <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super.conf</span></code>. Compared to <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit-super.conf</span></code> has a higher power budget and extended clock-frequency steps. For more information on Super configuration, refer to <a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-supportedmodesandpowerefficiency"><span class="std std-ref">Supported Modes and Power Efficiency</span></a>.</p>
+</section>
+<section id="to-determine-whether-the-developer-kit-is-in-force-recovery-mode">
+<h2>To Determine Whether the Developer Kit Is in Force Recovery Mode<a class="headerlink" href="QuickStart.html#to-determine-whether-the-developer-kit-is-in-force-recovery-mode" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Connect your Linux host computer to the appropriate USB port on
+your Jetson developer kit (see
+<a class="reference internal" href="QuickStart.html#in-quickstart-assumptions"><span class="std std-ref">Assumptions</span></a>).</p></li>
+<li><p>Open a terminal window on your host computer and enter command
+<code class="docutils literal notranslate"><span class="pre">lsusb</span></code>. The Jetson module is in Force Recovery Mode if you see the message:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Bus &lt;bbb&gt; Device &lt;ddd&gt;: ID 0955: &lt;nnnn&gt; Nvidia Corp.
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;bbb&gt;</span></code> is any three-digit number.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;ddd&gt;</span></code> is any three-digit number.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;nnnn&gt;</span></code> is a four-digit number that represents the type of your
+Jetson module:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">7023</span></code> for Jetson AGX Orin (P3701-0000 with 32GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7023</span></code> for Jetson AGX Orin (P3701-0005 with 64GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7023</span></code> for Jetson AGX Orin Industrial (P3701-0008 with 64GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7223</span></code> for Jetson AGX Orin (P3701-0004 with 32GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7323</span></code> for Jetson Orin NX (P3767-0000 with 16GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7423</span></code> for Jetson Orin NX (P3767-0001 with 8GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7523</span></code> for Jetson Orin Nano (P3767-0003 and P3767-0005 with 8GB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">7623</span></code> for Jetson Orin Nano (P3767-0004 with 4GB)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../AR/JetsonSoftwareArchitecture.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Jetson Software Architecture</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#types-and-models-of-jetson-devices">Types and Models of Jetson Devices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#preparing-a-jetson-developer-kit-for-use">Preparing a Jetson Developer Kit for Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#assumptions">Assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#environment-variables">Environment Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#to-flash-the-jetson-developer-kit-operating-software">To Flash the Jetson Developer Kit Operating Software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#jetson-modules-and-configurations">Jetson Modules and Configurations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="QuickStart.html#to-determine-whether-the-developer-kit-is-in-force-recovery-mode">To Determine Whether the Developer Kit Is in Force Recovery Mode</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

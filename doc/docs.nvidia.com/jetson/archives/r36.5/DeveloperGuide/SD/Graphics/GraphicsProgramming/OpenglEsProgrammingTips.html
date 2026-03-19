@@ -1,0 +1,1869 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OpenGL ES Programming Tips &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../../_static/modal-table.js"></script>
+    <script src="../../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../../_static/design-tabs.js@v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="EGLStream" href="../Eglstream.html" />
+    <link rel="prev" title="GLSLC Shader Program Compiler" href="GlslcShaderProgramCompiler.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="OpenglEsProgrammingTips.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../GraphicsProgramming.html">Graphics Programming</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="OpenglEsProgrammingTips.html#">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../Graphics.html" class="nav-link">Graphics</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../GraphicsProgramming.html" class="nav-link">Graphics Programming</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">OpenGL ES...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="opengl-es-programming-tips">
+<h1>OpenGL ES Programming Tips<a class="headerlink" href="OpenglEsProgrammingTips.html#opengl-es-programming-tips" title="Link to this heading">#</a></h1>
+<p>This topic is for readers who have some experience programming OpenGL<span class="html"><sup><small>®</small></sup></span><span class="html">&nbsp;</span>ES
+and want to improve the performance of their OpenGL<span class="html">&nbsp;</span>ES application. It
+aims at providing recommendations on getting the most out of the API and
+hardware resources without diving into too many architectural details.</p>
+<section id="programming-efficiently">
+<h2>Programming Efficiently<a class="headerlink" href="OpenglEsProgrammingTips.html#programming-efficiently" title="Link to this heading">#</a></h2>
+<p>Some of the recommendations in this topic are incompatible with each
+other. One must consider the trade-offs between CPU load, memory,
+bandwidth, shader processing power, precision, and image quality.
+Premature assumptions about the effectiveness of trade-offs should be
+avoided. The only definite answers come from benchmarking and looking at
+rendered images!</p>
+<p>The items below are not ordered according to importance or potential
+performance increase. The identifiers in parentheses exist only for
+reference.</p>
+<section id="state">
+<h3>State<a class="headerlink" href="OpenglEsProgrammingTips.html#state" title="Link to this heading">#</a></h3>
+<p>Inefficient management of GL state leads to increased CPU load that may
+limit the amount of useful work the CPU could be doing elsewhere.
+Reducing the number of times rendering is paused due to GL state change
+will increase the chance of realizing the potential throughput of the
+GPU. The main point in this section is: do not modify or query GL state
+unless absolutely necessarily.</p>
+<section id="do-not-set-any-state-redundantly-s1">
+<h4>Do not set any state redundantly (S1)<a class="headerlink" href="OpenglEsProgrammingTips.html#do-not-set-any-state-redundantly-s1" title="Link to this heading">#</a></h4>
+<p>All relevant GL states should be initialized during application
+initialization and not in the main render loop. For instance,
+occasionally <code class="docutils literal notranslate"><span class="pre">glClearDepthf()</span></code>, <code class="docutils literal notranslate"><span class="pre">glColorMask()</span></code>, or <code class="docutils literal notranslate"><span class="pre">glViewport()</span></code> finds its
+way into the application render loop even though the values passed to
+these functions are always constant. Other times they are set
+unconditionally in the loop, just in case their values have changed per
+frame. Only call these functions when the values actually do need to
+change. Additionally, do not automatically set state back to some
+predefined value (e.g., the GL defaults). That idiom might be useful
+while developing your application as it makes it easier to re-order
+pieces of rendering code, but it should not be done in production code
+without a very good reason.</p>
+</section>
+<section id="avoid-querying-any-gl-state-in-the-render-loop-s2">
+<h4>Avoid querying any GL state in the render loop (S2)<a class="headerlink" href="OpenglEsProgrammingTips.html#avoid-querying-any-gl-state-in-the-render-loop-s2" title="Link to this heading">#</a></h4>
+<p>When a GL context is created, the state is initially well-defined. Every
+state variable has a default value that is described in the OpenGL ES
+specification (“State Tables”). Except when compiling shaders,
+determining available extensions, or the application needs to query
+implementation specific constants, there should be no need to query any
+GL state. These queries can almost always be done in initialization.
+Well-written applications check for GL errors in debug builds. If no
+errors are reported as a result of changing state, it is assumed that
+the changes are now part of the new GL state. For these two reasons, the
+current state is always known, and you should almost never need to query
+any GL state in a loop. If an application frequently calls functions
+that begin with glIs* or glGet*, these calls should be tracked down and
+eliminated.</p>
+</section>
+<section id="batch-on-shared-state-s3">
+<h4>Batch on shared state (S3)<a class="headerlink" href="OpenglEsProgrammingTips.html#batch-on-shared-state-s3" title="Link to this heading">#</a></h4>
+<p>An efficient approach to reduce the number of state changes is batching
+together all draw calls that use the same state (shaders, blending,
+textures, etc.). For instance, not batching on the shader changes has
+the form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[ glUseProgram(21), DrawX1, glUseProgram(59), DrawY1, glUseProgram(21), DrawX2, glUseProgram(59), DrawY2 ]
+</pre></div>
+</div>
+<p>Batching on the shaders leads to an improvement (fewer shader changes):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[ glUseProgram(21), DrawX1, DrawX2, glUseProgram(59), DrawY1, DrawY2 ]
+</pre></div>
+</div>
+<p>It is quite effective to group draw calls based on the shader programs
+they use. Reprogramming the GPU by switching between shaders is a
+relatively costly operation. Within each batch, a further optimization
+can be made by grouping draw calls that use the same uniforms, texture
+objects and other state. Generating a log of all function calls into the
+OpenGL ES API is a good approach for revealing poor batching. A tool
+such as PerfHUDES can conveniently generate this log without rebuilding
+the GL application; no change to the source code is necessary.</p>
+</section>
+<section id="do-not-repeat-per-object-state-when-binding-s4">
+<h4>Do not repeat per object state when binding (S4)<a class="headerlink" href="OpenglEsProgrammingTips.html#do-not-repeat-per-object-state-when-binding-s4" title="Link to this heading">#</a></h4>
+<p>Recall that some state is bound to the object it affects. As that state
+is stored in the object, you do not need to repeat it when you rebind
+the object. A very common mistake is setting the texture parameters for
+filtering and wrapping every time a texture object is bound. Another
+common mistake is updating uniform variables that have not changed value
+since the last time the particular shader program was used. In
+particular, when batching opportunities are limited, repeating per
+object state generates enormously inefficient GL code that can easily
+have a measurable impact on frame rate.</p>
+</section>
+<section id="enable-backface-culling-whenever-possible-s5">
+<h4>Enable backface culling whenever possible (S5)<a class="headerlink" href="OpenglEsProgrammingTips.html#enable-backface-culling-whenever-possible-s5" title="Link to this heading">#</a></h4>
+<p>Always enable face culling whenever the back-faces are not visible.
+Rendering the back-faces of primitives is often not necessary.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default GL state has backface culling disabled, so this is one state that should almost always be set during application initialization and be left enabled for the application lifetime.</p>
+</div>
+</section>
+</section>
+<section id="geometry">
+<h3>Geometry<a class="headerlink" href="OpenglEsProgrammingTips.html#geometry" title="Link to this heading">#</a></h3>
+<p>The amount of geometry, as well as the way it is transferred to the GL,
+can have a very large impact on both CPU and GPU load. If the
+application sends geometry inefficiently or too frequently, that alone
+can create a bottleneck on the CPU side that does not give the GPU
+enough data to work efficiently. Geometry must be submitted in sizable
+chunks to realize the potential of the GPU. At the same time, geometry
+should be minimally defined, stored on the server side, and it should be
+accessed in a way to get the most out of the two GPU caches that exist
+before and after vertices are transformed.</p>
+<section id="use-indexed-primitives-g1">
+<h4>Use indexed primitives (G1)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-indexed-primitives-g1" title="Link to this heading">#</a></h4>
+<p>The vertex processing engine contains a cache where previously
+transformed vertices are stored. It is called Post-TnL vertex cache.
+Taking full advantage of this cache can lead to very large performance
+improvement when vertex processing is the bottleneck. To fully utilize
+it, it is necessary for the GPU to be able to recognize previously
+transformed vertices. This can only be accomplished by specifying
+indexed primitives for the geometry. However, for any non-trivial
+geometry the optimal order of indices will not be obvious to the
+programmer. If some geometry is complex, and the application bottleneck
+is vertex processing, then look into computing a vertex order that
+maximizes the hit ratio of the Post TnL cache. The topic has been
+thoroughly studied for years and even simple greedy algorithms can
+provide a substantial performance boost. Good results have been reported
+with the algorithm described in
+<a class="reference external" href="https://tomforsyth1000.github.io/papers/fast_vert_cache_opt.html">Linear-Speed Vertex Cache Optimisation</a>, by Tom Forsyth, RAD Game Tools (28 September 2006).</p>
+<p>There is a free implementation of the algorithm in a library called
+<code class="docutils literal notranslate"><span class="pre">vcacne</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of vertex attributes and the size of each attribute may determine the efficiency of this cache—it has storage for a fixed number of bytes or active attributes, not a fixed number of vertices. A lot of attribute data per vertex increases the risk of cache misses, resulting in potentially redundant transformations of the same vertices.</p>
+</div>
+</section>
+<section id="reduce-vertex-attribute-size-and-components-g2">
+<h4>Reduce vertex attribute size and components (G2)<a class="headerlink" href="OpenglEsProgrammingTips.html#reduce-vertex-attribute-size-and-components-g2" title="Link to this heading">#</a></h4>
+<p>It is important to use an appropriate attribute size and minimize the
+number of components to avoid wasting memory bandwidth and to increase
+the efficiency of the cache that stores pre-transformed vertices. This
+cache is called pre-TnL vertex cache. For instance, you rarely need to
+specify attributes in 32‑bit <code class="docutils literal notranslate"><span class="pre">FLOAT</span></code>s. It might be possible to define the
+object-space geometry using 3 <code class="docutils literal notranslate"><span class="pre">BYTE</span></code>s per vertex for a simple object, or three
+<code class="docutils literal notranslate"><span class="pre">SHORT</span></code>s for a more complex or larger object. If the geometry requires
+floating-point representation, half-floats (available in extension
+<code class="docutils literal notranslate"><span class="pre">OES_vertex_half_float.txt</span></code>) may be sufficient. Per-vertex colors are
+accurately stored with 3 x <code class="docutils literal notranslate"><span class="pre">BYTE</span></code>s with a flag to normalize in
+<code class="docutils literal notranslate"><span class="pre">VertexAttributePointer</span></code>. Texture coordinates can sometimes be represented
+with <code class="docutils literal notranslate"><span class="pre">BYTE</span></code>s or <code class="docutils literal notranslate"><span class="pre">SHORT</span></code>s with a flag to normalize (if not tiling).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The exception case that normalizing texture coordinates is not necessary if they are only used to sample a cube map texture.</p>
+</div>
+<p>Vertex normals can often be represented with three <code class="docutils literal notranslate"><span class="pre">SHORT</span></code>s (in a few cases,
+such as for cuboids, even as 3 <code class="docutils literal notranslate"><span class="pre">BYTE</span></code>s), and these should be normalized.
+A normal can even be represented with two components if the direction
+(sign) of the normal is implicit, given its length is known to be 1. The
+remaining coordinate can be derived in a vertex shader (e.g.
+<span class="math notranslate nohighlight">\((1-x^2+y^2)^{1/2}\)</span>
+if memory or bandwidth (rather than vertex processing) is a likely bottleneck.</p>
+<p>An optimal OpenGL ES application will take advantage of any
+characteristics specific to the geometry. For instance, a smooth sphere
+uses the normalized vertex coordinates as normal—these are trivially
+computed in a vertex shader. It is important to benchmark intermediate
+results to ensure the vertex processing engine is not already saturated.
+Finally remember, if some attribute for a primitive or a number of
+primitives is constant for the same draw call, then disable the
+particular vertex attribute index and set the constant value with
+<code class="docutils literal notranslate"><span class="pre">VertexAttrib*()</span></code> instead of replicating the data.</p>
+</section>
+<section id="pack-vertex-attributes-g3">
+<h4>Pack vertex attributes (G3)<a class="headerlink" href="OpenglEsProgrammingTips.html#pack-vertex-attributes-g3" title="Link to this heading">#</a></h4>
+<p>Vertex attributes normally have different sets of attributes that are
+completely unrelated. Unlike uniform and varying variables in shader
+programs, vertex attributes do not get automatically packed, and the
+number of vertex attributes is a limited resource. Failure to pack these
+attributes together may lead to limitations sooner than expected. It is
+more efficient to pack the components into fewer attributes even though
+they may not be logically related. For instance, if each vertex comes
+with two sets of texture coordinates for multi-texturing, these can
+often be combined these into one attribute with four components instead
+of two attributes with two components. Unpacking and swizzling
+components is rarely a performance consideration.</p>
+</section>
+<section id="choose-an-appropriate-vertex-attribute-layout-g4">
+<h4>Choose an appropriate vertex attribute layout (G4)<a class="headerlink" href="OpenglEsProgrammingTips.html#choose-an-appropriate-vertex-attribute-layout-g4" title="Link to this heading">#</a></h4>
+<p>There are two commonly used ways of storing vertex attributes:</p>
+<ul class="simple">
+<li><p>Arrays of structures</p></li>
+<li><p>Structures of arrays</p></li>
+</ul>
+<p>An <strong>array of structures</strong> stores the attributes for a given vertex
+sequentially with an appropriate offset for each attribute and a
+non-zero stride. The stride is computed from the number of attribute
+components and their sizes. An array of structures is the preferred way
+of storing vertex attributes due to more efficient memory access. If the
+vertex attributes are constant (not updated in the render loop) there is
+no question that an array of structures is the preferred layout.</p>
+<p>In contrast, a <strong>structure of arrays</strong> stores the vertex attributes in
+separate buffers using the same offset for each attribute and a stride
+of zero. This layout forces the GPU to jump around and fetch from
+different memory locations as it assembles the needed attributes for
+each vertex. The structure of arrays layout is therefore less efficient
+than an array of structures in most cases. The only time to consider a
+structure of arrays layout is if one or more attributes must be updated
+dynamically. Strided writes in array of structures can be expensive
+relative to the number of bytes modified. In this scenario, the
+recommendation is to partition the attributes such that constant and
+dynamic attributes can be read and written sequentially, respectively.
+The attributes that remain constant should be stored in an array of
+structures. The attributes that are updated dynamically should be stored
+in smaller separate buffer objects (or perhaps just a single buffer if
+the attributes are updated with the same frequency).</p>
+</section>
+<section id="use-consistent-winding-g5">
+<h4>Use consistent winding (G5)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-consistent-winding-g5" title="Link to this heading">#</a></h4>
+<p>The geometry winding (clockwise or counter-clockwise) should be
+determined up front and defined in code. The geometry face that is
+culled by GL can be changed with <code class="docutils literal notranslate"><span class="pre">glFrontFace()</span></code>, but having to switch
+back and forth between winding for different geometry batches during
+rendering is not optimal for performance and can be avoided in most
+cases.</p>
+</section>
+<section id="always-use-vertex-and-index-buffer-objects-g6">
+<h4>Always use vertex and index buffer objects (G6)<a class="headerlink" href="OpenglEsProgrammingTips.html#always-use-vertex-and-index-buffer-objects-g6" title="Link to this heading">#</a></h4>
+<p>Recall that vertices for geometry can either be sourced from application
+memory every time it is rendered or from buffers in graphics memory
+where it has been stored previously. The same applies to vertex array
+indices. To achieve good performance, you should never continuously
+source the data from application memory with <code class="docutils literal notranslate"><span class="pre">glDrawArrays()</span></code>. Buffer
+objects should always be used to store both geometry and indices. Check
+that no code is calling <code class="docutils literal notranslate"><span class="pre">glDrawArrays()</span></code>, and that no code is calling
+<code class="docutils literal notranslate"><span class="pre">glDrawElements()</span></code> without a buffer bind.</p>
+<p>The default buffer usage flag when allocating buffer objects is
+STATIC_DRAW. In many cases this will lead to fastest access.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">STATIC_DRAW</span></code> does not mean one can never write to the buffer (although any writing to a buffer should always be avoided as much as possible). A <code class="docutils literal notranslate"><span class="pre">STATIC_DRAW</span></code> flag may in fact be the appropriate usage flags, even if the buffer contents are updated every few frames. Only after careful benchmarking and arriving at conclusive results should changing the usage flag to one of the alternatives (<code class="docutils literal notranslate"><span class="pre">DYNAMIC_DRAW</span></code> or <code class="docutils literal notranslate"><span class="pre">STREAM_DRAW</span></code>) be considered.</p>
+</div>
+</section>
+<section id="batch-geometry-into-fewer-buffers-and-draw-calls-g7">
+<h4>Batch geometry into fewer buffers and draw calls (G7)<a class="headerlink" href="OpenglEsProgrammingTips.html#batch-geometry-into-fewer-buffers-and-draw-calls-g7" title="Link to this heading">#</a></h4>
+<p>There are only so many draw calls, or batches of geometry, that can be
+submitted to GL before the application becomes CPU bound. Each draw call
+has an overhead that is more or less fixed. Therefore, it is very
+important to increase the sizes of batches whenever possible. There does
+not need to be a one-to-one correspondence between a draw call and a
+buffer—a large vertex buffer can store geometry with a similar layout
+for multiple models. One or more index buffers can be used to select the
+subset of vertices needed from the vertex buffer. A common mistake is to
+have too many small buffers, leading to too many draw calls and thus
+high CPU load. If the number of draw calls issued in any given frame
+goes into many hundreds or thousands, then it is time to consider
+combining similar geometry in fewer buffers and use appropriate offsets
+when defining the attribute data and creating the index buffer.</p>
+<p>Unconnected geometry can be stitched together with degenerate triangles
+(alternatively, by using extension <code class="docutils literal notranslate"><span class="pre">NV_primitive_restart2</span></code> when
+available). Degenerate triangles are triangles where two or more
+vertices are coincident leading to a null surface. These are trivially
+rejected and ignored by the GPU. The benefit from stitching together
+geometry with degenerate triangles, such that fewer and larger buffers
+are needed, tends to outweigh the minor overhead of sending degenerates
+triangles down the pipeline. If geometry batches are being broken up to
+bind different textures, then look at combining several images into
+fewer textures (T5).</p>
+</section>
+<section id="use-the-smallest-possible-data-type-for-indices-g8">
+<h4>Use the smallest possible data type for indices (G8)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-data-type-for-indices-g8" title="Link to this heading">#</a></h4>
+<p>When the geometry uses relatively few vertices, an index buffer should
+specify vertices using only <code class="docutils literal notranslate"><span class="pre">UNSIGNED_BYTE</span></code> instead of <code class="docutils literal notranslate"><span class="pre">UNSIGNED_SHORT</span></code> (or
+an even larger integer type if the ES2 implementation supports it).
+Count the number of unique vertices per buffer and choose the right data
+type. When batching geometry for several unrelated models into fewer
+buffer objects (G7), then a larger data type for the indices may be
+required. This is not a concern compared to the larger performance
+benefits of batching.</p>
+</section>
+<section id="avoid-allocating-new-buffers-in-the-rendering-loop-g9">
+<h4>Avoid allocating new buffers in the rendering loop (G9)<a class="headerlink" href="OpenglEsProgrammingTips.html#avoid-allocating-new-buffers-in-the-rendering-loop-g9" title="Link to this heading">#</a></h4>
+<p>If the application frequently updates the geometry, then allocate a set
+of sufficiently large buffers when the application initializes. A
+<code class="docutils literal notranslate"><span class="pre">glBufferData()</span></code> call with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> data pointer will reserve the amount of
+memory you specify. This eliminates the time spent waiting for an
+allocation to complete in the rendering loop. Reusing preallocated
+buffers also helps to reduce memory fragmentation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Writing to a buffer object that is being used by the GPU can introduce bubbles in the pipeline where no useful work is being done. To avoid reducing throughput when updating buffers, consider cycling between multiple buffers to minimize the possibility of updating the buffer from which content is currently being rendered.</p>
+</div>
+</section>
+<section id="cull-early-and-often-g10">
+<h4>Cull early and often (G10)<a class="headerlink" href="OpenglEsProgrammingTips.html#cull-early-and-often-g10" title="Link to this heading">#</a></h4>
+<p>The GPU will not rasterize primitives when all of its vertices fall
+outside the viewport. It also avoids processing hidden fragments when
+the depth test or stencil test fails (P4). However, this does not mean
+that the GPU should do all the work in deciding what is visible. In the
+case of vertices, they need to be loaded, assembled and processed in the
+vertex shader, before the GPU can decide whether to cull or clip parts
+of the geometry. Testing a single, simple bounding volume that encloses
+the geometry against the current view frustum on the CPU side is a lot
+faster than testing hundreds of thousands of vertices on the GPU. If an
+application is limited by vertex processing, this is definitely the
+place to begin optimizing. Spheres are the most efficient volumes to
+test against and the volume of choice if geometry is rotational
+symmetrical. For some geometry, spheres tend to lead to overly
+conservative visibility acceptance. A rectangular cuboid (box) is only a
+slightly more expensive test but can be made to fit more tightly on most
+geometry. Hierarchical culling can often be employed to reduce the
+number of tests necessary on the CPU. Efficient and advanced culling
+algorithms have been heavily researched and published for many years.
+You can find a good introduction in
+<a class="reference external" href="https://www.cg.tuwien.ac.at/research/publications/2003/Bittner-2003-VCG/TR-186-2-03-03Paper.pdf">Visibility in Computer Graphics</a>,
+by Jiří Bittner and Peter Wonka.</p>
+</section>
+</section>
+<section id="shader-programs">
+<h3>Shader Programs<a class="headerlink" href="OpenglEsProgrammingTips.html#shader-programs" title="Link to this heading">#</a></h3>
+<p>Writing efficient shaders is critical to achieving good performance. One
+should treat shaders like pieces of code that run in the inner-most
+loops on a CPU. There is a very high cost to littering these with
+conditionals or recomputing loop invariants. Before optimizing an
+expensive vertex shader, make sure geometry that is entirely outside the
+view frustum is being culled on the CPU. Before optimizing an expensive
+fragment shader, make sure the application is not generating an excess
+number of fragments with it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When optimizing shaders, any source code that does not contribute to its output variables is optimized out by the compiler. This feature can be exploited to gain knowledge about whether the shader is part of the current bottleneck by multiplying the output variable with a null vector to reduce the workload and then measure if frame rate improves. Conversely, at the final stages of optimization one can quickly measure if there is headroom for increasing workload to offload computations to shader unit or to improve image quality by adding meaningless but expensive ALU instructions, or texture sampling, to the output variables.</p>
+</div>
+<section id="move-computations-up-the-pipeline-p1">
+<h4>Move computations up the pipeline (P1)<a class="headerlink" href="OpenglEsProgrammingTips.html#move-computations-up-the-pipeline-p1" title="Link to this heading">#</a></h4>
+<p>As the rendering pipeline is traversed from the CPU to the vertex
+processor and then to the fragment processor, the required workload
+tends to increase a few orders of magnitude each time. Computations
+constant per model, per primitive or per vertex do not belong in the
+fragment processor and should be moved up to the vertex processor or
+earlier. Per draw call computations do not belong in the vertex
+processor and should be moved to the CPU. For instance, if lighting is
+done in eye-space, the light vector should be transformed into eye-space
+and stored in a uniform rather than repeating this for each vertex or,
+even worse, per fragment. The light vector should naturally be stored
+pre-normalized. Usually the light vector computations are constant for
+the draw call, so they do not belong in any shader.</p>
+</section>
+<section id="do-not-write-large-or-generalized-shaders-p2">
+<h4>Do not write large or generalized shaders (P2)<a class="headerlink" href="OpenglEsProgrammingTips.html#do-not-write-large-or-generalized-shaders-p2" title="Link to this heading">#</a></h4>
+<p>It is critical to resist the temptation to write shader programs that
+take different code paths depending on whether one or more constant
+variable have a particular value. Uniforms are intended as constants for
+one (or hopefully many) primitives—they are not substitutes for calling
+<code class="docutils literal notranslate"><span class="pre">glUseProgram()</span></code>. Shaders should be minimal and specialized to the task
+they perform. It is much better to have many small shaders that run fast
+than a few large shaders that all run slow. Code re-use (when source
+shaders are supported) should be handled at the application level using
+<code class="docutils literal notranslate"><span class="pre">glShaderSource()</span></code>. If the advice here of not writing generalized shaders
+goes against the conflicting goal of minimizing shader and state
+changes, smaller and more specialized shaders are generally preferred.
+Additionally, be careful with writing shader functions intended for
+concatenation into the final shader source code<span class="html">&mdash;</span>shared functions tend
+to be overly generic and make it harder to exploit possible shortcuts.</p>
+</section>
+<section id="take-advantage-of-application-specific-knowledge-p3">
+<h4>Take advantage of application specific knowledge (P3)<a class="headerlink" href="OpenglEsProgrammingTips.html#take-advantage-of-application-specific-knowledge-p3" title="Link to this heading">#</a></h4>
+<p>Application specific knowledge can be used to simplify or avoid
+computations. Math shortcuts should be pursued everywhere because there
+are optimizations that the shader compiler or the GPU cannot make. For
+instance, rendering screen-aligned primitives is common for 2D user
+interface and post-processing effects. In this case, the entire
+modelview transformation is avoided by defining the vertices in NDC
+(normalized device coordinates). A full-screen quad has its vertex
+coordinates in the [-1.0,1.0] range so these can be passed directly from
+the vertex attribute to <code class="docutils literal notranslate"><span class="pre">gl_Position</span></code>. The types of matrix transformations
+applied in the application when creating the modelview matrix should be
+tracked and exploited when possible. For instance, an orthonormal matrix
+(e.g. no non-uniform scaling) leads to an opportunity to avoid
+computations when transforming normals with the inverse-transpose
+sub-matrix.</p>
+</section>
+<section id="optimize-for-depth-and-stencil-culling-p4">
+<h4>Optimize for depth and stencil culling (P4)<a class="headerlink" href="OpenglEsProgrammingTips.html#optimize-for-depth-and-stencil-culling-p4" title="Link to this heading">#</a></h4>
+<p>The GPU can quickly reject fragments based on depth or stencil testing
+before the fragment shader is executed. The depth complexity of a scene
+is the number of times each fragment gets written. Depth complexity can
+be measured by incrementing values in a stencil buffer. A high depth
+complexity in a 3D scene can be a result of rendering opaque objects in
+a non-optimal order. The worst case is rendering back-to-front (aka
+painter’s algorithm) because it leads to a large number of fragments
+being overdrawn. An application with high depth complexity should ensure
+that opaque objects are rendered sorted front-to-back order with depth
+testing enabled. Straightforward rendering of 2D user interfaces also
+leads to a high depth complexity that can often be decreased with the
+same technique but also by using the stencil buffer to mask fragments.
+Applications that are heavily fragment limited can be sped up
+significantly with clever use of these techniques—sometimes up to a
+factor of 10 or more.</p>
+<p>If vertex processing is not a bottleneck, it is worthwhile to run
+experiments that prime the depth buffer in a first pass. Disable all
+color writes with <code class="docutils literal notranslate"><span class="pre">glColorMask()</span></code> on the first pass. The fragments in the
+depth buffer can then serve as occluders in a second pass when color
+writes are enabled, and the expensive fragment shaders are executed.
+Disable depth writes with <code class="docutils literal notranslate"><span class="pre">glDepthMask()</span></code> in the second pass since there
+is no point in writing it twice.</p>
+</section>
+<section id="do-not-discard-fragments-or-modify-depth-unless-absolutely-necessary-p5">
+<h4>Do not discard fragments, or modify depth, unless absolutely necessary (P5)<a class="headerlink" href="OpenglEsProgrammingTips.html#do-not-discard-fragments-or-modify-depth-unless-absolutely-necessary-p5" title="Link to this heading">#</a></h4>
+<p>Some operations prevent the hardware from enabling its automatic
+optimization that rejects fragments early in the pipeline (early-Z). In
+particular, the discard operation that discards fragments based on some
+criteria will disable early-Z on some platforms. It is critical to limit
+the use of discarding as much as possible (e.g., alpha testing)—unless
+depth writing can be disabled. Another example is found in the
+<code class="docutils literal notranslate"><span class="pre">GL_NV_fragdepth</span></code> extension available on some platforms, where the depth
+value can be written from the fragment shader. This operation also
+forces the GPU to opt out of Early-Z reject in order to ensure correct
+rendering.</p>
+</section>
+<section id="avoid-conditionals-in-shaders-when-possible-p6">
+<h4>Avoid conditionals in shaders when possible (P6)<a class="headerlink" href="OpenglEsProgrammingTips.html#avoid-conditionals-in-shaders-when-possible-p6" title="Link to this heading">#</a></h4>
+<p>Fragments are processed in chunks and both branches of a conditional may
+need to be evaluated before the result of the false branch can be
+discarded by the GPU. Be careful with assuming that conditionals skip
+computations and reduce the workload. This warning is particularly
+relevant to fragment shaders. Benchmarking shaders can determine if
+conditionals in the vertex or fragment shaders actually end up
+decreasing the workload. Some conditional code can be rewritten in terms
+of algebra and/or built-in functions. For instance, the dot product
+between a normal and a light vector may be negative in which case the
+result is not needed in a lighting equation. Instead of:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>if (nDotL &gt; 0.0) ...
+</pre></div>
+</div>
+<p>The value can be clamped with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>clamp(nDotL, 0.0, 1.0)
+</pre></div>
+</div>
+<p>And unconditionally used in the result (the negative value results in a
+zero-product). Clamp may be faster than max and/or min for the 0.0 and
+1.0 cases, but as always benchmarking will have the final say in the
+matter. Another reason to make an effort of avoiding conditionals in
+fragment shaders is that mipmapped textures return undefined results
+when executed in a block statement that is conditional on run-time
+values. Although the GLSL functions <code class="docutils literal notranslate"><span class="pre">texture*Lod()</span></code> can be used to bias or
+specify the mipmap LOD, it is expensive to manually derive the mipmap
+LOD. In addition, these LOD biasing samplers may not run as fast as the
+non-LOD samplers.</p>
+</section>
+<section id="use-appropriate-precision-qualifiers-p7">
+<h4>Use appropriate precision qualifiers (P7)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-appropriate-precision-qualifiers-p7" title="Link to this heading">#</a></h4>
+<p>Recall that the default precision in vertex shaders is highp, and that
+fragment shaders have no default precision until explicitly set.
+Precision qualifiers can be valuable hints to the compiler to reduce
+register pressure and may improve performance for several reasons. Low
+precision may run twice as fast in hardware as high precision. These
+optimizations can be approached by initially using highp and gradually
+reducing the precision to lowp until rendering artifacts appear; if it
+looks good enough, then it is good enough. As a rule of thumb, vertex
+position, exponential and trigonometry functions need highp. Texture
+coordinates may need anything from lowp to highp depending on texture
+width and height. Many application-defined uniform variables,
+interpolated colors, normals and texture samples can usually be
+represented using lowp. However, floating-point texture samplers need
+more than low precision<span class="html">&mdash;</span>this is one of several reasons to minimize the
+use of floating-point textures (T6).</p>
+</section>
+<section id="use-the-built-in-functions-and-variable-p8">
+<h4>Use the built-in functions and variable (P8)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-the-built-in-functions-and-variable-p8" title="Link to this heading">#</a></h4>
+<p>The built-ins have a higher chance of compiling optimally and may even
+be implemented in hardware. For instance, do not write shader code to
+determine the forward primitive face or compute the reflection vector in
+terms of dot-products and algebra; instead, use the built-in variable
+<code class="docutils literal notranslate"><span class="pre">gl_FrontFacing</span></code> or the built-in function <code class="docutils literal notranslate"><span class="pre">reflect()</span></code>, respectively.</p>
+</section>
+<section id="consider-encoding-complex-functions-in-textures-p9">
+<h4>Consider encoding complex functions in textures (P9)<a class="headerlink" href="OpenglEsProgrammingTips.html#consider-encoding-complex-functions-in-textures-p9" title="Link to this heading">#</a></h4>
+<p>Shaders normally contain both arithmetic (ALU) and texture operations. A
+batch of ALU operations may hide the latency of fetching samples from
+texture because they occur in parallel. If a shader is the primary
+bottleneck, and when the ALU operations significantly outnumber the
+texture operations, it is worthwhile to investigate if some of these
+operations can be encoded in textures. Sub-expressions in shaders can
+sometimes be stored in LUTs (look-up-tables). LUTs can sometimes be
+implemented in textures with sufficient precision and accessed as 1D or
+2D textures with NEAREST filtering.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The old trick of using cubemaps to normalize vectors is most likely a performance loss on discrete GPUs. If you pursue this idea, then make sure to benchmark to determine if you have improved or worsened the performance!</p>
+</div>
+</section>
+<section id="limit-the-amount-of-indirect-texturing-p10">
+<h4>Limit the amount of indirect texturing (P10)<a class="headerlink" href="OpenglEsProgrammingTips.html#limit-the-amount-of-indirect-texturing-p10" title="Link to this heading">#</a></h4>
+<p>Indirect texturing can sometimes be useful, but when the result of a
+texture operation depends on another texture operation, the latency of
+texture sampling is difficult to hide. It also tends to lead to
+scattered reads that minimize the benefit of the texture cache. Indirect
+texturing can sometimes be reduced, or avoided, at the expense of
+memory. Whether that trade-off makes sense should of course be analyzed
+and benchmarked.</p>
+</section>
+<section id="do-not-let-glsl-syntax-obscure-math-optimizations-p11">
+<h4>Do not let GLSL syntax obscure math optimizations (P11)<a class="headerlink" href="OpenglEsProgrammingTips.html#do-not-let-glsl-syntax-obscure-math-optimizations-p11" title="Link to this heading">#</a></h4>
+<p>The GLSL shading language conveniently overloads arithmetic operators
+for vectors and matrices. Care must be taken to not miss optimization
+opportunities due to this syntax simplification. For instance, a
+rotation matrix can, but should not, be defined as homogeneous 4x4 matrix
+just because the other operand is a vec4 vector. A generalized rotation
+matrix should be described only as a 3 x 3 matrix and applied to vec3
+vectors. And a rotation around basic vectors can be done even more
+efficiently than <code class="docutils literal notranslate"><span class="pre">mat3*vec3</span></code> by directly accessing the relevant vector
+and matrix components with cos and sin. Take advantage of any specific
+application knowledge to reduce the number of needed scalar
+instructions.</p>
+</section>
+<section id="only-normalize-vectors-when-it-is-necessary-p12">
+<h4>Only normalize vectors when it is necessary (P12)<a class="headerlink" href="OpenglEsProgrammingTips.html#only-normalize-vectors-when-it-is-necessary-p12" title="Link to this heading">#</a></h4>
+<p>Normalization of vectors is required to efficiently calculate the angle
+between them, or perhaps more typically, the diffuse component in many
+commonly used lighting equations. In theory, normalization is required
+for geometry normals after having transformed them with the normal
+matrix. In practice, it may not matter depending on the composition of
+the matrix. It is a common mistake to normalizing vectors where it is
+not necessary, or at least not visually discernible. As a result, the
+application may run slower for no good reason. For instance, consider
+the case of interpolating vertex normals in order to compute lighting
+per fragment (i.e., Phong shading). If the normal matrix only rotates,
+there is little reason to normalize the normal vectors before
+interpolating.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Barycentric interpolation will not preserve the unit length of these vectors. So normals that are interpolated in varying variables do must be normalized to ensure the dot-product with the light vector obeys the cosine emission law.</p>
+</div>
+</section>
+</section>
+<section id="textures">
+<h3>Textures<a class="headerlink" href="OpenglEsProgrammingTips.html#textures" title="Link to this heading">#</a></h3>
+<p>Textures consume the largest amount of the available memory and
+bandwidth in many applications. One of the best places to look for
+improvements when short on memory or bandwidth to optimize texture size,
+format and usage. Careless use of texturing can degrade the frame rate
+and can even result in inferior image quality.</p>
+<section id="use-texture-compression-whenever-possible-t1">
+<h4>Use texture compression whenever possible (T1)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-texture-compression-whenever-possible-t1" title="Link to this heading">#</a></h4>
+<p>Texture compression brings several benefits that result from textures
+taking up less memory: compressed textures use less of the available
+memory bandwidth, reduces download time, and increases the efficiency of
+the texture cache. The <code class="docutils literal notranslate"><span class="pre">texture_compression_s3tc</span></code> and
+<code class="docutils literal notranslate"><span class="pre">texture_compression_latc</span></code> extensions both provide block-based lossy
+texture compression that can be decompressed efficiently in hardware.
+The S3TC extension gives 8:1 or 4:1 compression ratio and is suitable
+for color images with 3 or 4 channels (with or without alpha) with
+relatively low-frequency data. Photographs and other images that
+compress satisfactory with JPEG are great candidates for S3TC. Images
+with hard and crisp edges are poorer candidates for S3TC and may appear
+slightly blurred and noisy. The LATC extension yields a 2:1 compression
+ratio, but improves on the quality, and can be useful for high
+resolution normal maps. The third coordinate is derived in the fragment
+shader—be sure to benchmark if the application can afford this trade-off
+between memory and computations! Unlike S3TC, the channels in LATC are
+compressed separately, and quantization is less hard. Using texture
+compression does not always result in lower perceived image quality, and
+with these extensions one can experiment with increasing the texture
+resolution for the same memory. There are off-line tools to compress
+textures (even if a GL extension supports compressing them on-the-fly).
+Search the NVIDIA developer website for “Texture Tools.”</p>
+</section>
+<section id="use-mipmaps-when-appropriate-t2">
+<h4>Use mipmaps when appropriate (T2)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-mipmaps-when-appropriate-t2" title="Link to this heading">#</a></h4>
+<p>Mipmaps should be used when there is not an obvious one-to-one mapping
+between texels and frame buffer pixels. If texture minification occurs in
+a scene and there are no mipmaps to access, texture cache utilization
+will be poor due to the sparse sampling. If texture minification occurs
+more often than not, then the texture size may be too large to begin
+with. Coloring the mipmap levels differently can provide a visual clue
+to the amount of minification that is occurring. When reducing the
+texture size, it may also be worthwhile to perform experiments to see if
+some degree of magnification is visually acceptable and if it improves
+frame rate.</p>
+<p>Although <code class="docutils literal notranslate"><span class="pre">glGenerateMipmap()</span></code> is convenient, it should not be the only
+option for generating a mipmap chain. This function emphasizes execution
+speed over image quality by using a simple box filter. Generating
+mipmaps off-line using more advanced filters (e.g. Lanczos/Sinc) will
+often yield improved image quality at no extra cost. However,
+<code class="docutils literal notranslate"><span class="pre">glGenerateMipmap()</span></code> may be preferable when generating textures
+dynamically due to speed. One of the only situations where you do not
+want to use mipmaps is if there is always a one-to-one mapping between
+texels and pixels. This is sometimes the case in 3D, but more often the
+case for 2D user interfaces. Recall that a mipmapped texture takes up
+33% more storage than un-mipmapped, but they can provide much better
+performance and even better image quality through reduced aliasing.</p>
+</section>
+<section id="use-the-smallest-possible-textures-size-t3">
+<h4>Use the smallest possible textures size (T3)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-textures-size-t3" title="Link to this heading">#</a></h4>
+<p>Always use the smallest possible texture size for any content that gives
+acceptable image quality. The appropriate size of a texture should be
+determined by the size of the frame buffer and the way the textured
+geometry is projected onto it. But even when you have a one-to-one
+mapping between texels and frame buffer pixels, there may be cases where
+a smaller size can be used. For instance, when blending a texture on the
+existing content in the entire frame buffer, the texture does not
+necessarily have to be the same width and height as the frame buffer. It
+may be the case that a significantly smaller texture that is magnified
+will produce results that are good enough. The bandwidth that is saved
+from using a smaller and more appropriately sized texture can instead be
+spent where it actually contributes to better image quality or
+performance.</p>
+</section>
+<section id="use-the-smallest-possible-texture-format-and-data-type-t4">
+<h4>Use the smallest possible texture format and data type (T4)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-texture-format-and-data-type-t4" title="Link to this heading">#</a></h4>
+<p>If hardware accelerated texture compression cannot be used for some
+textures, then consider using a texture format with fewer components
+and/or fewer bits per component. Textures for user interface elements
+sometimes have hard edges or color gradients that result in inferior
+image quality when compressed. The S3TC algorithm make assumptions that
+changes are smooth and colors values can be quantized. If these
+assumptions do not fit a particular image, but the number of unique
+colors is still low, then experiment with storing these in a packed
+texture format using 16 bit/texel (e.g. <code class="docutils literal notranslate"><span class="pre">UNSIGNED_SHORT_5_6_5</span></code>). Although
+the colors are remapped with less accuracy it may not be noticeable in
+the final application. Grayscale images should be stored as LUMINANCE
+and tinted images can sometimes be stored the same way with the added
+cost of a dot product with the tint color. If normal maps do not
+compress satisfactory with the LATC format, then it may be possible to
+store two of the normals coordinates in uncompressed <code class="docutils literal notranslate"><span class="pre">LUMINANCE_ALPHA</span></code> and
+derive the third in a shader assuming the direction (sign) of the normal
+is implicit (as is the case of a heightmap terrain).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When optimizing uncompressed textures, the exception case that 24-bit (RGB) textures are not necessarily faster to download or smaller in memory than 32-bit (RGBA) on most GPUs. In this case, it may be possible to use the last component for something useful. For instance, if there already is an 8-bit grayscale texture that is needed at the same time as an opaque color texture, that single component texture can be stored in the unused alpha component of a 32-bit (RGBA). The component could define a specular/reflectance map that describe where and to what degree light is reflected. This is useful for terrain satellite imagery or land cover textures with water, snow, or ice areas, or for car textures with their metal and glass surfaces, or for textures for buildings with glass windows.</p>
+</div>
+</section>
+<section id="store-multiple-images-in-each-texture-object-t5">
+<h4>Store multiple images in each texture object (T5)<a class="headerlink" href="OpenglEsProgrammingTips.html#store-multiple-images-in-each-texture-object-t5" title="Link to this heading">#</a></h4>
+<p>There is no requirement that there is a one-to-one mapping between an
+image and a texture object. Textures objects can contain multiple
+distinct images. These are sometimes referred to as a “texture atlas” or
+a “texture page.” The geometry defines texture coordinates that only
+reference a subset of the texture. Texture atlases are useful for
+minimizing state changes and enables larger batches when rendering. For
+example, residential houses and office buildings and factories might all
+use distinct texture images. But the geometry and vertex layout for each
+is most likely identical so these could share the same buffer object. If
+the distinct images are stored in a texture atlas instead of as separate
+textures, then these different kinds of buildings can all be rendered
+more efficiently in the same draw call (G7). The texture object could be
+a 2D texture, a cubemap texture or an array texture.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that if mipmapping is enabled, the sub-textures in an atlas must have a border wide enough to ensure that smaller mipmaps are not generated using texels from neighboring images. And if texture tiling (<code class="docutils literal notranslate"><span class="pre">REPEAT</span></code> or <code class="docutils literal notranslate"><span class="pre">MIRRORED_REPEAT</span></code>) is needed for a sub-image then it may be better to store it outside the texture atlas.</p>
+</div>
+<p>Emulating either wrapping mode in a shader by manipulating texture
+coordinates is possible, but not free. A cubemap texture can sometimes
+be useful since wrapping and filtering apply per face, but the texture
+coordinates used must be remapped to a vec3 which may be inconvenient.
+If all the sub-images have the same or similar size, format and type
+(e.g. image icons), the images are a good candidate for the array
+texture extension if supported. Array textures may be more appropriate
+here than a 2D texture atlas where mipmapping and wrapping restrictions
+have to be taken into consideration.</p>
+</section>
+<section id="float-textures-are-always-expensive-t6">
+<h4>Float textures are always expensive (T6)<a class="headerlink" href="OpenglEsProgrammingTips.html#float-textures-are-always-expensive-t6" title="Link to this heading">#</a></h4>
+<p>Textures with a floating-point format should be avoided whenever
+possible. If these textures are simply being used to represent a larger
+range of values, it may be possible to replace these with fixed point
+textures and scaling instructions. For instance, unsigned 16-bit
+integers cannot even accurately be represented by half-precision floats
+(FP16). These would have to be stored using single precision (FP32)
+leading to twice the memory and bandwidth requirements. It might be
+better to store these values in two components using 8 bits (LA8) and
+spend ALU instructions to unpack them in a shader.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Floating-point textures may not support anything better than nearest filtering.</p>
+</div>
+</section>
+<section id="prefer-power-of-two-pot-textures-in-most-cases-t7">
+<h4>Prefer power-of-two (POT) textures in most cases (T7)<a class="headerlink" href="OpenglEsProgrammingTips.html#prefer-power-of-two-pot-textures-in-most-cases-t7" title="Link to this heading">#</a></h4>
+<p>Although Non-Power-of-Two (NPOT) textures are supported in ES2 they come
+with a CLAMP_TO_EDGE restriction on the wrapping mode (unless relaxed by
+an extension). More importantly, they cannot be mipmapped (unless
+relaxed by an extension). For that reason, POT textures should be used
+when there is not significant memory and bandwidth to be saved from
+using NPOT. However, an NPOT texture may be padded internally to
+accommodate alignment restrictions in hardware and that the amount of
+memory saved might not be quite as large as the width and height
+suggests. As a rule of thumb, only large (i.e., hundreds of texels) NPOT
+textures will effectively save a significant amount of memory over POT
+textures.</p>
+</section>
+<section id="update-textures-sparingly-t8">
+<h4>Update textures sparingly (T8)<a class="headerlink" href="OpenglEsProgrammingTips.html#update-textures-sparingly-t8" title="Link to this heading">#</a></h4>
+<p>Writing to GPU resources can be expensive—it applies to textures as
+well. If texture updates are required, then determine if they really
+need to be updated per frame or if the same texture can be reused for
+several frames. For environment maps, unless the lighting or the objects
+in the environment have been transformed (e.g., moved and/or rotated)
+sufficiently to invalidate the previous map, the visual difference may
+not be noticeable, but the performance improvement can be. The same
+applies to the depth texture(s) used for shadow mapping algorithms.</p>
+</section>
+<section id="update-textures-efficiently-t9">
+<h4>Update textures efficiently (T9)<a class="headerlink" href="OpenglEsProgrammingTips.html#update-textures-efficiently-t9" title="Link to this heading">#</a></h4>
+<p>When updating an existing texture, use <code class="docutils literal notranslate"><span class="pre">glTexSubImage*()</span></code> instead of
+redefining its entire contents with TexImage when possible.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using <code class="docutils literal notranslate"><span class="pre">glTexSubImage*()</span></code> it is important to specify the same texture format and data type with which that the texture object was defined; otherwise, there may be an expensive conversion as texels are being updated.</p>
+</div>
+<p>If the application is only updating from a sub-rectangle of pixels in
+client memory, then remember that the driver has no knowledge about the
+stride of pixels in your image. When the width of the image rectangle
+differs from the texture width, this normally requires a loop through
+single pixel rows calling <code class="docutils literal notranslate"><span class="pre">glTexSubImage*()</span></code> repeatedly while updating the
+client memory offsets with pointer arithmetic. In this case, the
+<code class="docutils literal notranslate"><span class="pre">unpack_subimage</span></code> extension can be used (if supported) to set the
+<code class="docutils literal notranslate"><span class="pre">UNPACK_ROW_LENGTH</span></code> pixelstore parameter to update the entire region with
+one <code class="docutils literal notranslate"><span class="pre">glTexSubImage*()</span></code> call.</p>
+</section>
+<section id="partition-rendering-based-on-alpha-blending-testing-t10">
+<h4>Partition rendering based on alpha blending/testing (T10)<a class="headerlink" href="OpenglEsProgrammingTips.html#partition-rendering-based-on-alpha-blending-testing-t10" title="Link to this heading">#</a></h4>
+<p>It is sometimes possible to improve performance by splitting up the
+rendering based on whether alpha blending or alpha testing is required.
+Use separate draw calls for opaque geometry so these can be rendered
+with maximum efficiency with blending disabled. Perform other draw calls
+for transparent geometry with alpha blending enabled, taking into
+account the draw ordering that transparent geometry requires. As always,
+benchmarks should be run to determine if this improves or reduces the
+frame rate since you will be batching less by splitting up draw calls.</p>
+</section>
+<section id="filter-textures-appropriately-t11">
+<h4>Filter textures appropriately (T11)<a class="headerlink" href="OpenglEsProgrammingTips.html#filter-textures-appropriately-t11" title="Link to this heading">#</a></h4>
+<p>Do not automatically set expensive texture filters and enable
+anisotropic filtering. Remember that nearest-neighbor filtering always
+fetches one texel, bilinear filtering fetches up to four texels and
+trilinear fetches up to eight texels. However, it can be incorrect to
+draw assumptions about the performance cost based on this. Bilinear
+filtering may not cost four times as much as nearest filtering, and
+trilinear can be more or less than twice as expensive as bilinear. Even
+though textures have mipmaps, it does not automatically mean trilinear
+filtering should be used. That decision should be made entirely from
+observing the images from the running application. Only then can a
+judgment be made if any abrupt changes between mipmap levels are
+visually disturbing enough to justify the cost of interpolating the
+mipmaps with trilinear filtering. The same applies to anisotropic
+filtering, which is significantly more expensive and bandwidth intensive
+than bilinear or trilinear filtering. If the angle between the textured
+primitives and the projection plane (e.g. near plane) is never very
+large, there is nothing to be gained from anisotropic sampling, and
+there a potential for lower performance. Therefore, an application should
+start off with the simplest possible texture filtering and only enable
+more expensive filtering after users have inspected the output images.
+It might be worthwhile to benchmark the changes and take notes along the
+way. This will provide a better indication of the relative cost of
+filtering method and if concessions must be made if the performance
+budget is exceeded.</p>
+</section>
+<section id="try-to-exploit-texture-tiling-t12">
+<h4>Try to exploit texture tiling (T12)<a class="headerlink" href="OpenglEsProgrammingTips.html#try-to-exploit-texture-tiling-t12" title="Link to this heading">#</a></h4>
+<p>It is common for images to contain the same repeated pattern of pixels.
+Or an image might repeat a few patterns that are close enough in
+similarity that they could be replaced with a single pattern without
+impacting image quality. Tiling textures saves on memory and bandwidth.
+Some image processing applications can identify repeated patterns and
+can crop them so they can be tiled infinitely without seams when using
+textures with the REPEAT wrap mode. Sometimes even a quarter of a tile
+or shingle may be sufficient to store while using <code class="docutils literal notranslate"><span class="pre">MIRRORED_REPEAT</span></code>.
+Consider if tiling variation can be restored or achieved with
+multi-texturing, using for instance a less expensive grayscale texture
+that repeats at a different frequency to modulate the texels from the
+tiled texture.</p>
+</section>
+<section id="use-frame-buffer-objects-fbo-for-dynamically-generated-textures-t13">
+<h4>Use frame buffer objects (FBO) for dynamically generated textures (T13)<a class="headerlink" href="OpenglEsProgrammingTips.html#use-frame-buffer-objects-fbo-for-dynamically-generated-textures-t13" title="Link to this heading">#</a></h4>
+<p>OpenGL ES comes with functions for copying previously rendered pixels
+from a frame buffer into a texture <code class="docutils literal notranslate"><span class="pre">(glCopyTexImage()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">glCopyTexSubImage()</span></code><span class="html">&nbsp;</span>). These functions should be avoided whenever
+possible for performance reasons. It is better to bind a frame buffer
+object with a texture attachment and render directly to the texture.
+Make sure you check for frame buffer completeness.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all pixel formats are color-renderable. Formats with three or four components in 16 or 32 bits are color-renderable in OpenGL ES 2.0, but LUMINANCE and/or ALPHA may require a fallback to <code class="docutils literal notranslate"><span class="pre">glCopyTexImage()</span></code> functions.</p>
+</div>
+</section>
+</section>
+<section id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="OpenglEsProgrammingTips.html#miscellaneous" title="Link to this heading">#</a></h3>
+<p>This topic contains miscellaneous OpenGL ES programming tips.</p>
+<section id="avoid-reading-back-the-frame-buffer-contents-m1">
+<h4>Avoid reading back the frame buffer contents (M1)<a class="headerlink" href="OpenglEsProgrammingTips.html#avoid-reading-back-the-frame-buffer-contents-m1" title="Link to this heading">#</a></h4>
+<p>Reading back the frame buffer flushes the GL pipeline and limits the
+amount CPU/GPU parallelism. Reading frequently or in the middle of a
+frame stalls the GPU and limits the throughput with lower frame rate as
+a result. If the buffer contents must be read back (perhaps for picking
+3D objects in a complex scene), it should be done minimally and
+scheduled at the beginning of the next frame. In the special case that
+the application is reading back into a sub-rectangle of pixels in client
+memory, the <code class="docutils literal notranslate"><span class="pre">pack_subimage</span></code> extension (if supported) is very useful.
+Setting the <code class="docutils literal notranslate"><span class="pre">PACK_ROW_LENGTH</span> <span class="pre">pixel</span></code> store parameter will reduce the loop
+overhead that will otherwise be necessary (T9).</p>
+</section>
+<section id="avoid-clearing-buffers-needlessly-m2">
+<h4>Avoid clearing buffers needlessly (M2)<a class="headerlink" href="OpenglEsProgrammingTips.html#avoid-clearing-buffers-needlessly-m2" title="Link to this heading">#</a></h4>
+<p>If the application always covers the entire color buffer for each frame,
+then bandwidth can be saved by not clearing it. It is a common mistake
+to call <code class="docutils literal notranslate"><span class="pre">glClear(GL_COLOR_BUFFER_BIT)</span></code> when it is not necessary. If only
+part of the color buffer is modified, then constrain pixel operations to
+that region by enabling scissor testing and define a minimal scissor box
+for the region. The same applies to depth and stencil buffers if full
+screen testing is not needed.</p>
+</section>
+<section id="disable-blending-when-it-is-not-needed-m3">
+<h4>Disable blending when it is not needed (M3)<a class="headerlink" href="OpenglEsProgrammingTips.html#disable-blending-when-it-is-not-needed-m3" title="Link to this heading">#</a></h4>
+<p>Most blending operations require a read and a write to the frame buffer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Memory bandwidth is often doubled when rendering with blending is enabled. The number of blended fragments should be kept to a minimum—it can drastically speed up the GL application.</p>
+</div>
+</section>
+<section id="minimize-memory-fragmentation-m4">
+<h4>Minimize memory fragmentation (M4)<a class="headerlink" href="OpenglEsProgrammingTips.html#minimize-memory-fragmentation-m4" title="Link to this heading">#</a></h4>
+<p>Buffer objects and <code class="docutils literal notranslate"><span class="pre">glTexImage*()</span></code> functions are effectively graphics
+memory allocations. Reusing existing buffer objects and texture objects
+will reduce memory fragmentation. If geometry or textures are generated
+dynamically, the application should allocate a minimal pool of objects
+for this purpose during application initialization. It may be that two
+buffers or textures used in a round-robin fashion are optimal for
+reducing the risk that the GPU is waiting on the resource. Also, recall
+that sampling a texture that is being rendered to, at the same time, is
+undefined. This can be another reason to alternate between objects. For
+more information, see <a class="reference external" href="OpenglEsProgrammingTips.html#video-memory-overview">Memory Fragmentation</a>
+in this topic.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no “Memory Fragmentation” heading, and the targeted “Video Memory Overview” label does not seem relevant. Perhaps this is a reference to “Avoiding Memory Fragmentation.”</p>
+</div>
+</section>
+</section>
+<section id="optimizing-opengl-es-applications">
+<h3>Optimizing OpenGL ES Applications<a class="headerlink" href="OpenglEsProgrammingTips.html#optimizing-opengl-es-applications" title="Link to this heading">#</a></h3>
+<p>Optimization is an iterative process. It can be time consuming,
+especially without prior experience determining where bottlenecks tend
+to occur. Effort should be directed towards the critical areas instead
+of starting a random place in the rendering code. When the graphics
+application is complex it may be difficult to know where to start or
+exactly where optimizations will yield the best return.</p>
+<section id="partition-the-analysis-into-manageable-chunks">
+<h4>Partition the analysis into manageable chunks<a class="headerlink" href="OpenglEsProgrammingTips.html#partition-the-analysis-into-manageable-chunks" title="Link to this heading">#</a></h4>
+<p>Many rendering applications are complex and consist of hundreds of
+objects. But usually they consist of logically separate rendering code.
+For example, a rendered image may consist of roads, buildings,
+landmarks, points of interest, sky, clouds, buildings, water, terrain,
+icons, and a 2D user interface. It is helpful to write the GL
+application such that rendering of each type of object can be disabled
+easily. This allows easy identification of the most expensive objects
+when benchmarking and therefore makes optimizing the rendering code more
+manageable.</p>
+</section>
+<section id="become-familiar-with-bottlenecks-in-the-graphics-pipeline">
+<h4>Become familiar with bottlenecks in the graphics pipeline<a class="headerlink" href="OpenglEsProgrammingTips.html#become-familiar-with-bottlenecks-in-the-graphics-pipeline" title="Link to this heading">#</a></h4>
+<p>It is important to begin optimizations by identifying the performance
+bottlenecks at the different stages in the graphics pipeline. Because
+the work introduced in the beginning of the pipeline normally affects
+the work needed at later stages, it often makes sense to work backwards
+from the end of the pipeline. An introduction to identifying graphics
+bottlenecks can be found in <a class="reference external" href="https://developer.nvidia.com/gpugems/gpugems/contributors">GPU Gems</a>, in Chapter 28, <a class="reference external" href="https://developer.download.nvidia.com/books/HTML/gpugems/gpugems_ch28.html">Graphics
+Pipeline Performance</a> (Cem Cebenoyan, NVIDIA).</p>
+</section>
+</section>
+</section>
+<section id="avoiding-memory-fragmentation">
+<h2>Avoiding Memory Fragmentation<a class="headerlink" href="OpenglEsProgrammingTips.html#avoiding-memory-fragmentation" title="Link to this heading">#</a></h2>
+<p>Memory Fragmentation generally is a bad thing. This is especially true
+for computer graphics applications. In addition to avoiding system
+memory fragmentation, a graphics application should strive to avoid
+video memory fragmentation as well.</p>
+<p>Fortunately, controlling video memory fragmentation has techniques very
+similar to those used to avoid system memory fragmentation. Since system
+memory fragmentation control is fairly well known, this document will
+only treat system memory issues in passing and focuses on video memory
+techniques.</p>
+<section id="video-memory-overview">
+<h3>Video Memory Overview<a class="headerlink" href="OpenglEsProgrammingTips.html#video-memory-overview" title="Link to this heading">#</a></h3>
+<p>Video memory is much more heterogeneous than system memory.</p>
+<p>NVIDIA video memory allocation algorithms have to take the following
+into account:</p>
+<ul class="simple">
+<li><p>There are multiple types of video memory <strong>types</strong>. The number and
+names of the types vary by GPU model, but GPUs generally have at
+least two; linear, which is essentially unformatted, and one or more
+GPU specific types. The GPU tracks different types of memory, and
+will access and write them differently. The types are important
+because GPU native types can be faster for a given set of operations;
+in some GPU architectures, the difference is small, on the order of
+10-15%. On others, it can be quite large, more than 100% faster than
+linear memory.</p></li>
+<li><p>Video memory is often banked, especially for mipmapped textures. In
+most architecture, alternating mipmap levels for a given texture must
+be put in separate banks. This separation is mandatory in most NVIDIA
+GPUs.</p></li>
+<li><p>In addition to the restrictions above, different memory regions have
+different alignment restrictions, to match host pages, improve DMA
+performance, or speed up frame buffer scanout. These alignment
+requirements may be orthogonal to the memory types, adding further
+complication.</p></li>
+<li><p>The allocator may have other special restrictions that enhance
+performance, such as distributing allocations to a sequence of
+different banks to improve allocation speed.</p></li>
+<li><p>These extra constraints complicate the video memory allocator and
+make allocations much more sensitive to reductions in available video
+memory. This is the major reason why NVIDIA does not support multiple
+independent heaps in video memory, instead requiring the application
+to allocate in such a way as to minimize fragmentation.</p></li>
+</ul>
+</section>
+<section id="allocating-and-freeing-video-memory">
+<h3>Allocating and Freeing Video Memory<a class="headerlink" href="OpenglEsProgrammingTips.html#allocating-and-freeing-video-memory" title="Link to this heading">#</a></h3>
+<p>This topic describes considerations for allocating and freeing video
+memory.</p>
+<section id="allocating-buffers">
+<h4>Allocating buffers<a class="headerlink" href="OpenglEsProgrammingTips.html#allocating-buffers" title="Link to this heading">#</a></h4>
+<p>When using OpenGL ES/EGL, there is only a small set of APIs that
+actually lead to long-term video memory buffer allocation:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glBufferData(enum target, sizeiptr size, const void *data, enum usage)
+glTexImage2D(enum target, int level, int internalFormat, sizei width, sizei height, int border, enum format, enum type, const void *pixels)
+glCopyTexImage2D(enum target, int level, enum internalformat, int x, int y, sizei width, sizei height, int border)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">glCopyTexImage2D()</span></code> allocates only when it copies to a null.</p>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, NativeWindowType win, const EGLint *attrib_list)
+eglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, const EGLint *attrib_list)
+eglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, NativePixmapType pixmap, const EGLint *attrib_list)
+</pre></div>
+</div>
+</section>
+<section id="freeing-buffers">
+<h4>Freeing buffers<a class="headerlink" href="OpenglEsProgrammingTips.html#freeing-buffers" title="Link to this heading">#</a></h4>
+<p>A similar set of APIs free allocated video memory buffers, whether they
+are textures, VBOs, or surfaces:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glDeleteBuffers(sizei n, uint *buffers)
+glDeleteTextures(sizei n const uint *textures)
+eglDestroySurface(EGLDisplay dpy, EGLSurface surface)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">glDeleteTextures()</span></code> works only if the texture object is greater than zero; the default texture can’t be explicitly deleted (although it can be replaced with a texture containing one or two dimensions of zero, which accomplishes the same thing).</p>
+</div>
+<p>Conceptually, these calls can be thought of as <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> and <code class="docutils literal notranslate"><span class="pre">free()</span></code> for
+VBOs and texture maps, respectively. The same techniques for avoiding
+fragmentation can also be applied.</p>
+</section>
+<section id="updating-a-subregion-of-a-buffer">
+<h4>Updating a Subregion of a Buffer<a class="headerlink" href="OpenglEsProgrammingTips.html#updating-a-subregion-of-a-buffer" title="Link to this heading">#</a></h4>
+<p>In many cases, avoiding fragmentation means placing multiple objects
+into the same shared buffer, or reusing a buffer by deleting or
+overwriting an older object with a newer one. OpenGL ES provides a
+method for updating an arbitrary section of allocated VBOs, textures,
+and surfaces:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glBufferSubData(enum target, intptr offset, sizeiptr size, const void *data, enum usage)
+glTexSubImage2D(enum target, int level, int xoffset, int yoffset, sizei width, sizei height, enum format, enum type, const void *pixels)
+glCopyTexSubImage2D(enum target, int level, int xoffset, int yoffset, int x, int y, sizei width, sizei height)
+glScissor(int left, int bottom, sizei width, sizei height);
+glViewport(int x, int y, sizei w, sizei h)
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">glTexSubImage2D()</span></code> and <code class="docutils literal notranslate"><span class="pre">glCopyTexSubImage2D()</span></code> update a subregion of the
+target texture image. In the first case, the source comes from an
+application buffer; in the second, from a rendering surface.</p>
+<p><code class="docutils literal notranslate"><span class="pre">glScissor()</span></code> and <code class="docutils literal notranslate"><span class="pre">glViewport()</span></code> limit rendering to a subregion of a
+rendering surface. The first specifies the region of the buffer that
+<code class="docutils literal notranslate"><span class="pre">glClear()</span></code> will affect; the second updates the transforms to limit
+rendered OpenGL ES primitives to the specified subregion.</p>
+</section>
+<section id="using-a-buffer-subregion">
+<h4>Using a Buffer Subregion<a class="headerlink" href="OpenglEsProgrammingTips.html#using-a-buffer-subregion" title="Link to this heading">#</a></h4>
+<p>Completing the functionality needed to reuse allocated buffers is the
+ability to use an arbitrary subregion of a texture, VBO, or surface:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glDrawArrays(enum mode, int first, sizei count)
+glReadPixels(int x, int y, sizei width, sizei height, enum format, enum type, void *data)
+glCopyTexImage2D(enum target, int level, int x, int y, sizei width, sizei height)
+glCopyTexSubImage2D(enum target, int level, int xoffset, int yoffset, int x, int y, sizei width, sizei height)
+</pre></div>
+</div>
+<p>For VBOs, <code class="docutils literal notranslate"><span class="pre">glDrawArrays()</span></code> allows the application to choose a contiguous
+subset of a VBO.</p>
+<p>For textures, there’s no explicit call to limit texturing source to a
+particular subregion. But texture coordinates and wrapping modes can be
+specified in order to render an arbitrary subregion of texture object.</p>
+<p>For surfaces, <code class="docutils literal notranslate"><span class="pre">glReadPixels()</span></code> can be used to read from a subregion of a
+display, when copying data back to an application-allocated buffer.</p>
+<p><code class="docutils literal notranslate"><span class="pre">glCopyTexImage2D()</span></code> and <code class="docutils literal notranslate"><span class="pre">glCopyTexSubImage2D()</span></code> also restrict themselves to
+copying from a subregion of the display surface when transferring data
+to a texture map. The only area that’s problematic is controlling the
+direct display of window surface back buffer. OpenGL ES and EGL have no
+way to show only a subregion of the backbuffer surface, but the native
+windowing systems may have this functionality.</p>
+</section>
+</section>
+<section id="best-practices-for-video-memory-management">
+<h3>Best Practices for Video Memory Management<a class="headerlink" href="OpenglEsProgrammingTips.html#best-practices-for-video-memory-management" title="Link to this heading">#</a></h3>
+<p>The following is a list of good practices when allocating video memory
+to avoid or minimize fragmentation:</p>
+<section id="allocate-large-buffers-early">
+<h4>1. Allocate large buffers early<a class="headerlink" href="OpenglEsProgrammingTips.html#allocate-large-buffers-early" title="Link to this heading">#</a></h4>
+<p>Ideally allocate large buffers at the start of the program. On average,
+allocating large surfaces gets more difficult as more allocations occur.
+When more allocations occur, free space is broken into smaller pieces.</p>
+</section>
+<section id="combine-many-small-allocations-into-a-smaller-number-of-larger-allocations">
+<h4>2. Combine many small allocations into a smaller number of larger allocations<a class="headerlink" href="OpenglEsProgrammingTips.html#combine-many-small-allocations-into-a-smaller-number-of-larger-allocations" title="Link to this heading">#</a></h4>
+<p>Small allocations can disproportionately reduce available free space.
+Not only does the allocator have a fixed overhead per allocation,
+regardless of size, but small allocations tend to break up large areas
+of free space into smaller pieces.</p>
+<p>The ability to load a subregion of a VBO or texture map, and the ability
+to render that subregion independently, makes it possible to combine
+VBOs and textures together. For textures, a large texture can be used to
+hold a grid of smaller images. For VBOs, multiple vertex arrays can be
+combined end to end into a larger one. Besides reducing fragmentation,
+combining related images into a single texture, and related vertex
+arrays into a single VBO often improves rendering time, since it reduces
+the number of <code class="docutils literal notranslate"><span class="pre">glBindBuffer()</span></code> or <code class="docutils literal notranslate"><span class="pre">glBindTexture()</span></code> calls required to render
+a set of related objects.</p>
+</section>
+<section id="reduce-the-variation-in-size-of-allocated-buffers-ideally-to-a-single-size">
+<h4>3. Reduce the variation in size of allocated buffers ideally to a single size<a class="headerlink" href="OpenglEsProgrammingTips.html#reduce-the-variation-in-size-of-allocated-buffers-ideally-to-a-single-size" title="Link to this heading">#</a></h4>
+<p>Allocating buffers of varying sizes, especially sizes that aren’t small
+multiples of each other, is disruptive of memory space and causes
+fragmentation. The ability to load and render a subset of a VBO or
+texture means that data loaded doesn’t have to match the size of the
+allocated buffer; as long as it’s smaller, it will work.</p>
+<p>This approach does waste space, in that some of the allocated buffer
+isn’t used, but this waste is often offset by the saving in reduced
+fragmentation and fixed allocation overhead. This approach can often be
+combined with approach (2) (combining multiple objects into one
+allocated buffer) to reduce total wastage. Generally, it’s safe to
+ignore wastage iF it’s a small percentage of the allocated buffer size
+(e.g. less than 5%).</p>
+<p>This approach is particularly good for dynamically allocated data, since
+fixed size blocks can often be freed and reallocated with little or no
+fragmentation. If wastage is excessive, a set of buffer sizes can be
+chosen (often a consecutive set of power of two sizes), and the smallest
+free buffer that will contain the data is used.</p>
+</section>
+<section id="reuse-rather-than-free-and-reallocate-buffers-whenever-possible">
+<h4>4. Reuse, rather than free and reallocate, buffers whenever possible<a class="headerlink" href="OpenglEsProgrammingTips.html#reuse-rather-than-free-and-reallocate-buffers-whenever-possible" title="Link to this heading">#</a></h4>
+<p>The ability to reload a previously allocated buffer with new data for
+both VBOs and textures makes this technique practical. Reuse is
+particularly important for large buffers; it is often better to create a
+large buffer at program start, and reuse it during mode switches, etc.,
+even if it requires allocating a larger buffer to handle all possible
+cases.</p>
+</section>
+<section id="minimize-dynamic-allocation">
+<h4>5. Minimize dynamic allocation<a class="headerlink" href="OpenglEsProgrammingTips.html#minimize-dynamic-allocation" title="Link to this heading">#</a></h4>
+<p>If possible, take memory allocation and freeing out of the inner loop of
+your application. The ability to reuse buffers makes this practical,
+even for algorithms that require dynamic allocation. Even with reuse,
+however, it’s still better to organize the code to minimize allocations
+and frees, and to move the remaining ones out of the main code path as
+much as possible.</p>
+</section>
+<section id="try-to-group-dynamic-allocations">
+<h4>6. Try to group dynamic allocations<a class="headerlink" href="OpenglEsProgrammingTips.html#try-to-group-dynamic-allocations" title="Link to this heading">#</a></h4>
+<p>If dynamic allocation is mandatory, try to group similar allocations and
+frees together. Ideally, an allocation of a buffer is followed by
+freeing it before another allocation happens. This rarely can be done in
+practice, but combining a group of related allocations is often nearly
+as effective.</p>
+<p>Again, allocations and frees should be replaced whenever possible.
+Grouping them is a last resort.</p>
+</section>
+</section>
+</section>
+<section id="graphics-driver-cpu-usage">
+<h2>Graphics Driver CPU Usage<a class="headerlink" href="OpenglEsProgrammingTips.html#graphics-driver-cpu-usage" title="Link to this heading">#</a></h2>
+<p>In some cases, the reported graphics driver CPU usage may be high, but
+in fact the yield is related to other CPUs. To reduce the reported CPU
+usage, set the environment variable as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ export __GL_YIELD=USLEEP
+</pre></div>
+</div>
+</section>
+<section id="performance-guidelines">
+<h2>Performance Guidelines<a class="headerlink" href="OpenglEsProgrammingTips.html#performance-guidelines" title="Link to this heading">#</a></h2>
+<p>The <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> system on a chip (SoC) includes an extremely powerful
+and flexible 3D GPU whose power is well matched to the OpenGL ES APIs.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GlslcShaderProgramCompiler.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GLSLC Shader Program Compiler</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Eglstream.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">EGLStream</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#programming-efficiently">Programming Efficiently</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#state">State</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#do-not-set-any-state-redundantly-s1">Do not set any state redundantly (S1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoid-querying-any-gl-state-in-the-render-loop-s2">Avoid querying any GL state in the render loop (S2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#batch-on-shared-state-s3">Batch on shared state (S3)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#do-not-repeat-per-object-state-when-binding-s4">Do not repeat per object state when binding (S4)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#enable-backface-culling-whenever-possible-s5">Enable backface culling whenever possible (S5)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#geometry">Geometry</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-indexed-primitives-g1">Use indexed primitives (G1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#reduce-vertex-attribute-size-and-components-g2">Reduce vertex attribute size and components (G2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#pack-vertex-attributes-g3">Pack vertex attributes (G3)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#choose-an-appropriate-vertex-attribute-layout-g4">Choose an appropriate vertex attribute layout (G4)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-consistent-winding-g5">Use consistent winding (G5)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#always-use-vertex-and-index-buffer-objects-g6">Always use vertex and index buffer objects (G6)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#batch-geometry-into-fewer-buffers-and-draw-calls-g7">Batch geometry into fewer buffers and draw calls (G7)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-data-type-for-indices-g8">Use the smallest possible data type for indices (G8)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoid-allocating-new-buffers-in-the-rendering-loop-g9">Avoid allocating new buffers in the rendering loop (G9)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#cull-early-and-often-g10">Cull early and often (G10)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#shader-programs">Shader Programs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#move-computations-up-the-pipeline-p1">Move computations up the pipeline (P1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#do-not-write-large-or-generalized-shaders-p2">Do not write large or generalized shaders (P2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#take-advantage-of-application-specific-knowledge-p3">Take advantage of application specific knowledge (P3)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#optimize-for-depth-and-stencil-culling-p4">Optimize for depth and stencil culling (P4)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#do-not-discard-fragments-or-modify-depth-unless-absolutely-necessary-p5">Do not discard fragments, or modify depth, unless absolutely necessary (P5)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoid-conditionals-in-shaders-when-possible-p6">Avoid conditionals in shaders when possible (P6)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-appropriate-precision-qualifiers-p7">Use appropriate precision qualifiers (P7)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-the-built-in-functions-and-variable-p8">Use the built-in functions and variable (P8)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#consider-encoding-complex-functions-in-textures-p9">Consider encoding complex functions in textures (P9)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#limit-the-amount-of-indirect-texturing-p10">Limit the amount of indirect texturing (P10)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#do-not-let-glsl-syntax-obscure-math-optimizations-p11">Do not let GLSL syntax obscure math optimizations (P11)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#only-normalize-vectors-when-it-is-necessary-p12">Only normalize vectors when it is necessary (P12)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#textures">Textures</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-texture-compression-whenever-possible-t1">Use texture compression whenever possible (T1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-mipmaps-when-appropriate-t2">Use mipmaps when appropriate (T2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-textures-size-t3">Use the smallest possible textures size (T3)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-the-smallest-possible-texture-format-and-data-type-t4">Use the smallest possible texture format and data type (T4)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#store-multiple-images-in-each-texture-object-t5">Store multiple images in each texture object (T5)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#float-textures-are-always-expensive-t6">Float textures are always expensive (T6)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#prefer-power-of-two-pot-textures-in-most-cases-t7">Prefer power-of-two (POT) textures in most cases (T7)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#update-textures-sparingly-t8">Update textures sparingly (T8)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#update-textures-efficiently-t9">Update textures efficiently (T9)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#partition-rendering-based-on-alpha-blending-testing-t10">Partition rendering based on alpha blending/testing (T10)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#filter-textures-appropriately-t11">Filter textures appropriately (T11)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#try-to-exploit-texture-tiling-t12">Try to exploit texture tiling (T12)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#use-frame-buffer-objects-fbo-for-dynamically-generated-textures-t13">Use frame buffer objects (FBO) for dynamically generated textures (T13)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#miscellaneous">Miscellaneous</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoid-reading-back-the-frame-buffer-contents-m1">Avoid reading back the frame buffer contents (M1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoid-clearing-buffers-needlessly-m2">Avoid clearing buffers needlessly (M2)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#disable-blending-when-it-is-not-needed-m3">Disable blending when it is not needed (M3)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#minimize-memory-fragmentation-m4">Minimize memory fragmentation (M4)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#optimizing-opengl-es-applications">Optimizing OpenGL ES Applications</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#partition-the-analysis-into-manageable-chunks">Partition the analysis into manageable chunks</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#become-familiar-with-bottlenecks-in-the-graphics-pipeline">Become familiar with bottlenecks in the graphics pipeline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#avoiding-memory-fragmentation">Avoiding Memory Fragmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#video-memory-overview">Video Memory Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#allocating-and-freeing-video-memory">Allocating and Freeing Video Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#allocating-buffers">Allocating buffers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#freeing-buffers">Freeing buffers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#updating-a-subregion-of-a-buffer">Updating a Subregion of a Buffer</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#using-a-buffer-subregion">Using a Buffer Subregion</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#best-practices-for-video-memory-management">Best Practices for Video Memory Management</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#allocate-large-buffers-early">1. Allocate large buffers early</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#combine-many-small-allocations-into-a-smaller-number-of-larger-allocations">2. Combine many small allocations into a smaller number of larger allocations</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#reduce-the-variation-in-size-of-allocated-buffers-ideally-to-a-single-size">3. Reduce the variation in size of allocated buffers ideally to a single size</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#reuse-rather-than-free-and-reallocate-buffers-whenever-possible">4. Reuse, rather than free and reallocate, buffers whenever possible</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#minimize-dynamic-allocation">5. Minimize dynamic allocation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#try-to-group-dynamic-allocations">6. Try to group dynamic allocations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#graphics-driver-cpu-usage">Graphics Driver CPU Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenglEsProgrammingTips.html#performance-guidelines">Performance Guidelines</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

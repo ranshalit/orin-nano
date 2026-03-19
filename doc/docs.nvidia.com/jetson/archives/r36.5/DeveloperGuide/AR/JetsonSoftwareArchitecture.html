@@ -1,0 +1,908 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jetson Software Architecture &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AR/JetsonSoftwareArchitecture';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Architecture" href="BootArchitecture.html" />
+    <link rel="prev" title="Quick Start" href="../IN/QuickStart.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="JetsonSoftwareArchitecture.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="JetsonSoftwareArchitecture.html#">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SD/FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Jetson...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="jetson-software-architecture">
+<h1>Jetson Software Architecture<a class="headerlink" href="JetsonSoftwareArchitecture.html#jetson-software-architecture" title="Link to this heading">#</a></h1>
+<p>The following diagram shows the <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux architecture.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Jetson Linux system components" src="../_images/arch_graphic.png" />
+</figure>
+<p>The following sections describe the components of each module. Many of the components’ names are links to the component’s primary documentation, either in this Developer Guide or elsewhere. Some components have separate links with additional description.</p>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="JetsonSoftwareArchitecture.html#documentation" title="Link to this heading">#</a></h2>
+<p>This Developer Guide is the central component of the Jetson Linux documentation. It describes the architecture of Jetson Linux and provides information about how to use its features.</p>
+<p>The <a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/index.html">Jetson Linux API Reference</a> provides detailed documentation on Jetson Linux APIs and API extensions that you can use to help you develop applications.</p>
+<p>Many other documents provide information about other matters that bear on application development with Jetson Linux, such as data sheets for the various Jetson processing modules and user guides for the developer kits for the modules. Most of these documents, and others, may be accessed through one or more of:</p>
+<ul>
+<li><p>The <a class="reference internal" href="../RM/RelatedDocumentation.html#rm-relateddocumentation"><span class="std std-ref">Related Documentation</span></a> topic of this Developer Guide</p></li>
+<li><p>The <a class="reference external" href="https://developer.nvidia.com/embedded/downloads">Jetson Download Center</a>,
+a source for both software and documentation that supports the NVIDIA Jetson group of products</p></li>
+<li><p>The <a class="reference external" href="https://docs.nvidia.com/jetson/index.html">Jetson Software Documentation</a>
+section of the NVIDIA documentation web site</p></li>
+<li><p>The <a class="reference external" href="https://developer.nvidia.com/deep-learning">Deep Learning</a>
+section of the NVIDIA Developer web site</p>
+</li>
+</ul>
+</section>
+<section id="sample-applications">
+<h2>Sample Applications<a class="headerlink" href="JetsonSoftwareArchitecture.html#sample-applications" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/l4t_mm_test_group.html">Multimedia sample source code and applications</a>:
+Sample source code for performing multimedia processing in Jetson Linux.</p></li>
+<li><p>Other sample applications are mentioned throughout this Developer Guide.</p></li>
+</ul>
+</section>
+<section id="deep-learning-components">
+<h2>Deep Learning Components<a class="headerlink" href="JetsonSoftwareArchitecture.html#deep-learning-components" title="Link to this heading">#</a></h2>
+<p>The Jetson group of products are specifically designed for use in <strong>Deep Learning</strong>, a type of artificial intelligence which enables computing devices to “learn” how best to handle a particular class of problem through experience.</p>
+<ul class="simple">
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> TensorRT<span class="html">&trade;</span>:
+<a class="reference external" href="https://developer.nvidia.com/tensorrt">NVIDIA TensorRT</a>
+provides a high-performance neural network inference engine for production deployment of deep learning applications. It can be used to optimize, validate, and deploy trained neural networks for inference to the Jetson platform. The Multimedia API provides samples that use this engine.</p></li>
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> cuDNN<span class="html">&trade;</span>:
+<a class="reference external" href="https://developer.nvidia.com/cudnn">NVIDIA cuDNN</a>
+provides a GPU-accelerated library of primitives for deep neural networks. cuDNN provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers.</p></li>
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> Triton<span class="html">&trade;</span>:
+<a class="reference external" href="https://developer.nvidia.com/nvidia-triton-inference-server">NVIDIA Triton</a>
+is an open-source inference serving software that helps standardize model deployment and execution and delivers fast and scalable AI in production.</p></li>
+</ul>
+</section>
+<section id="computer-vision">
+<h2>Computer Vision<a class="headerlink" href="JetsonSoftwareArchitecture.html#computer-vision" title="Link to this heading">#</a></h2>
+<p><strong>Computer vision</strong> concerns capturing and processing images and video streams from sensors (cameras), tracking features, and performing various types of transformation such as dewarping and color transformation.</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.nvidia.com/vpi/index.html">Vision Programming Interface</a> (VPI): A software library that implements computer vision and image processing algorithms on multiple hardware accelerators present in Jetson modules.</p></li>
+<li><p><a class="reference external" href="https://www.opencv.org/">OpenCV</a>:
+Provides a version of OpenCV that NVIDIA has optimized specifically for the Jetson platform. It contains Jetson-specific optimizations that enable it to run faster than the OpenCV implementation.</p>
+<p><a class="reference external" href="https://docs.opencv.org/3.3.0/">OpenCV documentation</a> may be found on the <a class="reference external" href="https://docs.opencv.org/">OpenCV documentation web site</a>. General information is on the opencv.org primary web site.</p>
+</li>
+</ul>
+</section>
+<section id="accelerated-computing">
+<h2>Accelerated Computing<a class="headerlink" href="JetsonSoftwareArchitecture.html#accelerated-computing" title="Link to this heading">#</a></h2>
+<p><strong>Accelerated computing</strong> provides highly optimized libraries which applications may use to execute computation-intensive primitives in parallel on the GPU.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.nvidia.com/cublas">cuBLAS</a>:
+CUDA Basic Linear Algebra Subroutines, a software library that supports GPU-accelerated linear algebra operations.</p></li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/cufft">cuFFT</a>:
+CUDA Fast Fourier Transforms, a software library that supports GPU-accelerated fast Fourier transforms.</p></li>
+</ul>
+</section>
+<section id="graphics">
+<h2>Graphics<a class="headerlink" href="JetsonSoftwareArchitecture.html#graphics" title="Link to this heading">#</a></h2>
+<p>Jetson Linux offers many types of support for graphics in your applications.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://registry.khronos.org/vulkan/specs/1.3/styleguide.html">Vulkan</a><span class="html"><sup><small>®</small></sup></span>: A low-level API that gives direct access to the GPU to developers.</p></li>
+<li><p><a class="reference external" href="https://www.khronos.org/registry/OpenGL-Refpages/es3.0/">OpenGL® ES</a>: A cross-platform API for full-function 2D and 3D graphics on embedded systems.</p></li>
+<li><p><a class="reference internal" href="../SD/WindowingSystems/XWindowSystem.html#sd-windowingsystems-xwindowsystem"><span class="std std-ref">X Driver</span></a>:
+A GPU-accelerated implementation of X driver.</p></li>
+<li><p><a class="reference internal" href="../SD/WindowingSystems/WestonWayland.html#sd-windowingsystems-westonwayland"><span class="std std-ref">Wayland</span></a>:
+GPU-accelerated implementation of Weston, a compositor based on Wayland protocol.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Direct_Rendering_Manager">LibDRM</a>:
+A library that provides access to the Linux Direct Rendering Manager (DRM). It consists of a driver and a user space library. The Jetson Linux implementation uses a GPU to accelerate its operations. See the description of <a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/drm-nvdc-docs_8h.html">drm-nvdc-docs.h</a> in the <em>Jetson Linux API Reference</em>.</p></li>
+</ul>
+</section>
+<section id="multimedia">
+<h2>Multimedia<a class="headerlink" href="JetsonSoftwareArchitecture.html#multimedia" title="Link to this heading">#</a></h2>
+<p>Multimedia components support video stream processing and other types of multimedia processing.</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/AR/SD.Multimedia.AcceleratedGstreamer">Gstreamer</a>:
+Provides a higher-level multimedia API. This framework provides the same types of capabilities as the Multimedia API, but at a higher level.</p>
+<p>The GStreamer framework is included in the Jetson Linux distribution. It is installed by SDK Manager.</p>
+</li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__ee__extensions__group.html">V4L2 library</a>:
+Supports the V4L2  (Video for Linux, version 2) API as an extension to the Multimedia API; includes a video converter, decoder, and encoder.</p></li>
+</ul>
+</section>
+<section id="sensors">
+<h2>Sensors<a class="headerlink" href="JetsonSoftwareArchitecture.html#sensors" title="Link to this heading">#</a></h2>
+<p>Sensor components capture input from sensors (cameras) and perform the initial stages of processing on them. They provide high-level building blocks for implementing sensor processing, and provide GPU acceleration to many steps.</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/archives/r35.4.1/ApiReference/group__LibargusAPI.html">Camera (Libargus/V4L2)</a>:
+A low-level API based on the camera core stack.</p>
+<p>SDK Manager installs this component as part of the Multimedia API which provides a collection of APIs that supports flexible application development with better control over the underlying hardware blocks.</p>
+</li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/archives/r35.4.1/spe/index.html">SPE RTOS</a>:
+Provides software access to the <strong>Sensor Processing Engine</strong> (SPE), a component of a Jetson module’s ARM<span class="html"><sup><small>®</small></sup></span> Cortex<span class="html">&trade;</span>-R5 microcontroller that supports hardware-accelerated sensor input processing.</p></li>
+<li><p>PCI/Ethernet:</p></li>
+<li><p>SPI/CAN/<span class="html">I<sup><small>2</small></sup>&nbsp;S</span> APIs:</p>
+</li>
+</ul>
+</section>
+<section id="cuda-x">
+<h2>CUDA-X<a class="headerlink" href="JetsonSoftwareArchitecture.html#cuda-x" title="Link to this heading">#</a></h2>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> CUDA<span class="html"><sup><small>®</small></sup></span> is a parallel computing platform that makes it easy to use a GPU for general purpose computing. It is particularly useful for implementing graphical applications. It can be used with any of several programming languages.</p>
+<p>CUDA‑X is a package that includes CUDA and CUDA-based implementations of several common graphics-oriented tasks.</p>
+</section>
+<section id="board-support-package">
+<h2>Board Support Package<a class="headerlink" href="JetsonSoftwareArchitecture.html#board-support-package" title="Link to this heading">#</a></h2>
+<p>The Jetson Linux <strong>Board Support Package</strong> (BSP) contains all of the software you need to develop and run applications with Jetson Linux. The current Jetson Linux BSP is available from the
+<a class="reference external" href="https://developer.nvidia.com/embedded/linux-tegra">Jetson Linux page</a>
+on the
+<a class="reference external" href="https://developer.nvidia.com">NVIDIA Developer Site</a>.
+It includes:</p>
+<ul>
+<li><p>Sources:
+Jetson Linux is an open source product. Source code is included in the Jetson Linux distribution.</p></li>
+<li><p>Sample root file system:
+A root file system derived from the Ubuntu distribution. You can use this root file system as a basis for developing one that is tailored to your application.</p>
+</li>
+<li><p><a class="reference internal" href="../AT/JetsonLinuxToolchain.html#at-jetsonlinuxtoolchain"><span class="std std-ref">Jetson Linux toolchain</span></a>:
+A suite of software components used to developer Jetson Linux applications.</p></li>
+<li><p><a class="reference internal" href="../SD/Kernel.html#sd-kernel"><span class="std std-ref">Jetson Linux Kernel</span></a>:
+A version of the Ubuntu Linux kernel that NVIDIA has optimized for use on Jetson devices.</p></li>
+<li><p><a class="reference internal" href="../SD/Bootloader.html#sd-bootloader"><span class="std std-ref">Bootloader</span></a>: Boot software for an operating system on a Jetson device.</p></li>
+</ul>
+</section>
+<section id="developer-tools">
+<h2>Developer Tools<a class="headerlink" href="JetsonSoftwareArchitecture.html#developer-tools" title="Link to this heading">#</a></h2>
+<p>NVIDIA provides a full suite of developer tools for writing, building, and debugging Jetson Linux applications.</p>
+<ul>
+<li><p><span class="html">NVIDIA<sup><small>®</small></sup></span> Nsight<span class="html">&trade;</span>: <a class="reference external" href="https://developer.nvidia.com/nsight-systems">NVIDIA Nsight</a>
+profiles application execution across multiple CPU cores and helps you improve application performance by identifying slow parts of your code.</p>
+<p>Runs on the Linux host computer. Supports all Jetson products.</p>
+</li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/nsight-graphics">Nsight Graphics</a>:
+Debugs and profiles OpenGL and OpenGL ES graphics programs through a console interface.</p>
+<blockquote>
+<div></div></blockquote>
+<p>Nsight Graphics runs on the Linux host computer. It supports all Jetson products.</p>
+</li>
+<li><p><a class="reference external" href="https://developer.nvidia.com/nsight-compute">Nsight Systems Compute</a>:
+Interactively profiles kernel operations for CUDA applications. Provides detailed performance metrics and API debugging via a user interface and command line tool.</p></li>
+<li><p>Cross-compiler and diagnostic utilities: Jetson Linux BSP includes a
+<a class="reference internal" href="../AT/JetsonLinuxToolchain.html#at-jetsonlinuxtoolchain"><span class="std std-ref">toolchain</span></a>
+for compiling applications on an Ubuntu host system, and a suite of
+<a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html#at-jetsonlinuxdevelopmenttools"><span class="std std-ref">development tools</span></a>
+for debugging and optimizing them.</p></li>
+<li><p><a class="reference internal" href="../SD/FlashingSupport.html#sd-flashingsupport"><span class="std std-ref">Flashing Support</span></a>:
+Scripts and associated tools to assist in flashing software to a Jetson device.</p></li>
+</ul>
+</section>
+<section id="other-components">
+<h2>Other Components<a class="headerlink" href="JetsonSoftwareArchitecture.html#other-components" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Jetson Linux user space drivers: NVIDIA drivers that run in user space.</p></li>
+<li><p>Multimedia API (MMAPI): A collection of lower-level APIs that support flexible application development. Multimedia API includes:</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__LibargusAPI.html">Libargus</a>
+for imaging applications</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__l4t__mm__nvbuffer__group.html">Buffer API</a>
+for buffer allocation, management, and sharing</p></li>
+<li><p>NVOSD for on-screen display</p>
+</li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/group__aa__framework__api__group.html">Application framework APIs</a> (optional)</p></li>
+</ul>
+<p>MMAPI also includes samples that demonstrate image processing with CUDA, and object detection and classification with cuDNN, TensorRT, and OpenCV4Tegra.</p>
+<p>MMAPI is for developers who use a custom framework or wish to avoid a framework like GStreamer.</p>
+<p>MMAPI must be separately downloaded from the NVIDIA Jetson Download Center. It is not included in Jetson Linux BSP.</p>
+</li>
+</ul>
+<section id="cuda-toolkit">
+<h3>CUDA Toolkit<a class="headerlink" href="JetsonSoftwareArchitecture.html#cuda-toolkit" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Toolkit for Ubuntu host with cross deployment support: CUDA toolkit for the host.</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/cuda/index.html">CUDA Toolkit</a>:
+CUDA toolkit for use with the Jetson Developer Kit.</p></li>
+<li><p><a class="reference external" href="https://docs.nvidia.com/deploy/mps/">CUDA MPS</a> is supported starting in release 36.4. If you are upgrading from an older release, please install the MPS executable files (<code class="docutils literal notranslate"><span class="pre">nvidia-cuda-mps-control</span></code> and <code class="docutils literal notranslate"><span class="pre">nvidia-cuda-mps-server</span></code>) by running the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get install nvidia-l4t-cuda-utils
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id11">
+<h3>Graphics<a class="headerlink" href="JetsonSoftwareArchitecture.html#id11" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.opengl.org/documentation/">OpenGL</a>:
+Open Graphics Library API for rendering vector graphics.</p></li>
+<li><p><a class="reference external" href="https://registry.khronos.org/EGL/sdk/docs/man/">EGL™</a>:
+Interface between Khronos rendering APIs such as OpenGL ES or <a class="reference external" href="https://www.khronos.org/openvg/">OpenVG</a> and the underlying native platform window system.</p></li>
+</ul>
+</section>
+<section id="jetpack-sdk">
+<h3>JetPack SDK<a class="headerlink" href="JetsonSoftwareArchitecture.html#jetpack-sdk" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="html">NVIDIA JetPack&trade;</span> SDK <a class="reference external" href="https://docs.nvidia.com/jetson/jetpack/index.html">documentation</a>:
+Provides details for your development on the Jetson platform.</p></li>
+<li><p>Samples: Designed to give you hands-on, practical examples for
+using the Jetson development platform.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../IN/QuickStart.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quick Start</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="BootArchitecture.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Boot Architecture</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#sample-applications">Sample Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#deep-learning-components">Deep Learning Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#computer-vision">Computer Vision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#accelerated-computing">Accelerated Computing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#graphics">Graphics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#multimedia">Multimedia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#sensors">Sensors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#cuda-x">CUDA-X</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#board-support-package">Board Support Package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#developer-tools">Developer Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#other-components">Other Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#cuda-toolkit">CUDA Toolkit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#id11">Graphics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonSoftwareArchitecture.html#jetpack-sdk">JetPack SDK</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

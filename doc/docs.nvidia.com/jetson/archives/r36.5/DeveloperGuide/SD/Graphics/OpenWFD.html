@@ -1,0 +1,1186 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OpenWFD &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Graphics/OpenWFD';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Vulkan SC" href="VulkanSC.html" />
+    <link rel="prev" title="Sample Applications" href="SampleApplications.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="OpenWFD.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="OpenWFD.html#">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Graphics.html" class="nav-link">Graphics</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">OpenWFD</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="openwfd">
+<h1>OpenWFD<a class="headerlink" href="OpenWFD.html#openwfd" title="Link to this heading">#</a></h1>
+<p>This topic describes the Khronos <span class="html">&trade;</span> Open Windowing Foundation - Display <span class="html">&trade;</span> (OpenWFD) API that can
+be used to interact with the display hardware. OpenWFD does not require
+the presence of a native windowing system.</p>
+<p>OpenWFD is a Khronos API that provides a low-level hardware abstraction interface for windowing systems,
+and applications can interact directly with the display by using the OpenWFD API.
+The specification of the OpenWFD API is available at Khronos’ registry at
+<a class="reference external" href="https://www.khronos.org/registry/OpenWF/specs/OpenWF_Display_1_0_Specification.pdf">OpenWF Display 1.0 Specification</a>
+(also referred to as the spec).</p>
+<p>The display architecture on Jetson includes an OpenWFD driver (also referred to as the WFD driver)
+that supports a subset of the core OpenWFD APIs in the spec and additional NVIDIA specific extensions.
+Usage guidelines for the core OpenWFD APIs can be obtained from the spec, and deviations from the spec or additional details will be described in this section.</p>
+<section id="supported-openwfd-apis">
+<h2>Supported OpenWFD APIs<a class="headerlink" href="OpenWFD.html#supported-openwfd-apis" title="Link to this heading">#</a></h2>
+<p>The following table provides a list of the supported core OpenWFD APIs on the WFD driver:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Supported OpenWFD APIs</span><a class="headerlink" href="OpenWFD.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Support in the OpenWFD driver</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>wfdGetStrings</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdIsExtensionSupported</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetError</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdEnumerateDevices</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdCreateDevice</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdDestroyDevice</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdDeviceCommit</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetDeviceAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetDeviceAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdCreateEvent</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdDestroyEvent</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetEventAttribi</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdDeviceEventAsync</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdDeviceEventWait</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdDeviceEventFilter</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdEnumeratePorts</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdCreatePort</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdDestroyPort</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPortModes</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetPortModeAttrib{i/f}</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetPortMode</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetCurrentPortMode</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPortAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetPortAttribf</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPortAttribiv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetPortAttribfv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetPortAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdSetPortAttribf</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetPortAttribiv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdSetPortAttribfv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdBindPipelineToPort</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetDisplayDataFormats</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetDisplayData</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdEnumeratePipelines</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdCreatePipeline</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdDestroyPipeline</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdCreateSourceFromImage</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdCreateSourceFromStream</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdDestroySource</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdCreateMaskFromImage</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdCreateMaskFromStream</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdDestroyMask</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdBindSourceToPipeline</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdBindMaskToPipeline</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPipelineAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetPipelineAttribf</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPipelineAttribiv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdGetPipelineAttribfv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetPipelineAttribi</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdSetPipelineAttribf</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdSetPipelineAttribiv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdSetPipelineAttribfv</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPipelineTransparency</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>wfdSetPipelineTSColor</cite></p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>wfdGetPipelineLayerOrder</cite></p></td>
+<td><p>Supported</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following OpenWFD attributes are not implemented:</p>
+<ul class="simple">
+<li><p><cite>WFD_PORT_POWER_MODE</cite></p></li>
+<li><p><cite>WFD_PORT_PROTECTION_ENABLE</cite></p></li>
+<li><p><cite>WFD_PORT_PARTIAL_REFRESH_ENABLE</cite></p></li>
+<li><p><cite>WFD_PORT_GAMMA</cite></p></li>
+<li><p><cite>WFD_PIPELINE_SHAREABLE</cite></p></li>
+<li><p><cite>WFD_PIPELINE_SCALE_FILTER</cite></p></li>
+</ul>
+<p>The following OpenWFD attributes have limited support for querying:</p>
+<p><cite>WFD_PORT_BACKGROUND_COLOR</cite> -  Cannot be queried via the <cite>wfdGetPortAttribi</cite> API.
+The <cite>wfdGetPortAttribiv</cite> and <cite>wfdGetPortAttribfv</cite> APIs can still be used for querying <cite>WFD_PORT_BACKGROUND_COLOR</cite>.</p>
+</section>
+<section id="supported-openwfd-extensions">
+<h2>Supported OpenWFD Extensions<a class="headerlink" href="OpenWFD.html#supported-openwfd-extensions" title="Link to this heading">#</a></h2>
+<p>The following OpenWFD extensions are supported by the OpenWFD Driver:</p>
+<section id="wfd-nvx-create-source-from-nvscibuf">
+<h3>WFD_NVX_create_source_from_nvscibuf<a class="headerlink" href="OpenWFD.html#wfd-nvx-create-source-from-nvscibuf" title="Link to this heading">#</a></h3>
+<p>This extension allows the creation of <cite>WFDSource</cite> handles from <cite>NvSciBufObj</cite> buffer objects.</p>
+<p>The following APIs are introduced as part of this extension:</p>
+<ul>
+<li><p><cite>wfdNvSciBufSetDisplayAttributesNVX</cite></p>
+<p>Before allocating <cite>NvSciBufObj</cite>, the list of engines that require access to <cite>NvSciBufObj</cite> need to be specified by the clients of <cite>NvSciBuf</cite>. For <cite>NvSciBufObj</cite> that will be accessed by the display hardware, before reconciling the attribute lists, the relevant display engine flags need to be added in <cite>NvSciBufAttrList</cite> with the other engine’s flags.</p>
+<p><cite>wfdNvSciBufSetDisplayAttributesNVX</cite> fills <cite>attrList</cite> with the required display engine attributes and OpenWFD clients that require <cite>NvSciBufObj</cite> buffers to be consumed by the display and, before allocating the <cite>NvSciBufObj</cite>, should call <cite>wfdNvSciBufSetDisplayAttributesNVX</cite>.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDErrorCode wfdNvSciBufSetDisplayAttributesNVX(NvSciBufAttrList *attrList)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>NvSciBufAttrList *attrList</cite>: A valid pointer to a <cite>NvSciBufAttrList</cite> object.</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p><cite>WFD_ERROR_NOT_SUPPORTED</cite>: The engine ID created for the display engine is not supported.</p></li>
+<li><p><cite>WFD_ERROR_OUT_OF_MEMORY</cite>: Insufficient memory is available to the OpenWFD driver for filling <cite>attrList</cite>.</p></li>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>attrList</cite> is not a valid <cite>NvSciBufAttrList</cite>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><cite>wfdCreateSourceFromNvSciBufNVX</cite></p>
+<p><cite>wfdCreateSourceFromNvSciBufNVX</cite> creates <cite>WFDSource</cite> handles from <cite>NvSciBufObj</cite> objects. <cite>bufferObject</cite> should be allocated with reconciliation and include a <cite>NvSciBufAttrList</cite> that is filled using <cite>wfdNvSciBufSetDisplayAttributesNV</cite>.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDSource wfdCreateSourceFromNvSciBufNVX(WFDDevice device, WFDPipeline pipeline, NvSciBufObj &amp;bufferObject)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>WFDDevice device</cite>: A valid <cite>WFDDevice</cite> handle created using <cite>wfdCreateDevice</cite>.</p></li>
+<li><p><cite>WFDPipeline pipeline</cite>: A valid <cite>WFDPipeline</cite> handle created using <cite>wfdCreatePipeline</cite>.</p></li>
+<li><p><cite>NvSciBufObj &amp;bufferObject</cite>: A valid reference to a <cite>NvSciBufObj</cite>.</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p>A valid <cite>WFDSource</cite> handle: On success.</p></li>
+<li><p><cite>WFD_INVALID_HANDLE</cite>: On failure (Use <cite>wfdGetError</cite> to query the error code).</p></li>
+</ul>
+</li>
+<li><p>Error Codes Set:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>bufferObject</cite> is not a valid <cite>NvSciBuf</cite> object, and <cite>bufferObject</cite> does not contain display flags as part of its engine array list.</p></li>
+<li><p><cite>WFD_ERROR_NOT_SUPPORTED</cite>: The attributes of <cite>bufferObject</cite> are not supported by the extension.</p></li>
+<li><p><cite>WFD_ERROR_BAD_HANDLE</cite>: <cite>pipeline</cite> is not a valid <cite>WFDPipeline</cite>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>A limited set of values are supported by this extension for only the following <cite>NvSciBuf</cite> attribute keys:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Supported values for NvSciBuf attribute keys</span><a class="headerlink" href="OpenWFD.html#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>NvSciBuf Attribute Key</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>NvSciBufGeneralAttrKey_Types</cite></p></td>
+<td><p><cite>NvSciBufType_Image</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>NvSciBufImageAttrKey_PlaneCount</cite></p></td>
+<td><p>1 or 2</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>NvSciBufImageAttrKey_PlaneColorFormat</cite></p></td>
+<td><p><cite>NvSciColor_A8R8G8B8</cite>, <cite>NvSciColor_A8B8G8R8</cite>, <cite>NvSciColor_Y8</cite>, <cite>NvSciColor_U8_V8</cite>, <cite>NvSciColor_U8Y8V8Y8</cite>, <cite>NvSciColor_Y8U8Y8V8</cite>, <cite>NvSciColor_V8U8</cite></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="wfd-nvx-commit-non-blocking">
+<h3>WFD_NVX_commit_non_blocking<a class="headerlink" href="OpenWFD.html#wfd-nvx-commit-non-blocking" title="Link to this heading">#</a></h3>
+<p>This extension allows users to schedule flips to the display that do not block until the display has completed its work. The default behavior of the core OpenWFD API <cite>wfdDeviceCommit</cite> is to block until the display is done with the flip. This extensions adds <cite>WFD_PIPELINE_COMMIT_NON_BLOCKING_NVX</cite>, a new <cite>WFDPipeline</cite> attribute, which can be used to alter the default behavior of <cite>wfdDeviceCommit</cite>.</p>
+<p>By default, <cite>WFD_PIPELINE_COMMIT_NON_BLOCKING_NVX</cite> is set to <cite>WFD_FALSE</cite>, which makes calls to <cite>wfdDeviceCommit</cite> on the <cite>WFDPipeline</cite> blocking. The <cite>wfdSetPipelineAttribi</cite> function can be used to set the value of a <cite>WFDPipeline</cite> object’s <cite>WFD_PIPELINE_COMMIT_NON_BLOCKING_NVX</cite> attribute to <cite>WFD_TRUE</cite>, which makes calls to <cite>wfdDeviceCommit</cite> on the <cite>WFDPipeline</cite> non blocking.</p>
+<p>When calling <cite>wfdDeviceCommit</cite> with <cite>WFDCommitType</cite> that is set to <cite>WFD_COMMIT_ENTIRE_PORT</cite> or <cite>WFD_COMMIT_ENTIRE_DEVICE</cite>, the <cite>WFDPipeline</cite> objects that are attached to the <cite>WFDPort</cite> and <cite>WFDDevice</cite> handles need to have their <cite>WFD_PIPELINE_COMMIT_NON_BLOCKING_NVX</cite> attribute set to <cite>WFD_TRUE</cite> to allow non-blocking commits. In this scenario, synchronizing calls to <cite>wfdDeviceCommit</cite> must be explicitly handled by the user with the help of the <cite>WFD_NVX_nvscisync</cite> extension.</p>
+<p>Here are the additions to the list of <cite>WFDPortModeAttrib</cite> enums:</p>
+<ul class="simple">
+<li><p><cite>WFD_PIPELINE_COMMIT_NON_BLOCKING_NVX</cite></p></li>
+</ul>
+</section>
+<section id="wfd-nvx-nvscisync">
+<h3>WFD_NVX_nvscisync<a class="headerlink" href="OpenWFD.html#wfd-nvx-nvscisync" title="Link to this heading">#</a></h3>
+<p>This extension allows users to explicitly handle the synchronization of work submissions to the display by using <cite>NvSciSyncFence</cite>.</p>
+<p>The <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite> <cite>WFDPipeline</cite> attribute can be used to alter the default behavior of the post-flip fence that is returned by <cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite>. By default, <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite> is set to <cite>WFD_TRUE</cite>, so when the display hardware starts scanning the current buffer, the post-flip fence that was returned from <cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite> is signaled.</p>
+<p>The <cite>wfdSetPipelineAttribi</cite> function can be used to modify the value of <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite>. When this attribute is set to <cite>WFD_FALSE</cite>, the post-flip fence returned by <cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite> will be signaled at the end of scan-out of the buffer. This can happen only when a <cite>wfdDeviceCommit</cite> on a new <cite>WFDSource</cite> handle is scheduled so that the display hardware can stop scanning the <cite>WFDSource</cite> used for the previous <cite>wfdDeviceCommit</cite>.</p>
+<p>The <cite>wfdSetPipelineAttribi</cite> function can be called to modify the value of <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite> only once per <cite>WFDPipeline</cite> for the duration of the application life-cycle. The <cite>wfdGetPipelineAttribi</cite> function can be used to query the value of <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When scheduling commits of the WFD_COMMIT_ENTIRE_PORT type or the WFD_COMMIT_ENTIRE_DEVICE type, the values of WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX should be the same for all WFDPipeline handles in the commit. When there are discrepancies in the values of the WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX values, the value of the highest Z-ordered WFDPipeline for the WFDPort is considered. Applications should not rely on this behavior and instead explicitly set the value of WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX for all WFDPipeline handles in the commit.</p>
+</div>
+<p>The following APIs are exposed to users as part of this extension and are described below:</p>
+<ul>
+<li><p><cite>wfdNvSciSyncSetWaiterAttributesNVX</cite></p>
+<p>The OpenWFD driver only supports sync-point synchronization primitives and <cite>NvSciSyncFences</cite> that are passed to OpenWFD must be generated from <cite>NvSciSyncObj</cite> objects that have been created with the reconciliation of attribute lists that specify the sync-point type supported by the OpenWFD driver. <cite>wfdNvSciSyncSetWaiterAttributesNVX</cite> allows OpenWFD clients that intended to pass waiter <cite>NvSciSyncFence</cite> objects to fill <cite>NvSciSyncAttrLists</cite> with the supported sync-point primitive type for reconciliation.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDErrorCode wfdNvSciSyncSetWaiterAttributesNVX(NvSciSyncAttrList *attrList)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>*attrList</cite>: A valid pointer to a <cite>NvSciSyncAttrList</cite> object.</p></li>
+</ul>
+</li>
+<li><p>Return values:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>attrList</cite> is not a valid <cite>NvSciSyncAttrList</cite>.</p></li>
+<li><p><cite>WFD_ERROR_NONE</cite>: On success.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><cite>wfdNvSciSyncSetSignalerAttributesNVX</cite></p>
+<p>Similar to <cite>wfdNvSciSyncSetWaiterAttributesNVX</cite>, <cite>wfdNvSciSyncSetSignalerAttributesNVX</cite> allows OpenWFD clients that intended to pass <cite>NvSciSyncFence</cite> objects that are signaled by the display hardware to fill <cite>NvSciSyncAttrLists</cite> with the supported sync-point primitive type for reconciliation.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDErrorCode wfdNvSciSyncSetSignalerAttributesNVX(NvSciSyncAttrList *attrList)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>NvSciSyncAttrList *attrList</cite>: A valid pointer to a <cite>NvSciSyncAttrList</cite> object.</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>attrList</cite> is not a valid <cite>NvSciSyncAttrList</cite>.</p></li>
+<li><p><cite>WFD_ERROR_NONE</cite>: On success.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><cite>wfdBindNvSciSyncFenceToSourceNVX</cite></p>
+<p><cite>wfdBindNvSciSyncFenceToSourceNVX</cite> allows users to associate an <cite>NvSciSyncFence</cite> object with a <cite>WFDSource</cite> handle.</p>
+<p>Work submissions that are done to the display with the <cite>WFDSource</cite> handle will be blocked on the <cite>NvSciSyncFence</cite> that is bound to the <cite>WFDSource</cite>. The user is responsible to signal the <cite>NvSciSyncFence</cite> and allow the display to consume the buffer.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDErrorCode wfdBindNvSciSyncFenceToSourceNVX(WFDDevice device, WFDSource source, void* fence)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>WFDDevice device</cite>: A valid <cite>WFDDevice</cite> handle created using <cite>wfdCreateDevice</cite>.</p></li>
+<li><p><cite>WFDSource source</cite>: A valid <cite>WFDSource</cite> handle created using <cite>wfdCreateSourceFromNvSciBufNVX</cite>.</p></li>
+<li><p><cite>void *fence</cite>: A valid pointer to a <cite>NvSciSyncFence</cite> object.</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>fence</cite> is <cite>nullptr</cite> or an invalid <cite>NvSciSyncFence</cite> object, or the source is not a valid <cite>WFDSource</cite> handle.</p></li>
+<li><p><cite>WFD_ERROR_BAD_DEVICE</cite>: <cite>device</cite> is an invalid <cite>WFDDevice</cite> handle.</p></li>
+<li><p><cite>WFD_ERROR_BAD_HANDLE</cite>: <cite>source</cite> is not bound to a valid <cite>WFDPipeline</cite>.</p></li>
+<li><p><cite>WFD_ERROR_NONE</cite>: Success.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><cite>wfdRegisterPostFlipNvSciSyncObjNVX</cite></p>
+<p><cite>wfdRegisterPostFlipNvSciSyncObjNVX</cite> allows WFD clients to register a <cite>NvSciSyncObj</cite> with the OpenWFD driver, and the driver uses <cite>NvSciSyncObj</cite> to generate <cite>NvSciSyncFence</cite> objects that are passed to the WFD client and are signaled when the display hardware has completed consuming the buffer.</p>
+<p>The OpenWFD driver allows only one <cite>NvSciSyncObj</cite> to be registered at a time. <cite>nullptr</cite> can be passed for <cite>obj</cite> to unregister existing <cite>NvSciSyncObj</cite> objects. This allows the WFD client to register a different <cite>NvSciSyncObj</cite> handle with the OpenWFD driver. The <cite>NvSciSyncFence</cite> that is generated by using the registered <cite>NvSciSyncObj</cite> handle is returned to the client through <cite>wfdDeviceCommitWithNvSciSyncFeenceNVX</cite>. <cite>obj</cite> should be created with a <cite>NvSciSyncAttrList</cite> filled by <cite>wfdNvSciSyncSetSignalerAttributesNVX</cite>.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>WFDErrorCode wfdRegisterPostFlipNvSciSyncObjNVX(WFDDevice device, NvSciSyncObj* obj)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>WFDDevice device</cite>: A valid <cite>WFDDevice</cite> handle created using <cite>wfdCreateDevice</cite>.</p></li>
+<li><p><cite>NvSciSyncObj *obj</cite>: A valid pointer to a <cite>NvSciSyncObj</cite> object or <cite>nullptr</cite> (see above).</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: A <cite>NvSciSyncObj</cite> is already registered with device.</p></li>
+<li><p><cite>WFD_ERROR_BAD_ATTRIBUTE</cite>: <cite>obj</cite> is not a valid <cite>NvSciSyncObj</cite>.</p></li>
+<li><p><cite>WFD_ERROR_BAD_DEVICE</cite>: <cite>device</cite> is not a valid <cite>WFDDevice</cite> handle.</p></li>
+<li><p><cite>WFD_ERROR_NOT_SUPPORTED</cite>: <cite>obj</cite> encapsulates a primitive type not supported by the OpenWFD driver.</p></li>
+<li><p><cite>WFD_ERROR_NONE</cite>: Success.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite></p>
+<p>This API is similar to the OpenWFD Core API <cite>wfdDeviceCommit</cite> with the addition of a <cite>NvSciSyncFence</cite> parameter.</p>
+<p>When a <cite>NvSciSyncObj</cite> is registered with the OpenWFD driver, <cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite> can be used by the client to acquire an <cite>NvSciSyncFence</cite> object passed via fence. This is the post-flip fence of display, and its signaling semantics depend on the value of <cite>WFD_PIPELINE_POSTFENCE_SCANOUT_BEGIN_NVX</cite> for the <cite>WFDPipeline</cite> in the commit call.</p>
+<p>After the fence has been signaled, the fence must be cleared by the client with a call to <cite>NvSciSyncFenceClear</cite>. When this API is called, with no registered <cite>NvSciSyncObj</cite>, <cite>fence</cite> returns a nullptr.</p>
+<ul class="simple">
+<li><p>API Prototype:</p>
+<ul>
+<li><p><cite>void wfdDeviceCommitWithNvSciSyncFenceNVX(WFDDevice device, WFDCommitType type, WFDHandle handle, void *fence)</cite></p></li>
+</ul>
+</li>
+<li><p>Parameters:</p>
+<ul>
+<li><p><cite>WFDDevice device</cite>: A valid <cite>WFDDevice</cite> handle created using <cite>wfdCreateDevice</cite>.</p></li>
+<li><p><cite>WFDHandle handle</cite>: A valid handle to a <cite>WFDPort</cite> or a <cite>WFDPipeline</cite>. Refer to the <a class="reference external" href="https://www.khronos.org/registry/OpenWF/specs/OpenWF_Display_1_0_Specification.pdf">OpenWF Display 1.0 Specification</a> for the list of accepted values.</p></li>
+<li><p><cite>void *fence</cite>: A pointer that can store a <cite>NvSciSyncFence</cite> object.</p></li>
+</ul>
+</li>
+<li><p>Return Values:</p>
+<ul>
+<li><p>None</p></li>
+</ul>
+</li>
+<li><p>Error codes set:</p>
+<ul>
+<li><p><cite>WFD_ERROR_ILLEGAL_ARGUMENT</cite>: <cite>type</cite> is not a valid <cite>WFDCommitType</cite>.</p></li>
+<li><p><cite>WFD_ERROR_NOT_SUPPORTED</cite>: If any hardware resource limitations exist.</p></li>
+<li><p><cite>WFD_ERROR_BUSY</cite>: A call to <cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite> is currently executing.</p></li>
+<li><p><cite>WFD_ERROR_BAD_HANDLE</cite>: handle does not match the requirements of type as specified in the documentation of <cite>wfdDeviceCommit</cite> at <a class="reference external" href="https://www.khronos.org/registry/OpenWF/specs/OpenWF_Display_1_0_Specification.pdf">OpenWF Display 1.0 Specification</a>.</p></li>
+<li><p><cite>WFD_ERROR_INCONSISTENCY</cite>: If any configuration conflicts exist within the device or corresponding ports or corresponding pipelines.</p></li>
+<li><p><cite>WFD_ERROR_BAD_ATTRIBUTE</cite>: <cite>fence</cite> is not a valid <cite>NvSciSyncFence</cite> object.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="wfd-nvx-port-mode-timings">
+<h3>WFD_NVX_port_mode_timings<a class="headerlink" href="OpenWFD.html#wfd-nvx-port-mode-timings" title="Link to this heading">#</a></h3>
+<p>This extension allows WFD clients to query the horizontal total and vertical total values of the display by using the following <cite>WFDPortMode</cite> attributes.</p>
+<p>Additions to the list of <cite>WFDPortModeAttrib</cite> enums:</p>
+<ul class="simple">
+<li><p><cite>WFD_PORT_MODE_H_TOTAL_NVX</cite></p></li>
+<li><p><cite>WFD_PORT_MODE_V_TOTAL_NVX</cite></p></li>
+</ul>
+<p>These attributes are read-only and can be queried only by using <cite>wfdGetPortModeAttribi</cite>.</p>
+</section>
+</section>
+<section id="openwfd-usage-guidelines">
+<h2>OpenWFD Usage Guidelines<a class="headerlink" href="OpenWFD.html#openwfd-usage-guidelines" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>To enable the <cite>WFD_NVX_create_source_from_nvscibuf</cite> extension, before you include the <cite>wfd.h</cite>
+and <cite>wfdext.h</cite> headers, define the <cite>WFD_NVX_create_source_from_nvscibuf</cite> macro.</p></li>
+<li><p>Define the <cite>WFD_WFDEXT_PROTOTYPES</cite> macro before you include the <cite>wfd.h</cite> and <cite>wfdext.h</cite> headers.</p></li>
+<li><p>To clear the contents on a <cite>WFDPipeline</cite> (performing a null flip), call <cite>wfdBindSourceToPipeline</cite> with <cite>0</cite> for the
+<cite>WFDSource</cite> argument before you call <cite>wfdDeviceCommit</cite> on the <cite>WFDPipeline</cite>.</p></li>
+<li><p>To commit to multiple <cite>WFDPipeline</cite> handles that are bound to the same <cite>WFDPort</cite>, we recommended that you call <cite>wfdDeviceCommit*</cite> with
+<cite>WFDCommitType</cite> set to <cite>WFD_COMMIT_ENTIRE_PORT</cite>.</p></li>
+<li><p>When you use <cite>WFD_COMMIT_ENTIRE_PORT</cite> in a <cite>wfdDeviceCommit</cite> call, the <cite>WFDPipeline</cite> objects that are part of the commit must have a
+surface bound(normal flip) or have no surfaces bound (null flip).
+A mix of normal and a null flip in one <cite>WFD_COMMIT_ENTIRE_PORT</cite> <cite>wfdDeviceCommit</cite> call is not allowed due to a limitation on the Display driver.</p></li>
+<li><p>To ensure that errors are caught, invoke the <cite>wfdGetError</cite> API after calls to the following OpenWFD APIs
+that take a <cite>WFDDevice</cite> handle as one of the inputs and return <cite>void</cite>:</p>
+<ul>
+<li><p><cite>wfdDeviceCommit</cite></p></li>
+<li><p><cite>wfdDeviceCommitWithNvSciSyncFenceNVX</cite></p></li>
+<li><p><cite>wfdDestroyPort</cite></p></li>
+<li><p><cite>wfdSetPortMode</cite></p></li>
+<li><p><cite>wfdGetPortAttrib{iv/fv}</cite></p></li>
+<li><p><cite>wfdSetPortAttrib{i/v/iv/fv}</cite></p></li>
+<li><p><cite>wfdBindPipelineToPort</cite></p></li>
+<li><p><cite>wfdDestroyPipeline</cite></p></li>
+<li><p><cite>wfdDestroySource</cite></p></li>
+<li><p><cite>wfdBindSourceToPipeline</cite></p></li>
+<li><p><cite>wfdGetPipelineAttrib{iv/fv}</cite></p></li>
+<li><p><cite>wfdSetPipelineAttrib{i/v/iv/fv}</cite></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SampleApplications.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sample Applications</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="VulkanSC.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vulkan SC</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#supported-openwfd-apis">Supported OpenWFD APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#supported-openwfd-extensions">Supported OpenWFD Extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#wfd-nvx-create-source-from-nvscibuf">WFD_NVX_create_source_from_nvscibuf</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#wfd-nvx-commit-non-blocking">WFD_NVX_commit_non_blocking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#wfd-nvx-nvscisync">WFD_NVX_nvscisync</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#wfd-nvx-port-mode-timings">WFD_NVX_port_mode_timings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpenWFD.html#openwfd-usage-guidelines">OpenWFD Usage Guidelines</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

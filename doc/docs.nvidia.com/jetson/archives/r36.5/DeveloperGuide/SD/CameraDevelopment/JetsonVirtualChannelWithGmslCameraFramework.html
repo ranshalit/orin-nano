@@ -1,0 +1,1277 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jetson Virtual Channel with GMSL Camera Framework &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Argus NvRaw Tool" href="ArgusNvrawTool.html" />
+    <link rel="prev" title="Sensor Software Driver Programming" href="SensorSoftwareDriverProgramming.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="JetsonVirtualChannelWithGmslCameraFramework.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="JetsonVirtualChannelWithGmslCameraFramework.html#">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../CameraDevelopment.html" class="nav-link">Camera Development</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Jetson...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="jetson-virtual-channel-with-gmsl-camera-framework">
+<h1>Jetson Virtual Channel with GMSL Camera Framework<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-virtual-channel-with-gmsl-camera-framework" title="Link to this heading">#</a></h1>
+<p><strong>Applies to</strong>: Jetson AGX Orin series</p>
+<p>This topic contains details about:</p>
+<ul class="simple">
+<li><p>The Gigabit Multimedia Serial Link (GMSL) protocol</p></li>
+<li><p>Hardware connectivity for the serializer/deserializer in the reference module (see <a class="reference external" href="JetsonVirtualChannelWithGmslCameraFramework.html#reference-setup">Reference Setup</a>)</p></li>
+<li><p>The software framework</p></li>
+<li><p>Configuration, including virtual channel programming</p></li>
+</ul>
+<p>NVIDIA validates the reference module on <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span> series devices with Sony IMX390 sensors as source. However, the reference module can be used as a starting point for bringing up another GMSL module on Jetson AGX Orin series.</p>
+<p>The software framework described in this document can be used as reference for developing <strong>SerDes</strong> (Serializer-Deserializer) links other than GMSL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reference GMSL module described here uses the CSI interface. No other interface is validated.</p>
+</div>
+<section id="reference-setup">
+<h2>Reference Setup<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#reference-setup" title="Link to this heading">#</a></h2>
+<p>The reference GMSL setup is:</p>
+<ul class="simple">
+<li><p>Sensor: Sony dual IMX390, RAW12/1080p/30fps, CSI port A, x2 lanes</p></li>
+<li><p>Serializer: Maxim MAX9295</p></li>
+<li><p>Deserializer: Maxim MAX9296</p></li>
+</ul>
+</section>
+<section id="gmsl-protocol">
+<h2>GMSL Protocol<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-protocol" title="Link to this heading">#</a></h2>
+<p>Maxim Integrated supports GMSL as a communication link for video
+applications in the automotive industry. GMSL is based on SerDes
+(Serializer-Deserializer) technology; that is, it uses a serializer on
+the transmitting side and a deserializer on the receiving side. The
+following diagram shows the high-level architecture of GMSL.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="GMSL protocol" src="../../_images/GmslProtocol.svg" />
+</figure>
+<p>GMSL is specifically designed for use in Advanced Driver Assistance
+Systems (ADAS) and Camera Monitoring Systems (CMS). It can provide video
+transfer speeds up to 6 GB/second. It uses STP or coaxial cable, which
+are both inexpensive and very robust for EMC disturbances.</p>
+</section>
+<section id="gmsl-camera">
+<h2>GMSL Camera<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-camera" title="Link to this heading">#</a></h2>
+<p>The following diagram shows the control, data, and clock connections for
+the reference GMSL module validated on Jetson AGX Orin series.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Control, data, and clock connections for the reference GMSL module" src="../../_images/GmslCamera.svg" />
+</figure>
+<ul class="simple">
+<li><p>In this GMSL setup, two sensors are paired with their respective serializers, each streaming 1080p/30fps RAW12 pixels over x2 CSI MIPI lanes.</p></li>
+<li><p>The serializers are connected to a GMSL deserializer device through different GMLS ports (ports A and B) and GMSL links using coaxial cables.</p></li>
+<li><p>On the output port side, the deserializer is connected to a Jetson AGX Orin SoC on the desired CSI port (port A in this example).</p></li>
+<li><p>To transmit two different pixel streams from two sensors to a receiver at a shared CSI port, the deserializer assigns a unique virtual channel ID to each stream. The virtual channel ID is software-configurable via the device tree. It must match the stream’s virtual channel ID programmed on the receiver side in the NVIDIA SoC.</p></li>
+</ul>
+<p>This reference GMSL setup uses a 2x (x2/x4/x1) CSI deserializer. It can
+host up to two sensors via serializers.</p>
+<p>To host four sensors over single shared CSI port you must use a 4x
+aggregator, as shown in the following diagram:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="GMSL setup with 4x aggregator" src="../../_images/ProposedGmslSetupWith4xAggregator.svg" />
+</figure>
+</section>
+<section id="csi-connectivity">
+<h2>CSI Connectivity<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#csi-connectivity" title="Link to this heading">#</a></h2>
+<p>The table below shows the maximum number of sensor connections supported
+on each type <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> device.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head" colspan="4"><p>Maximum connections supported</p></th>
+</tr>
+<tr class="row-even"><th class="head" rowspan="2"><p>Configuration</p></th>
+<th class="head" rowspan="2"><p>Jetson
+AGX Orin</p></th>
+<th class="head" colspan="2" rowspan="2"><p>Jetson
+Orin NX
+series</p></th>
+<th class="head" rowspan="2"><p>Jetson
+AGX Orin
+series</p></th>
+</tr>
+<tr class="row-odd"></tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>No aggregator</p></td>
+<td></td>
+<td colspan="2"></td>
+<td><p>6</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aggregator with ISP</p></td>
+<td></td>
+<td colspan="2"></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-even"><td><p>Aggregator without
+ISP</p></td>
+<td></td>
+<td colspan="2"></td>
+<td><p>24</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="jetson-agx-orin">
+<h3>Jetson AGX Orin<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin" title="Link to this heading">#</a></h3>
+</section>
+<section id="jetson-orin-nx-series">
+<h3>Jetson Orin NX Series<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-orin-nx-series" title="Link to this heading">#</a></h3>
+</section>
+<section id="jetson-agx-orin-series">
+<h3>Jetson AGX Orin Series<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin-series" title="Link to this heading">#</a></h3>
+<p>Jetson AGX Orin series supports a maximum of 16 virtual channels with ISP, or
+24 virtual channels without ISP.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="CSI connectivity for Jetson AGX Orin series with 16 cameras" src="../../_images/CsiConnectivityJetsonAgxOrin16Cameras.svg" />
+</figure>
+<p>The diagram above shows sensor connections to each of the
+<span class="html">NVIDIA<sup><small>®</small></sup></span> Orin<span class="html">&trade;</span> CSI bricks (a total of 4 CSI bricks) in x4 or
+/x2 or /x1 possible lane configuration.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="CSI connectivity for Jetson AGX Orin series with 24 cameras" src="../../_images/CsiConnectivityJetsonAgxOrin24Cameras.svg" />
+</figure>
+<p>The diagram above shows four sensors connected to each port of CSI
+bricks AB and CD in x2 or x1 lane configuration, and four sensors
+connected to each of the remaining CSI bricks EF and GH in x4, x2, or x1
+lane configuration.</p>
+<p>The CSI aggregator uses virtual channels to connect to four cameras over
+one CSI connection.</p>
+<p>The Jetson AGX Orin VI muxer sends each camera frame to
+a different location in memory.</p>
+<p>In software, each camera appears as a separate V4L2 device.</p>
+</section>
+</section>
+<section id="hardware-module-connectivity">
+<h2>Hardware Module Connectivity<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#hardware-module-connectivity" title="Link to this heading">#</a></h2>
+<p>The figure below shows how two sensors are connected to a Jetson AGX
+Orin device using a GMSL reference module and a MAX9295/MAX9296
+SerDes.</p>
+<p>The GMSL MAX9296 deserializer is connected to a Jetson device via a
+MIPI adapter and MIPI white cables, which are plugged into the
+device’s camera connector socket. This is one of several ways the
+aggregator hardware module can be connected to the device.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Two sensor connected to a Jetson device with MAX9295 and MAX9296" src="../../_images/Max9295And9296.jpg" />
+</figure>
+</section>
+<section id="software-framework-and-programming">
+<h2>Software Framework and Programming<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#software-framework-and-programming" title="Link to this heading">#</a></h2>
+<p>This section describes the kernel drivers and device tree programming
+required for GMSL and virtual channel.</p>
+<p>The following diagram shows the high-level architecture of the kernel
+drivers and devices.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Kernel drivers and device tree programming" src="../../_images/SoftwareFrameworkAndProgramming.svg" />
+</figure>
+<section id="driver-framework">
+<h3>Driver Framework<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#driver-framework" title="Link to this heading">#</a></h3>
+<p>As shown in the diagram above, there are separate kernel drivers for
+serializer and deserializer devices, apart from the sensor driver. In
+the reference module they are the MAX9295 serializer and MAX9296
+deserializer drivers.</p>
+<p>In this framework, the sensor driver is exposed to the rest of the
+system as would be any other generic V4L2 sensor driver without external
+aggregator. All of the SerDes programming happens “under the hood”
+through the sensor driver.</p>
+<p>The SerDes kernel drivers are not registered as client programmable and
+isolated devices V4L2 or any other sensor framework.</p>
+<p>The reason for this design is that a certain fixed sequence of
+operations must be performed in the SerDes, and it does not quite fit
+the generic V4L2 framework sequence for sensors.</p>
+<p>SerDes drivers are separate, though. They can be statically linked to
+any sensors in the device tree, depending on hardware connectivity, but
+they are controlled by the sensor driver only. They do not expose any
+programmable functionality directly to user clients.</p>
+<p>A sensor driver internally links to the SerDes drivers to perform device
+and stream control operations such as power on/off, control
+setup/release, stream setup/release, and stream start/stop, based on
+device tree configuration.</p>
+<section id="driver-programming">
+<h4>Driver Programming<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#driver-programming" title="Link to this heading">#</a></h4>
+<p>The serializer/deserializer drivers control the serializer/deserializer modules through the serializer/deserializer API, described in
+<a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/index.html">Jetson Linux Drive Package API Reference</a>.</p>
+<p>The structure <code class="docutils literal notranslate"><span class="pre">gmsl_link_ctx</span></code> is the core entity which defines the entire link configuration from sensor to serializer link to deserializer link for each sensor source. It is documented in the
+<em>API Reference</em>.</p>
+<p>Most of the structure fields are populated by the sensor driver from the sensor’s gmsl-link node in the device tree during device boot. (See
+<a class="reference external" href="JetsonVirtualChannelWithGmslCameraFramework.html#module-device-tree">Module Device Tree</a>
+for node details.) Some of the fields are populated by the serializer and deserializer drivers.</p>
+<p>The sensor driver populates an instance of the structure and passes it
+to the serializer and deserializer drivers, which make use of the
+configuration details found in the structure context during power-on,
+control pipeline setup, and data streaming pipeline setup calls.</p>
+<p>As defined in this structure, the sensor and its corresponding
+serializer device each have a <strong>physical I2C slave address</strong>,
+assigned according to the device data sheet, and a <strong>proxy I2C slave
+address</strong>, which is user-defined.</p>
+<p>The reason for this is that all of the devices sharing the same hardware
+connection in the GMSL setup must be identified to the I2C bus with
+unique physical I2C slave addresses. The physical I2C slave address of
+each device is fixed, and is the same for similar types of devices, such
+as all sensor devices of a single make and model that are assigned to
+same slave. This causes address conflicts. To resolve the conflicts the
+driver uses a different proxy I2C slave address for each such device.
+The proxy I2C slave addresses are set statically in the device tree, and
+are assigned during device boot.</p>
+<p>The following diagram shows the call flow among the GMSL kernel drivers
+during device boot.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="GMSL kernel driver call flow during boot" src="../../_images/GmslCameraDeviceBoot.svg" />
+</figure>
+<p>Power management is handled by the shared deserializer driver instead of
+the sensor driver because each sensor device’s driver is unaware of
+other sensor devices in the GMSL module setup, but the deserializer
+device is common among all of the sensors connected to it.</p>
+<p>The stream-on and stream-off calls are mapped directly to the serializer
+and deserializer drivers.</p>
+<p>Stream setup is required for both SerDes drivers, whereas stream-on and
+stream-off are controlled by the deserializer driver only.</p>
+<p>The following figure shows the call flow among the GMSL kernel drivers
+for a stream-on or stream-off operation.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="GMSL kernel driver call flow for stream-on/stream-off" src="../../_images/GmslCameraStreamOnCallFlow.svg" />
+</figure>
+</section>
+</section>
+<section id="device-tree-programming">
+<h3>Device Tree Programming<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#device-tree-programming" title="Link to this heading">#</a></h3>
+<p>The device tree describes the hardware connections to the system as well
+as the static device properties of the drivers.</p>
+<section id="platform-device-tree">
+<h4>Platform Device Tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#platform-device-tree" title="Link to this heading">#</a></h4>
+<p>Hardware connections and device addressing are configured in the
+platform device tree.</p>
+<p>As explained in <a class="reference external" href="JetsonVirtualChannelWithGmslCameraFramework.html#driver-programming">Driver Programming</a>, each
+sensor and serializer device has two addresses: a physical I2C slave
+address and a proxy I2C slave address. Both are defined in the platform
+device tree.</p>
+<p>In the reference GMSL module both sensors have the physical I2C slave
+address <code class="docutils literal notranslate"><span class="pre">0x1a</span></code>, but must be assigned distinct proxy addresses. The proxy
+I2C slave addresses are user-configurable, by default <code class="docutils literal notranslate"><span class="pre">0x1b</span></code> and <code class="docutils literal notranslate"><span class="pre">0x1c</span></code>.</p>
+<p>Similarly, for serializer devices the physical I2C slave address is
+<code class="docutils literal notranslate"><span class="pre">0x62</span></code>, and the proxy I2C slave addresses are user-configurable, by
+default <code class="docutils literal notranslate"><span class="pre">0x40</span></code> and <code class="docutils literal notranslate"><span class="pre">0x60</span></code>.</p>
+<p>The following table shows the I2C slave address assignments for the
+reference GMSL setup.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"></th>
+<th class="head" colspan="5"><p>I2C Slave Address</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Assignments
+Sensor1</p></th>
+<th class="head"><p>Sensor2</p></th>
+<th class="head"><p>Ser1</p></th>
+<th class="head"><p>Ser2</p></th>
+<th class="head"><p>Des</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>Physical I2C
+slave address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1a</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1a</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x62</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x62</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x48</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Proxy I2C
+slave address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1b</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x1c</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x40</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0x60</span></code></p></td>
+<td><p>NA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each sensor device initiates a <code class="docutils literal notranslate"><span class="pre">power_on</span></code> request to the deserializer
+driver to perform GMSL link configuration and power on the shared
+deserializer device. In this power-on call, the deserializer driver only
+enables the GMSL link to which the caller’s sensor device is connected,
+and keeps other one disabled, so that there will be no address conflict
+between the two links. It then updates all devices’ proxy I2C slave
+addresses on the active link to the ones defined in the device tree. It
+follows the same procedure for the other GMSL link when the deserializer
+driver gets a <code class="docutils literal notranslate"><span class="pre">power_on</span></code> request from the sensor device connected to the
+other GMSL link. In this way, the deserializer driver updates all of the
+proxy I2C save addresses of all devices hosted by the deserializer
+device.</p>
+<p>For example, in the reference GMSL setup, when the deserializer gets a
+power-on request from the sensor device connected to link A, it enables
+GMSL link A and disables GMSL link B. It first communicates to the
+serializer and the sensor devices on link A at their respective physical
+I2C slave addresses (<code class="docutils literal notranslate"><span class="pre">0x1a</span></code> for <code class="docutils literal notranslate"><span class="pre">sensor1</span></code> and <code class="docutils literal notranslate"><span class="pre">0x62</span></code> for <code class="docutils literal notranslate"><span class="pre">Ser1</span></code>), and then
+updates those physical I2C slave addresses to proxy I2C slave addresses
+(<code class="docutils literal notranslate"><span class="pre">0x1b</span></code> for <code class="docutils literal notranslate"><span class="pre">sensor1</span></code> and <code class="docutils literal notranslate"><span class="pre">0x40</span></code> for <code class="docutils literal notranslate"><span class="pre">Ser1</span></code>). Then it performs the same steps
+for GMSL link B when the sensor device on GMSL link B requests power_on
+of the deserializer driver. Finally, it sets up the GMSL link in dual
+mode. Thus, each device is identified uniquely over the I2C bus. All
+further device communication takes place on the proxy I2C slave
+addresses until reboot.</p>
+<p>The GMSL link addresses are currently programmed at boot time, during
+probing, due to control configuration timing constraints.</p>
+<p>The following code is an example of platform device configuration for
+the GMSL setup shown in the diagrams above. For full details, see the
+platform device tree file:</p>
+<ul>
+<li><p>For Jetson AGX Orin series: tegra234-p3737-camera-imx390-overlay.dts:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tca9546@70 {
+    compatible = &quot;nxp,pca9546&quot;;
+
+    i2c@0 {
+        ...
+        reg = &lt;0&gt;;
+
+        dser: max9296@48 {
+            /* single common deserializer at 0x48 */
+            compatible = &quot;nvidia,max9296&quot;;
+            ...
+        };
+
+        ser_prim: max9295_prim@62 { /* Default serializer device */
+            compatible = &quot;nvidia,max9295&quot;;
+            ...
+        };
+
+        ser_a: max9295_a@40 {
+            ...
+        };
+
+        imx390_a@1b {
+            ...
+        };
+    };
+};
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="module-device-tree">
+<h4>Module Device Tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#module-device-tree" title="Link to this heading">#</a></h4>
+<p>After platform device configuration, the device module configuration
+must be added to the module device tree. For full details, see:</p>
+<ul class="simple">
+<li><p>For Jetson AGX Orin series: tegra234-camera-imx390-a00.dtsi</p></li>
+</ul>
+<p>A few snippets are shown here to illustrate the configuration. The
+virtual channels are set in the module device tree.</p>
+<p>The sensor device acts as controller device in the GMSL software
+framework, so in the module device tree each sensor device node contains
+a gmsl-link device node which describes the properties of the GMSL link
+to which the sensor is connected. In the example below, the gmsl-link
+node describes the sensor connected at GMSL link A:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gmsl-link {
+    src-csi-port = &quot;b&quot;;         /* Port at which sensor is connected to
+                                   its serializer device. */
+    dst-csi-port = &quot;a&quot;;         /* Destination CSI port on the Jetson side, connected at
+                                   deserializer. */
+    serdes-csi-link = &quot;a&quot;;      /* GMSL link sensor/serializer connected to sensor CSI node. */
+    csi-mode = &quot;1x4&quot;;
+    st-vc = &lt;0&gt;;                /* Sensor source default VC ID: 0 unless overridden by
+                                   sensor. */
+    vc-id = &lt;0&gt;;                /* Destination VC ID, assigned to sensor stream by
+                                   deserializer. */
+    num-lanes = &lt;2&gt;;            /* Number of CSI lanes used. */
+    streams = &quot;ued-u1&quot;, &quot;raw12&quot;;
+    /* Types of streams sensor is streaming. */
+};
+</pre></div>
+</div>
+<p>For any GMSL module configuration, all the fields shown above must be
+set based on the hardware connectivity.</p>
+</section>
+<section id="virtual-channel-programming-in-the-module-device-tree">
+<h4>Virtual Channel Programming in the Module Device Tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#virtual-channel-programming-in-the-module-device-tree" title="Link to this heading">#</a></h4>
+<p>You must add the same <code class="docutils literal notranslate"><span class="pre">vc-id</span></code> property value to the respective CSI and VI
+channel nodes in the same module device tree file. This property is used
+for V4L2 camera use cases.</p>
+<p>You must set the <code class="docutils literal notranslate"><span class="pre">vc-id</span></code> property in the gmsl-link node for each sensor to
+match the <code class="docutils literal notranslate"><span class="pre">vc_id</span></code> property in the sensor mode device node.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">vc_id</span></code> property in sensor mode device tree nodes is used for use
+cases based on the ARGUS camera. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mode0 {                        /* Mode IMX390_MODE_1920X1080_CROP_30 FPS. */
+    mclk_khz = &quot;24000&quot;;
+    num_lanes = &quot;2&quot;;
+    tegra_sinterface = &quot;serial_a&quot;;
+    vc_id = &quot;0&quot;;
+     . . .
+}.
+</pre></div>
+</div>
+</section>
+<section id="vi-and-csi-channel-nodes-in-the-module-device-tree">
+<h4>VI and CSI Channel Nodes in the Module Device Tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#vi-and-csi-channel-nodes-in-the-module-device-tree" title="Link to this heading">#</a></h4>
+<p>The module device tree for the reference GMSL setup also performs the
+port binding to VI and CSI. The number of VI and CSI channels is 2, as
+in any other dual-sensor setup, but the port-index field would be set
+based on the hardware connectivity:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tegra-capture-vi {
+    num-channels = &lt;2&gt;;
+    ports {
+        ...
+        };
+        port@1 {
+            reg = &lt;1&gt;;
+            imx390_vi_in1: endpoint {
+                ...
+            };
+        };
+    };
+};
+
+bus@0{
+    host1x@13e00000 {
+        nvcsi@15a00000 {
+            num-channels = &lt;2&gt;;
+            #address-cells = &lt;1&gt;;
+            #size-cells = &lt;0&gt;;
+            channel@0 {
+                reg = &lt;0&gt;;
+                ports {
+                    ...
+                };
+            };
+            ...
+        };
+    };
+};
+</pre></div>
+</div>
+<p>In this configuration the port-index property is set to 0 for both the
+VI channel 0 and channel 1 nodes, so that both sensors use VI stream 0.</p>
+<p>For CSI channel 0 and channel 1 nodes too the port-index property is set
+to 0, meaning that both channels’ sensors are connected to CSI port A.</p>
+<p>The VI and CSI channel nodes also both contain a new property, <code class="docutils literal notranslate"><span class="pre">vc-id</span></code>,
+used in V4L2 camera use cases as mentioned above. It must match the
+gmsl-link device node’s <code class="docutils literal notranslate"><span class="pre">vc-id</span></code> property.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bus-width</span></code> property specifies the number of CSI lanes used.</p>
+</section>
+<section id="tegra-camera-platform-node-configuration-in-module-device-tree">
+<h4>tegra-camera-platform node configuration in module device tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#tegra-camera-platform-node-configuration-in-module-device-tree" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">tegra-camera-platform</span></code> device node specifies details of the sensor
+modules’ configuration. The configuration below is for the reference GMSL module:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tegra-camera-platform {
+    compatible = &quot;nvidia, tegra-camera-platform&quot;;
+    num_csi_lanes = &lt;2&gt;;
+    max_lane_speed = &lt;4000000&gt;;
+    min_bits_per_pixel = &lt;10&gt;;
+    vi_peak_byte_per_pixel = &lt;2&gt;;
+    vi_bw_margin_pct = &lt;25&gt;;
+    isp_peak_byte_per_pixel = &lt;5&gt;;
+    isp_bw_margin_pct = &lt;25&gt;;
+
+    modules {
+        module0 {
+            badge = &quot;imx390_rear&quot;;
+            position = &quot;rear&quot;;
+            orientation = &quot;1&quot;;
+            drivernode0 {
+                /* Declare PCL support driver (classically known as guid)  */
+                pcl_id = &quot;v4l2_sensor&quot;;
+                /* Declare the device-tree hierarchy to driver instance */
+                sysfs-device-tree = &quot;/sys/firmware/devicetree/base/bus@0/i2c@3180000/tca9546@70/i2c@0/imx390_a@1b&quot;;
+            };
+        };
+        module1 {
+            badge = &quot;imx390_front&quot;;
+            position = &quot;front&quot;;
+            orientation = &quot;1&quot;;
+            drivernode0 {
+                /* Declare PCL support driver (classically known as guid)  */
+                pcl_id = &quot;v4l2_sensor&quot;;
+                /* Declare the device-tree hierarchy to driver instance */
+                sysfs-device-tree = &quot;/sys/firmware/devicetree/base/bus@0/i2c@3180000/tca9546@70/i2c@0/imx390_b@1c&quot;;
+            };
+        };
+    };
+};
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">num_csi_lanes</span></code> is set to 2, since both sensors are connected to a
+single CSI port A in x2 lane fashion. This is unlike other dual
+sensors, where <code class="docutils literal notranslate"><span class="pre">num_csi_lanes</span></code> is set to the total number of CSI lanes
+used by both sensors, since they use different CSI ports.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_lane_speed</span></code> is set to an appropriate value for two sensors
+streaming through a single shared port.</p></li>
+<li><p>The sensor device nodes are defined using sensor proxy I2C slave
+addresses instead of their physical I2C slave address, and their
+paths are set in sysfs-device-tree property. Similar naming is used
+for the devname property.</p></li>
+</ul>
+<p>For the rest of the configuration, follow the same guidelines as for
+other sensors.</p>
+<p>Refer to the following module device tree files:</p>
+<ul class="simple">
+<li><p>For Jetson AGX Orin series: <code class="docutils literal notranslate"><span class="pre">tegra234-camera-imx390-a00.dtsi</span></code></p></li>
+</ul>
+</section>
+<section id="device-tree-overlay">
+<h4>Device Tree Overlay<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#device-tree-overlay" title="Link to this heading">#</a></h4>
+<p>The device tree overlay additions is same as for any
+other sensor module.</p>
+<p>For reference GMSL setup support, see the node
+<code class="docutils literal notranslate"><span class="pre">fragment-imx390&#64;0</span></code> in:</p>
+<ul class="simple">
+<li><p>For Jetson AGX Orin series: <code class="docutils literal notranslate"><span class="pre">tegra234-p3737-camera-modules.dtsi</span></code></p></li>
+</ul>
+</section>
+<section id="camera-modules-device-tree">
+<h4>Camera Modules Device Tree<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#camera-modules-device-tree" title="Link to this heading">#</a></h4>
+<p>All the device nodes in the I2C node of the platform’s camera module
+device tree are defined in the same way as in the platform device tree.
+As in the reference GMSL setup, they all go to <code class="docutils literal notranslate"><span class="pre">i2c&#64;0</span></code>.</p>
+<p>The camera module device tree is:</p>
+<ul>
+<li><p>For Jetson AGX Orin series: tegra234-p3737-camera-modules.dtsi</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">vc-id</span></code> property is set to 0 by default for all VI ports in all modules’ device tree files. You must assign correct values to this property in <code class="docutils literal notranslate"><span class="pre">camera-modules.dtsi</span></code> and the sensor-specific module device tree file.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="constraints">
+<h2>Constraints<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#constraints" title="Link to this heading">#</a></h2>
+<p>Sensor streams connected to same CSI aggregator and sharing a CSI port
+must use the same lane configuration. The deserializer driver fails to
+register a stream if its lane configuration does not match other streams
+that share the same deserializer device.</p>
+<p>Apart from that, CSI aggregators generally support multiple identical
+cameras running with the same frame rate and sensor mode. Review your
+aggregator data sheet for additional restrictions if you are using a
+more complicated configuration.</p>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#validation" title="Link to this heading">#</a></h2>
+<p>Dual GMSL sensor streaming (preview/capture) is validated using Argus
+cameras, sharing CSI port A, and the V4L2 application.</p>
+<p>The 2x CSI deserializer/aggregator is validated. The 4x CSI aggregator
+is not validated, as its hardware module is currently not available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MIPI CPHY interface has been validated up to 2.5 GSPS per trio.</p>
+</div>
+</section>
+<section id="known-issues">
+<h2>Known Issues<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#known-issues" title="Link to this heading">#</a></h2>
+<p>This section summarizes known issues in the GMSL camera framework.</p>
+<section id="general-issues">
+<h3>General Issues<a class="headerlink" href="JetsonVirtualChannelWithGmslCameraFramework.html#general-issues" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Preview flickers on scene change.</p></li>
+<li><p>Sensor tuning and image quality are substandard.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SensorSoftwareDriverProgramming.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sensor Software Driver Programming</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ArgusNvrawTool.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Argus NvRaw Tool</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#reference-setup">Reference Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-protocol">GMSL Protocol</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#gmsl-camera">GMSL Camera</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#csi-connectivity">CSI Connectivity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin">Jetson AGX Orin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-orin-nx-series">Jetson Orin NX Series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#jetson-agx-orin-series">Jetson AGX Orin Series</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#hardware-module-connectivity">Hardware Module Connectivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#software-framework-and-programming">Software Framework and Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#driver-framework">Driver Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#driver-programming">Driver Programming</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#device-tree-programming">Device Tree Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#platform-device-tree">Platform Device Tree</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#module-device-tree">Module Device Tree</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#virtual-channel-programming-in-the-module-device-tree">Virtual Channel Programming in the Module Device Tree</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#vi-and-csi-channel-nodes-in-the-module-device-tree">VI and CSI Channel Nodes in the Module Device Tree</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#tegra-camera-platform-node-configuration-in-module-device-tree">tegra-camera-platform node configuration in module device tree</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#device-tree-overlay">Device Tree Overlay</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#camera-modules-device-tree">Camera Modules Device Tree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#constraints">Constraints</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#validation">Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#known-issues">Known Issues</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonVirtualChannelWithGmslCameraFramework.html#general-issues">General Issues</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

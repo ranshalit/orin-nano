@@ -1,0 +1,1087 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hardware Acceleration in the WebRTC Framework &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/HardwareAccelerationInTheWebrtcFramework';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Graphics" href="Graphics.html" />
+    <link rel="prev" title="Software Encode in Orin Nano" href="Multimedia/SoftwareEncodeInOrinNano.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="HardwareAccelerationInTheWebrtcFramework.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="HardwareAccelerationInTheWebrtcFramework.html#">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Hardware...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="hardware-acceleration-in-the-webrtc-framework">
+<h1>Hardware Acceleration in the WebRTC Framework<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#hardware-acceleration-in-the-webrtc-framework" title="Link to this heading">#</a></h1>
+<p>WebRTC is a free open source project that provides real-time
+communication capabilities to browsers and mobile apps.</p>
+<figure class="align-default" style="width: 900px">
+<img alt="../_images/WebrtcArchitecture.png" src="../_images/WebrtcArchitecture.png" />
+</figure>
+<p>A major feature of WebRTC is the ability to send and receive interactive
+HD videos. Fast processing of such videos requires hardware accelerated
+video encoding.</p>
+<p>The open-source WebRTC project framework currently supports several
+software encoder types: VP8, VP9, and H264. <span class="html">NVIDIA<sup><small>®</small></sup></span> has integrated hardware
+accelerated H.264 encoding, along with H.264 and VP8 decoding, into the WebRTC
+encoding framework. This document uses the name <strong>NvEncoder</strong> to denote
+the HW accelerated encoder feature and <strong>NvDecoder</strong> to denote the HW
+accelerated decoder feature.</p>
+<p>NVIDIA introduces two specialized codecs in the WebRTC framework:
+<strong>NvPassThroughEncoder</strong> and <strong>NvPassThroughDecoder</strong>. As their names imply,
+these codecs serve as complete pass-through mechanisms, delivering the input directly as the output.</p>
+<p>NvPassThroughEncoder is useful for sending already encoded buffers through external
+encoders to the WebRTC framework for encoding. Conversely, NvPassThroughDecoder is useful for external decoders that need to decode bitstream received from the WebRTC framework.</p>
+<section id="typical-buffer-flow-for-nvencoder">
+<h2>Typical Buffer Flow for NvEncoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#typical-buffer-flow-for-nvencoder" title="Link to this heading">#</a></h2>
+<p>The following diagram shows a typical buffer flow in the hardware
+accelerated WebRTC encoding framework.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="../_images/WebrtcBufferflowEncoder.png" src="../_images/WebrtcBufferflowEncoder.png" />
+</figure>
+<p>A source delivers YUV frames, which the framework converts to I420
+format and queues on the output plane of the encoder. The output plane
+buffers are sent to NvEncoder using proprietary NVIDIA low-level
+encoding libraries. NvEncoder returns filled encoded buffers on its
+capture plane.</p>
+<p>The encoded buffers are sent for further processing as required by the
+application.</p>
+</section>
+<section id="typical-buffer-flow-for-nvdecoder">
+<h2>Typical Buffer Flow for NvDecoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#typical-buffer-flow-for-nvdecoder" title="Link to this heading">#</a></h2>
+<p>The following diagram shows a typical buffer flow in the hardware
+accelerated WebRTC decoding framework.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="../_images/WebrtcBufferflowDecoder.png" src="../_images/WebrtcBufferflowDecoder.png" />
+</figure>
+<p>A source delivers encoded buffers, which the framework queues
+on the output plane of the encoder. These output plane
+buffers are forwarded to NvDecoder using proprietary NVIDIA low-level
+decoding libraries.</p>
+<p>NvDecoder processes the output plane buffers and returns filled decoded NV12 buffers on its
+capture plane, which are subsequently converted to I420 SW buffer format and sent for further
+processing as required by the application.</p>
+</section>
+<section id="typical-webrtc-architecture-of-nvpassthroughencoder">
+<h2>Typical WebRTC Architecture of NvPassThroughEncoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#typical-webrtc-architecture-of-nvpassthroughencoder" title="Link to this heading">#</a></h2>
+<p>The following diagram shows the basic architecture of the NvPassThroughEncoder
+in the WebRTC encoding framework.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="../_images/WebrtcArchitecturePassthroughencoder.png" src="../_images/WebrtcArchitecturePassthroughencoder.png" />
+</figure>
+<p>NvPassThroughEncoder is suited for situations where an external application
+encodes and sends the encoded bitstream to a WebRTC broadcaster.</p>
+<p>Instead of raw YUV format as encoder input, which would typically be expected,
+NvPassThroughEncoder accepts the encoded bitstream and forwards it to the
+next component without performing any processing on the input.</p>
+<p>The encoded buffers are then sent for further processing as required by the
+application.</p>
+</section>
+<section id="typical-webrtc-architecture-of-nvpassthroughdecoder">
+<h2>Typical WebRTC Architecture of NvPassThroughDecoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#typical-webrtc-architecture-of-nvpassthroughdecoder" title="Link to this heading">#</a></h2>
+<p>The following diagram shows the basic architecture of the NvPassThroughDecoder
+in the WebRTC decoding framework.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="../_images/WebrtcArchitecturePassthroughdecoder.png" src="../_images/WebrtcArchitecturePassthroughdecoder.png" />
+</figure>
+<p>NvPassThroughDecoder is suited for situations where an external
+application decodes and can receive the bitstream from a WebRTC receiver.</p>
+<p>NvPassThroughDecoder accepts the encoded bitstream as input and
+forwards it to the next component without performing any processing
+on the input. <strong>The low-level decoder can retrieve the bitstream
+from the Y component of the YUV format, with the bitstream size indicated
+by the width of the YUV buffer from the NvPassThroughDecoder.</strong></p>
+<p>The decoded buffers are then sent for further processing as required by the
+application.</p>
+</section>
+<section id="application-and-unit-test-setup">
+<h2>Application and Unit Test Setup<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#application-and-unit-test-setup" title="Link to this heading">#</a></h2>
+<p>A README file in the <code class="docutils literal notranslate"><span class="pre">WebRTC_r36.3.0_aarch64.tbz2</span></code> package contains
+additional information about application usage and setup.</p>
+<section id="to-set-up-and-test-the-nvencoder-sample-application">
+<h3>To set up and test the NvEncoder sample application<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-set-up-and-test-the-nvencoder-sample-application" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Video Loopback application</strong>: To run the application, enter this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./video_loopback --codec H264 --width 1280 --height 720 --capture_device_index 0
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--codec</span></code> specifies the encoding format. Hardware encoding currently supports only H.264.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--width</span></code> specifies the frame width.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--height</span></code> specifies the frame height.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--capture_device_index</span></code> specifies the index of <code class="docutils literal notranslate"><span class="pre">/dev/video&lt;x&gt;</span></code>.</p></li>
+</ul>
+</li>
+</ol>
+<p>If the WebRTC framework works correctly, the application displays the
+camera stream with the desired width and height. It scales if WebRTC
+detects frame drops.</p>
+<ol class="arabic" start="2">
+<li><p><strong>Peer connection Client/Server application</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Camera setup</strong>: Connect a USB camera to the <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> device.</p></li>
+<li><p><strong>Server setup</strong>: To start the peerconnection_client application on the Jetson platform, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./peerconnection_server
+</pre></div>
+</div>
+<p>This command starts the server on port 8888 with the default configuration.</p>
+</li>
+<li><p><strong>Client setup</strong>: To start two instances of the <code class="docutils literal notranslate"><span class="pre">peerconnection_client</span></code> application on the Jetson platform, enter the commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./peerconnection_client --autoconnect --server &lt;Server.IP&gt;
+$ ./peerconnection_client --server &lt;Server.IP&gt; --autoconnect --autocall
+</pre></div>
+</div>
+<p>Each command starts an instance that connects a client to the server automatically. The second command uses the <code class="docutils literal notranslate"><span class="pre">--autocall</span></code> option to call the first available other client on the server without user intervention.</p>
+</li>
+</ol>
+</li>
+<li><p><strong>H.264 unit test for NvEncoder</strong>: Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./modules_tests --gtest_filter=&quot;TestNvH264Impl.*&quot; --gtest_repeat=&lt;num_of_iterations&gt;
+</pre></div>
+</div>
+<p>If the software on the Jetson device displays an error for pulseaudio:</p>
+<ol class="arabic">
+<li><p>Enter this command to install pulseaudio:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt install pulseaudio
+</pre></div>
+</div>
+</li>
+<li><p>Enter this command to start the pulseaudio daemon:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ pulseaudio --start
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+<section id="important-method-calls-for-nvencoder">
+<h2>Important Method Calls for NvEncoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#important-method-calls-for-nvencoder" title="Link to this heading">#</a></h2>
+<p>NvEncoder is based on the <code class="docutils literal notranslate"><span class="pre">LibNvVideoEncoderTemplateAdapter</span></code>, defined in the
+header file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>webrtc_headers/api/video_codecs/video_encoder_factory_template_libnv_adapter.h
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NvVideoEncoder</span></code> class and implementation are defined in the header file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>webrtc_headers/modules/video_coding/codecs/nvidia/libnv_encoder.h
+</pre></div>
+</div>
+<p>These header files are present in the package <code class="docutils literal notranslate"><span class="pre">WebRTC_r36.0_aarch64.tbz2</span></code>.</p>
+<p>This section summarizes important calls to NvEncoder.</p>
+<section id="to-create-a-hardware-enabled-video-encoder">
+<h3>To create a hardware-enabled video encoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-create-a-hardware-enabled-video-encoder" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the method call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::unique_ptr&lt;VideoEncoder&gt; CreateVideoEncoder(const WebRTC::SdpVideoFormat&amp; format)
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">format</span></code> specifies the desired encoding format. Currently, <code class="docutils literal notranslate"><span class="pre">SdpVideoFormat</span></code> for NvEncoder only supports H.264.</p>
+</li>
+</ul>
+<p>The method creates and returns an <code class="docutils literal notranslate"><span class="pre">NvVideoEncoder</span></code> object for the
+specified format.</p>
+</section>
+<section id="to-query-the-video-encoder">
+<h3>To query the video encoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-query-the-video-encoder" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the function call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CodecInfo QueryVideoEncoder(const SdpVideoFormat&amp; format)
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">format</span></code> specifies the desired encoding format.</p>
+</li>
+</ul>
+<p>The function queries the video encoder and returns its codec information.</p>
+</section>
+<section id="to-get-supported-video-formats">
+<h3>To get supported video formats<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-get-supported-video-formats" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the method call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::vector&lt;SdpVideoFormat&gt; GetSupportedFormats()
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The method returns a vector of <code class="docutils literal notranslate"><span class="pre">SdpVideoFormat</span></code> objects with all formats supported by the encoder.</p>
+</section>
+</section>
+<section id="important-method-calls-for-nvdecoder">
+<h2>Important Method Calls for NvDecoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#important-method-calls-for-nvdecoder" title="Link to this heading">#</a></h2>
+<p>This section summarizes important calls to NvDecoder.</p>
+<p>NvDecoder is based on the <code class="docutils literal notranslate"><span class="pre">LibNvVideoDecoderTemplateAdapter</span></code>, defined in the
+header file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>webrtc_headers/api/video_codecs/video_decoder_factory_template_libnv_adapter.h
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NvVideoDecoder</span></code> class and implementation are defined in the header file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>webrtc_headers/modules/video_coding/codecs/nvidia/libnv_decoder.h
+</pre></div>
+</div>
+<p>These header files are present in the package <code class="docutils literal notranslate"><span class="pre">WebRTC_r36.3.0_aarch64.tbz2</span></code>.</p>
+<section id="to-create-a-hardware-enabled-video-decoder">
+<h3>To Create a Hardware-enabled Video Decoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-create-a-hardware-enabled-video-decoder" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the method call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::unique_ptr&lt;VideoDecoder&gt; CreateVideoDecoder(const WebRTC::SdpVideoFormat&amp; format)
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">format</span></code> specifies the desired decoding format. Currently, <code class="docutils literal notranslate"><span class="pre">SdpVideoFormat</span></code> for NvDecoder supports H.264 and VP8.</p>
+</li>
+</ul>
+<p>The method creates and returns an <code class="docutils literal notranslate"><span class="pre">NvVideoDecoder</span></code> object for the
+specified format.</p>
+</section>
+<section id="to-query-the-video-decoder">
+<h3>To Query the Video Decoder<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-query-the-video-decoder" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the function call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CodecInfo QueryVideoDecoder(const SdpVideoFormat&amp; format)
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">format</span></code> specifies the desired decoding format.</p>
+</li>
+</ul>
+<p>The function queries the video decoder and returns its codec information.</p>
+</section>
+<section id="id1">
+<h3>To Get Supported Video Formats<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#id1" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Execute the method call:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>std::vector&lt;SdpVideoFormat&gt; GetSupportedFormats()
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The method returns a vector of <code class="docutils literal notranslate"><span class="pre">SdpVideoFormat</span></code> objects with all formats supported by the decoder.</p>
+</section>
+</section>
+<section id="the-webrtc-package">
+<h2>The WebRTC Package<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#the-webrtc-package" title="Link to this heading">#</a></h2>
+<p>The file <code class="docutils literal notranslate"><span class="pre">WebRTC_r36.3.0_aarch64.tbz2</span></code> contains these files:</p>
+<ul class="simple">
+<li><p>Header files: All WebRTC header files with their respective pathnames.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libwebrtc.a</span></code>: A WebRTC library file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">video_loopback</span></code>: An application to test basic video loopback functionality.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">peerconnection_client</span></code>: A client application that connects to a server and other clients.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">peerconnection_server</span></code>: An application that creates a server and an interface to clients.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">module_test</span></code>: An encoder unit test application.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README</span></code>: A README file for applications and <code class="docutils literal notranslate"><span class="pre">NvVideoEncoderFactory</span></code>.</p></li>
+</ul>
+<p>The base commit ID for the library is <code class="docutils literal notranslate"><span class="pre">d0c86830d00d6aa4608cd6f9970352e583f16308</span></code>.</p>
+<p>The commit ID corresponds to the OSS WebRTC project used for
+development. See this link for <a class="reference external" href="https://webrtc.googlesource.com/src">the OSS WebRTC
+project</a>.</p>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#limitations" title="Link to this heading">#</a></h2>
+<p>Hardware acceleration is currently available only for the H.264 encoder.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">video_loopback</span></code> works only with the H.264 encoder.</p>
+<p>USB Camera outputs buffers in YUY2 color format, but NVEncoder expects
+input in I420 or NV12 format, requiring a color conversion. This is
+currently done using the WebRTC framework on the CPU.</p>
+</section>
+<section id="webrtc-streaming-sample-with-argus-camera-source">
+<h2>WebRTC Streaming Sample with Argus Camera Source<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#webrtc-streaming-sample-with-argus-camera-source" title="Link to this heading">#</a></h2>
+<p>This section uses the sample application <code class="docutils literal notranslate"><span class="pre">webrtc_argus_camera_app</span></code> to demonstrate WebRTC streaming of CSI camera input.
+This sample application performs a zero-copy pipeline between the argus camera and H.264 NVIDIA hardware encoder and streams the output to web browser via WebRTC framework.</p>
+<section id="building-and-running">
+<h3>Building and Running<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#building-and-running" title="Link to this heading">#</a></h3>
+<p>Before you can build and run the sample, ensure that you meet the following prerequisites:</p>
+<ul>
+<li><p>You have a connected camera.</p></li>
+<li><p>You have extracted the package by completing the following steps:</p>
+<ol class="loweralpha">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">webrtc_argus_camera_app_src.tbz2</span></code> package from the L4T Driver Package (BSP) sources.</p></li>
+<li><p>Extract the <code class="docutils literal notranslate"><span class="pre">webrtc_argus_camera_app_src.tbz2</span></code> package.</p></li>
+<li><p>Install the dependency packages as provided below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ apt-get install -y --no-install-recommends \\
+g++ \\
+libjsoncpp-dev \\
+libssl-dev  \\
+uuid uuid-dev \\
+gstreamer1.0-plugins-base \\
+gstreamer1.0-plugins-good \\
+gstreamer1.0-plugins-ugly \\
+gstreamer1.0-plugins-bad \\
+libgstreamer1.0-0 \\
+libgstreamer-plugins-base1.0-dev \
+</pre></div>
+</div>
+</li>
+<li><p>Configure display using the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ xinit &amp;
+$ export DISPLAY=:0
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+</ul>
+<section id="to-build">
+<h4>To Build<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-build" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Execute the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd webrtc_argus_camera_app_src
+$ make
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="to-run">
+<h4>To Run<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#to-run" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Execute the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>launch_nvwebrtc
+</pre></div>
+</div>
+</li>
+<li><p>Open the URL displayed in the console output in any web browser (preferably Google Chrome):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>http://&lt;ip address&gt;:&lt;port number&gt;/example/
+</pre></div>
+</div>
+</li>
+<li><p>Click on the <strong>Select a camera</strong> drop-down list and choose <strong>cam</strong>.</p></li>
+<li><p>Click on start button to start streaming and stop button to stop streaming.</p></li>
+<li><p>After stopping the stream, exit the app using Ctrl+C keyboard shortcut.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure the firewall allows the HTTP ports.
+Only a single instance can be run at a time.</p>
+</div>
+</section>
+</section>
+<section id="supported-options">
+<h3>Supported Options<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#supported-options" title="Link to this heading">#</a></h3>
+<p>The below table provides a list of supported options.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>–perf</p></td>
+<td><p>Print encoder performance</p></td>
+</tr>
+<tr class="row-odd"><td><p>–help</p></td>
+<td><p>Print this help</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="data-flow-block-diagram">
+<h3>Data Flow Block Diagram<a class="headerlink" href="HardwareAccelerationInTheWebrtcFramework.html#data-flow-block-diagram" title="Link to this heading">#</a></h3>
+<p>Here is the flow of data through this sample application:</p>
+<figure class="align-default" style="width: 900px">
+<img alt="../_images/WebrtcArgusArchitecture.png" src="../_images/WebrtcArgusArchitecture.png" />
+</figure>
+<p>The CSI camera input is accessed via the Gstreamer plugin <code class="docutils literal notranslate"><span class="pre">nvarguscamerasrc</span></code> and sent to the low-level encoder. The output of the low-level encoder is sent to the NvPassThroughEncoder in the WebRTC framework.
+The bitstream is converted to RTP packets and sent over the network and is played on the web browser.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Multimedia/SoftwareEncodeInOrinNano.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Software Encode in Orin Nano</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Graphics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Graphics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#typical-buffer-flow-for-nvencoder">Typical Buffer Flow for NvEncoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#typical-buffer-flow-for-nvdecoder">Typical Buffer Flow for NvDecoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#typical-webrtc-architecture-of-nvpassthroughencoder">Typical WebRTC Architecture of NvPassThroughEncoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#typical-webrtc-architecture-of-nvpassthroughdecoder">Typical WebRTC Architecture of NvPassThroughDecoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#application-and-unit-test-setup">Application and Unit Test Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-set-up-and-test-the-nvencoder-sample-application">To set up and test the NvEncoder sample application</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#important-method-calls-for-nvencoder">Important Method Calls for NvEncoder</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-create-a-hardware-enabled-video-encoder">To create a hardware-enabled video encoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-query-the-video-encoder">To query the video encoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-get-supported-video-formats">To get supported video formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#important-method-calls-for-nvdecoder">Important Method Calls for NvDecoder</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-create-a-hardware-enabled-video-decoder">To Create a Hardware-enabled Video Decoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-query-the-video-decoder">To Query the Video Decoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#id1">To Get Supported Video Formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#the-webrtc-package">The WebRTC Package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#limitations">Limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#webrtc-streaming-sample-with-argus-camera-source">WebRTC Streaming Sample with Argus Camera Source</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#building-and-running">Building and Running</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-build">To Build</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#to-run">To Run</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#supported-options">Supported Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="HardwareAccelerationInTheWebrtcFramework.html#data-flow-block-diagram">Data Flow Block Diagram</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

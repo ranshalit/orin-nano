@@ -1,0 +1,1230 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Software Encode in Orin Nano &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Multimedia/SoftwareEncodeInOrinNano';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hardware Acceleration in the WebRTC Framework" href="../HardwareAccelerationInTheWebrtcFramework.html" />
+    <link rel="prev" title="Accelerated GStreamer" href="AcceleratedGstreamer.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="SoftwareEncodeInOrinNano.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="SoftwareEncodeInOrinNano.html#">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Multimedia.html" class="nav-link">Multimedia</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Software...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="software-encode-in-orin-nano">
+<h1>Software Encode in Orin Nano<a class="headerlink" href="SoftwareEncodeInOrinNano.html#software-encode-in-orin-nano" title="Link to this heading">#</a></h1>
+<p>The NVIDIA® Jetson™ Orin Nano does not have the NVENC engine. This application note provides information about how to migrate to software encoding using the libav (FFmpeg) encoders, and the section on the GStreamer pipelines provides details on how to use the software encoding as part of the NVIDIA-accelerated gstreamer pipelines. This document shows only the encoding of H.264 codec format.</p>
+<section id="argus-camera-software-encode-sample">
+<h2>Argus Camera Software Encode Sample<a class="headerlink" href="SoftwareEncodeInOrinNano.html#argus-camera-software-encode-sample" title="Link to this heading">#</a></h2>
+<p>This section will demonstrate the encoding of H264 in Jetson Orin Nano using the libav encoder (libx264) with input from the camera with the <code class="docutils literal notranslate"><span class="pre">19_argus_camera_sw_encode</span></code> sample.
+This sample demonstrates how to use libargus to set up the camera class components for a capture operation. An EGLStream is also created to connect to the software video encoder and allows you to  capture encoded video streams to a file.</p>
+<section id="building-and-running">
+<h3>Building and Running<a class="headerlink" href="SoftwareEncodeInOrinNano.html#building-and-running" title="Link to this heading">#</a></h3>
+<p>Before you can build and run the sample, ensure that you meet the following prerequisites:</p>
+<ul>
+<li><p>You have a connected camera.</p></li>
+<li><p>You have completed steps 1-3 in <a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/mmapi_build.html">Building and Running</a>.</p>
+<p>For step 2, install the jetpack using the <a class="reference external" href="https://docs.nvidia.com/jetson/jetpack/install-jetpack/index.html">Quickstart Guide</a>.</p>
+</li>
+<li><p>If you are building from your host Linux PC (x86), complete step 4 in <a class="reference external" href="https://docs.nvidia.com/jetson/l4t-multimedia/mmapi_build.html">Building and Running</a>.</p></li>
+<li><p>You have extracted the package by completing the following steps:</p>
+<ol class="loweralpha simple">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">argus_cam_libavencoder_src.tbz2</span></code> package from the L4T Driver Package (BSP) Sources.</p></li>
+<li><p>Extract the <code class="docutils literal notranslate"><span class="pre">argus_cam_libavencoder_src.tbz2</span></code> package in the <code class="docutils literal notranslate"><span class="pre">/usr/src/jetson_multimedia_api/samples</span></code> path.</p></li>
+</ol>
+</li>
+</ul>
+<p>To build, run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /usr/src/jetson_multimedia_api/samples/19_argus_camera_sw_encode
+$ make
+</pre></div>
+</div>
+<p>The sample creates the H.264 video file in the current directory.</p>
+<p>To run, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./camera_sw_encode [OPTIONS]
+</pre></div>
+</div>
+</section>
+<section id="supported-options">
+<h3>Supported Options<a class="headerlink" href="SoftwareEncodeInOrinNano.html#supported-options" title="Link to this heading">#</a></h3>
+<p>Table 1 provides a list of supported options.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-r</p></td>
+<td><p>Set output resolution WxH</p></td>
+<td><p>640x480</p></td>
+</tr>
+<tr class="row-odd"><td><p>-f</p></td>
+<td><p>Set output filename</p></td>
+<td><p>output.h264</p></td>
+</tr>
+<tr class="row-even"><td><p>-d</p></td>
+<td><p>Set capture duration</p></td>
+<td><p>5 seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p>-i</p></td>
+<td><p>Set camera index</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>-v</p></td>
+<td><p>Enable verbose message.</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>-p</p></td>
+<td><p>Encoder input format 1 -NV12,2-1420</p></td>
+<td><p>1 (NV12)</p></td>
+</tr>
+<tr class="row-even"><td><p>-H</p></td>
+<td><p>Print this help.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="flow">
+<h3>Flow<a class="headerlink" href="SoftwareEncodeInOrinNano.html#flow" title="Link to this heading">#</a></h3>
+<p>Here is the flow of data through this sample:</p>
+<figure class="align-default" style="width: 600px">
+<img alt="../../_images/Flow.png" src="../../_images/Flow.png" />
+</figure>
+<p>This sample demonstrates the camera producer and consumer programming model. The image output is performed using the EGLStream, and the EGLStream output is of the type NV12 format with a Block Linear layout structure. The Libav Encoder supports only CPU memory, so the output from EGLStream is converted to CPU-accessible system memory using <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/4.0/dev-guide/DeepStream_Development_Guide/baggage/group__ee__nvbufsurface.html#gafa9ddac38bf79486810cdc0dc6db514c">NvBufSurfaceCopy</a>. After the H.264 stream output is obtained, it is written to the file output.</p>
+</section>
+<section id="key-structure-and-functions">
+<h3>Key Structure and Functions<a class="headerlink" href="SoftwareEncodeInOrinNano.html#key-structure-and-functions" title="Link to this heading">#</a></h3>
+<p>The following classes are used in this application:</p>
+<ul>
+<li><p>Argus Producer Thread
+The Argus producer thread class opens the Argus camera driver, creates a BufferOutputStream to output frames, and performs repeating capture requests for CAPTURE_TIME seconds before closing the producer and Argus driver.</p></li>
+<li><p>Consumer Thread class
+The ConsumerThread class acquires frames from BufferOutputStream and provides it as input to the video encoding module (libav-libx264 encoder). The encoder will encode the frames and save the encoded stream to disk. For more information about libargus and the EGLStream, refer to the libargus documentation. For more information on the libav-libx264 encoder, refer to the FFmpeg documentation.</p>
+<p>The ConsumerThread class packages the video encoding-related elements and functions. The key members used in the sample are provided in the following table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ConsumerThread</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>const AVCodec <em>codec</em>;</p></td>
+<td><p>Holds the codec type and encoder to be used.</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVCodecContext <em>m_enc_ctx</em>;</p></td>
+<td><p>Holds the codec information.</p></td>
+</tr>
+<tr class="row-even"><td><p>AVFrame <em>m_frame</em>;</p></td>
+<td><p>Holds the input YUV frame information.</p></td>
+</tr>
+<tr class="row-odd"><td><p>AVPacket <em>m_pkt</em>;</p></td>
+<td><p>Holds the output bitstream information.</p></td>
+</tr>
+<tr class="row-even"><td><p>NvBufSurface* sysBuffers[NUM_BUFFERS];</p></td>
+<td><p>The set of input buffers that holds the CPU-accessible software memory after reading and copying data from the hardware memory.</p></td>
+</tr>
+<tr class="row-odd"><td><p>createVideoEncoder</p></td>
+<td><p>Initializes the software video encoder and set properties.</p></td>
+</tr>
+<tr class="row-even"><td><p>destroyVideoEncoder</p></td>
+<td><p>Destroys the software video encoder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>libavEncode</p></td>
+<td><p>Performs encoding using libav APIs and writes output to file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+<p>The following table lists the different libav-libx264 APIs that are used to encode:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Libav APIs</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>avcodec_find_encoder_by_name</p></td>
+<td><p>Finds a registered encoder with the specified name (using libx264)</p></td>
+</tr>
+<tr class="row-odd"><td><p>avcodec_alloc_context3</p></td>
+<td><p>Allocates the AVCodecContext.</p></td>
+</tr>
+<tr class="row-even"><td><p>avcodec_open2</p></td>
+<td><p>Opens the libx264 encoder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>av_frame_alloc</p></td>
+<td><p>Allocates AVFrame and fills with default values.</p></td>
+</tr>
+<tr class="row-even"><td><p>av_packet_alloc</p></td>
+<td><p>Allocates AVPacket and fills with default values.</p></td>
+</tr>
+<tr class="row-odd"><td><p>av_init_packet</p></td>
+<td><p>Initializes optional fields of a packet with default values.</p></td>
+</tr>
+<tr class="row-even"><td><p>av_frame_make_writable</p></td>
+<td><p>Ensures that the frame data is writable.</p></td>
+</tr>
+<tr class="row-odd"><td><p>avcodec_send_frame</p></td>
+<td><p>Supplies a raw video frame to the encoder.</p></td>
+</tr>
+<tr class="row-even"><td><p>avcodec_receive_packet</p></td>
+<td><p>Reads encoded data from the encoder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>av_packet_unref</p></td>
+<td><p>Wipes the packet.</p></td>
+</tr>
+<tr class="row-even"><td><p>av_packet_free</p></td>
+<td><p>Frees the AVPacket.</p></td>
+</tr>
+<tr class="row-odd"><td><p>av_frame_free</p></td>
+<td><p>Frees the AVFrame.</p></td>
+</tr>
+<tr class="row-even"><td><p>avcodec_close</p></td>
+<td><p>Closes the libx264 encoder.</p></td>
+</tr>
+<tr class="row-odd"><td><p>avcodec_free_context</p></td>
+<td><p>Frees the codec context and everything associated with it and write NULL to the provided pointer.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="hardware-to-software-encoder-properties-mapping">
+<h3>Hardware-to-Software Encoder Properties Mapping<a class="headerlink" href="SoftwareEncodeInOrinNano.html#hardware-to-software-encoder-properties-mapping" title="Link to this heading">#</a></h3>
+<p>The following basic properties of the hardware encoder can be mapped directly to the software encoder:</p>
+<blockquote>
+<div><p>..note:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>To use the other properties specific to the software encoder, refer to the `libx264 documentation &lt;http://www.chaneru.com/Roku/HLS/X264_Settings.htm&gt;`_.
+</pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Set the bitrate control method (VBR, CBR) using the bitrate, vbv-maxrate, and vbv-bufsize options.</p></li>
+<li><p>Set the CABAC/ CAVLC entropy encode mode using the no-cabac option.</p></li>
+<li><p>Set the lossless output can be obtained by setting qp to 0.</p></li>
+<li><p>Insert the Access unit delimiter (AUD) at IDR or I frame using the aud option.</p></li>
+<li><p>Set the number of concurrent B-frames using the bframes option.</p></li>
+<li><p>Set the number of reference frames using the ref option.</p></li>
+<li><p>Set the encoding profile/level using the profile and level options respectively.</p></li>
+<li><p>Enable the Extended color format using the fullrange option.</p></li>
+<li><p>Set the encoding frames per second (fps) using the fps option.</p></li>
+<li><p>Set the sample aspect ratio using the sar option.</p></li>
+</ul>
+<section id="buffer-compatibility">
+<h4>Buffer Compatibility<a class="headerlink" href="SoftwareEncodeInOrinNano.html#buffer-compatibility" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>The NVENC engine supports input YUV formats I420, NV12, NV24, and P010_10LE.</p>
+<p>The libav - libx264 encoder supports only input YUV formats of I420 and NV12 among these formats and the other formats supported are I422, I444, NV16, NV21, GRAY, I420_10LE, I422_10LE, I444_10LE, GRAY_10LE. To enable support for the other formats, an additional <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/4.0/dev-guide/DeepStream_Development_Guide/baggage/group__ee__buf__surf__transform.html#gab8e0c12fdf8f3e0215a17765b2eed4eb">NvBufSurfTransform</a> is required.</p>
+</li>
+<li><p>The software encoder supports only CPU-accessible pitch linear memory.</p>
+<p>When the hardware  block linear buffers must be sent as input for encoding, an additional hardware  to software  copy is required. This can be performed using <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/4.0/dev-guide/DeepStream_Development_Guide/baggage/group__ee__nvbufsurface.html#gafa9ddac38bf79486810cdc0dc6db514c">NvBufSurfaceCopy</a>.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="nvbufsurfacecopy-output">
+<h3>NvBufSurfaceCopy Output<a class="headerlink" href="SoftwareEncodeInOrinNano.html#nvbufsurfacecopy-output" title="Link to this heading">#</a></h3>
+<figure class="align-default" style="width: 600px">
+<img alt="../../_images/NvBufSurfaceCopyOutput.png" src="../../_images/NvBufSurfaceCopyOutput.png" />
+</figure>
+<p>The image on the left indicates the output, after an <code class="docutils literal notranslate"><span class="pre">NvBufSurfaceCopy</span></code> is completed, to convert the hardware block Linear buffers to the software CPU-accessible system memory, and is fed to the AVPicture. The image on the right indicates the output after the direct passing of the software-mapped block linear buffers to the AVPicture.</p>
+</section>
+<section id="performance-and-quality-comparison-numbers">
+<h3>Performance and Quality Comparison Numbers<a class="headerlink" href="SoftwareEncodeInOrinNano.html#performance-and-quality-comparison-numbers" title="Link to this heading">#</a></h3>
+<p>The following table is an example of the performances that can be expected with libx264 encoding when you use preset as the varying parameter. Here, a bitstream input that has been encoded with 30Mbps for a frame rate of 30 is encoded again to 4Mbps constant bitrate using libx264. The CPU usage is also indicated for six cores (default #cores in Jetson Orin Nano). Libx264 supports 10 different presets that range from ultrafast to placebo, where ultrafast is the fastest preset available.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x264</p></th>
+<th class="head"><p>FPS</p></th>
+<th class="head"><p>CPU Usage (per core)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ultrafast</p></td>
+<td><p>96.73</p></td>
+<td><p>47%</p></td>
+</tr>
+<tr class="row-odd"><td><p>superfast</p></td>
+<td><p>80.44</p></td>
+<td><p>55%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryfast</p></td>
+<td><p>60.96</p></td>
+<td><p>66%</p></td>
+</tr>
+<tr class="row-odd"><td><p>faster</p></td>
+<td><p>39.19</p></td>
+<td><p>75%</p></td>
+</tr>
+<tr class="row-even"><td><p>fast</p></td>
+<td><p>28.4</p></td>
+<td><p>82%</p></td>
+</tr>
+<tr class="row-odd"><td><p>medium</p></td>
+<td><p>23.11</p></td>
+<td><p>85%</p></td>
+</tr>
+<tr class="row-even"><td><p>slow</p></td>
+<td><p>15.01</p></td>
+<td><p>88%</p></td>
+</tr>
+<tr class="row-odd"><td><p>slower</p></td>
+<td><p>8.75</p></td>
+<td><p>90%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryslow</p></td>
+<td><p>3.85</p></td>
+<td><p>94%</p></td>
+</tr>
+<tr class="row-odd"><td><p>placebo</p></td>
+<td><p>0.78</p></td>
+<td><p>98%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>The following table shows the maximum performance when you tune the default parameters. These parameters are additionally tuned by configuring the GOP structure to be similar to the NVIDIA hardware H.264 encoder by setting a few configurable parameters. These changes include setting the IDR frame interval and the I frame interval to 30, setting the number of references to 1, disabling B frames, and disabling the AQ mode setting.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x264</p></th>
+<th class="head"><p>FPS</p></th>
+<th class="head"><p>CPU Usage (per core)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ultrafast</p></td>
+<td><p>99.11</p></td>
+<td><p>49%</p></td>
+</tr>
+<tr class="row-odd"><td><p>superfast</p></td>
+<td><p>87.89</p></td>
+<td><p>52%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryfast</p></td>
+<td><p>83.02</p></td>
+<td><p>58%</p></td>
+</tr>
+<tr class="row-odd"><td><p>faster</p></td>
+<td><p>73.16</p></td>
+<td><p>65%</p></td>
+</tr>
+<tr class="row-even"><td><p>fast</p></td>
+<td><p>53.13</p></td>
+<td><p>72%</p></td>
+</tr>
+<tr class="row-odd"><td><p>medium</p></td>
+<td><p>51.86</p></td>
+<td><p>75%</p></td>
+</tr>
+<tr class="row-even"><td><p>slow</p></td>
+<td><p>36.93</p></td>
+<td><p>78%</p></td>
+</tr>
+<tr class="row-odd"><td><p>slower</p></td>
+<td><p>33.43</p></td>
+<td><p>80%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryslow</p></td>
+<td><p>24.28</p></td>
+<td><p>85%</p></td>
+</tr>
+<tr class="row-odd"><td><p>placebo</p></td>
+<td><p>4.69</p></td>
+<td><p>92%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>The following table is an example of the bitrate/PSNR of libx264 encoder when you use preset as the varying parameter and maintain a constant bitrate of 4Mbps.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x264</p></th>
+<th class="head"><p>FPS</p></th>
+<th class="head"><p>PSNR (in dB)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ultrafast</p></td>
+<td><p>4135.56</p></td>
+<td><p>46.964</p></td>
+</tr>
+<tr class="row-odd"><td><p>superfast</p></td>
+<td><p>4047.64</p></td>
+<td><p>47.432</p></td>
+</tr>
+<tr class="row-even"><td><p>veryfast</p></td>
+<td><p>4055.3</p></td>
+<td><p>48.277</p></td>
+</tr>
+<tr class="row-odd"><td><p>faster</p></td>
+<td><p>4045.23</p></td>
+<td><p>47.421</p></td>
+</tr>
+<tr class="row-even"><td><p>fast</p></td>
+<td><p>4054.13</p></td>
+<td><p>48.275</p></td>
+</tr>
+<tr class="row-odd"><td><p>medium</p></td>
+<td><p>4045.26</p></td>
+<td><p>47.421</p></td>
+</tr>
+<tr class="row-even"><td><p>slow</p></td>
+<td><p>4045.81</p></td>
+<td><p>47.423</p></td>
+</tr>
+<tr class="row-odd"><td><p>slower</p></td>
+<td><p>4036.69</p></td>
+<td><p>47.389</p></td>
+</tr>
+<tr class="row-even"><td><p>veryslow</p></td>
+<td><p>4038.33</p></td>
+<td><p>47.402</p></td>
+</tr>
+<tr class="row-odd"><td><p>placebo</p></td>
+<td><p>4047.1</p></td>
+<td><p>47.431</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>The following table is an example of the performances that can be expected with libx264 encoding when the input is rate-limited. Here, the camera that provides the input at the rate of 30 frames per second is encoded with a target constant bitrate of 10 Mbps using libx264 with preset as the varying parameter. The CPU usage is also indicated for six cores (default #cores in Jetson Orin Nano).</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x264</p></th>
+<th class="head"><p>FPS</p></th>
+<th class="head"><p>CPU Usage (per core)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ultrafast</p></td>
+<td><p>30.66</p></td>
+<td><p>38%</p></td>
+</tr>
+<tr class="row-odd"><td><p>superfast</p></td>
+<td><p>30.07</p></td>
+<td><p>41%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryfast</p></td>
+<td><p>29.95</p></td>
+<td><p>54%</p></td>
+</tr>
+<tr class="row-odd"><td><p>faster</p></td>
+<td><p>29.95</p></td>
+<td><p>55%</p></td>
+</tr>
+<tr class="row-even"><td><p>fast</p></td>
+<td><p>13.42</p></td>
+<td><p>75%</p></td>
+</tr>
+<tr class="row-odd"><td><p>medium</p></td>
+<td><p>10.98</p></td>
+<td><p>77%</p></td>
+</tr>
+<tr class="row-even"><td><p>slow</p></td>
+<td><p>5.07</p></td>
+<td><p>80%</p></td>
+</tr>
+<tr class="row-odd"><td><p>slower</p></td>
+<td><p>3.72</p></td>
+<td><p>82%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryslow</p></td>
+<td><p>2.01</p></td>
+<td><p>84%</p></td>
+</tr>
+<tr class="row-odd"><td><p>placebo</p></td>
+<td><p>0.11</p></td>
+<td><p>95%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>In the following table, the GOP structure has been configured to be similar to the NVIDIA hardware H.264 encoder. The configurations include the IDR frame interval and I frame interval have been set to 30, the number of references is set to 1, the b frames have been disabled, and the aq mode setting has been disabled.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x264</p></th>
+<th class="head"><p>FPS</p></th>
+<th class="head"><p>CPU Usage (per core)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ultrafast</p></td>
+<td><p>31.88</p></td>
+<td><p>19%</p></td>
+</tr>
+<tr class="row-odd"><td><p>superfast</p></td>
+<td><p>30.23</p></td>
+<td><p>18%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryfast</p></td>
+<td><p>30.12</p></td>
+<td><p>22%</p></td>
+</tr>
+<tr class="row-odd"><td><p>faster</p></td>
+<td><p>30.54</p></td>
+<td><p>32%</p></td>
+</tr>
+<tr class="row-even"><td><p>fast</p></td>
+<td><p>30.77</p></td>
+<td><p>45%</p></td>
+</tr>
+<tr class="row-odd"><td><p>medium</p></td>
+<td><p>30.19</p></td>
+<td><p>48%</p></td>
+</tr>
+<tr class="row-even"><td><p>slow</p></td>
+<td><p>31.57</p></td>
+<td><p>55%</p></td>
+</tr>
+<tr class="row-odd"><td><p>slower</p></td>
+<td><p>31.45</p></td>
+<td><p>60%</p></td>
+</tr>
+<tr class="row-even"><td><p>veryslow</p></td>
+<td><p>31.8</p></td>
+<td><p>90%</p></td>
+</tr>
+<tr class="row-odd"><td><p>placebo</p></td>
+<td><p>6.49</p></td>
+<td><p>100%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="gstreamer-pipelines">
+<h2>GStreamer Pipelines<a class="headerlink" href="SoftwareEncodeInOrinNano.html#gstreamer-pipelines" title="Link to this heading">#</a></h2>
+<p>This section provides information about GStreamer pipelines.</p>
+<section id="camera-and-encoding-pipelines">
+<h3>Camera and Encoding Pipelines<a class="headerlink" href="SoftwareEncodeInOrinNano.html#camera-and-encoding-pipelines" title="Link to this heading">#</a></h3>
+<p>The following command demonstrates the H.264 software encode using the x264enc plugin with input from the camera plugin that uses Argus API.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc ! \
+    &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, \
+    format=(string)NV12, framerate=(fraction)30/1&#39; ! nvvidconv ! \
+    video/x-raw, format=I420 ! x264enc ! \
+    h264parse ! qtmux ! filesink \
+    location=&lt;filename_h264.mp4&gt; -e
+</pre></div>
+</div>
+</section>
+<section id="transcode-pipelines">
+<h3>Transcode Pipelines<a class="headerlink" href="SoftwareEncodeInOrinNano.html#transcode-pipelines" title="Link to this heading">#</a></h3>
+<p>The following command demonstrates H.264 decode to H.264 software  Encode (NVIDIA- accelerated decode to software encode).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=&lt;filename_1080p.mp4&gt; ! qtdemux ! \
+   h264parse ! nvv4l2decoder ! \
+   &#39;video/x-raw(memory:NVMM), format=NV12&#39; ! \
+   nvvidconv ! video/x-raw, format=I420 ! x264enc ! \
+   h264parse ! filesink location=&lt;Transcoded_filename.h264&gt; -e
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="AcceleratedGstreamer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Accelerated GStreamer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../HardwareAccelerationInTheWebrtcFramework.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Hardware Acceleration in the WebRTC Framework</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#argus-camera-software-encode-sample">Argus Camera Software Encode Sample</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#building-and-running">Building and Running</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#supported-options">Supported Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#flow">Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#key-structure-and-functions">Key Structure and Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#hardware-to-software-encoder-properties-mapping">Hardware-to-Software Encoder Properties Mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#buffer-compatibility">Buffer Compatibility</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#nvbufsurfacecopy-output">NvBufSurfaceCopy Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#performance-and-quality-comparison-numbers">Performance and Quality Comparison Numbers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#gstreamer-pipelines">GStreamer Pipelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#camera-and-encoding-pipelines">Camera and Encoding Pipelines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwareEncodeInOrinNano.html#transcode-pipelines">Transcode Pipelines</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

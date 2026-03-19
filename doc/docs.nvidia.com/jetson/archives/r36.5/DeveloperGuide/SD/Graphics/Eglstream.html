@@ -1,0 +1,982 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EGLStream &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Graphics/Eglstream';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="EGLDevice" href="Egldevice.html" />
+    <link rel="prev" title="OpenGL ES Programming Tips" href="GraphicsProgramming/OpenglEsProgrammingTips.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="Eglstream.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="Eglstream.html#">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Graphics.html" class="nav-link">Graphics</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">EGLStream</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="eglstream">
+<h1>EGLStream<a class="headerlink" href="Eglstream.html#eglstream" title="Link to this heading">#</a></h1>
+<p>EGLStream is a mechanism that efficiently transfers a sequence of image
+frames from one API to another, e.g., from OpenGL<span class="html"><sup><small>®</small></sup></span> to <span class="html">NVIDIA<sup><small>®</small></sup></span> CUDA<span class="html"><sup><small>®</small></sup></span>.</p>
+<p>In EGLStream architecture a producer and a consumer are attached to each
+end of a stream object. A <strong>producer</strong> adds image frames to the stream.
+A <strong>consumer</strong> retrieves image frames from the stream.</p>
+<section id="eglstream-producers">
+<h2>EGLStream Producers<a class="headerlink" href="Eglstream.html#eglstream-producers" title="Link to this heading">#</a></h2>
+<p>An EGLStream producer posts EGL<span class="html">&trade;</span> image frames to an EGLStream. The
+producer is responsible for inserting each image frame into the
+EGLStream at the correct time so that the consumer can display the image
+frame for the appropriate period of time.</p>
+<p>There are two types of producers:</p>
+<ul class="simple">
+<li><p><strong>CUDA producers</strong> post a CUDA array or CUDA pointer to the EGLStream
+as EGL image frames.</p></li>
+<li><p><strong>OpenGL producers</strong> post graphic surfaces to the EGLStream as EGL
+image frames.</p></li>
+</ul>
+</section>
+<section id="eglstream-consumers">
+<h2>EGLStream Consumers<a class="headerlink" href="Eglstream.html#eglstream-consumers" title="Link to this heading">#</a></h2>
+<p>An EGLStream consumer retrieves EGL image frames from the EGLStream. The
+consumer is responsible for noticing that an image frame is available
+and displaying it (or otherwise consuming it). The consumer is
+responsible for the latency of the acquired frame (the time elapsed
+between image frame retrieval and display).</p>
+<p>There are three types of consumers:</p>
+<ul class="simple">
+<li><p><strong>CUDA consumers</strong> retrieve EGL image frames and deliver the frame
+information as a CUDA array or a CUDA pointer. The CUDA frames can
+then be processed in the CUDA domain.</p></li>
+<li><p><strong>OpenGL consumers</strong> retrieve EGL image frames that can then be bound
+as OpenGL textures for graphics rendering.</p></li>
+<li><p><strong>EGLOutput consumers</strong> (EGLDevice window system only) retrieve EGL
+image frames and render them directly to EGLOutput. An EGLOutput
+consumer is applicable when EGLOutput is used on the EGLDevice window
+system.</p></li>
+</ul>
+</section>
+<section id="eglstream-operation-modes">
+<h2>EGLStream Operation Modes<a class="headerlink" href="Eglstream.html#eglstream-operation-modes" title="Link to this heading">#</a></h2>
+<p>EGLStream operates in one of two modes: mailbox mode and FIFO mode.</p>
+<section id="mailbox-mode">
+<h3>Mailbox Mode<a class="headerlink" href="Eglstream.html#mailbox-mode" title="Link to this heading">#</a></h3>
+<p>In <strong>mailbox mode</strong>, EGLStream conceptually operates as a mailbox. When
+the producer has a new image frame it empties the mailbox (discards the
+old contents) and inserts the new image frame into the mailbox. The
+consumer retrieves the image frame from the mailbox and examines it.
+When the consumer is finished examining the image frame, it either puts
+the frame back in the mailbox (if the mailbox is empty) or discards it
+(if the mailbox is not empty).</p>
+<p>Timing is mainly controlled by the producer. The consumer operates with
+a fixed latency that it indicates to the producer through the EGLStream
+attribute <code class="docutils literal notranslate"><span class="pre">EGL_CONSUMER_LATENCY_USEC_KHR</span></code>. The consumer must notice when a
+new image frame is available in the EGLStream, retrieve it, and display
+it in the time indicated by <code class="docutils literal notranslate"><span class="pre">EGL_CONSUMER_LATENCY_USEC_KHR</span></code>. The producer
+controls when the image frame is displayed by inserting it into the
+stream at time <em>t</em><span class="html">&nbsp;</span> −<span class="html">&nbsp;</span> <code class="docutils literal notranslate"><span class="pre">EGL_CONSUMER_LATENCY_USEC_KHR</span></code>, where <em>t</em> is the
+time when the image frame is to be displayed.</p>
+</section>
+<section id="fifo-mode">
+<h3>FIFO Mode<a class="headerlink" href="Eglstream.html#fifo-mode" title="Link to this heading">#</a></h3>
+<p>In <strong>FIFO mode</strong> images are not discarded. When a producer adds image
+frames to the stream they go in a FIFO queue for subsequent retrieval by
+the consumer. EGLStream sets the queue size when it creates the queue.
+If the producer attempts to insert a frame and the queue is full, the
+producer blocks until there is room in the queue. When the consumer
+retrieves an image frame from the EGLStream, it gets the image frame
+that immediately follows the image frame last retrieved (unless no such
+frame has been inserted yet, in which case it retrieves the same image
+frame as last time).</p>
+<p>Timing of an EGLStream in FIFO mode is the responsibility of the
+consumer. Each image frame in the queue has a timestamp set by the
+producer. The consumer uses this timestamp to determine when the image
+frame is intended to be displayed.</p>
+</section>
+</section>
+<section id="eglstream-pipeline">
+<h2>EGLStream Pipeline<a class="headerlink" href="Eglstream.html#eglstream-pipeline" title="Link to this heading">#</a></h2>
+<p>EGL provides functions to create and destroy EGLStreams, to query and
+set attributes of EGLStreams, and to connect EGLStreams to producers and
+consumers.</p>
+<p>An EGLStream cannot be used until it is connected to a consumer and then
+to a producer. It must be connected to the consumer first.</p>
+<p>An EGLStream may be connected to only one producer and one consumer.
+Once it is connected to a producer or a consumer, it remains connected
+to that entity until it is destroyed.</p>
+<section id="to-build-a-simple-eglstream-pipeline">
+<h3>To build a simple EGLStream pipeline<a class="headerlink" href="Eglstream.html#to-build-a-simple-eglstream-pipeline" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Create the EGLDisplay object which the EGLStream is to bind to.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">eglInitialize()</span></code> to initialize EGL on the display.</p>
+<p>To use the OpenGL consumer or EGLOutput consumer, you must initialize the rendering window before you create the EGLStream pipeline.</p>
+<p>To use the CUDA producer-consumer, window system initialization is not required.</p>
+</li>
+<li><p>Create an EGLStream.</p>
+<p>This example of creating the EGLStream is from <code class="docutils literal notranslate"><span class="pre">eglstreamcube.c</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>client-&gt;stream = eglCreateStreamKHR(demoState.display, streamAttr);
+if (client-&gt;stream == EGL_NO_STREAM_KHR) {
+    NvGlDemoLog(&quot;Couldn&#39;t create EGL stream.\n&quot;);
+    goto fail;
+}
+</pre></div>
+</div>
+<p>Set <code class="docutils literal notranslate"><span class="pre">streamAttr</span></code> according to whether you are using mailbox mode or FIFO mode. For FIFO mode, the attribute <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_FIFO_LENGTH_KHR</span></code> is initialized:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>if (demoOptions.nFifo &gt; 0) {
+    streamAttr[numAttrs++] = EGL_STREAM_FIFO_LENGTH_KHR;
+    streamAttr[numAttrs++] = demoOptions.nFifo;
+}
+</pre></div>
+</div>
+</li>
+<li><p>Create a consumer of the appropriate type and connect it to the EGLStream.</p>
+<p>This example of connecting an OpenGL consumer to the EGLStream is from <code class="docutils literal notranslate"><span class="pre">eglstreamcube.c</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture);
+if (!eglStreamConsumerGLTextureExternalKHR(demoState.display, client-&gt;stream)) {
+    NvGlDemoLog(&quot;Couldn&#39;t bind texture.\n&quot;);
+    goto fail;
+}
+</pre></div>
+</div>
+<p>Remember that once an EGLStream is connected to a consumer, it remains connected to that consumer until the EGLStream is destroyed.</p>
+</li>
+<li><p>Create a producer of the appropriate type and connect it to the EGLStream.</p>
+<p>This example of connecting an OpenGL producer to the EGLStream is from <code class="docutils literal notranslate"><span class="pre">nvgldemo_main.c</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglCreateStreamProducerSurfaceKHR(demoState.display,
+                                  demoState.config,
+                                  demoState.stream,
+                                  srfAttrs);
+</pre></div>
+</div>
+<p>Remember that once an EGLStream is connected to a producer, it remains connected to that producer until the EGLStream is destroyed.</p>
+</li>
+<li><p>The producer posts the image frames (the stream) to the consumer in order, depending on the type of stream (FIFO or mailbox).</p>
+<p>In the OpenGL producer case, <code class="docutils literal notranslate"><span class="pre">eglSwapBuffers()</span></code> posts the buffer to the consumer.</p>
+</li>
+<li><p>The consumer acquires the image frame posted by the producer, uses
+it, and then releases the frame back to the stream. Methods for
+acquiring frames from a stream and releasing them back to a stream
+are dependent on the type of consumer.</p>
+<p>This example of acquiring and releasing the frame in the OpenGL consumer case is from <code class="docutils literal notranslate"><span class="pre">eglstreamcube.c</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglStreamConsumerAcquireKHR(demoState.display, clientList[i].stream);
+eglStreamConsumerReleaseKHR(demoState.display, client-&gt;stream);
+</pre></div>
+</div>
+<p>In the OpenGL consumer case, if the application calls <code class="docutils literal notranslate"><span class="pre">eglStreamConsumerAcquireKHR()</span></code> twice on the same EGLStream without an intervening call to <code class="docutils literal notranslate"><span class="pre">eglStreamConsumerReleaseKHR()</span></code>, then <code class="docutils literal notranslate"><span class="pre">eglStreamConsumerReleaseKHR()</span></code> is implicitly called at the start of <code class="docutils literal notranslate"><span class="pre">eglStreamConsumerAcquireKHR()</span></code>.</p>
+</li>
+</ol>
+</section>
+<section id="to-destroy-the-eglstream-pipeline">
+<h3>To destroy the EGLStream pipeline<a class="headerlink" href="Eglstream.html#to-destroy-the-eglstream-pipeline" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Destroy the producer.</p></li>
+<li><p>Destroy the consumer.</p></li>
+<li><p>Destroy the EGLStream.</p></li>
+<li><p>Destroy the window system resources.</p></li>
+</ol>
+<p>The application must destroy resources in this order to produce a correct result.</p>
+</section>
+<section id="eglstream-state">
+<h3>EGLStream State<a class="headerlink" href="Eglstream.html#eglstream-state" title="Link to this heading">#</a></h3>
+<p>At any time after an EGLStream is created, it is in one of these states:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CREATED_KHR</span></code>: Created but not yet connected to a producer or a consumer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CONNECTING_KHR</span></code>: Connected to a consumer but not yet connected to a producer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_EMPTY_KHR</span></code>: Connected to a consumer and a producer, but the producer has not yet posted any image frames.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR</span></code>: The producer has posted at least one image frame that the consumer has not yet acquired.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_OLD_FRAME_AVAILABLE_KHR</span></code>: The producer has posted at least one image frame, and the consumer has acquired the most recently posted image frame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_DISCONNECTED_KHR</span></code>: The producer, the consumer, or both are no longer connected to the EGLStream, i.e., they have been destroyed. Once the EGLStream is in this state it remains in this state until it is destroyed. In this state the only valid operations on the EGStream are <code class="docutils literal notranslate"><span class="pre">eglQueryStreamKHR()</span></code> and <code class="docutils literal notranslate"><span class="pre">eglDestroyStreamKHR()</span></code>.</p></li>
+</ul>
+<p>You query the EGLStream’s state like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>EGLBoolean eglQueryStreamKHR(
+           EGLDisplay dpy,
+           EGLStreamKHR stream,
+           EGLenum attribute,
+           EGLuint64KHR *value);
+</pre></div>
+</div>
+<p>These state transitions can occur:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CREATED_KHR</span></code>: The initial state, of an EGLStream that has just been created.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CREATED_KHR</span></code> to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CONNECTING_KHR</span></code>: Occurs when a consumer is connected to the EGLStream.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_CONNECTING_KHR</span></code> to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_EMPTY_KHR</span></code>: Occurs when a producer is connected to the EGLStream.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_EMPTY_KHR</span></code> to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR</span></code>: Occurs the first time the producer inserts an EGL image frame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR</span></code> to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_OLD_FRAME_AVAILABLE_KHR</span></code>: Occurs when the consumer begins acquiring a newly posted EGL image frame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_OLD_FRAME_AVAILABLE_KHR</span></code> to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_NEW_FRAME_AVAILABLE_KHR</span></code>: Occurs when the producer posts a new EGL image frame.</p></li>
+<li><p>Any state to <code class="docutils literal notranslate"><span class="pre">EGL_STREAM_STATE_DISCONNECTED_KHR</span></code>: Occurs when the producer or consumer is destroyed.</p></li>
+</ul>
+</section>
+</section>
+<section id="building-a-cross-process-eglstream-pipeline">
+<h2>Building a Cross-Process EGLStream Pipeline<a class="headerlink" href="Eglstream.html#building-a-cross-process-eglstream-pipeline" title="Link to this heading">#</a></h2>
+<p>A cross-process EGLStream is one whose producer and consumer are in different processes.</p>
+<section id="to-build-a-cross-process-eglstream-pipeline">
+<h3>To build a cross-process EGLStream pipeline<a class="headerlink" href="Eglstream.html#to-build-a-cross-process-eglstream-pipeline" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>The consumer process creates an EGLStream.</p></li>
+<li><p>The consumer process gets the file descriptor for the EGLStream and
+sends it through the socket to the producer process.</p></li>
+<li><p>In the producer process, the producer receives the file descriptor
+through the socket and creates a corresponding EGLStream from the
+file descriptor. After the EGLStreams are created in both consumer
+and producer processes, the consumer and the producer are created
+and are connected to the EGLStreams, and through them, to each other.</p></li>
+</ol>
+</section>
+<section id="cross-process-eglstream-example">
+<h3>Cross-Process EGLStream Example<a class="headerlink" href="Eglstream.html#cross-process-eglstream-example" title="Link to this heading">#</a></h3>
+<p>Jetson Linux provides a pair of sample applications that constitute an example of
+communication through a cross-process EGLStream pipeline:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples/opengles2/eglstreamcube</span></code> is the consumer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples/opengles2/bubble</span></code> is the producer.</p></li>
+</ul>
+<p>You can demonstrate communication through a cross-process EGLStream
+pipeline by starting the consumer, then the producer.</p>
+<p>The consumer application performs these operations:</p>
+<ol class="arabic">
+<li><p>Creates the stream and get the file descriptor of the stream (see <code class="docutils literal notranslate"><span class="pre">eglstreamcube.c</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>client-&gt;stream = eglCreateStreamKHR(demoState.display, streamAttr);
+client-&gt;fd = eglGetStreamFileDescriptorKHR(demoState.display, client-&gt;stream);
+</pre></div>
+</div>
+</li>
+<li><p>Shares the file descriptor with the producer through the socket.</p></li>
+<li><p>Binds the consumer end of the EGLStream with the OPENGL texture (see <code class="docutils literal notranslate"><span class="pre">eglstreamcube.c</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>glBindTexture(GL_TEXTURE_EXTERNAL_OES, texture);
+eglStreamConsumerGLTextureExternalKHR(demoState.display, client-&gt;stream);
+</pre></div>
+</div>
+</li>
+<li><p>Latches the most recent image frame to the texture with <code class="docutils literal notranslate"><span class="pre">eglStreamConsumerAcquireKHR()</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglStreamConsumerAcquireKHR(demoState.display,stream);
+</pre></div>
+</div>
+</li>
+<li><p>Renders the texture as one face of the cube.</p></li>
+</ol>
+<p>The producer application performs these operations:</p>
+<ol class="arabic">
+<li><p>Receives the stream file descriptor through the socket
+(specified by a <code class="docutils literal notranslate"><span class="pre">-eglstreamsocket</span></code> option) and creates the stream (see <code class="docutils literal notranslate"><span class="pre">nvgldemo_main.c</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglCreateStreamFromFileDescriptorKHR(demoState.display, fd);
+</pre></div>
+</div>
+</li>
+<li><p>Creates the EGLStream surface (see <code class="docutils literal notranslate"><span class="pre">nvgldemo_main.c</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eglCreateStreamProducerSurfaceKHR(
+                    demoState.display,
+                    demoState.config,
+                    demoState.stream,
+                    srfAttrs);
+</pre></div>
+</div>
+</li>
+<li><p>Creates an instance <code class="docutils literal notranslate"><span class="pre">EGLContext</span></code> and binds it to the thread by calling <code class="docutils literal notranslate"><span class="pre">eglMakeCurrent()</span></code> on the EGLStream surface created in step 2.</p></li>
+<li><p>Renders the frames and calls <code class="docutils literal notranslate"><span class="pre">eglSwapBuffers()</span></code>.</p></li>
+</ol>
+</section>
+<section id="to-run-the-cross-process-eglstream-pipeline-example">
+<h3>To run the cross-process EGLStream pipeline example<a class="headerlink" href="Eglstream.html#to-run-the-cross-process-eglstream-pipeline-example" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Enter this command to start the consumer application:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./eglstreamcube -dispno 1 -layer 1 -windowoffset 1000 0 -socket /tmp/test &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Enter this command to start the producer application:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./bubble -eglstreamsocket /tmp/test &amp;
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">bubble</span></code> application content appears on one face of the cube.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GraphicsProgramming/OpenglEsProgrammingTips.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">OpenGL ES Programming Tips</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Egldevice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">EGLDevice</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#eglstream-producers">EGLStream Producers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#eglstream-consumers">EGLStream Consumers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#eglstream-operation-modes">EGLStream Operation Modes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#mailbox-mode">Mailbox Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#fifo-mode">FIFO Mode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#eglstream-pipeline">EGLStream Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#to-build-a-simple-eglstream-pipeline">To build a simple EGLStream pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#to-destroy-the-eglstream-pipeline">To destroy the EGLStream pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#eglstream-state">EGLStream State</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#building-a-cross-process-eglstream-pipeline">Building a Cross-Process EGLStream Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#to-build-a-cross-process-eglstream-pipeline">To build a cross-process EGLStream pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#cross-process-eglstream-example">Cross-Process EGLStream Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Eglstream.html#to-run-the-cross-process-eglstream-pipeline-example">To run the cross-process EGLStream pipeline example</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1400 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Configuring the Jetson Expansion Headers &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'HR/ConfiguringTheJetsonExpansionHeaders';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Controller Area Network (CAN)" href="ControllerAreaNetworkCan.html" />
+    <link rel="prev" title="Jetson Module Adaptation and Bring-Up: Checklists" href="JetsonModuleAdaptationAndBringUp/Checklists.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="ConfiguringTheJetsonExpansionHeaders.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SD/FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="ConfiguringTheJetsonExpansionHeaders.html#">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Configuring...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="configuring-the-jetson-expansion-headers">
+<h1>Configuring the Jetson Expansion Headers<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#configuring-the-jetson-expansion-headers" title="Link to this heading">#</a></h1>
+<p>Each Jetson developer kit includes several expansion headers and
+connectors (collectively, “headers”):</p>
+<ul class="simple">
+<li><p><strong>40‑pin expansion header:</strong> Lets you connect a Jetson developer kit to
+off-the-shelf Raspberry Pi HATs (Hardware Attached on Top) such as
+Seeed Grove modules, SparkFun Qwiic products, and others. Many of the
+pins can be used either as GPIO or as “special function I/O” (SFIO)
+such as I2C, I2S, etc.</p></li>
+<li><p><strong>CSI connector</strong>: Pins on this connector can be used either as GPIO or as “special function I/O” (SFIO)
+such as DMIC, DSPK, I2S, etc.</p></li>
+<li><p><strong>M.2 Key E slot</strong>: Pins on this connector can be used either as GPIO or as “special function I/O” (SFIO)
+such as I2S, etc.</p></li>
+</ul>
+<p>This table shows which expansion headers are available on each Jetson platform:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Jetson
+Platform</p></th>
+<th class="head"><p>40-pin
+header</p></th>
+<th class="head" colspan="2"><p>M.2 Key E
+slot</p></th>
+<th class="head"><p>CSI
+connector *</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="html">NVIDIA<sup><small>®</small></sup></span>
+<span class="html">Jetson Orin&trade; NX</span> and
+<span class="html">Jetson Orin&trade; Nano</span>
+series</p></td>
+<td><p><span class="html">&check;</span></p></td>
+<td colspan="2"><p><span class="html">&check;</span></p></td>
+<td><p><span class="html">&check;</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="html">NVIDIA<sup><small>®</small></sup></span>
+<span class="html">Jetson AGX Orin&trade;</span></p></td>
+<td><p><span class="html">&check;</span></p></td>
+<td colspan="2"><p><span class="html">&check;</span></p></td>
+<td><p><span class="html">&check;</span></p></td>
+</tr>
+<tr class="row-even"><td colspan="5"><p>* The CSI connector pin count might vary on each <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span>
+platform.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The configuration of all of the I/O pins on Jetson developer kits is
+statically defined, and is programmed into the device when it is
+flashed. To change the pin configuration directly, you must update a
+pinmux spreadsheet for your platform, then flash the new configuration
+to the Jetson device.</p>
+<p>This is a suitable means of configuring production systems, but for
+development systems it is very inconvenient. Therefore NVIDIA provides
+the <strong>Jetson Expansion Header Tool</strong> (also known as <strong>Jetson‑IO</strong>), a
+Python script that runs on a Jetson developer kit and lets you change
+pin configurations through a graphic user interface. Jetson‑IO modifies
+the Device Tree Blob (DTB) firmware so that a new configuration for the
+expansion headers is applied when the developer kit is rebooted.</p>
+<section id="running-jetson-io">
+<span id="hr-configuringthejetsonexpansionheaders-runningjetsonio"></span><h2>Running Jetson-IO<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#running-jetson-io" title="Link to this heading">#</a></h2>
+<p>To launch Jetson‑IO, enter this command on the developer kit:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /opt/nvidia/jetson-io/jetson-io.py
+</pre></div>
+</div>
+<section id="main-screen-selecting-a-header">
+<h3>Main Screen: Selecting a Header<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#main-screen-selecting-a-header" title="Link to this heading">#</a></h3>
+<p>When you launch Jetson‑IO it displays its <strong>main screen</strong>, which lists
+the expansion headers supported on your Jetson device. For example, on
+Jetson Orin NX, the main screen looks like this:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="MainScreen" src="../_images/MainScreen.png" />
+</figure>
+<p>Select one of the options to display the header screen, which you can
+use to configure the selected header.</p>
+</section>
+<section id="header-screen">
+<h3>Header Screen<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#header-screen" title="Link to this heading">#</a></h3>
+<p>The <strong>header screen</strong> displays the current configuration of the selected
+header. On Jetson Orin Nano, for example, the header screen for the 40-pin
+expansion header looks like this:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="HeaderScreen" src="../_images/HeaderScreen.png" />
+</figure>
+<p>The header screen offers you two options for configuring I/O pins:</p>
+<ul class="simple">
+<li><p><strong>Configure for compatible hardware</strong>: Displays the
+<a class="reference external" href="ConfiguringTheJetsonExpansionHeaders.html#compatible-hardware-screen">compatible hardware screen</a>,
+which lets you select from a list of configurations
+for hardware modules that can be attached to the header.</p></li>
+<li><p><strong>Configure header pins manually</strong>: Displays the
+<a class="reference external" href="ConfiguringTheJetsonExpansionHeaders.html#expansion-header-configuration-screen">expansion header configuration screen</a>,
+which lets you specify which functions to enable on the header.</p></li>
+<li><p><strong>Back</strong>: Returns you to the main screen.</p></li>
+</ul>
+</section>
+<section id="compatible-hardware-screen">
+<h3>Compatible Hardware Screen<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#compatible-hardware-screen" title="Link to this heading">#</a></h3>
+<p>The compatible hardware screen displays a list of configurations for
+interfacing the selected header with certain hardware modules. On Jetson
+Orin Nano, for example, the compatible hardware screen for the 40‑pin
+expansion header looks like this:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="CompatibleHWScreen" src="../_images/CompatibleHWScreen.png" />
+</figure>
+<p>When you select a configuration, Jetson‑IO returns to the header screen,
+where it updates the header configuration to reflect the hardware module
+you selected:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="SelectedHWScreen" src="../_images/SelectedHWScreen.png" />
+</figure>
+<p>The header screen also displays a different set of options:</p>
+<ul class="simple">
+<li><p><strong>Save pin changes</strong>: Saves the header’s new configuration and
+returns to the main screen; see
+<a class="reference external" href="ConfiguringTheJetsonExpansionHeaders.html#main-screen-save">Main Screen: Save</a>, below.</p></li>
+<li><p><strong>Discard pin changes</strong>: Discards the header’s new configuration
+changes and redisplays the prior configuration with the original set
+of options (see
+<a class="reference external" href="ConfiguringTheJetsonExpansionHeaders.html#header-screen">Header Screen</a>,
+above). You can select a configuration option again, or select Back to return to the
+main screen.</p></li>
+</ul>
+</section>
+<section id="configuring-40-pin-expansion-header">
+<h3>Configuring 40-Pin Expansion Header<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#configuring-40-pin-expansion-header" title="Link to this heading">#</a></h3>
+<p>The 40 pin expansion header configuration screen displays a list of special
+functions that the selected header supports. It shows the pins
+associated with the functions in parentheses. Additionally, you can also configure
+the pins as GPIO or unused. On Jetson Orin Nano, for example, the expansion header
+configuration screen for the 40‑pin header looks like this:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="FnConfigScreen" src="../_images/FnConfigScreen.png" />
+</figure>
+<p>Use the up-arrow and down-arrow keys to highlight the function you want to enable, then press Enter or the space bar to toggle a pin function.</p>
+<p>For more details on the supported functions, see the <cite>Technical Reference
+Manual</cite> (TRM) for the Jetson SoC in your developer kit.</p>
+<p>To accept the selected set of functions, select Back. Jetson‑IO
+redisplays the header screen, updated to reflect the new state of the
+selected functions. The header screen also shows the Save pin changes
+and Discard pin changes options, as described in
+<a class="reference external" href="ConfiguringTheJetsonExpansionHeaders.html#compatible-hardware-screen">Compatible Hardware Screen</a>,
+plus one additional option:</p>
+<ul class="simple">
+<li><p><strong>Export as Device-Tree Overlay</strong>: Exports the selected header’s
+configuration as a new device tree overlay (DTBO). It stores the file in the <code class="docutils literal notranslate"><span class="pre">/boot/</span></code> directory.</p></li>
+</ul>
+<section id="using-the-pins-in-gpio-mode">
+<h4>Using the Pins in GPIO Mode<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#using-the-pins-in-gpio-mode" title="Link to this heading">#</a></h4>
+<p>You can demonstrate the pin in GPIO mode using <code class="docutils literal notranslate"><span class="pre">gpiod</span></code> or <code class="docutils literal notranslate"><span class="pre">Jetson.GPIO</span></code> utility after enabling the pin in GPIO mode as described above.</p>
+<section id="installing-gpiod">
+<h5>Installing gpiod<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#installing-gpiod" title="Link to this heading">#</a></h5>
+<p>Run the below command to install <code class="docutils literal notranslate"><span class="pre">gpiod</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt install gpiod
+</pre></div>
+</div>
+</section>
+<section id="displaying-pin-information">
+<h5>Displaying Pin Information<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#displaying-pin-information" title="Link to this heading">#</a></h5>
+<p>You can retrieve detailed information about all GPIO pins using the below command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioinfo
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioinfo
+  gpiochip0 - 164 lines:
+  line   0:      &quot;PA.00&quot; &quot;regulator-vdd-3v3-sd&quot; output active-high [used]
+  line   1:      &quot;PA.01&quot;       unused   input  active-high
+  line   2:      &quot;PA.02&quot;       unused   input  active-high
+  ...
+</pre></div>
+</div>
+</section>
+<section id="get-gpio-number-by-name">
+<h5>Get GPIO Number by Name<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#get-gpio-number-by-name" title="Link to this heading">#</a></h5>
+<p>You can get the <code class="docutils literal notranslate"><span class="pre">gpio</span></code> number with the pin name that can be used by <code class="docutils literal notranslate"><span class="pre">gpioset</span></code>/<code class="docutils literal notranslate"><span class="pre">gpioget</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpiofind
+</pre></div>
+</div>
+<p>Example Output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpiofind PDD.02
+  gpiochip1 22
+</pre></div>
+</div>
+</section>
+<section id="gpio-output">
+<h5>GPIO Output<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#gpio-output" title="Link to this heading">#</a></h5>
+<p>To drive a pin as an output with a high (1) or low (0) value, run the below command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioset `gpiofind &quot;&lt;Pin Name&gt;&quot;`=&lt;Output value&gt;
+</pre></div>
+</div>
+<p>For instance, to set pin 3 on the 40-pin header to an output value of 1:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioset `gpiofind &quot;PDD.02&quot;`=1
+</pre></div>
+</div>
+</section>
+<section id="gpio-input">
+<h5>GPIO Input<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#gpio-input" title="Link to this heading">#</a></h5>
+<p>To read the input value of a pin, run the below command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioget `gpiofind &quot;&lt;Pin Name&gt;&quot;`
+</pre></div>
+</div>
+<p>For example, to fetch the input value of pin 3 on the 40-pin header, which returns 1:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gpioget `gpiofind &quot;PDD.02&quot;`
+  1
+</pre></div>
+</div>
+<p>For details on Jetson.GPIO, refer to <a class="github reference external" href="https://github.com/NVIDIA/jetson-gpio">NVIDIA/jetson-gpio</a>.</p>
+</section>
+</section>
+</section>
+<section id="configuring-the-csi-connector">
+<h3>Configuring the CSI Connector<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#configuring-the-csi-connector" title="Link to this heading">#</a></h3>
+<p><strong>Applies to</strong>: Jetson platforms with a CSI connector.</p>
+<p>The <strong>Configure Jetson 22pin CSI Connector</strong> option allows you to configure the CSI Connector on Jetson Orin Nano. The Connector name might vary across Jetson platforms.</p>
+<ol class="arabic simple">
+<li><p>From the main menu, select “Configure Jetson 22pin CSI Connector.”</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="NanoCSIScreen" src="../_images/ConfigCSI.png" />
+</figure>
+<ol class="arabic simple">
+<li><p>Jetson‑IO displays the CSI Connector Screen.</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="CompatibleCSIHWScreen" src="../_images/CompatibleCSIHWScreen.png" />
+</figure>
+<ol class="arabic simple">
+<li><p>Select from a list of compatible hardware. You can add custom configurations as shown in
+<a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html#sd-cameradevelopment-sensorsoftwaredriverprogramming-kernelconfiguration"><span class="std std-ref">Kernel Configuration</span></a>
+in the topic
+<a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html#sd-cameradevelopment-sensorsoftwaredriverprogramming"><span class="std std-ref">Sensor Software Driver Programming</span></a>.</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="SelectedCSIHWScreen" src="../_images/SelectedCSIHWScreen.png" />
+</figure>
+<ol class="arabic simple">
+<li><p>Select “Save pin changes” to save the selection you have made:</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="SaveCSIScreen" src="../_images/SaveCSIScreen.png" />
+</figure>
+<ol class="arabic simple">
+<li><p>Select “Save and reboot to reconfigure pins” to complete the reconfiguration:</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="RebootCSIScreen" src="../_images/RebootCSIScreen.png" />
+</figure>
+<ol class="arabic simple">
+<li><p>Jetson-IO displays the name of the DTB file it modified and prompts
+you to reboot the device:</p></li>
+</ol>
+<figure class="align-default" style="width: 650px">
+<img alt="RebootScreen" src="../_images/RebootScreen.png" />
+</figure>
+</section>
+<section id="main-screen-save">
+<h3>Main Screen: Save<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#main-screen-save" title="Link to this heading">#</a></h3>
+<p>When you have finished making changes to a header configuration and
+select the header screen’s Save pin changes option, Jetson-IO redisplays
+the main screen.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="SaveScreen" src="../_images/SaveScreen.png" />
+</figure>
+<p>The main screen allows you to configure or reconfigure another header,
+and also displays some additional options:</p>
+<ul class="simple">
+<li><p><strong>Save and reboot to reconfigure pins</strong>: Creates a new DTB by
+applying device tree overlays for the header configurations, updates the configuration file for booting Linux (<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>), and reboots the developer kit.</p></li>
+<li><p><strong>Save and exit without rebooting</strong>: Creates a new DTB and updates
+<code class="docutils literal notranslate"><span class="pre">extlinux.conf</span></code> as “Save and reboot” does, but does not reboot the developer kit. You can apply the new configuration by rebooting at a time of your choice.</p></li>
+<li><p><strong>Discard all pin changes</strong>: Discards changes you have made to all
+headers; redisplays the main screen with the original set of options.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Jetson‑IO preserves all of the configurations you have saved in the configuration file, not just the latest one. When you have saved one or more configurations in addition to the default, the developer kit displays a menu of configurations each time you boot it, allowing you to select the current one or any older one.</p>
+</div>
+</section>
+<section id="command-line-interface">
+<h3>Command Line Interface<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#command-line-interface" title="Link to this heading">#</a></h3>
+<p>If you prefer to configure the headers from the command line instead of
+menus, NVIDIA provides a set of command line utilities that offer the
+same functionality. The following sections describe these utilities.</p>
+<section id="config-by-pin-view-header-configuration-by-pin">
+<h4>config-by-pin: View Header Configuration by Pin<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-pin-view-header-configuration-by-pin" title="Link to this heading">#</a></h4>
+<p>Displays the current configuration of supported headers:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ config-by-pin.py [&lt;options&gt;]
+</pre></div>
+</div>
+<p>The command line options specify the part(s) of the configuration to
+display. If no options are specified, the entire configuration is
+displayed.</p>
+<p>The following table describes the command line options.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command line option</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-h</p>
+<p>–help</p>
+</td>
+<td><p>Displays a usage message and exits.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-l
+–list</p></td>
+<td><p>Lists the headers supported on the target
+platform and each header’s <strong>header number</strong>.
+(The command line utilities use header
+numbers to refer to specific headers.)</p></td>
+</tr>
+<tr class="row-even"><td><p>-n &lt;h&gt;</p>
+<p>–header &lt;h&gt;</p>
+</td>
+<td><p>Specifies the header number of a header. If
+not specified, the header number defaults to
+1, which currently represents the 40‑pin
+expansion header. This option is used
+together with <code class="docutils literal notranslate"><span class="pre">‑p</span></code> to specify a header and a
+pin on that header.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-p &lt;p&gt;</p>
+<p>–pin &lt;p&gt;</p>
+</td>
+<td><p>Displays the current configuration of pin <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code>
+on expansion header number <code class="docutils literal notranslate"><span class="pre">&lt;h&gt;</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /opt/nvidia/jetson-io/config-by-pin.py
+$ sudo /opt/nvidia/jetson-io/config-by-pin.py -l
+$ sudo /opt/nvidia/jetson-io/config-by-pin.py -p 5
+$ sudo /opt/nvidia/jetson-io/config-by-pin.py -p 10 -n 2
+</pre></div>
+</div>
+</section>
+<section id="config-by-function-configure-header-s-by-special-function">
+<h4>config-by-function: Configure Header(s) by Special Function<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-function-configure-header-s-by-special-function" title="Link to this heading">#</a></h4>
+<p>Displays and configures the I/O functions available on all supported
+headers:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ config-by-function.py -h
+$ config-by-function.py ‑l {all,enabled}
+$ config-by-function.py ‑o {dt,dtbo} &lt;hfs&gt; &lt;hfs&gt; ...
+</pre></div>
+</div>
+<p>The following table describes the command line options.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command line option</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-h</p>
+<p>–help</p>
+</td>
+<td><p>Displays a usage message and exits.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-l {all,enabled}</p>
+<p>–list {all,enabled}</p>
+</td>
+<td><p>Lists functions supported by the headers.
+<code class="docutils literal notranslate"><span class="pre">all</span></code> lists all functions; <code class="docutils literal notranslate"><span class="pre">enabled</span></code> lists only
+functions that are currently enabled.</p></td>
+</tr>
+<tr class="row-even"><td><p>-o {dt,dtbo}</p>
+<p>–out {dt,dtbo}</p>
+</td>
+<td><p>Creates a new DTB or one or more device tree
+overlays incorporating the configuration
+changes made to the headers.</p>
+<p><strong>dt</strong>: Creates a new DTB file. The Linux
+boot configuration file
+(<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>) is updated
+with a new option to boot using this DTB.</p>
+<p><strong>dtbo</strong>: Creates a device tree overlay file
+for each reconfigured header.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>&lt;hfs&gt; &lt;hfs&gt; …</p></td>
+<td><p>Used with <code class="docutils literal notranslate"><span class="pre">‑o</span></code>, enables one or more functions on
+one or more headers. Each <code class="docutils literal notranslate"><span class="pre">&lt;hfs&gt;</span></code> has one of the
+forms:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;hn&gt;=&quot;&lt;f1&gt; &lt;f2&gt; ...&quot;
+&lt;hn&gt;=&lt;f1&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;hn&gt;</span></code> is a header number, e.g. 1 or 2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;f1&gt;</span> <span class="pre">&lt;f2&gt;</span> <span class="pre">...</span></code> is a list of one or more
+functions to be enabled on that header.</p></li>
+<li><p>The quotation marks may be omitted if only one
+function is specified.</p></li>
+</ul>
+<p>You can also specify <code class="docutils literal notranslate"><span class="pre">&lt;hfs&gt;</span></code> in one of these
+forms to configure only header number 1:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;&lt;f1&gt; &lt;f2&gt; ...&quot;
+&lt;f1&gt;
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /opt/nvidia/jetson-io/config-by-function.py -l all
+$ sudo /opt/nvidia/jetson-io/config-by-function.py -l enabled
+$ sudo /opt/nvidia/jetson-io/config-by-function.py -o dt i2s2 spi1
+$ sudo /opt/nvidia/jetson-io/config-by-function.py -o dtbo i2s2 spi1
+$ sudo /opt/nvidia/jetson-io/config-by-function.py -o dt 1=&quot;i2s2 spi1&quot; 3=i2s4
+$ sudo /opt/nvidia/jetson-io/config-by-function.py -o dtbo 1=&quot;i2s2 spi1&quot; 3=i2s4
+</pre></div>
+</div>
+</section>
+<section id="config-by-hardware-configure-header-s-by-hardware-module">
+<h4>config-by-hardware: Configure Header(s) by Hardware Module<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-hardware-configure-header-s-by-hardware-module" title="Link to this heading">#</a></h4>
+<p>Displays a list of the supported hardware module configurations and
+configures the Jetson device for a given hardware module:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ config-by-hardware.py -h
+$ config-by-hardware.py -l
+$ config-by-hardware.py -n &lt;hds&gt; &lt;hds&gt; ...
+</pre></div>
+</div>
+<p>The following table describes the command line options.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command line option</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-h</p>
+<p>–help</p>
+</td>
+<td><p>Displays a usage message and exits.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-l</p>
+<p>–list</p>
+</td>
+<td><p>Displays a list of available hardware module
+configurations.</p></td>
+</tr>
+<tr class="row-even"><td><p>‑n &lt;hds&gt; &lt;hds&gt; …</p>
+<p>‑name &lt;hds&gt; &lt;hds&gt; …</p>
+</td>
+<td><p>Configures one or more headers to interface
+with specified hardware modules. Each
+<code class="docutils literal notranslate"><span class="pre">&lt;hds&gt;</span></code> has the form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;hn&gt;=&lt;module&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;hn&gt;</span></code> is a header number, e.g. 1 or 2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;module&gt;</span></code> is a hardware module for which
+the header is to be configured.</p></li>
+</ul>
+<p>You can also specify <code class="docutils literal notranslate"><span class="pre">&lt;hds&gt;</span></code> as
+<code class="docutils literal notranslate"><span class="pre">&lt;module&gt;</span></code> alone (with no <code class="docutils literal notranslate"><span class="pre">&lt;hn&gt;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&quot;=&quot;</span></code>) to configure only header number 1.</p>
+<p>This option generates a new DTB file for the
+specified hardware modules and updates the
+Linux boot configuration file,
+<code class="docutils literal notranslate"><span class="pre">/boot/extlinux/extlinux.conf</span></code>, with a new
+option to boot using this DTB.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Examples:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /opt/nvidia/jetson-io/config-by-hardware.py -l
+$ sudo /opt/nvidia/jetson-io/config-by-hardware.py -n &quot;Adafruit SPH0645LM4H&quot;
+$ sudo /opt/nvidia/jetson-io/config-by-hardware.py -n 1=&quot;Adafruit SPH0645LM4H&quot;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>There are a few important limitations to consider:</dt><dd><ol class="arabic simple">
+<li><p>The configuration scripts <code class="docutils literal notranslate"><span class="pre">config-by-hardware.py</span></code> and <code class="docutils literal notranslate"><span class="pre">config-by-function.py</span></code> cannot be used simultaneously to configure the <cite>Hardware Module</cite> and <cite>Pins Special Function</cite>. Instead, use <code class="docutils literal notranslate"><span class="pre">jetson-io.py</span></code> to select and configure both settings within a single session.</p></li>
+<li><p>If a user requests a new configuration from the Jetson-IO tool after a reboot, the Hardware Module configurations from the previous session will not be retained. It will be necessary to re-select these configurations.</p></li>
+</ol>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<section id="adding-support-for-custom-hardware">
+<h2>Adding Support for Custom Hardware<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#adding-support-for-custom-hardware" title="Link to this heading">#</a></h2>
+<p>You can use Jetson‑IO to support a custom hardware module by creating a
+device tree overlay for the hardware module. The following sections
+describe this process.</p>
+<section id="device-tree-overlays">
+<h3>Device Tree Overlays<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#device-tree-overlays" title="Link to this heading">#</a></h3>
+<p>To add support for your custom hardware to Jetson‑IO you must understand
+how Jetson‑IO manages hardware add-ons. Support for hardware modules is
+handled by device tree overlay files (<code class="docutils literal notranslate"><span class="pre">.dtbo</span></code> files).</p>
+<p>A device tree overlay for a hardware module must define:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">overlay-name</span></code> property, which specifies a name for the hardware
+module; a unique name that distinguishes this overlay from others</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">jetson-header-name</span></code> property, which specifies the expansion header
+with which the hardware module is associated; must specify one of the
+values described in the following table, depending on which header the hardware module is associated with</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head" colspan="2"><p><code class="docutils literal notranslate"><span class="pre">jetson-header-name</span></code> values</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Header</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>40-pin expansion header</p></td>
+<td><p>Jetson 40pin Header</p></td>
+</tr>
+<tr class="row-even"><td><p>M.2 Key E slot</p></td>
+<td><p>Jetson M.2 Key E Slot</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSI connector (Jetson Orin)</p></td>
+<td><p>Jetson AGX CSI Connector</p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple">
+<dt>CSI connector (Jetson Orin NX /</dt><dd><p>Jetson Orin Nano)</p>
+</dd>
+</dl>
+</td>
+<td><p>Jetson 22pin CSI Connector /
+Jetson Nano CSI Connector</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">compatible</span></code> property, which indicates which combination of Jetson
+module and carrier board the overlay supports; must specify one or
+more of the values described in the following table, depending on what Jetson
+platforms are supported</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Jetson Platform</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">compatible</span></code> property values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetson AGX Orin</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3737-0000+p3701-0000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3737-0000+p3701-0004</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3737-0000+p3701-0005</span></code></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Orin NX and Nano series</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3768-0000+p3767-0000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3768-0000+p3767-0001</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3768-0000+p3767-0003</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3768-0000+p3767-0004</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3768-0000+p3767-0005</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3509-0000+p3767-0000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3509-0000+p3767-0001</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3509-0000+p3767-0003</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3509-0000+p3767-0004</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">nvidia,p3509-0000+p3767-0005</span></code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The special-function I/O pins, if any, defined for the headers</p></li>
+<li><p>The nodes and/or properties for any devices on the module, for
+example, external integrated circuits such as audio codecs</p></li>
+</ul>
+<p>Users can obtain the correct compatible string for their Jetson platform
+by entering the following command. If you have a Jetson Orin NX developer
+kit, this command also identifies the PCB revision:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat /sys/firmware/devicetree/base/compatible
+</pre></div>
+</div>
+<p>As an example, consider the “FE-PI Audio V1 and Z V2” module. In the
+target’s <code class="docutils literal notranslate"><span class="pre">/boot/</span></code> directory are overlay files with names matching the
+pattern:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>*-fe-pi-audio.dtbo
+</pre></div>
+</div>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">fdtdump</span></code> utility to inspect the contents of the overlay
+files and view the <code class="docutils literal notranslate"><span class="pre">overlay-name</span></code>, <code class="docutils literal notranslate"><span class="pre">jetson-header-name</span></code>, and <code class="docutils literal notranslate"><span class="pre">compatible</span></code>
+properties. For example, on Jetson Orin NX you can display
+these properties by entering the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ fdtdump /boot/tegra234-p3767-0000-p3509-a02-fe-pi-audio.dtbo
+</pre></div>
+</div>
+</section>
+<section id="creating-a-simple-device-tree-overlay">
+<h3>Creating a Simple Device Tree Overlay<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#creating-a-simple-device-tree-overlay" title="Link to this heading">#</a></h3>
+<p>To create a simple device tree overlay to add a new custom property for
+Jetson Orin NX Developer Kit and attach it to the 40‑pin expansion
+header, create a file named <code class="docutils literal notranslate"><span class="pre">my-overlay.dts</span></code> on the target platform
+with the following contents:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/dts-v1/;
+/plugin/;
+
+/ {
+    overlay-name = &quot;My Jetson Overlay&quot;;
+    jetson-header-name = &quot;Jetson 40pin Header&quot;;
+    compatible = &quot;nvidia,p3768-0000+p3767-0000&quot;;
+
+    fragment@0 {
+        target-path = &quot;/&quot;;
+        __overlay__ {
+            my-custom-property = &quot;This Is My Overlay&quot;;
+        };
+    };
+};
+</pre></div>
+</div>
+<p>Enter the following command to compile the DTS source file into an overlay file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ dtc -O dtb -o my-overlay.dtbo -@ my-overlay.dts
+</pre></div>
+</div>
+<p>After you copy the new overlay file to the <code class="docutils literal notranslate"><span class="pre">/boot/</span></code> directory, Jetson‑IO
+finds the overlay file and allows you to apply it:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo cp my-overlay.dtbo /boot
+$ sudo /opt/nvidia/jetson-io/config-by-hardware.py -l
+Header 1 [default]: Jetson 40pin Header
+ Available hardware modules:
+ 1. Adafruit SPH0645LM4H
+ 2. Adafruit UDA1334A
+ 3. FE-PI Audio V1 and Z V2
+ 4. My Jetson Overlay
+ 5. ReSpeaker 4 Mic Array
+ 6. ReSpeaker 4 Mic Linear Array
+Header 2: Jetson 22pin CSI Connector
+ Available hardware modules:
+ 1. Camera IMX219 Dual
+ 2. Camera IMX477 Dual
+ 3. Camera IMX477 Dual 4 lane
+ 4. Camera IMX477-A and IMX219-C
+Header 3: Jetson M.2 Key E Slot
+  No hardware configurations found!
+$ sudo /opt/nvidia/jetson-io/config-by-hardware.py -n &quot;My Jetson Overlay&quot;
+</pre></div>
+</div>
+</section>
+<section id="creating-a-custom-device-tree-overlay">
+<h3>Creating a Custom Device Tree Overlay<a class="headerlink" href="ConfiguringTheJetsonExpansionHeaders.html#creating-a-custom-device-tree-overlay" title="Link to this heading">#</a></h3>
+<p>If you want to create an overlay for a custom hardware module that
+attaches to one of the supported headers, the simplest way to do so is
+to use Jetson‑IO to configure the header as needed and export the
+configuration as an overlay. You can do this with either the
+menu-oriented Jetson‑IO script or the associated <code class="docutils literal notranslate"><span class="pre">config-by-...</span></code> command
+line tools.</p>
+<p>For example, to create an overlay for Jetson Orin NX that enables the
+I2S interface on the 40‑pin expansion header, enter this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo /opt/nvidia/jetson-io/config-by-function.py -o dtbo i2s2
+Configuration saved to /boot/jetson-io-hdr40-user-custom.dtbo.
+</pre></div>
+</div>
+<p>You can then convert the overlay into a device tree source file by
+entering this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ dtc -I dtb -O dts -o my-overlay.dts /boot/jetson-io-hdr40-user-custom.dtbo.
+</pre></div>
+</div>
+<p>You can modify the generated device tree source as necessary for your
+custom hardware, adding any additional nodes and/or properties that the
+hardware module requires. Then you can re-compile the device tree source
+and place it in the <code class="docutils literal notranslate"><span class="pre">/boot/</span></code> directory for Jetson‑IO to use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ dtc -O dtb -o my-overlay.dtbo -@ my-overlay.dts
+$ sudo cp my-overlay.dtbo /boot/jetson-io-hdr40-user-custom.dtbo
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="JetsonModuleAdaptationAndBringUp/Checklists.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Jetson Module Adaptation and Bring-Up: Checklists</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ControllerAreaNetworkCan.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Controller Area Network (CAN)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#running-jetson-io">Running Jetson-IO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#main-screen-selecting-a-header">Main Screen: Selecting a Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#header-screen">Header Screen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#compatible-hardware-screen">Compatible Hardware Screen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#configuring-40-pin-expansion-header">Configuring 40-Pin Expansion Header</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#using-the-pins-in-gpio-mode">Using the Pins in GPIO Mode</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#installing-gpiod">Installing gpiod</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#displaying-pin-information">Displaying Pin Information</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#get-gpio-number-by-name">Get GPIO Number by Name</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#gpio-output">GPIO Output</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#gpio-input">GPIO Input</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#configuring-the-csi-connector">Configuring the CSI Connector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#main-screen-save">Main Screen: Save</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#command-line-interface">Command Line Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-pin-view-header-configuration-by-pin">config-by-pin: View Header Configuration by Pin</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-function-configure-header-s-by-special-function">config-by-function: Configure Header(s) by Special Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#config-by-hardware-configure-header-s-by-hardware-module">config-by-hardware: Configure Header(s) by Hardware Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#adding-support-for-custom-hardware">Adding Support for Custom Hardware</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#device-tree-overlays">Device Tree Overlays</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#creating-a-simple-device-tree-overlay">Creating a Simple Device Tree Overlay</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="ConfiguringTheJetsonExpansionHeaders.html#creating-a-custom-device-tree-overlay">Creating a Custom Device Tree Overlay</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

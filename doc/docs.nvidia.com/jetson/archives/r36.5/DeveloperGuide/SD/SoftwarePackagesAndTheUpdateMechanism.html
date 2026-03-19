@@ -1,0 +1,2097 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Software Packages and the Update Mechanism &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/SoftwarePackagesAndTheUpdateMechanism';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Boot Time Optimization" href="BootTimeOptimization.html" />
+    <link rel="prev" title="Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="SoftwarePackagesAndTheUpdateMechanism.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html#">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Software...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="software-packages-and-the-update-mechanism">
+<h1>Software Packages and the Update Mechanism<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#software-packages-and-the-update-mechanism" title="Link to this heading">#</a></h1>
+<p>NVIDIA provides additional <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux software components and updates in APT
+(Debian) repositories, accessible through the <code class="docutils literal notranslate"><span class="pre">apt</span></code> utility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These packages are only verified with the root filesystem shipped in this L4T BSP release.</p>
+</div>
+<section id="installing-additional-packages">
+<h2>Installing Additional Packages<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#installing-additional-packages" title="Link to this heading">#</a></h2>
+<p>NVIDIA maintains the following APT repositories:</p>
+<ul class="simple">
+<li><p>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span></p></li>
+<li><p>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span> and <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; Nano</span></p></li>
+</ul>
+<p>The package <code class="docutils literal notranslate"><span class="pre">nvidia-l4t-apt-source</span></code> is preinstalled in the Jetson Linux root
+file system. It identifies the platform it is running on and adds the
+appropriate repositories to the software source list.</p>
+<p>The packages in the APT repositories are signed with GPG keys. The
+corresponding public key is preinstalled in the Jetson Linux root file system.
+Once the repositories are added to the source list, <code class="docutils literal notranslate"><span class="pre">apt</span></code> can download and
+install packages.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The APT repositories described here are also used to upgrade existing packages and install packages that NVIDIA adds to the set initially installed with Jetson Linux. For more information, see <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-a-jetson-device">Updating a Jetson Device</a>.</p>
+</div>
+</section>
+<section id="repackaging-debian-packages">
+<h2>Repackaging Debian Packages<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#repackaging-debian-packages" title="Link to this heading">#</a></h2>
+<p>You can use the script <code class="docutils literal notranslate"><span class="pre">nvdebrepack.sh</span></code> to repackage the existing Jetson Linux
+Debian packages. The script can be found in the directory <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/Debian/</span></code>. Refer to the
+<code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/Debian/nvdebrepack.txt</span></code> file for more information.</p>
+</section>
+<section id="building-kernel-debian-packages-yourself">
+<h2>Building Kernel Debian Packages Yourself<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#building-kernel-debian-packages-yourself" title="Link to this heading">#</a></h2>
+<p>You can customize the Jetson Linux kernel by getting the kernel source packages,
+making your changes, and building the Debian packages.</p>
+<p>This section describes the package dependencies and scripts that NVIDIA
+uses to build the kernel packages. You can use the package as a reference to
+create your own Debian packages.</p>
+</section>
+<section id="using-the-repackager-tool">
+<h2>Using the Repackager Tool<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#using-the-repackager-tool" title="Link to this heading">#</a></h2>
+<p>The repackager is a tool that allows users to extract a subset of the necessary files from the Debian package archives in the Jetson Linux BSP for their own distributions. Users who do not need the complete set of libraries, scripts, and packages, but still want to get Jetson support, can use the repackager tool to customize their environment.</p>
+<p>The repackager tool also comes with a dependency checker script that validates whether the subset of files the users packaged includes the necessary dependencies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To see the latest input parameters run the <code class="docutils literal notranslate"><span class="pre">-h</span></code> option in the repackager.</p>
+</div>
+<p>In the following examples, the version information in the Debian file names are substituted with the <code class="docutils literal notranslate"><span class="pre">$VERSION</span></code> symbol for clarity. Here is an example of an actual file name:</p>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core_36.3.0-20240506102626_arm64.deb</span></code></p>
+<section id="converting-a-debian-file">
+<h3>Converting a Debian File<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-a-debian-file" title="Link to this heading">#</a></h3>
+<p>To convert a Debian file, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb
+</pre></div>
+</div>
+<p>The files in the Debian file will be repackaged into a tar file.</p>
+</section>
+<section id="converting-multiple-debian-files">
+<h3>Converting Multiple Debian Files<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-multiple-debian-files" title="Link to this heading">#</a></h3>
+<p>To convert multiple Debian files, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb,nvidia-l4t-cuda_$VERSION.deb
+</pre></div>
+</div>
+<p>The files these Debian files will be packaged into two separate tar files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Debian files should be separated by commas.</p>
+</div>
+</section>
+<section id="converting-all-debian-files-under-bsp">
+<h3>Converting all Debian Files Under BSP<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-all-debian-files-under-bsp" title="Link to this heading">#</a></h3>
+<p>To convert the Debian files under BSP, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh --convert-all
+</pre></div>
+</div>
+<p>The Debian files in BSP will be packaged into their own tar files.</p>
+</section>
+<section id="converting-a-subset-of-files-and-placing-the-output-in-the-designated-directory">
+<h3>Converting a Subset of Files and Placing the Output in the Designated Directory<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-a-subset-of-files-and-placing-the-output-in-the-designated-directory" title="Link to this heading">#</a></h3>
+<p>To convert a subset of files and place them in the appropriate directory, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb -p sample_pullfile.txt -o $HOME/output/
+</pre></div>
+</div>
+<p>The sample pull file keeps a list of files users want to package from a Debian file. The resulting tar file will only contain the files that are being pulled and will be placed in the designated directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use the <strong>Pull</strong> option <strong>only</strong> when you convert one Debian file.</p>
+</div>
+<p>The format of the pull files should be in a relative path in a Debian, and here is an example of the format:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>path/to/first_file/file_1.so
+path/to/second_file/file_2.h
+path/to/third_file/file_3.txt
+</pre></div>
+</div>
+</section>
+<section id="converting-files-to-different-paths">
+<h3>Converting Files to Different Paths<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-files-to-different-paths" title="Link to this heading">#</a></h3>
+<p>To convert files to different paths, run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb -t
+usr/lib/tegra/:usr/lib/nvidia/,usr/bin/:usr/sbin/
+</pre></div>
+</div>
+<p>The transform option works sequentially as <code class="docutils literal notranslate"><span class="pre">sed</span></code>, and it moves files on the original path to the new path. Therefore, the files in Debian that are in the <code class="docutils literal notranslate"><span class="pre">usr/lib/tegra/</span></code> directory will be placed in the <code class="docutils literal notranslate"><span class="pre">usr/lib/nvidia</span></code> directory, and the <code class="docutils literal notranslate"><span class="pre">usr/bin</span></code> directory will be placed in the <code class="docutils literal notranslate"><span class="pre">usr/sbin</span></code> directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here is some additional information:</p>
+<ul class="simple">
+<li><p>To avoid an unintended transform result, use the fully qualified path.</p></li>
+<li><p>The old and new path should be separated by a comma, and each transform relation should be separated by a comma.</p></li>
+</ul>
+</div>
+</section>
+<section id="printing-out-the-dependencies-of-a-converted-debian-file">
+<h3>Printing Out the Dependencies of a Converted Debian File<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#printing-out-the-dependencies-of-a-converted-debian-file" title="Link to this heading">#</a></h3>
+<p>To print out the dependencies of a converted Debian file, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb -d
+</pre></div>
+</div>
+<p>With the <code class="docutils literal notranslate"><span class="pre">-d</span></code> option, the file dependencies in the Debian file will be printed on screen.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there is  a filename that is specified using the <code class="docutils literal notranslate"><span class="pre">-d</span></code> option, the dependency list will be saved to the file.</p>
+</div>
+</section>
+<section id="ignoring-the-dependency-check-failure">
+<h3>Ignoring the Dependency Check Failure<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#ignoring-the-dependency-check-failure" title="Link to this heading">#</a></h3>
+<p>To ignore the dependency check failure, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./nv_repackager.sh -c nvidia-l4t-core_$VERSION.deb -p sample_pullfile.txt -i
+</pre></div>
+</div>
+<p>When there is a <code class="docutils literal notranslate"><span class="pre">pull</span></code> option, the repackager will check whether the dependency has been met. For users who do not care whether the dependency has been met, the <code class="docutils literal notranslate"><span class="pre">ignore</span></code> option will print <strong>only</strong> warnings when the dependency check does not pass. For example, this option can be useful when you repack a Debian into multiple tar files and split dependencies across the tar files.</p>
+</section>
+</section>
+<section id="working-with-the-packages">
+<h2>Working with the Packages<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#working-with-the-packages" title="Link to this heading">#</a></h2>
+<p>The kernel packages are all open source, and three of the four kernel
+packages are in <code class="docutils literal notranslate"><span class="pre">public_sources.tbz2</span></code>. You can download the archive from
+the NVIDIA Developer Center.</p>
+<p>This archive contains another archive named <code class="docutils literal notranslate"><span class="pre">kernel_src.tbz2</span></code>, which in
+turn contains three directories of header files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel-dtbs/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel-headers/</span></code></p></li>
+</ul>
+<p>The debian.org
+<a class="reference external" href="https://www.debian.org/doc/manuals/debmake-doc/index.en.html">Guide for Debian Maintainers</a>
+provides guidelines to modify the open source files and create new Debian packages from these files.</p>
+<p>For information about <code class="docutils literal notranslate"><span class="pre">nvidia-l4t-jetson-io</span></code>, the fourth package, refer to <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-jetson-io">nvidia-l4t-jetson-io</a>.</p>
+<section id="package-dependencies">
+<h3>Package Dependencies<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#package-dependencies" title="Link to this heading">#</a></h3>
+<p>Most Jetson Linux Debian packages depend on the <code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> package, which
+prevents package installation on an incompatible Jetson platform, such as
+installing a Jetson software package on a non-Jetson device. If <code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> detects an incompatible
+platform, it will not perform the installation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> also prevents a <strong>partial upgrade</strong>, in which one Jetson Linux package upgrades to a new major release, but other Jetson Linux packages that depend on it are also not upgraded. Partial upgrades can cause compatibility issues between firmware, programs, and libraries that have been upgraded and ones that have not.</p>
+<section id="nvidia-l4t-kernel">
+<h4>nvidia-l4t-kernel<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel</span></code> contains files for the Jetson Linux kernel.</p>
+</section>
+</section>
+<section id="prerequisites-and-dependencies">
+<h3>Prerequisites and Dependencies<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#prerequisites-and-dependencies" title="Link to this heading">#</a></h3>
+<p>Here are the prerequisites for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> (must match this package’s major release)</p></li>
+</ul>
+<p>Here are the dependencies for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-tools</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-init</span></code></p></li>
+</ul>
+</section>
+<section id="package-scripts">
+<h3>Package Scripts<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#package-scripts" title="Link to this heading">#</a></h3>
+<p>This package has a post-installation script that you can get by extracting the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file and completes the following actions:</p>
+<ul>
+<li><p>Executes <code class="docutils literal notranslate"><span class="pre">depmod</span> <span class="pre">-a</span></code>.</p></li>
+<li><p>Creates a dpkg trigger file named <code class="docutils literal notranslate"><span class="pre">/usr/lib/linux/triggers/&lt;release&gt;</span></code>.</p>
+<p>The trigger invokes actions defined in <code class="docutils literal notranslate"><span class="pre">/etc/kernel/postinst.d</span></code> to update <code class="docutils literal notranslate"><span class="pre">initramfs/grub</span> <span class="pre">configs/…</span></code> when the kernel is updated. This conforms to the standard Ubuntu kernel update procedure.</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+</ul>
+<section id="nvidia-l4t-kernel-dtbs">
+<h4>nvidia-l4t-kernel-dtbs<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel-dtbs" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel-dtbs</span></code> contains files for Jetson Linux’s device tree blobs (DTBs).</p>
+<p>The package installs the <code class="docutils literal notranslate"><span class="pre">.dtb</span></code> files in <code class="docutils literal notranslate"><span class="pre">/boot/</span></code>. When you flash a
+board, it installs the <code class="docutils literal notranslate"><span class="pre">.dtb</span></code> file that is used by that board in <code class="docutils literal notranslate"><span class="pre">/boot/dtb/</span></code> by
+checking the board specification against the DTBs’ compatibility information.</p>
+</section>
+</section>
+<section id="id3">
+<h3>Prerequisites and Dependencies<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id3" title="Link to this heading">#</a></h3>
+<p>Here are the prerequisites for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> (must match the major release for this package)</p></li>
+</ul>
+<p>Here are the dependencies for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">device-tree-compiler</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel</span></code></p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Package Scripts<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id4" title="Link to this heading">#</a></h3>
+<p>This package has a post-installation script, which you can get by extracting the <code class="docutils literal notranslate"><span class="pre">.deb</span></code> file, and completes the following actions:</p>
+<ul class="simple">
+<li><p>Decompiles the <code class="docutils literal notranslate"><span class="pre">.dtb</span></code> file used by the board in <code class="docutils literal notranslate"><span class="pre">/boot/dtb/</span></code> and gets the <code class="docutils literal notranslate"><span class="pre">bootargs</span></code> property in the <code class="docutils literal notranslate"><span class="pre">/chosen</span></code> node.</p></li>
+<li><p>Decompiles the corresponding <code class="docutils literal notranslate"><span class="pre">.dtb</span></code> file in <code class="docutils literal notranslate"><span class="pre">/boot/</span></code> and substitutes the <code class="docutils literal notranslate"><span class="pre">bootargs</span></code> property from step 1 in the resulting <code class="docutils literal notranslate"><span class="pre">.dts</span></code> file.</p></li>
+<li><p>Recompiles the <code class="docutils literal notranslate"><span class="pre">.dts</span></code> file to a <code class="docutils literal notranslate"><span class="pre">.dtb</span></code> file and puts it in <code class="docutils literal notranslate"><span class="pre">/boot/dtb/</span></code>.</p></li>
+</ul>
+<section id="nvidia-l4t-kernel-headers">
+<h4>nvidia-l4t-kernel-headers<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel-headers" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel-headers</span></code> contains Jetson Linux kernel header files.</p>
+</section>
+</section>
+<section id="id5">
+<h3>Prerequisites and Dependencies<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id5" title="Link to this heading">#</a></h3>
+<p>Here are the prerequisites for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> (must match this package’s major release)</p></li>
+</ul>
+<p>Here are the dependencies for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libc6</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libssl1.1</span></code></p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Package Scripts<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id6" title="Link to this heading">#</a></h3>
+<p>This package has no package scripts.</p>
+<section id="nvidia-l4t-jetson-io">
+<h4>nvidia-l4t-jetson-io<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-jetson-io" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-jetson-io</span></code> contains Python scripts that are used for Jetson I/O functions.</p>
+</section>
+</section>
+<section id="id7">
+<h3>Prerequisites and Dependencies<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id7" title="Link to this heading">#</a></h3>
+<p>Here are the prerequisites for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-core</span></code> (must match this package’s major release)</p></li>
+</ul>
+<p>Here are the dependencies for this package:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mount</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python3</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">util-linux</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvidia-l4t-kernel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">device-tree-compiler</span></code></p></li>
+</ul>
+<p>You can also get the dependencies by extracting the Debian file.</p>
+</section>
+<section id="id8">
+<h3>Package Scripts<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#id8" title="Link to this heading">#</a></h3>
+<p>This package has no package scripts.</p>
+</section>
+</section>
+<section id="over-the-air-update">
+<h2>Over-the-Air Update<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#over-the-air-update" title="Link to this heading">#</a></h2>
+<p>An <strong>Over-the-Air (OTA) Update</strong> allows you to update NVIDIA Jetson devices and host computers for Jetson development.</p>
+<p>Jetson Linux supports the following OTA types:</p>
+<ul class="simple">
+<li><p><strong>Debian package management-based OTA</strong> can update Jetson devices that run Jetson Linux or Jetson components on a host computer.</p></li>
+<li><p><strong>Image-based OTA</strong> allows you to create OTA payload packages and can update the full image that is running on a Jetson device, partition by partition. The following sections describe both forms of OTA.</p></li>
+</ul>
+<section id="updating-from-the-nvidia-apt-server">
+<h3>Updating from the NVIDIA APT Server<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-from-the-nvidia-apt-server" title="Link to this heading">#</a></h3>
+<p>The first OTA update type uses Debian packages obtained from an
+NVIDIA APT server. You can use this form of OTA update to update a
+Jetson device running Jetson Linux or to update <span class="html">NVIDIA JetPack&trade;</span> components that are
+installed on a host computer that runs Ubuntu. The APT server maintains
+respective groups of Debian packages for each purpose.</p>
+<p>This section describes the tools and packages that provide basic support
+for Jetson Linux.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To update JetPack and Jetson Linux components to a new JetPack release on a system where both are installed, see the instructions in the
+<a class="reference external" href="https://docs.nvidia.com/jetson/jetpack/install-jetpack/index.html#upgrade-jetpack">JetPack documentation</a>.</p>
+<p>NVIDIA does not recommend installing OTA Debian packages on a Jetson Linux release earlier than release 32.3.1, or on a system that is based on Ubuntu without the customization of Jetson Linux.</p>
+<p>OTA updates may include changes to the firmware in the QSPI flash memory, as well as the Linux userspace and kernel driver packages. OTA updates ensure that the firmware, userspace, and driver packages remain consistent, aligning the firmware version in the QSPI with the corresponding versions in the Linux userspace and kernel drivers. NVIDIA advises against installing a combination of packages from different releases.</p>
+<p>Upgrading from release 35.x to release 36.x is not supported. Check the <code class="docutils literal notranslate"><span class="pre">/etc/nv_tegra_release</span></code> directory on your Jetson device for the current software version.</p>
+</div>
+</section>
+<section id="updating-a-jetson-device">
+<h3>Updating a Jetson Device<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-a-jetson-device" title="Link to this heading">#</a></h3>
+<p>Use the appropriate procedure below to update your system:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#to-update-to-a-new-point-release">To update to a new point release</a>
+of the same minor release, for example, from release 36.2 to 36.3.</p></li>
+<li><p><a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#to-update-to-a-new-minor-release">To update to new minor release</a>.</p></li>
+</ul>
+<section id="updating-to-a-new-point-release">
+<h4>Updating to a New Point Release<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-to-a-new-point-release" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Enter the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt update
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">apt</span></code> reads a list of packages from the remote APT repository and identifies new and upgradable packages.</p>
+</li>
+<li><p>Enter the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ apt list --upgradable
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">apt</span></code> displays a list of new and upgradable packages.</p>
+</li>
+<li><p>To install the basic packages for Jetson Linux, enter the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt upgrade
+</pre></div>
+</div>
+</li>
+<li><p>Reboot your Jetson device after the upgrade is finished.</p></li>
+</ol>
+</section>
+<section id="updating-to-a-new-minor-release">
+<span id="sd-softwarepackagesandtheupdatemechanism-updatingtoanewminorrelease"></span><h4>Updating to a New Minor Release<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-to-a-new-minor-release" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">apt</span></code> source configuration file in a text editor, for example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo vi /etc/apt/sources.list.d/nvidia-l4t-apt-source.list
+</pre></div>
+</div>
+</li>
+<li><p>Change the repository name and download URL in the <code class="docutils literal notranslate"><span class="pre">deb</span></code> commands.</p>
+<p>The original commands are:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deb https://repo.download.nvidia.com/jetson/common &lt;release&gt; main
+deb https://repo.download.nvidia.com/jetson/&lt;platform&gt; &lt;release&gt; main
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p>&lt;release&gt; is the release number of the minor release to which you want to
+update. For example, to update to minor release 36.3, replace &lt;release&gt; with <code class="docutils literal notranslate"><span class="pre">r36.3</span></code>. OTA updates to the latest point release of the specified minor release.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;platform&gt;</span></code> identifies the platform’s processor:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">t234</span></code> for <span class="html">NVIDIA<sup><small>®</small></sup></span> Jetson Orin series</p></li>
+</ul>
+</li>
+</ul>
+<p>For example, if the current release is release 36.2, and your platform is Jetson AGX Orin series, the commands are:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deb https://repo.download.nvidia.com/jetson/common r36.3 main
+deb https://repo.download.nvidia.com/jetson/t234 r36.3 main
+</pre></div>
+</div>
+</li>
+<li><p>Save and close the source configuration file.</p></li>
+<li><p>Enter the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt update
+$ sudo apt dist-upgrade
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">apt</span></code> prompts you to choose an option to fix local modified configuration file, reply Y for <em>yes</em> (to use the NVIDIA updated version of the file).</p>
+</li>
+<li><p>When the upgrade is finished, reboot the Jetson device.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">do-release-upgrade</span></code> command is disabled because Jetson Linux does not officially support Ubuntu release 22.04 at this time.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="real-time-kernel-using-ota-update">
+<h3>Real-Time Kernel Using OTA Update<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#real-time-kernel-using-ota-update" title="Link to this heading">#</a></h3>
+<p>For detailed instructions on installing the Real-Time Kernel, refer to <a class="reference internal" href="Kernel/RealTimeKernel.html#sd-kernel-realtimekernel-realtimekernelusingotaupdate"><span class="std std-ref">Real-Time Kernel Using OTA Update</span></a>.</p>
+</section>
+<section id="updating-a-host">
+<h3>Updating a Host<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-a-host" title="Link to this heading">#</a></h3>
+<p>NVIDIA provides a group of Debian packages that add or update Jetson
+Linux support components on the host computer.</p>
+<section id="preparing-the-host-computer-to-install-jetson-linux-support-components">
+<h4>Preparing the Host Computer to Install Jetson Linux Support Components<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-the-host-computer-to-install-jetson-linux-support-components" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>To install the public key of the x86_64 repository of the public APT server, enter the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt-key adv --fetch-key https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
+</pre></div>
+</div>
+</li>
+<li><p>Add the following x86_64 repository to the host system’s source list.</p>
+<ul>
+<li><p>For an Ubuntu 20.04 host:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deb http://repo.download.nvidia.com/jetson/x86_64/focal &lt;relno&gt; main
+</pre></div>
+</div>
+</li>
+<li><p>For an Ubuntu 22.04 host:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deb http://repo.download.nvidia.com/jetson/x86_64/jammy &lt;relno&gt; main
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;relno&gt;</span></code> is the current release’s full release number as specified in the <em>Release Notes</em>.</p>
+</li>
+<li><p>Enter the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt update
+</pre></div>
+</div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">apt</span></code> to download and install the required packages.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>$ sudo apt-get install cuda-toolkit-12-2 cuda-cross-aarch64-12-2 nvsci </dt><dd><p>libnvvpi3 vpi3-dev vpi3-cross-aarch64-l4t python3.10-vpi3 vpi3-samples vpi3-python-src nsight-systems-2023.4.3 nsight-graphics-for-embeddedlinux-2023.3.0.0</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+<section id="debian-packages-on-the-nvidia-apt-server">
+<h3>Debian Packages on the NVIDIA APT Server<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#debian-packages-on-the-nvidia-apt-server" title="Link to this heading">#</a></h3>
+<p>This section lists the Debian packages maintained on the NVIDIA APT
+server for a Jetson device or a host.</p>
+<section id="update-packages-for-jetson-devices">
+<h4>Update Packages for Jetson Devices<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#update-packages-for-jetson-devices" title="Link to this heading">#</a></h4>
+<p>Here is a list of the OTA update packages for BSP on Jetson devices as
+of Jetson Linux release 36.3.</p>
+<p>Refer to <em>List of JetPack OTA Packages</em> in <a class="reference external" href="https://docs.nvidia.com/jetson/jetpack/index.html">JetPack SDK</a> for a list of other OTA packages and instructions to apply the packages.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The component group for the following table is <strong>BSP</strong>.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Purpose of the Package</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>jetson-gpio-common</p></td>
+<td><p>Jetson GPIO library (common files).</p>
+<p>The source files are in <a class="github reference external" href="https://github.com/NVIDIA/jetson-gpio">NVIDIA/jetson-gpio</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-igx-bootloader</p></td>
+<td><p>The NVIDIA IGX bootloader update payload.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-igx-systemd-reboot-hooks</p></td>
+<td><p>Systemd shutdown hook for The NVIDIA IGX.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-3d-core</p></td>
+<td><p>NVIDIA graphics libraries including GL and EGL.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-apt-source</p></td>
+<td><p>The Jetson APT source list.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-bootloader</p></td>
+<td><p>The Tegra bootloader update payload.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-camera</p></td>
+<td><p>Tegra camera libraries and utilities.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-configs</p></td>
+<td><p>Jetson Linux system configuration files.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-core</p></td>
+<td><p>Jetson Linux core system libraries including RM, DLA, PVA, and so on.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-cuda</p></td>
+<td><p>CUDA lower lever driver, cuDLA user space library, and CUDA forward compatibility layer.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-dgpu-apt-source</p></td>
+<td><p>The Jetson APT source list for dGPU.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-dgpu-config</p></td>
+<td><p>The Kernel module parameters for dGPU.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-dgpu-tools</p></td>
+<td><p>The enabling iGPU on dGPU script.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-dgpu-x11</p></td>
+<td><p>The xorg.conf for dGPU.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-display-kernel</p></td>
+<td><p>Display kernel modules including modeset and DRM drivers for Orin and later chips.</p>
+<p>The source files are in <a class="gitlab reference external" href="https://gitlab.com/nvidia/nv-tegra/tegra/kernel-src/nv-kernel-display-driver.git">nvidia/nv-tegra/tegra/kernel-src/nv-kernel-display-driver.git</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-dla-compiler</p></td>
+<td><p>NVIDIA DLA compiler</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-factory-service</p></td>
+<td><p>The service for installing GPU driver.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-firmware</p></td>
+<td><p>Firmware for Tegra SoC and a few WiFi chips that are used by Jetson.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-gbm</p></td>
+<td><p>Tegra GBM backend and EGL platform GBM implementation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-graphics-demos</p></td>
+<td><p>Graphics demonstration sources and binaries.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-gstreamer</p></td>
+<td><p>Gstreamer applications and plugins for Jetson Linux.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-init</p></td>
+<td><p>Jetson Linux system init files and systemd services.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-initrd</p></td>
+<td><p>Jetson Linux init RAM disk package.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-jetson-io</p></td>
+<td><p>Jetson-io tool to reconfigure the 40-pin expansion header on Jetson platforms.</p>
+<p>Refer to <em>Running Jetson-IO</em> in <a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html#hr-configuringthejetsonexpansionheaders"><span class="std std-ref">Configuring the Jetson Expansion Headers</span></a> for more information.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-jetson-multimedia-api</p></td>
+<td><p>The Multimedia API is a collection of lower-level APIs that support flexible application development by providing
+better control over the underlying hardware blocks.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-jetsonpower-gui-tools</p></td>
+<td><p>The GUI Tool that is used to configure power on Jetson.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-kernel</p></td>
+<td><p>The Jetson Linux kernel image and modules.</p>
+<p>The source files are in <a class="gitlab reference external" href="https://gitlab.com/nvidia/nv-tegra">nvidia/nv-tegra</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-kernel-dtbs</p></td>
+<td><p>The Jetson Linux kernel dtb files.</p>
+<p>The source files are in <a class="gitlab reference external" href="https://gitlab.com/nvidia/nv-tegra">nvidia/nv-tegra</a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-kernel-headers</p></td>
+<td><p>The Jetson Linux kernel headers for local development.</p>
+<p>The source files are in <a class="gitlab reference external" href="https://gitlab.com/nvidia/nv-tegra">nvidia/nv-tegra</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-kernel-oot-headers</p></td>
+<td><p>The Jetson Linux OOT modules header.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-kernel-oot-modules</p></td>
+<td><p>The Jetson Linux OOT modules.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-multimedia</p></td>
+<td><p>The Jetson Linux multimedia libraries.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-multimedia-utils</p></td>
+<td><p>The Jetson Linux multimedia utility libraries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-nvfancontrol</p></td>
+<td><p>The Fan control service and utility for Jetson.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-nvml</p></td>
+<td><p>The NVML for Tegra.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-nvpmodel</p></td>
+<td><p>The nvpmodel tool is used to manage power profiles and adjusts the maximum clock frequencies for the
+CPU, GPU, memory controller, and miscellaneous SoC clocks with the number of  CPU clusters online.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-nvpmodel-gui-tools</p></td>
+<td><p>The GUI version of the nvpmodel tool.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-nvsci</p></td>
+<td><p>NvSci is a set of communication interface libraries out of which CUDA interops with
+<code class="docutils literal notranslate"><span class="pre">NvSciBuf</span></code> and <code class="docutils literal notranslate"><span class="pre">NvSciSync</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-oem-config</p></td>
+<td><p>The Jetson Linux OEM configuration utility.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-openwfd</p></td>
+<td><p>The Tegra Open Source WiFi Display (OpenWFD) user space driver.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-optee</p></td>
+<td><p>OP-TEE Trusted Applications, user space libraries/daemon, and demonstration applications.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-pva</p></td>
+<td><p>The Programmable Vision Accelerator (PVA) user-mode driver and interface library.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-pva</p></td>
+<td><p>The Programmable Vision Accelerator (PVA) user-mode driver and interface library.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-tools</p></td>
+<td><p>Various system tools for Jetson.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-vulkan-sc</p></td>
+<td><p>The Vulkan SC runtime package.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-vulkan-sc-dev</p></td>
+<td><p>The Vulkan SC dev package.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-vulkan-sc-samples</p></td>
+<td><p>The Vulkan SC samples package.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-vulkan-sc-sdk</p></td>
+<td><p>The Vulkan SC SDK package.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-wayland</p></td>
+<td><p>The Wayland package.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-weston</p></td>
+<td><p>The Weston-related files including utilities, API and backend libraries, icons, and images.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvidia-l4t-x11</p></td>
+<td><p>The NVIDIA X11 configuration tool.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvidia-l4t-xusb-firmware</p></td>
+<td><p>The XUSB firmware to be loaded by bootloader to enable USB device at boot time.</p></td>
+</tr>
+<tr class="row-even"><td><p>python-jetson-gpio</p></td>
+<td><p>The Jetson GPIO library package (Python 2).</p>
+<p>The source files are in <a class="github reference external" href="https://github.com/NVIDIA/jetson-gpio">NVIDIA/jetson-gpio</a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>python3-jetson-gpio</p></td>
+<td><p>The Jetson GPIO library package (Python 3).</p>
+<p>The source files are in <a class="github reference external" href="https://github.com/NVIDIA/jetson-gpio">NVIDIA/jetson-gpio</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<section id="update-packages-for-hosts">
+<h5>Update Packages for Hosts<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#update-packages-for-hosts" title="Link to this heading">#</a></h5>
+<p>The following table lists Jetson Linux support components that you can
+install with apt on a host, and the packages that contain them.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component group</p></th>
+<th class="head"><p>Packages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><ul class="simple">
+<li><p>cuda</p></li>
+<li><p>cuda-12-2</p></li>
+<li><p>cuda-cccl-12-2</p></li>
+<li><p>cuda-command-line-tools-12-2</p></li>
+<li><p>cuda-compat-12-2</p></li>
+<li><p>cuda-compiler-12-2</p></li>
+<li><p>cuda-crt-12-2</p></li>
+<li><p>cuda-cudart-12-2</p></li>
+<li><p>cuda-cudart-dev-12-2</p></li>
+<li><p>cuda-cuobjdump-12-2</p></li>
+<li><p>cuda-cupti-12-2</p></li>
+<li><p>cuda-cupti-dev-12-2</p></li>
+<li><p>cuda-cuxxfilt-12-2</p></li>
+<li><p>cuda-demo-suite-12-2</p></li>
+<li><p>cuda-documentation-12-2</p></li>
+<li><p>cuda-driver-dev-12-2</p></li>
+<li><p>cuda-drivers</p></li>
+<li><p>cuda-drivers-535</p></li>
+<li><p>cuda-gdb-12-2</p></li>
+<li><p>cuda-gdb-src-12-2</p></li>
+<li><p>cuda-libraries-12-2</p></li>
+<li><p>cuda-libraries-dev-12-2</p></li>
+<li><p>cuda-minimal-build-12-2</p></li>
+<li><p>cuda-nsight-12-2</p></li>
+<li><p>cuda-nsight-compute-12-2</p></li>
+<li><p>cuda-nsight-systems-12-2</p></li>
+<li><p>cuda-nvcc-12-2</p></li>
+<li><p>cuda-nvdisasm-12-2</p></li>
+<li><p>cuda-nvml-dev-12-2</p></li>
+<li><p>cuda-nvprof-12-2</p></li>
+<li><p>cuda-nvprune-12-2</p></li>
+<li><p>cuda-nvrtc-12-2</p></li>
+<li><p>cuda-nvrtc-dev-12-2</p></li>
+<li><p>cuda-nvtx-12-2</p></li>
+<li><p>cuda-nvvm-12-2</p></li>
+<li><p>cuda-nvvp-12-2</p></li>
+<li><p>cuda-opencl-12-2</p></li>
+<li><p>cuda-opencl-dev-12-2</p></li>
+<li><p>cuda-profiler-api-12-2</p></li>
+<li><p>cuda-runtime-12-2</p></li>
+<li><p>cuda-sanitizer-12-2</p></li>
+<li><p>cuda-toolkit</p></li>
+<li><p>cuda-toolkit-12</p></li>
+<li><p>cuda-toolkit-12-2</p></li>
+<li><p>cuda-toolkit-12-2-config-common</p></li>
+<li><p>cuda-toolkit-12-config-common</p></li>
+<li><p>cuda-toolkit-config-common</p></li>
+<li><p>cuda-tools-12-2</p></li>
+<li><p>cuda-visual-tools-12-2</p></li>
+<li><p>gds-tools-12-2</p></li>
+<li><p>libcublas-12-2</p></li>
+<li><p>libcublas-dev-12-2</p></li>
+<li><p>libcufft-12-2</p></li>
+<li><p>libcufft-dev-12-2</p></li>
+<li><p>libcufile-12-2</p></li>
+<li><p>libcufile-dev-12-2</p></li>
+<li><p>libcurand-12-2</p></li>
+<li><p>libcurand-dev-12-2</p></li>
+<li><p>libcusolver-12-2</p></li>
+<li><p>libcusolver-dev-12-2</p></li>
+<li><p>libcusparse-12-2</p></li>
+<li><p>libcusparse-dev-12-2</p></li>
+<li><p>libnpp-12-2</p></li>
+<li><p>libnpp-dev-12-2</p></li>
+<li><p>libnvidia-cfg1-430</p></li>
+<li><p>libnvidia-cfg1-535</p></li>
+<li><p>libnvidia-common-430</p></li>
+<li><p>libnvidia-common-535</p></li>
+<li><p>libnvidia-compute-430</p></li>
+<li><p>libnvidia-compute-430</p></li>
+<li><p>libnvidia-compute-535</p></li>
+<li><p>libnvidia-compute-535</p></li>
+<li><p>libnvidia-decode-430</p></li>
+<li><p>libnvidia-decode-430</p></li>
+<li><p>libnvidia-decode-535</p></li>
+<li><p>libnvidia-decode-535</p></li>
+<li><p>libnvidia-encode-430</p></li>
+<li><p>libnvidia-encode-430</p></li>
+<li><p>libnvidia-encode-535</p></li>
+<li><p>libnvidia-encode-535</p></li>
+<li><p>libnvidia-extra-535</p></li>
+<li><p>libnvidia-extra-535</p></li>
+<li><p>libnvidia-fbc1-430</p></li>
+<li><p>libnvidia-fbc1-430</p></li>
+<li><p>libnvidia-fbc1-535</p></li>
+<li><p>libnvidia-fbc1-535</p></li>
+<li><p>libnvidia-gl-430</p></li>
+<li><p>libnvidia-gl-430</p></li>
+<li><p>libnvidia-gl-535</p></li>
+<li><p>libnvidia-gl-535</p></li>
+<li><p>libnvjitlink-12-2</p></li>
+<li><p>libnvjitlink-dev-12-2</p></li>
+<li><p>libnvjpeg-12-2</p></li>
+<li><p>libnvjpeg-dev-12-2</p></li>
+<li><p>libxnvctrl-dev</p></li>
+<li><p>libxnvctrl0</p></li>
+<li><p>nsight-compute-2023.2.2</p></li>
+<li><p>nsight-systems-2023.2.3</p></li>
+<li><p>nvidia-compute-utils-430</p></li>
+<li><p>nvidia-compute-utils-535</p></li>
+<li><p>nvidia-dkms-430</p></li>
+<li><p>nvidia-dkms-535</p></li>
+<li><p>nvidia-driver-430</p></li>
+<li><p>nvidia-driver-535</p></li>
+<li><p>nvidia-fs</p></li>
+<li><p>nvidia-fs-dkms</p></li>
+<li><p>nvidia-gds</p></li>
+<li><p>nvidia-gds-12-2</p></li>
+<li><p>nvidia-headless-430</p></li>
+<li><p>nvidia-headless-535</p></li>
+<li><p>nvidia-headless-no-dkms-430</p></li>
+<li><p>nvidia-headless-no-dkms-535</p></li>
+<li><p>nvidia-kernel-common-430</p></li>
+<li><p>nvidia-kernel-common-535</p></li>
+<li><p>nvidia-kernel-open-535</p></li>
+<li><p>nvidia-kernel-source-430</p></li>
+<li><p>nvidia-kernel-source-535</p></li>
+<li><p>nvidia-modprobe</p></li>
+<li><p>nvidia-settings</p></li>
+<li><p>nvidia-utils-430</p></li>
+<li><p>nvidia-utils-535</p></li>
+<li><p>xserver-xorg-video-nvidia-430</p></li>
+<li><p>xserver-xorg-video-nvidia-535</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>CUDA cross-compile</p></td>
+<td><ul class="simple">
+<li><p>cuda-cccl-cross-aarch64-12-2</p></li>
+<li><p>cuda-cross-aarch64</p></li>
+<li><p>cuda-cross-aarch64-12-2</p></li>
+<li><p>cuda-crt-cross-aarch64-12-2</p></li>
+<li><p>cuda-cudart-cross-aarch64-12-2</p></li>
+<li><p>cuda-cupti-cross-aarch64-12-2</p></li>
+<li><p>cuda-driver-cross-aarch64-12-2</p></li>
+<li><p>cuda-nsight-compute-addon-l4t-12-2</p></li>
+<li><p>cuda-nvcc-cross-aarch64-12-2</p></li>
+<li><p>cuda-nvml-cross-aarch64-12-2</p></li>
+<li><p>cuda-nvrtc-cross-aarch64-12-2</p></li>
+<li><p>cuda-nvtx-cross-aarch64-12-2</p></li>
+<li><p>cuda-profiler-api-cross-aarch64-12-2</p></li>
+<li><p>libcublas-cross-aarch64-12-2</p></li>
+<li><p>libcudla-cross-aarch64-12-2</p></li>
+<li><p>libcufft-cross-aarch64-12-2</p></li>
+<li><p>libcurand-cross-aarch64-12-2</p></li>
+<li><p>libcusolver-cross-aarch64-12-2</p></li>
+<li><p>libcusparse-cross-aarch64-12-2</p></li>
+<li><p>libnpp-cross-aarch64-12-2</p></li>
+<li><p>libnvjitlink-cross-aarch64-12-2</p></li>
+<li><p>libnvjpeg-cross-aarch64-12-2</p></li>
+<li><p>nsight-compute-addon-l4t-2023.2.2</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Computer Vision</p></td>
+<td><ul class="simple">
+<li><p>libnvvpi3</p></li>
+<li><p>vpi3-dev</p></li>
+<li><p>vpi3-cross-aarch64-l4t</p></li>
+<li><p>vpi3-python-src</p></li>
+<li><p>libopencv-dev</p></li>
+<li><p>libopencv</p></li>
+<li><p>libopencv-python</p></li>
+<li><p>python3-pil</p></li>
+<li><p>python3-numpy</p></li>
+<li><p>python3.10-vpi3</p></li>
+<li><p>vpi3-samples</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>NvStreams</p></td>
+<td><ul class="simple">
+<li><p>nvsci</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Developer Tools</p></td>
+<td><ul class="simple">
+<li><p>nsight-systems-2024.2.2</p></li>
+<li><p>nsight-graphics-for-embeddedlinux-2023.4.1.0</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<section id="customizing-debian-packages">
+<h3>Customizing Debian Packages<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#customizing-debian-packages" title="Link to this heading">#</a></h3>
+<p>You can customize Debian packages to help you implement your solution,
+for example, by adding support for your carrier board. Refer to
+<a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#repackaging-debian-packages">Repackaging Debian Packages</a>
+and
+<a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#building-kernel-debian-packages-yourself">Building Kernel Debian Packages Yourself</a> for more information.</p>
+<section id="downloading-debian-packages-for-later-use">
+<h4>Downloading Debian Packages for Later Use<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#downloading-debian-packages-for-later-use" title="Link to this heading">#</a></h4>
+<p>As an alternative to installing Debian packages on a Jetson device or
+host from the APT server, you can download packages, store them, and
+manually install them later.</p>
+<p>To download packages, open the
+<a class="reference external" href="https://repo.download.nvidia.com/jetson/">NVIDIA Jetson repository</a>
+in a web browser. This page displays a list of Debian packages for each
+JetPack release and processor. Each package name is a hyperlink; to download a
+package, click its link.</p>
+</section>
+</section>
+<section id="updating-jetson-linux-with-image-based-over-the-air-update">
+<h3>Updating Jetson Linux with Image-Based Over-the-Air Update<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-jetson-linux-with-image-based-over-the-air-update" title="Link to this heading">#</a></h3>
+<p><strong>Image-Based Over-the-Air Update</strong> is a failsafe way to update the BSP on a
+Jetson device by writing pre-generated images to its partitions. For example,
+this would allow you to perform an OTA update from version 36.4.0 to a future version.</p>
+<p>Image-based OTA also supports updates between versions with different
+partition layouts that require layout changes during the update. For example,
+image-based OTA currently supports updates from version 35.5.0 to version 36.4.0.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head" colspan="3"><p>Updates to Jetson Linux release 36.3.0</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>Carrier board</p></th>
+<th class="head"><p>Modules</p></th>
+<th class="head"><p>From release</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>Jetson AGX Orin</p></td>
+<td><p>All Jetson AGX Orin
+series modules</p></td>
+<td><p>35.5.0, 35.6.0,
+36.3.0, or 36.4.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Jetson AGX Orin
+Industrial</p></td>
+<td></td>
+<td><p>35.5.0, 35.6.0,
+36.3.0, or 36.4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jetson Orin NX/Nano</p></td>
+<td><p>All Jetson Orin NX/Nano
+series modules</p></td>
+<td><p>35.5.0, 35.6.0,
+36.3.0, or 36.4.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To upgrade from 35.5.0 or later versions to this release, you can directly apply an OTA update.
+It is necessary to upgrade both chains to this release by performing the OTA update twice.
+If you are upgrading from a version earlier than 35.5.0 to this release, please first upgrade
+to 35.5.0, and then upgrade to this release. For example, if upgrading from 35.4.1, you should
+first upgrade to 35.5.0 and then from 35.5.0 to this release. See <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#examples">Examples</a> for
+more details.</p>
+</div>
+<section id="terms-and-abbreviations">
+<h4>Terms and Abbreviations<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#terms-and-abbreviations" title="Link to this heading">#</a></h4>
+<p>This section uses the following terms and abbreviations:</p>
+<ul class="simple">
+<li><p><strong>Bootloader update payload (BUP)</strong>: This file contains firmware
+binaries of each type needed to update a Jetson device.</p></li>
+<li><p><strong>Over-the-air (OTA) update</strong>: The Jetson Linux feature that enables
+you to update Jetson devices.</p></li>
+<li><p><strong>Top of tree (ToT)</strong>: The latest revision of a file in a source
+control system, such as Git.</p></li>
+</ul>
+</section>
+<section id="high-level-flow">
+<h4>High-Level Flow<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#high-level-flow" title="Link to this heading">#</a></h4>
+<p>Here is the workflow for an image-based OTA update:</p>
+<ol class="arabic simple">
+<li><p>Prepare an OTA payload package on the host machine.</p></li>
+<li><p>Trigger the OTA process on the target device.</p></li>
+</ol>
+<section id="preparing-the-ota-payload-package">
+<h5>Preparing the OTA Payload Package<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-the-ota-payload-package" title="Link to this heading">#</a></h5>
+<p>The current Jetson Linux BSP provides the necessary tools to generate the OTA payload package in
+the OTA tool package. To download the OTA tool package, go to
+<a class="reference external" href="https://developer.nvidia.com/embedded/linux-tegra">Jetson Linux page</a>.</p>
+<p>The OTA tool package can be used to create the OTA payload package for the following use cases:</p>
+<ul class="simple">
+<li><p>Updating a full system</p></li>
+<li><p>Updating the bootloader only</p></li>
+<li><p>Updating the rootfs only</p></li>
+</ul>
+<p>The generated OTA payload package is in the <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> archive, and the OTA payload
+package includes images for the partitions that need to be updated.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA recommends applying a security mechanism, such as a signature or encryption, to this package.</p>
+</div>
+<p>Upload <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> and the OTA tools package
+<code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> to your OTA server.</p>
+</section>
+<section id="triggering-the-ota-process">
+<h5>Triggering the OTA Process<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#triggering-the-ota-process" title="Link to this heading">#</a></h5>
+<p>You are responsible for writing the OTA client service that triggers the
+OTA process, and the service must include the following steps:</p>
+<ol class="arabic">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> OTA tool package and the
+<code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> OTA payload package from your own OTA
+server.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;rel&gt;</span></code> is the current release number, for example <code class="docutils literal notranslate"><span class="pre">36.4.0</span></code>.</p>
+</li>
+<li><p>Validate the downloaded OTA payload package and its contents
+according to your own security requirements.</p></li>
+<li><p>Use the tool in the OTA tool package to trigger the OTA update. The
+tool decompresses the OTA payload package and prepares it for OTA
+update. The tool handles cases where a partition layout change is
+involved and not involved, and where rootfs A/B is enabled and disabled.</p></li>
+</ol>
+</section>
+</section>
+<section id="preparing-for-an-image-based-ota-update">
+<h4>Preparing for an Image-Based OTA Update<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-for-an-image-based-ota-update" title="Link to this heading">#</a></h4>
+<p>To prepare for an image-based OTA update, the following steps need to be completed
+on the host machine and the target device.</p>
+<section id="steps-performed-on-the-host-machine">
+<h5>Steps Performed on the Host Machine<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-host-machine" title="Link to this heading">#</a></h5>
+<ol class="arabic">
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">BASE_BSP</span></code> environment variable to the complete pathname of the
+<code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/</span></code> directory for the base BSP. (The base BSP is the BSP
+release that needs to be updated, such as r36.5.0.)
+For example, set <code class="docutils literal notranslate"><span class="pre">BASE_BSP</span></code> by running this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ export BASE_BSP=/home/username/R36.5.0/Linux_for_Tegra
+</pre></div>
+</div>
+</li>
+<li><p>Get the package for the current release of Jetson Linux and unpack
+and apply its sample root file system.</p></li>
+<li><p>Go to the directory that contains the current BSP package and enter
+the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tar xpf Jetson_Linux_&lt;rel&gt;_aarch64.tbz2
+$ cd Linux_for_Tegra/rootfs/
+$ sudo tar xpf ../../Tegra_Linux_Sample-Root-Filesystem_&lt;rel&gt;_aarch64.tbz2
+$ cd ..
+$ sudo ./apply_binaries.sh
+</pre></div>
+</div>
+</li>
+<li><p>Set the environment variable <code class="docutils literal notranslate"><span class="pre">TARGET_BSP</span></code> to the complete pathname of the
+<code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/</span></code> directory for current BSP release. For example, set
+<code class="docutils literal notranslate"><span class="pre">TARGET_BSP</span></code> by running this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ export TARGET_BSP=/home/username/R36.4.0/Linux_for_Tegra
+</pre></div>
+</div>
+</li>
+<li><p>Install the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> OTA tool package to <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${TARGET_BSP}/../
+$ sudo tar xpf ota_tools_&lt;rel&gt;_aarch64.tbz2
+</pre></div>
+</div>
+</li>
+<li><p>To generate the OTA update payload package, enter the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${TARGET_BSP}
+$ sudo -E ./tools/ota_tools/version_upgrade/l4t_generate_ota_package.sh \
+        [options] &lt;target_board&gt; &lt;bsp_version&gt;
+</pre></div>
+</div>
+<p>Options:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code>, <code class="docutils literal notranslate"><span class="pre">-b</span></code>, and <code class="docutils literal notranslate"><span class="pre">-r</span></code> can be used independently or combined into
+a single term, such as <code class="docutils literal notranslate"><span class="pre">-sb</span></code> or <code class="docutils literal notranslate"><span class="pre">-sr</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code>: Skip generating the rootfs image. Use this option if a rootfs
+image has been generated or specified with the <code class="docutils literal notranslate"><span class="pre">-f</span></code> option.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span></code>: Generate an OTA payload package to only update Bootloader.
+This option is meaningful only for an update without layout change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r</span></code>: Generate an OTA payload package to only update rootfs.
+This option is meaningful only for an update without layout change.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">&lt;PKC_key_file&gt;</span></code> is an optional PKC key file, and it must be the same as
+the file that was used to flash images to the target board.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">&lt;SBK_key_file&gt;</span></code> is an optional SBK key file, and it must be the same as
+the file that was used to flash images to the target board.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">&lt;rootfs_updater&gt;</span></code> specifies the script that will be be used to update
+the rootfs partition. (Refer to
+<a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-the-rootfs-partition-with-a-customized-updater-and-image">Updating the Rootfs Partition with a Customized Updater and
+Image</a>
+for more information.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">&lt;rootfs_image&gt;</span></code> is the path of the rootfs image to be written to the
+rootfs partition.</p>
+<p>The default rootfs is built from <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}/rootfs</span></code>, and this option allows you overwrite the default rootfs image with a self-generated rootfs image. An example is an image that is cloned from a Jetson device that has been completely customized with a <code class="docutils literal notranslate"><span class="pre">ToT</span></code> release of Jetson Linux.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--external-device</span> <span class="pre">&lt;external_device&gt;</span></code> specifies the external device to be upgraded, and <code class="docutils literal notranslate"><span class="pre">nvme0n1</span></code>
+is the supported device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-S</span> <span class="pre">&lt;rootfs_size&gt;</span></code> specifies the size of rootfs partition on external device.
+It is only valid when <code class="docutils literal notranslate"><span class="pre">--external-device</span></code> option is set. <code class="docutils literal notranslate"><span class="pre">KiB</span></code>, <code class="docutils literal notranslate"><span class="pre">MiB</span></code>, <code class="docutils literal notranslate"><span class="pre">GiB</span></code>
+short hands are allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-E</span> <span class="pre">&lt;esp_image&gt;</span></code> specifies the image to update ESP. Only valid for update without change in layout.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-T</span> <span class="pre">&lt;ext_num_sectors&gt;</span></code> specifies the number of the sectors of the external storage device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--rootfs-uuid</span> <span class="pre">&lt;rootfs_uuid&gt;</span></code> specifies UUID for rootfs to be updated through OTA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--rootfs-b-uuid</span> <span class="pre">&lt;rootfs_b_uuid&gt;</span></code> specifies UUID for rootfs B on the device to be updated through OTA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--uda-uuid</span> <span class="pre">&lt;uda_uuid&gt;</span></code> specifies UUID for UDA on the device to be updated through OTA.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--uefi-keys</span> <span class="pre">&lt;keys_conf&gt;</span></code> specifies the UEFI keys configuration file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--uefi-enc</span> <span class="pre">&lt;UEFI_enc_key&gt;</span></code> specifies the key file (0x19: 16-byte; 0x23: 32-byte) to encrypt UEFI payloads.</p></li>
+</ul>
+<p>where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;target_board&gt;</span></code> is the appropriate configuration name:</p>
+<ul>
+<li><p>For Jetson AGX Orin P3701-0000(32GB) or P3701-0004 (32GB) or P3701-0005 (64GB): <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit</span></code></p></li>
+<li><p>For Jetson AGX Orin Industrial P3701-0008: <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit-industrial</span></code></p></li>
+<li><p>For Jetson Orin NX P3767-0000(16GB) or P3767-0001(8GB): <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code></p></li>
+<li><p>For Jetson Orin Nano P3767-0003(8GB) or P3767-0004(4GB) or P3767-0005(8GB): <code class="docutils literal notranslate"><span class="pre">jetson-orin-nano-devkit</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;bsp_version&gt;</span></code> is the base BSP version, in the form R<em>mm</em>-<em>n</em>, where
+<em>mm</em> and <em>n</em> are the major and minor version numbers. For example, <code class="docutils literal notranslate"><span class="pre">R35-5</span></code> specifies base BSP version 35.5.x.</p></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<div><p>The script generates the <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> file under the <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}/bootloader/&lt;target_board&gt;/</span></code> directory.
+If enabling UEFI secure boot, it also generates <code class="docutils literal notranslate"><span class="pre">uefi_secureboot_overlay_multi_specs.tar.gz</span></code> file under the <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}/bootloader/uefi_overlay</span></code> directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> archive that the script generates from the default rootfs occupies about 2.5GB, and a self-generated rootfs might yield a larger or smaller archive. To apply the image-based OTA, and decompress the archive on the Jetson device, requires at least 7GB of free space.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Step 6 in <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-host-machine">Steps Performed on the Host Machine</a>
+uses the Jetson Linux sample rootfs from <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/rootfs/</span></code> to build the OTA package.</p>
+<p>If you customized the sample rootfs, add required libraries and binaries into the rootfs and apply them <em>before</em> running this script.</p>
+<p>To implement a complete OTA solution, place the OTA tool package and OTA payload package on your OTA server.</p>
+</div>
+</section>
+<section id="steps-performed-on-the-jetson-device">
+<h5>Steps Performed on the Jetson Device<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-jetson-device" title="Link to this heading">#</a></h5>
+<ol class="arabic">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">efibootmgr</span></code> and <code class="docutils literal notranslate"><span class="pre">nvme-cli</span></code> packages if they are not installed on the target board
+by running the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">efibootmgr</span> <span class="pre">nvme-cli</span></code>.</p></li>
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> OTA tool package and
+the <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> OTA payload package to the
+target board.</p></li>
+<li><p>Create a directory to hold files that were generated in the OTA update process.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">WORKDIR</span></code> environment variable to the complete pathname for this directory.</p></li>
+<li><p>Unpack <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> into the <code class="docutils literal notranslate"><span class="pre">${WORKDIR}</span></code> directory.</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">/ota/</span></code> directory.</p></li>
+<li><p>Place the <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> OTA payload package in the <code class="docutils literal notranslate"><span class="pre">/ota/</span></code> directory.
+If enabling UEFI secure boot, place the <code class="docutils literal notranslate"><span class="pre">uefi_secureboot_overlay_multi_specs.tar.gz</span></code> package in the <code class="docutils literal notranslate"><span class="pre">/ota/</span></code> directory.</p></li>
+<li><p>Unpack the OTA payload package and prepare to start OTA:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd ${WORKDIR}/Linux_for_Tegra/tools/ota_tools/version_upgrade
+$ sudo ./nv_ota_start.sh /ota/ota_payload_package.tar.gz
+</pre></div>
+</div>
+</li>
+<li><p>If no error occurred in step 8, reboot the target board. Otherwise, resolve the error
+before continuing.</p>
+<p>After executing this step, the target board boots to the recovery kernel, which runs the OTA update process. If an unexpected power loss or reset occurs during the OTA update process, the target device can reboot into the recovery kernel and continue the update. The maximum number of times the target device reboots and continues the update is determined by the <code class="docutils literal notranslate"><span class="pre">OTA_MAX_RETRY_COUNT</span></code> script variable, which defaults to 0 (zero). If the update fails more than the specified number of times, the target device boots to the recovery kernel and enters the bash shell. You can change the value of <code class="docutils literal notranslate"><span class="pre">OTA_MAX_RETRY_COUNT</span></code> in <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}/tools/ota_tools/version_upgrade/nv_recovery.sh</span></code>.</p>
+<p>On the target device, if the update process fails, the logs are stored in the <code class="docutils literal notranslate"><span class="pre">/ota_logs/</span></code> directory, and these logs record the details about the OTA update process. If this process successfully completes, by default, the logs are automatically deleted. To save logs for a successful OTA, see <strong>Reserving logs requirement</strong> in <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#miscellaneous-customization">Miscellaneous Customization</a>.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To create a complete, secure OTA update solution, you must complete the following tasks:</p>
+<ul class="simple">
+<li><p>Implement an OTA client that executes this procedure on the target device.</p></li>
+<li><p>Apply security mechanisms according to your security policy requirements.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="utility-to-trigger-an-ota">
+<h4>Utility to Trigger an OTA<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#utility-to-trigger-an-ota" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">nv_ota_start.sh</span></code> utility is used to trigger the OTA, and image-based OTA supports
+updates between versions with or without partition layout changes. The OTA supports updates
+whether rootfs A/B is enabled or disabled. You do not need to be aware of the difference
+because the <code class="docutils literal notranslate"><span class="pre">nv_ota_start.sh</span></code> utility handles both cases.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nv_ota_start.sh</span></code> is included in <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code>. It
+finally executes <code class="docutils literal notranslate"><span class="pre">nv_ota_update_implement.sh</span></code> to trigger OTA update.</p>
+</section>
+<section id="backing-up-and-restoring-files-on-the-app-partition">
+<h4>Backing Up and Restoring Files on the APP Partition<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#backing-up-and-restoring-files-on-the-app-partition" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">nv_ota_preserve_data.sh</span></code> script in the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code>
+backs up and restores files on the <code class="docutils literal notranslate"><span class="pre">APP</span></code> partition during OTA update. It is
+located in the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/ota_tools/version_upgrade/</span></code> directory.</p>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">ota_backup_files_list.txt</span></code> configuration file to add the
+pathnames of files that will be preserved after the OTA update. The
+distributed version of <code class="docutils literal notranslate"><span class="pre">ota_backup_files_list.txt</span></code> contains the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># All the files or directories should be listed with absolute path
+# Example:
+# etc/passwd
+# opt/nvidia
+</pre></div>
+</div>
+<p>Pathnames are written in relative form, but the names are always interpreted
+relative to the file system root. You can think of the names as absolute
+pathnames from which the leading slash is omitted.</p>
+<p>You can add comment lines starting with a pound sign (’<code class="docutils literal notranslate"><span class="pre">#</span></code>’) in column 1.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nv_ota_preserve_data.sh</span></code> script packs the listed files into a <code class="docutils literal notranslate"><span class="pre">.tar.gz</span></code> archive. You can select other ways to back up and restore these files based on your own requirements.</p>
+</div>
+</section>
+<section id="ota-upgrades-on-an-external-device">
+<h4>OTA Upgrades on an External Device<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-on-an-external-device" title="Link to this heading">#</a></h4>
+<p>Jetson devices support booting from external storage devices, such as an NVMe.
+To apply an image-based OTA on Jetson devices, the <code class="docutils literal notranslate"><span class="pre">l4t_generate_ota_package.sh</span></code>
+script provides the <code class="docutils literal notranslate"><span class="pre">--external-device</span></code> and <code class="docutils literal notranslate"><span class="pre">-S</span></code> options to generate an OTA payload
+package for external storage devices.</p>
+<p>To flash a Jetson device with an external storage device, refer to <em>Flashing with initrd</em> in <a class="reference internal" href="FlashingSupport.html#sd-flashingsupport"><span class="std std-ref">Flashing Support</span></a> for more information.</p>
+</section>
+<section id="ota-upgrades-with-disk-encryption-enabled">
+<h4>OTA Upgrades with Disk Encryption Enabled<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-with-disk-encryption-enabled" title="Link to this heading">#</a></h4>
+<p>Jetson devices support disk encryption on internal or external devices, and the rootfs partition is encrypted.
+To apply an image-based OTA on Jetson devices with disk encryption enabled, set “ROOTFS_ENC=1” when
+running the <code class="docutils literal notranslate"><span class="pre">l4t_generate_ota_package.sh</span></code> script to generate an OTA payload package. You can also specify the
+key file for disk encryption by using the <code class="docutils literal notranslate"><span class="pre">-i</span></code> option.</p>
+<p>To enable disk encryption on Jetson devices, refer to <em>How to Create an Encrypted Rootfs on the Host</em> in <a class="reference internal" href="Security/DiskEncryption.html#sd-security-diskencryption"><span class="std std-ref">Disk Encryption</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please make sure that the <code class="docutils literal notranslate"><span class="pre">${TARGET_BSP}/bootloader/eks_t234.img</span></code> contains the same keys as the ones exist in the EKS partition on the device to be updated before generating OTA payload package. To generate “eks_t234.img”, please refer to <em>Tool for EKB Generation</em> in <a class="reference internal" href="Security/OpTee.html#sd-security-optee"><span class="std std-ref">OP-TEE</span></a>.</p>
+</div>
+</section>
+<section id="ota-upgrades-with-uefi-secure-boot-enabled">
+<h4>OTA Upgrades with UEFI Secure Boot Enabled<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-with-uefi-secure-boot-enabled" title="Link to this heading">#</a></h4>
+<p>The image-based OTA now supports UEFI secure boot. If the OTA payload is built with UEFI secure boot enabled, the following will occur after the update: UEFI secure boot will either remain enabled if it was already active, or it will be newly enabled if it was previously disabled.</p>
+<p>To generate an OTA payload package with UEFI secure boot enabled, you must specify the <code class="docutils literal notranslate"><span class="pre">--uefi-keys</span></code> and <code class="docutils literal notranslate"><span class="pre">--rootfs-uuid</span></code> options. If UEFI payload encryption is enabled, you must specify the <code class="docutils literal notranslate"><span class="pre">--uefi-enc</span></code> option. If rootfs A/B is enabled on the device, you must specify the <code class="docutils literal notranslate"><span class="pre">--rootfs-b-uuid</span></code> option. If the UDA partition is encrypted with disk encryption, you must specify the <code class="docutils literal notranslate"><span class="pre">--uda-uuid</span></code> option.</p>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">ota_payload_package.tar.gz</span></code> file, the <code class="docutils literal notranslate"><span class="pre">l4t_generate_ota_package.sh</span></code> generates <code class="docutils literal notranslate"><span class="pre">uefi_secureboot_overlay_multi_specs.tar.gz</span></code> and <code class="docutils literal notranslate"><span class="pre">uefi_base_multi_specs.tar.gz</span></code> files under the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/bootloader/uefi_overlay</span></code> directory if enabling UEFI secure boot. The <code class="docutils literal notranslate"><span class="pre">uefi_secureboot_overlay_multi_specs.tar.gz</span></code> archive contains the UEFI payloads signed and/or encrypted by the specified UEFI keys, and the <code class="docutils literal notranslate"><span class="pre">uefi_base_multi_specs.tar.gz</span></code> archive contains the UEFI payloads not signed or encrypted. The UEFI payloads are loaded by UEFI from rootfs during booting, including <code class="docutils literal notranslate"><span class="pre">extlinux.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">initrd</span></code> and kernel DTB.</p>
+<p>For more information about OTA update with UEFI secure boot enabled, please see <strong>Applying OTA with UEFI secure boot enabled</strong> in <a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#examples">Examples</a>.</p>
+</section>
+<section id="complete-and-secure-the-ota">
+<h4>Complete and Secure the OTA<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#complete-and-secure-the-ota" title="Link to this heading">#</a></h4>
+<p>NVIDIA provides the basic functionality of updating the system through
+the OTA update process. You must modify the process and create a
+complete and secure OTA solution. Depending on your needs, your modified
+process might have to meet at least one of the following requirements:</p>
+<ul class="simple">
+<li><p>Encrypting OTA update payloads</p></li>
+<li><p>Hosting OTA update payloads on an OTA update server</p></li>
+<li><p>Triggering an OTA update when an update is found on the OTA server (a
+function of the OTA update client on the target device)</p></li>
+<li><p>Authenticating the OTA update server</p></li>
+<li><p>Decrypting OTA update payloads</p></li>
+<li><p>Determining when to apply OTA update payloads</p></li>
+</ul>
+</section>
+<section id="customization">
+<h4>Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#customization" title="Link to this heading">#</a></h4>
+<p>If you customized the released BSP, such as by customizing the
+rootfs or the recovery image, you must modify some files in
+the distributed image-based OTA update process to apply the image-based
+OTA update solution. The following sections provide information about
+the customization types and the OTA update changes that the types require.</p>
+<section id="rootfs-customization">
+<h5>Rootfs Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#rootfs-customization" title="Link to this heading">#</a></h5>
+<p>Rootfs customization comprises:</p>
+<ul class="simple">
+<li><p>Adding or removing files in the rootfs.</p></li>
+<li><p>Modifying the files in rootfs.</p></li>
+</ul>
+<p>These changes require the following:</p>
+<ul class="simple">
+<li><p>Applying changes to the rootfs.</p></li>
+</ul>
+</section>
+<section id="recovery-image-customization">
+<h5>Recovery Image Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#recovery-image-customization" title="Link to this heading">#</a></h5>
+<p>Recovery image customization comprises:</p>
+<ul class="simple">
+<li><p>Adding some files to the recovery initrd.</p></li>
+</ul>
+<p>These changes require the following:</p>
+<ul class="simple">
+<li><p>Editing the provided file <code class="docutils literal notranslate"><span class="pre">recovery_copy_binlist.txt</span></code> to specify the
+file systems and pathnames of any files you want to add to the recovery image. See the same file for an explanation and examples of how to make the changes.</p></li>
+</ul>
+</section>
+<section id="recovery-task-customization">
+<h5>Recovery Task Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#recovery-task-customization" title="Link to this heading">#</a></h5>
+<p>In the recovery kernel, the <code class="docutils literal notranslate"><span class="pre">nv_ota_run_tasks.sh</span></code> script will be executed as a task runner. It will execute OTA tasks in a sequential order. To add a task to be run when recovery kernel is running, you must complete the following tasks:</p>
+<ol class="arabic">
+<li><p>Place the script files that execute tasks into the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/ota_tools/version_upgrade/</span></code> directory. Make sure the script files have execution permission.</p></li>
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">OTA_TASKS</span></code> and the <code class="docutils literal notranslate"><span class="pre">OTA_TASK_NEEDED_FILES</span></code> in <code class="docutils literal notranslate"><span class="pre">nv_ota_customer.conf</span></code> to add these script files.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The script files whose names are listed in the <code class="docutils literal notranslate"><span class="pre">OTA_TASKS</span></code> are OTA tasks which will be executed in order by the task runner. Insert the script file name at a proper position.</p></li>
+<li><p>The script files whose names are listed in the <code class="docutils literal notranslate"><span class="pre">OTA_TASK_NEEDED_FILES</span></code> are the files needed by OTA tasks. Add the script file name into the list if any.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Re-generate the OTA update payload package.</p></li>
+</ol>
+</section>
+<section id="miscellaneous-customization">
+<h5>Miscellaneous Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#miscellaneous-customization" title="Link to this heading">#</a></h5>
+<ul>
+<li><p>Ethernet connectivity requirement</p>
+<p>If you want to ensure that no update is performed unless a stable Ethernet connection is available, enable OTA update’s Ethernet connectivity requirement by setting the property <code class="docutils literal notranslate"><span class="pre">REQUIRE_ETHERNET</span></code> in <code class="docutils literal notranslate"><span class="pre">nv_ota_customer.conf</span></code>. This setting makes Jetson device check Ethernet connectivity before starting OTA. If no connection is found, it attempts to establish one by rebooting.</p>
+<p>This requirement is disabled by default because a Jetson device does not use Ethernet as its primary means of connectivity.</p>
+</li>
+<li><p>Reserving logs requirement</p>
+<p>Logs are automatically deleted after the OTA successfully completes. To save logs for debug purposes, you can set the <code class="docutils literal notranslate"><span class="pre">RESERVE_LOGS</span></code> property to <code class="docutils literal notranslate"><span class="pre">true</span></code> in <code class="docutils literal notranslate"><span class="pre">nv_ota_customer.conf</span></code>. After the OTA finishes, this setting saves all the logs in the <code class="docutils literal notranslate"><span class="pre">/last_ota_update_log</span></code> directory.</p>
+</li>
+</ul>
+</section>
+<section id="multiple-board-specs-customization">
+<h5>Multiple Board Specs Customization<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#multiple-board-specs-customization" title="Link to this heading">#</a></h5>
+<p>The image-based OTA supports generating a multi-spec OTA payload for each supported Jetson device. If you are sure what the board specs are for your Jetson devices, you can customize the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/ota_tools/version_upgrade/ota_board_specs.conf</span></code> to comment out unused board spec entries before you generate the OTA payload package. This can shorten the time needed to generate the OTA payload package and decrease the size of the resulting package.</p>
+<p>Here is a sample of a customized <code class="docutils literal notranslate"><span class="pre">jetson_orin_nano_devkit_ota_emmc_r35_spec</span></code> field in the <code class="docutils literal notranslate"><span class="pre">ota_board_specs.conf</span></code> file that can generate the OTA payload package exclusively for the Jetson Orin NX P3767-0001(8GB):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>jetson_orin_nano_devkit_ota_emmc_r35_spec=(
+    # External device
+    # orin-nx 16GB
+    #&#39;boardid=3767;fab=000;boardsku=0000;boardrev=;fuselevel_s=1;chiprev=;chipsku=00:00:00:D3;board=jetson-orin-nano-devkit;rootdev=nvme0n1p1;bup_type=bl;signed_img_dir=images-R35-ToT&#39;
+
+    # orin-nx 8GB
+    &#39;boardid=3767;fab=000;boardsku=0001;boardrev=;fuselevel_s=1;chiprev=;chipsku=00:00:00:D4;board=jetson-orin-nano-devkit;rootdev=nvme0n1p1;bup_type=bl;signed_img_dir=images-R35-ToT&#39;
+
+    # orin-nano 8GB
+    #&#39;boardid=3767;fab=000;boardsku=0003;boardrev=;fuselevel_s=1;chiprev=;chipsku=00:00:00:D5;board=jetson-orin-nano-devkit;rootdev=nvme0n1p1;bup_type=bl;signed_img_dir=images-R35-ToT&#39;
+
+    # orin-nano devkit 8GB
+    #&#39;boardid=3767;fab=000;boardsku=0005;boardrev=;fuselevel_s=1;chiprev=;chipsku=00:00:00:D5;board=jetson-orin-nano-devkit;rootdev=nvme0n1p1;bup_type=bl;signed_img_dir=images-R35-ToT&#39;
+
+    # orin-nano 4GB
+    #&#39;boardid=3767;fab=000;boardsku=0004;boardrev=;fuselevel_s=1;chiprev=;chipsku=00:00:00:D6;board=jetson-orin-nano-devkit;rootdev=nvme0n1p1;bup_type=bl;signed_img_dir=images-R35-ToT&#39;
+)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="updating-the-rootfs-partition-with-a-customized-updater-and-image">
+<h4>Updating the Rootfs Partition with a Customized Updater and Image<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-the-rootfs-partition-with-a-customized-updater-and-image" title="Link to this heading">#</a></h4>
+<p>When you generate an OTA payload package (step 6 in
+<a class="reference external" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-host-machine">Steps Performed on the Host Machine</a>),
+you can specify the rootfs updater with the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option and specify the rootfs image with the <code class="docutils literal notranslate"><span class="pre">-f</span></code> option.</p>
+<p>The <strong>rootfs updater</strong> is a script that writes the rootfs image to the
+rootfs partition. It is called with appropriate command line parameters
+and options by several Jetson Linux utilities and services, such as OTA
+update. NVIDIA provides a default rootfs updater named
+<code class="docutils literal notranslate"><span class="pre">nv_ota_rootfs_updater.sh</span></code> which is in the distribution archive
+<code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code>.</p>
+<p>The default rootfs updater’s usage is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nv_ota_rootfs_updater.sh [-p &lt;devnode&gt;] [-d &lt;workdir&gt;] &lt;image&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;devnode&gt;</span></code> is the device node path of the rootfs partition, for example, <code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0p1</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;workdir&gt;</span></code> is the path of the OTA work directory, for example, <code class="docutils literal notranslate"><span class="pre">/ota_work</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;image&gt;</span></code> is the path of the rootfs image, for example, <code class="docutils literal notranslate"><span class="pre">/ota_work/system.img</span></code>.</p></li>
+</ul>
+<p>If you create a customized rootfs image, you must specify a rootfs
+updater that can process that image. The rootfs updater you specify must
+expect the same arguments and options as <code class="docutils literal notranslate"><span class="pre">nv_ota_rootfs_updater.sh</span></code>.
+Depending on your needs, the updater might (or might not) use these arguments
+and options.</p>
+</section>
+<section id="user-release-version">
+<h4>User Release Version<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#user-release-version" title="Link to this heading">#</a></h4>
+<p>An image-based OTA supports an update from the BSP version to the same BSP version. For example, for an OTA update
+from version 36.4.0 to version 36.4.0 with a updated rootfs and with a updated user version number.</p>
+<p>The user release version is defined in <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/nv_tegra/user_version</span></code> and the valid value is between 0.0~999.999.
+During generating rootfs image, the user release version defined as <code class="docutils literal notranslate"><span class="pre">USER_VERSION</span></code> in <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/nv_tegra/user_version</span></code>
+is to be copied into the file <code class="docutils literal notranslate"><span class="pre">/etc/user_release_version</span></code> in rootfs.</p>
+</section>
+<section id="updating-the-esp-partition">
+<h4>Updating the ESP Partition<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-the-esp-partition" title="Link to this heading">#</a></h4>
+<p>To manually update the ESP partition, complete the following steps:</p>
+<ol class="arabic">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> OTA tool package. &lt;rel&gt; is the current release number, for example, 36.4.0.</p></li>
+<li><p>Copy the OTA tool package to the Jetson device’s filesystem and extract the package.
+For example, you can copy the OTA tool package to the <code class="docutils literal notranslate"><span class="pre">/opt/</span></code> directory and extract it.</p></li>
+<li><p>Copy the new ESP partition image to the Jetson device’s filesystem. For example, you can copy the <code class="docutils literal notranslate"><span class="pre">esp.img</span></code> to <code class="docutils literal notranslate"><span class="pre">/opt/</span></code> directory.</p></li>
+<li><p>To update the ESP partition, use the <code class="docutils literal notranslate"><span class="pre">nv_update_alt_part.sh</span></code> tool in the OTA tool package:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /opt/Linux_for_Tegra/tools/ota_tools/version_upgrade/
+$ sudo ./nv_update_alt_part.sh esp /opt/esp.img
+</pre></div>
+</div>
+</li>
+<li><p>If no error occurred in step 4, reboot the Jetson device.</p></li>
+</ol>
+</section>
+<section id="examples">
+<h4>Examples<a class="headerlink" href="SoftwarePackagesAndTheUpdateMechanism.html#examples" title="Link to this heading">#</a></h4>
+<p>NVIDIA provides several examples of how to apply an image-based OTA update:</p>
+<ul class="simple">
+<li><p>Generating an OTA payload package for OTA updates from R35.5.0 to the latest R36 version.</p></li>
+<li><p>OTA from R35.5.0 to the latest R36 version.</p></li>
+<li><p>OTA from a version earlier than R35.5.0 to the latest R36 version.</p></li>
+<li><p>Using a golden image in the OTA update.</p></li>
+<li><p>Applying OTA with UEFI secure boot enabled.</p></li>
+</ul>
+<p>For more information about these examples, see the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/tools/ota_tools/version_upgrade/Image_based_OTA_Examples.txt</span></code> file,
+which is in the <code class="docutils literal notranslate"><span class="pre">ota_tools_&lt;rel&gt;_aarch64.tbz2</span></code> OTA tool package.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="BootTimeOptimization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Boot Time Optimization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#installing-additional-packages">Installing Additional Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#repackaging-debian-packages">Repackaging Debian Packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#building-kernel-debian-packages-yourself">Building Kernel Debian Packages Yourself</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#using-the-repackager-tool">Using the Repackager Tool</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-a-debian-file">Converting a Debian File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-multiple-debian-files">Converting Multiple Debian Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-all-debian-files-under-bsp">Converting all Debian Files Under BSP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-a-subset-of-files-and-placing-the-output-in-the-designated-directory">Converting a Subset of Files and Placing the Output in the Designated Directory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#converting-files-to-different-paths">Converting Files to Different Paths</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#printing-out-the-dependencies-of-a-converted-debian-file">Printing Out the Dependencies of a Converted Debian File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#ignoring-the-dependency-check-failure">Ignoring the Dependency Check Failure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#working-with-the-packages">Working with the Packages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#package-dependencies">Package Dependencies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel">nvidia-l4t-kernel</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#prerequisites-and-dependencies">Prerequisites and Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#package-scripts">Package Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel-dtbs">nvidia-l4t-kernel-dtbs</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id3">Prerequisites and Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id4">Package Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-kernel-headers">nvidia-l4t-kernel-headers</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id5">Prerequisites and Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id6">Package Scripts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#nvidia-l4t-jetson-io">nvidia-l4t-jetson-io</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id7">Prerequisites and Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#id8">Package Scripts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#over-the-air-update">Over-the-Air Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-from-the-nvidia-apt-server">Updating from the NVIDIA APT Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-a-jetson-device">Updating a Jetson Device</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-to-a-new-point-release">Updating to a New Point Release</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-to-a-new-minor-release">Updating to a New Minor Release</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#real-time-kernel-using-ota-update">Real-Time Kernel Using OTA Update</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-a-host">Updating a Host</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-the-host-computer-to-install-jetson-linux-support-components">Preparing the Host Computer to Install Jetson Linux Support Components</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#debian-packages-on-the-nvidia-apt-server">Debian Packages on the NVIDIA APT Server</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#update-packages-for-jetson-devices">Update Packages for Jetson Devices</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#update-packages-for-hosts">Update Packages for Hosts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#customizing-debian-packages">Customizing Debian Packages</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#downloading-debian-packages-for-later-use">Downloading Debian Packages for Later Use</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-jetson-linux-with-image-based-over-the-air-update">Updating Jetson Linux with Image-Based Over-the-Air Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#terms-and-abbreviations">Terms and Abbreviations</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#high-level-flow">High-Level Flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-the-ota-payload-package">Preparing the OTA Payload Package</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#triggering-the-ota-process">Triggering the OTA Process</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#preparing-for-an-image-based-ota-update">Preparing for an Image-Based OTA Update</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-host-machine">Steps Performed on the Host Machine</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#steps-performed-on-the-jetson-device">Steps Performed on the Jetson Device</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#utility-to-trigger-an-ota">Utility to Trigger an OTA</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#backing-up-and-restoring-files-on-the-app-partition">Backing Up and Restoring Files on the APP Partition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-on-an-external-device">OTA Upgrades on an External Device</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-with-disk-encryption-enabled">OTA Upgrades with Disk Encryption Enabled</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#ota-upgrades-with-uefi-secure-boot-enabled">OTA Upgrades with UEFI Secure Boot Enabled</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#complete-and-secure-the-ota">Complete and Secure the OTA</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#customization">Customization</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#rootfs-customization">Rootfs Customization</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#recovery-image-customization">Recovery Image Customization</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#recovery-task-customization">Recovery Task Customization</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#miscellaneous-customization">Miscellaneous Customization</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#multiple-board-specs-customization">Multiple Board Specs Customization</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-the-rootfs-partition-with-a-customized-updater-and-image">Updating the Rootfs Partition with a Customized Updater and Image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#user-release-version">User Release Version</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#updating-the-esp-partition">Updating the ESP Partition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="SoftwarePackagesAndTheUpdateMechanism.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1457 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Miscellaneous Configuration &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Bootloader/MiscConfig';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SDRAM Configuration" href="SdramConfig.html" />
+    <link rel="prev" title="BootROM Reset PMIC Configuration" href="BootROMResetPMICConfig.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="MiscConfig.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="MiscConfig.html#">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Bootloader.html" class="nav-link">Bootloader</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Miscellaneou...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="miscellaneous-configuration">
+<h1>Miscellaneous Configuration<a class="headerlink" href="MiscConfig.html#miscellaneous-configuration" title="Link to this heading">#</a></h1>
+<p>The different settings that do not fit into the other categories are documented in miscellaneous configuration file.</p>
+<section id="mb1-feature-fields">
+<h2>MB1 Feature Fields<a class="headerlink" href="MiscConfig.html#mb1-feature-fields" title="Link to this heading">#</a></h2>
+<p>These features are Boolean flags that enable or disable functionality in MB1:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>disable_spe</p></td>
+<td><ul class="simple">
+<li><p>0: Disables load of SPE-FW by MB1.</p></li>
+<li><p>1: Enables load of SPE-FW by MB1.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>enable_dram_page_blacklisting</p></td>
+<td><ul class="simple">
+<li><p>0: Disables DRAM ECC page blacklisting feature.</p></li>
+<li><p>1: Enables DRAM ECC page blacklisting feature.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>disable_sc7</p></td>
+<td><ul class="simple">
+<li><p>0: Enables SC7-entry/exit support.</p></li>
+<li><p>1: Enables SC7-entry/exit support.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>disable_fuse_visibility</p></td>
+<td><p>Certain fuses cannot be read or written by default because they are not visible.</p>
+<ul class="simple">
+<li><p>0: Keeps the default visibility of fuses.</p></li>
+<li><p>1: Enables visibility of such fuses.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>l2_mss_encrypt_regeneration</p></td>
+<td><p>On L2 RAMDUMP reset, regenerate MSS encryption keys for the carveouts. This is a bit field with the following bit mapping:</p>
+<ul class="simple">
+<li><p>1:TZDRAM</p></li>
+<li><p>3:GSC</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>se_ctx_save_tz_lock</p></td>
+<td><p>Restrict SE context save and SHA_CTX_INTEGRITY operation to TZ.</p></td>
+</tr>
+<tr class="row-even"><td><p>disable_mb2_glitch_protection</p></td>
+<td><p>Disable checks on DCLS faults, TCM parity errors, and TCM and cache ECC.</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable_dram_error_injection</p></td>
+<td><ul class="simple">
+<li><p>0: Disable DRAM error injection tests.</p></li>
+<li><p>1: Enable DRAM error injection tests.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>enable_dram_staged_scrubbing</p></td>
+<td><ul class="simple">
+<li><p>0: If DRAM ECC is enabled, scrub entire DRAM.</p></li>
+<li><p>1: If DRAM ECC is enabled, scrub DRAM in stages. Each BL is responsible for the DRAM portions that it uses.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>wait_for_debugger_connection</p></td>
+<td><ul class="simple">
+<li><p>0: Do not wait for debugger connection at end of MB1.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>limit_l1_boot_client_freq</p></td>
+<td><ul class="simple">
+<li><p>1: Spin in a <code class="docutils literal notranslate"><span class="pre">while(1)</span></code> loop at end of MB1 for debugger connection.</p></li>
+<li><p>0: Keep boot client frequencies (BPMP, SE, CBB, and so on) same for L0 and L1 reset.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="clock-data">
+<h2>Clock Data<a class="headerlink" href="MiscConfig.html#clock-data" title="Link to this heading">#</a></h2>
+<p>The following fields allow certain clock-related customization.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bpmp_cpu_nic_divider</p></td>
+<td><p>Controls the BPMP CPU frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming CLK_SOURCE_BPMP_CPU_NIC[BPMP_CPU_NIC_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_BPMP_CPU_NIC[BPM_CPU_NIC_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>bpmp_apb_divider</p></td>
+<td><p>Controls the BPMP APB frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_BPMP_APB[BPMP_APB_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_BPMP_APB[BPMP_APB_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>axi_cbb_divider</p></td>
+<td><p>Controls the control backbone (CBB) frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_AXI_CBB[AXI_CBB_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_AXI_CBB[AXI_CBB_CL_K_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>se_divider</p></td>
+<td><p>Controls the SE (security engine) frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_SE[SE_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_SE[SE_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>aon_cpu_nic_divider</p></td>
+<td><p>Controls the AON/SPE CPU frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_AON_CPU_NIC[AON_CPU_NIC_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_AON_CPU_NIC[AON_CPU_NIC_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>aon_apb_divider</p></td>
+<td><p>Controls the AON APB frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_AON_CPU_NIC[AON_CPU_NIC_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_AON_CPU_NIC[AON_CPU_NIC_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>aon_can0_divider</p></td>
+<td><p>Controls the AON CAN1 frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_CAN1[CAN1_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_CAN1[CAN1_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>aon_can1_divider</p></td>
+<td><p>Controls the AON CAN2 frequency:</p>
+<ul class="simple">
+<li><p>0: Skip programming of CLK_SOURCE_CAN2[CAN2_CLK_DIVISOR].</p></li>
+<li><p>non-zero: 1 + value to be programmed in CLK_SOURCE_CAN2[CAN2_CLK_DIVISOR].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>osc_drive_strength</p></td>
+<td><p>Oscillator drive strength.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pllaon_divn</p></td>
+<td><p>DIVN value of PLLAON:</p>
+<ul class="simple">
+<li><p>0: Use PLLAON_DIVN = 30, PLLAON_DIVM = 1, PLLAON_DIVP = 2.</p></li>
+<li><p>non-zero: 1 + value to be programmed in PLLAON_BASE[PLLAON_DIVN].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>pllaon_divm</p></td>
+<td><p>DIVN value of PLLAON:</p>
+<ul class="simple">
+<li><p>DIVM value of PLLAON (ignored when clock.pllaon_divn = 0).</p></li>
+<li><p>1 + value to be programmed in PLLAON_BASE[PLLAON_DIVM].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>pllaon_divp</p></td>
+<td><p>DIVN value of PLLAON:</p>
+<ul class="simple">
+<li><p>DIVP value of PLLAON (ignored when clock.pllaon_divn = 0).</p></li>
+<li><p>1 + value to be programmed in PLLAON_BASE[PLLAON_DIVP].</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>pllaon_divn_frac</p></td>
+<td><p>Value to be programmed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ast-data">
+<h2>AST Data<a class="headerlink" href="MiscConfig.html#ast-data" title="Link to this heading">#</a></h2>
+<p>MB1/MB2 uses AST (address-translation) module for mapping the DRAM carveout for different firmware into the 32-bit virtual address space of the various auxiliary processor clusters.</p>
+<section id="mb1-ast-data">
+<h3>MB1 AST Data<a class="headerlink" href="MiscConfig.html#mb1-ast-data" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>mb2_va</p></td>
+<td><p>Virtual address for MB2 carveout in BPMP-R5 address space.</p></td>
+</tr>
+<tr class="row-odd"><td><p>spe_fw_va</p></td>
+<td><p>Virtual address for SPE-FW carveout in AON-R5 address space.</p></td>
+</tr>
+<tr class="row-even"><td><p>misc_carveout_va</p></td>
+<td><p>Virtual address for MISC carveout in SCE-R5 address space.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rcm_blob_carveout_va</p></td>
+<td><p>Virtual address for RCM-blob carveout in SCE-R5 address space.</p></td>
+</tr>
+<tr class="row-even"><td><p>temp_map_a_carveout_va</p></td>
+<td><p>Virtual address for temporary mapping A used while loading binaries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>temp_map_a_carveout_size</p></td>
+<td><p>Size for temporary mapping A used while loading binaries.</p></td>
+</tr>
+<tr class="row-even"><td><p>temp_map_a_carveout_va</p></td>
+<td><p>Virtual address for temporary mapping B used while loading binaries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>temp_map_a_carveout_size</p></td>
+<td><p>Size for temporary mapping B used while loading binaries.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>None of the preceding VA spaces should overlap with an MMIO region or with each other.</p></li>
+<li><p>Each size field should be a power of 2.</p></li>
+<li><p>Each VA field should be aligned to its mapping or carveout.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="carveout-configuration">
+<h2>Carveout Configuration<a class="headerlink" href="MiscConfig.html#carveout-configuration" title="Link to this heading">#</a></h2>
+<p>Although SDRAM Configuration has MC carveout’s preferred base, size and permissions, it does not have the information that is required to allocate the carveouts by MB1. This information is specified by using the miscellaneous configuration file.</p>
+<p>For carveouts that are not protected by MC, all information (including size and preferred base address) is specified using miscellaneous configuration file.</p>
+<p>Each MC carveout configuration parameter has the following form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/{
+    misc {
+        carveout {
+            &lt;carveout-type {
+                &lt;parameter = &lt;value&gt;;
+            };
+        };
+    };
+};
+</pre></div>
+</div>
+<p>where:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;carveout-type&gt;</span></code> identifies the carveout and is one of the following:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Carveout Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gsc&#64;[1–31]</p></td>
+<td><p>GSC carveout for various purposes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mts</p></td>
+<td><p>MTS/CPU-uCode carveout.</p></td>
+</tr>
+<tr class="row-even"><td><p>tzdram</p></td>
+<td><p>TZDRAM carveout used for SecureOS.</p></td>
+</tr>
+<tr class="row-odd"><td><p>os</p></td>
+<td><p>OS carveout used for loading OS kernel.</p></td>
+</tr>
+<tr class="row-even"><td><p>rcm</p></td>
+<td><p>RCM carveout used for loading RCM-blob during RCM mode (temporary boot carveout).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;parameter&gt;</span></code> is one of the following:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>pref_base</p></td>
+<td><p>Preferred base address of carveout.</p></td>
+</tr>
+<tr class="row-odd"><td><p>size</p></td>
+<td><p>Size of carveout (in bytes).</p></td>
+</tr>
+<tr class="row-even"><td><p>alignment</p></td>
+<td><p>Alignment of base address of carveout (in bytes).</p></td>
+</tr>
+<tr class="row-odd"><td><p>ecc_protected</p></td>
+<td><p>When DRAM region-based ECC is enabled and there are non-ECC protected DRAM regions, whether to allocate the carveout from ECC protected region:</p>
+<ul class="simple">
+<li><p>0: Allocate from non-ECC protected region.</p></li>
+<li><p>1: Allocate from ECC protected region.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>bad_page_tolerant</p></td>
+<td><p>When DRAM page blacklisting is enabled, whether it is OK to have bad pages in the carveout (only possible for very large carveouts that are handled completely by components that can avoid bad pages using SMMU/MMU):</p>
+<ul class="simple">
+<li><p>0: No bad pages allowed for the carveout.</p></li>
+<li><p>1: Bad pages allowed for the carveout. Allocation can be done without filtering bad pages.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+<p>The valid combination of the carveouts and their parameters are specified in following table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Supported carveout-type</p></th>
+<th class="head"><p>pref_base</p></th>
+<th class="head"><p>size</p></th>
+<th class="head"><p>alignment</p></th>
+<th class="head"><p>ecc_protected</p></th>
+<th class="head"><p>bad_page_tolerant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gsc-[1-31]/mts</p></td>
+<td><p>n/a</p></td>
+<td><p>n/a</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>tzdram/mb2/cpubl/misc/os/rcm</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="coresight-data">
+<h3>Coresight Data<a class="headerlink" href="MiscConfig.html#coresight-data" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cfg_system_ctl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_SYSTEM_CTL.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cfg_csite_mc_wr_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_CSITE_MC_WR_CTRL.</p></td>
+</tr>
+<tr class="row-even"><td><p>cfg_csite_mc_rd_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_CSITE_MC_RD_CTRL.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cfg_etr_mc_wr_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_ETR_MC_WR_CTRL.</p></td>
+</tr>
+<tr class="row-even"><td><p>cfg_etr_mc_rd_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_ETR_MC_RD_CTRL.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cfg_csite_cbb_wr_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_CSITE_CBB_WR_CTRL.</p></td>
+</tr>
+<tr class="row-even"><td><p>cfg_csite_cbb_rd_ctrl</p></td>
+<td><p>Value to be programmed to CORESIGHT_CFG_CSITE_CBB_RD_CTRL.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="firmware-load-and-entry-configuration">
+<h2>Firmware Load and Entry Configuration<a class="headerlink" href="MiscConfig.html#firmware-load-and-entry-configuration" title="Link to this heading">#</a></h2>
+<p>The firmware configuration is specified as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/{
+    misc {
+        ...
+        ...
+        firmware {
+                    &lt;firmware-type&gt; {
+                            &lt;parameter&gt; = &lt;value&gt;;
+            };
+        };
+    };
+};
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;firmware-type&gt;</span></code> is one of the MB2 or TZDRAM-E13 and <code class="docutils literal notranslate"><span class="pre">&lt;parameter&gt;</span></code> is specified in the following table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>load-offset</p></td>
+<td><p>Offset in the <code class="docutils literal notranslate"><span class="pre">&lt;firmware&gt;</span></code> carveout where <code class="docutils literal notranslate"><span class="pre">&lt;firmware&gt;</span></code> binary is loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p>entry-offset</p></td>
+<td><p>Offset of the <code class="docutils literal notranslate"><span class="pre">&lt;firmware&gt;</span></code> entry point in <code class="docutils literal notranslate"><span class="pre">&lt;firmware&gt;</span></code> carveout.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cpu-configuration">
+<h2>CPU Configuration<a class="headerlink" href="MiscConfig.html#cpu-configuration" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ccplex_platform_features</p></td>
+<td><p>CPU platform features (should be 0).</p></td>
+</tr>
+<tr class="row-odd"><td><p>clock_mode.clock_burst_policy</p></td>
+<td><p>CCPLEX clock burst policy.</p></td>
+</tr>
+<tr class="row-even"><td><p>clock_mode.max_avfs_mode</p></td>
+<td><p>Highest CCPLEX AVFS mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nafll_cfg2/fll_init</p></td>
+<td><p>CCPLEX NAFLL CFG2 [Fll Init]</p></td>
+</tr>
+<tr class="row-even"><td><p>nafll_cfg2/fll_ldmem</p></td>
+<td><p>CCPLEX NAFLL CFG2 [Fll Ldmem].</p></td>
+</tr>
+<tr class="row-odd"><td><p>nafll_cfg2/fll_switch_ldmem</p></td>
+<td><p>CCPLEX NAFLL CFG2 [Fll Switch Ldmem].</p></td>
+</tr>
+<tr class="row-even"><td><p>nafll_cfg3</p></td>
+<td><p>CCPLEX NAFLL CFG3.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nafll_ctrl1</p></td>
+<td><p>CCPLEX NAFLL CTRL1.</p></td>
+</tr>
+<tr class="row-even"><td><p>nafll_ctrl2</p></td>
+<td><p>CCPLEX NAFLL CTRL2.</p></td>
+</tr>
+<tr class="row-odd"><td><p>lut_sw_freq_req/sw_override_ndiv</p></td>
+<td><p>SW override for CCPLEX LUT frequency request.</p></td>
+</tr>
+<tr class="row-even"><td><p>lut_sw_freq_req/ndiv</p></td>
+<td><p>NDIV for CCPLEX LUT frequency request.</p></td>
+</tr>
+<tr class="row-odd"><td><p>lut_sw_freq_req/vfgain</p></td>
+<td><p>VFGAIN for CCPLEX LUT frequency request.</p></td>
+</tr>
+<tr class="row-even"><td><p>lut_sw_freq_req/sw_override_vfgain</p></td>
+<td><p>VFGAIN override for CCPLEX LUT frequency request.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nafll_coeff/mdiv</p></td>
+<td><p>MDIV for NAFLL coefficient.</p></td>
+</tr>
+<tr class="row-even"><td><p>nafll_coeff/pdiv</p></td>
+<td><p>PDIV for NAFLL coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nafll_coeff/fll_frug_main</p></td>
+<td><p>FLL frug main for NAFLL coefficient.</p></td>
+</tr>
+<tr class="row-even"><td><p>nafll_coeff/fll_frug_fast</p></td>
+<td><p>FLL frug fast for NAFLL coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p>adc_vmon.enable</p></td>
+<td><p>Enable CCPLEX ADC voltage monitor.</p></td>
+</tr>
+<tr class="row-even"><td><p>min_adc_fuse_rev</p></td>
+<td><p>Minimum ADC fuse revision.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pllx_base/divm</p></td>
+<td><p>PLLX DIVM.</p></td>
+</tr>
+<tr class="row-even"><td><p>pllx_base/divn</p></td>
+<td><p>PLLX DIVN.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pllx_base/divp</p></td>
+<td><p>PLLX DIVP.</p></td>
+</tr>
+<tr class="row-even"><td><p>pllx_base/enable</p></td>
+<td><p>Enable PLLX.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pllx_base/bypass</p></td>
+<td><p>PLLX Bypass Enable.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="other-configuration">
+<h2>Other Configuration<a class="headerlink" href="MiscConfig.html#other-configuration" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>aocluster.evp_reset_addr</p></td>
+<td><p>AON/SPE reset vector (in SPE BTCM).</p></td>
+</tr>
+<tr class="row-odd"><td><p>carveout_alloc_direction</p></td>
+<td><p>Carveout allocation direction:</p>
+<ul class="simple">
+<li><p>0: End of DRAM.</p></li>
+<li><p>1: End of 2-GB DRAM (32-bit address space).</p></li>
+<li><p>2: Start of DRAM.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>se_oem_group</p></td>
+<td><p>Value to be programmed to SE0_OEM_GROUP_0/SE_RNG1_RNG1_OEM_GROUP_0. (NVHS / NVLS / Lock bits are forced set.)</p></td>
+</tr>
+<tr class="row-odd"><td><p>i2c-freq</p></td>
+<td><p>List of <code class="docutils literal notranslate"><span class="pre">&lt;i2c-controller&gt;</span> <span class="pre">&lt;i2c-freqency&gt;</span></code> pairs, in which <code class="docutils literal notranslate"><span class="pre">&lt;i2c-controller&gt;</span></code> has valid values 0 through 8 and <code class="docutils literal notranslate"><span class="pre">&lt;i2c-freqency&gt;</span></code> is the frequency (in KHz) of the I2C controller instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="mb1-soft-fuse-configurations">
+<h3>MB1 Soft Fuse Configurations<a class="headerlink" href="MiscConfig.html#mb1-soft-fuse-configurations" title="Link to this heading">#</a></h3>
+<p>Certain platform-specific configurations or decisions in MB1 are required from the early stages of MB1 even before storage is initialized and MB1-BCT is read (for example, debug port details, certain boot-mode controls, behavior in case of failure, and so on.). To address this requirement, an array of 64 fields is added to signed section of BR-BCT, which is opaque to BR but is consumed by MB1. In recovery mode, BR does not read BR-BCT, so this array is kept part of RCM message and is copied by BR to the same location where BR will have kept it in coldboot as part of BR-BCT. This array is called <em>MB1 software fuses</em> (soft-fuse).</p>
+</section>
+<section id="debug-controls">
+<h3>Debug Controls<a class="headerlink" href="MiscConfig.html#debug-controls" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>verbosity</p></td>
+<td><p>Controls verbosity of debug logs on UART (verbosity increases with increasing value):</p>
+<ul class="simple">
+<li><p>0: UART logs disabled</p></li>
+<li><p>1: Critical prints only</p></li>
+<li><p>2: Error</p></li>
+<li><p>3: Warn</p></li>
+<li><p>4: Info</p></li>
+<li><p>5: Debug</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>uart_instance</p></td>
+<td><p>UART controller number where debug logs are saved:</p>
+<ul class="simple">
+<li><p>0: UARTA (only for simulation platforms).</p></li>
+<li><p>2: UARTC (open-box debug).</p></li>
+<li><p>5: UARTF (closed-box debug, USB-Type C over DP_AUX pins).</p></li>
+<li><p>7: UARTH (closed-box debug, USB-Type C over USB-OTG).</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>usb_2_nvjtag</p></td>
+<td><p>On-chip controller connected to the USB2 pins:</p>
+<ul class="simple">
+<li><p>0: ARMJTAG</p></li>
+<li><p>1: NVJTAG</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>swd_usb_port_sel</p></td>
+<td><p>USB2 port over which SWD should be configured:</p>
+<ul class="simple">
+<li><p>0: USB2 port 0</p></li>
+<li><p>1: USB2 port 1</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>uart8_usb_port_sel</p></td>
+<td><p>USB2 port over which UART should be configured:</p>
+<ul class="simple">
+<li><p>1: USB2 port 1</p></li>
+<li><p>0: USB2 port 0</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>wdt_enable</p></td>
+<td><p>Enable BPMP WDT 5th-expiry during the execution of MB1/MB2 (boolean).</p></td>
+</tr>
+<tr class="row-even"><td><p>wdt_period_secs</p></td>
+<td><p>BPMP WDT time period (in seconds) per expiry.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="boot-failure-controls">
+<h3>Boot Failure Controls<a class="headerlink" href="MiscConfig.html#boot-failure-controls" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>switch_bootchain</p></td>
+<td><p>Switch boot chain in case of failure (boolean).</p></td>
+</tr>
+<tr class="row-odd"><td><p>reset_to_recovery</p></td>
+<td><p>Trigger L1 RCM reset on failure (boolean).</p></td>
+</tr>
+<tr class="row-even"><td><p>bootchain_switch_mechanism</p></td>
+<td><p>Used if <code class="docutils literal notranslate"><span class="pre">switch_bootchain</span></code> is set to 1:</p>
+<ul class="simple">
+<li><p>0: Use BR-based boot-chain switching.</p></li>
+<li><p>1: Use Android A/B based boot-chain switching.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>bootchain_retry_count</p></td>
+<td><p>Maximum number of retries for a single boot-chain (0–15).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="on-off-ist-mode-controls">
+<h3>On/Off IST Mode Controls<a class="headerlink" href="MiscConfig.html#on-off-ist-mode-controls" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>platform_detection_flow</p></td>
+<td><p>In RCM mode, enter platform detection flow (boolean).</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable_tegrashell</p></td>
+<td><p>In RCM mode, enter tegrashell mode; allowed only if FUSE_SECURITY_MODE_0 is not blown (boolean).</p></td>
+</tr>
+<tr class="row-even"><td><p>enable_IST</p></td>
+<td><p>Enable Key On/Off IST boot (boolean).</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable_LO_IST</p></td>
+<td><p>Enable Key ON (L0) IST boot mode (boolean). Used only if <code class="docutils literal notranslate"><span class="pre">enable_IST</span></code> is set to 1.</p></td>
+</tr>
+<tr class="row-even"><td><p>enable_dgpu_IST</p></td>
+<td><p>Enable dGPU IST during IST boot modes (boolean).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="frequency-monitor-controls">
+<h3>Frequency Monitor Controls<a class="headerlink" href="MiscConfig.html#frequency-monitor-controls" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>vrefRO_calib_override</p></td>
+<td><p>Override VrefRO calibration based on SoftFuse instead of fuse (boolean).</p></td>
+</tr>
+<tr class="row-odd"><td><p>vrefRO_min_rev_threshold</p></td>
+<td><p>Program VrefRO frequency adjustment target based on <code class="docutils literal notranslate"><span class="pre">FUSE_VREF_CALIB_0</span></code> if <code class="docutils literal notranslate"><span class="pre">(FUSE_ECO_RESERVE_1[3:0]</span> <span class="pre">&gt;</span> <span class="pre">vrefRO_min_rev_threshold)</span></code>. Used if <code class="docutils literal notranslate"><span class="pre">vrefRO_calib_override</span></code> is set to 0.</p></td>
+</tr>
+<tr class="row-even"><td><p>vrefRO_calib_val</p></td>
+<td><p>VrefRO calibration value used to program VrefRO frequency adjustment target. Used if <code class="docutils literal notranslate"><span class="pre">vrefRO_calib_override</span></code> is set to 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>osc_threshold_low</p></td>
+<td><p>Lower threshold of the FMON counter for OSC clock.</p></td>
+</tr>
+<tr class="row-even"><td><p>osc_threshold_high</p></td>
+<td><p>Upper threshold of the FMON counter for OSC clock.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pmc_threshold_low</p></td>
+<td><p>Lower threshold of the FMON counter for 32K clock.</p></td>
+</tr>
+<tr class="row-even"><td><p>pmc_threshold_high</p></td>
+<td><p>Upper threshold of the FMON counter for 32K clock.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The miscellaneous configuration files are in the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/bootloader/generic/BCT</span></code> directory.</p>
+<p>Here is a DTS example of the new miscellaneous configuration file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/dts-v1/;
+
+#include &quot;tegrabl_carveout_id.h&quot;
+#include &quot;tegra234-mb1-bct-misc-common.dtsi&quot;
+#include &quot;tegra234-mb1-bct-carveout-l4t.dtsi&quot;
+#include &quot;tegra234-mb1-bct-disable-fsi-carveouts.dtsi&quot;
+
+/ {
+    misc {
+            disable_sc7 = &lt;0&gt;;
+            enable_tsec = &lt;0&gt;;
+                enable_4pin_ram_code = &lt;1&gt;;
+
+            ///////// SOCTHERM ///////////
+            soctherm {
+                        max_chip_limit = &lt;0x69&gt;;
+                    min_chip_limit = &lt;0xFFFFFFE4&gt;;
+            };
+
+            carveout {
+                    aux_info@CARVEOUT_CCPLEX_IST {
+                                pref_base = &lt;0x0 0x0&gt;;
+                            size = &lt;0x0 0x0&gt;; // 0MB
+                            alignment = &lt;0x0 0x0&gt;; // 0MB
+                    };
+            };
+
+                vmon {
+                    vdd_soc {
+                            soc_vmon_config@0 {
+                                    sku_info = &lt;0x0&gt;;
+                                    vmin_threshold = &lt;0x1a&gt;;
+                                    vmax_threshold = &lt;0x76&gt;;
+                            };
+                        };
+
+                    vdd_cpu {
+                            cpu_vmon_config@0 {
+                                    sku_info = &lt;0x0&gt;;
+                                        vmin_threshold = &lt;0x15&gt;;
+                                    vmax_threshold = &lt;0x7b&gt;;
+                            };
+                    };
+            };
+    };
+};
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="BootROMResetPMICConfig.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">BootROM Reset PMIC Configuration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SdramConfig.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SDRAM Configuration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#mb1-feature-fields">MB1 Feature Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#clock-data">Clock Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#ast-data">AST Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#mb1-ast-data">MB1 AST Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#carveout-configuration">Carveout Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#coresight-data">Coresight Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#firmware-load-and-entry-configuration">Firmware Load and Entry Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#cpu-configuration">CPU Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#other-configuration">Other Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#mb1-soft-fuse-configurations">MB1 Soft Fuse Configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#debug-controls">Debug Controls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#boot-failure-controls">Boot Failure Controls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#on-off-ist-mode-controls">On/Off IST Mode Controls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="MiscConfig.html#frequency-monitor-controls">Frequency Monitor Controls</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

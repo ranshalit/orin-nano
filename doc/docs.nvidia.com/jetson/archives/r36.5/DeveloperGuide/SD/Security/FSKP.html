@@ -1,0 +1,1596 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Factory Secure Key and Expansion Key Provisioning &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Security/FSKP';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="OP-TEE: Open Portable Trusted Execution Environment" href="OpTee.html" />
+    <link rel="prev" title="Secure Boot" href="SecureBoot.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="FSKP.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Security.html">Security</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="FSKP.html#">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Security.html" class="nav-link">Security</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Factory...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="factory-secure-key-and-expansion-key-provisioning">
+<h1>Factory Secure Key and Expansion Key Provisioning<a class="headerlink" href="FSKP.html#factory-secure-key-and-expansion-key-provisioning" title="Link to this heading">#</a></h1>
+<p>Factory Secure Key Provisioning (FSKP) is a technique to securely burn
+fuses on the factory floor. The fuse data contains a sensitive device
+and encryption keys that establish the root of trust on the target
+device. FSKP protection is important because the factory floor might not
+have a high level of security and can pose security risks.</p>
+<p>FSKP provides a way to securely transfer fuse data to NVIDIA® Jetson™
+using encryption. This encryption is completed with a shared platform
+key called the FSKP key, and this key is available on the OEM’s hardware
+security module (HSM) server for encryption and in the chip’s internal
+ROM (IROM) for decryption.</p>
+<p>Jetson devices are programmed with 64 FSKP keys, and these keys are in
+an array of 64 AES 256-bit symmetric keys, which are stored in internal
+ROM (IROM) on the chip and are referenced by an index from 0 to 63. Of
+these keys, 46 can be assigned to OEMs to protect their factory floor,
+Jetson boot images, and fuse data with a digital signature and
+encryption. NVIDIA generates and places the keys in the Jetson IROM to
+make them part of the secure boot chain of trust.</p>
+<p>Although 46 FSKP keys are available to the OEMs, this is not enough keys
+to accommodate the growing number of OEMs. To solve this problem, a <a class="reference external" href="https://en.wikipedia.org/wiki/Key_derivation_function#:~:text=In%20cryptography%2C%20a%20key%20derivation,hash%20function%20or%20block%20cipher).">Key
+derivation
+key</a>
+uses the Key derivation function (KDF) to generate a derived key from
+the root key (Key 62 or the Expansion Key). By using KDF, you can
+generate an unlimited number of derived keys.</p>
+<section id="requesting-fskp-expansion-keys">
+<h2>Requesting FSKP Expansion Keys<a class="headerlink" href="FSKP.html#requesting-fskp-expansion-keys" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Contact your NVIDIA representative to start the process.</p></li>
+<li><p>Generate a one-time RSA key pair with a cryptographic tool (we
+recommend openssl, see section
+<a class="reference external" href="FSKP.html#generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-2-with-openssl">1.2.2</a>
+for detailed instructions).</p></li>
+<li><p>Send the <code class="docutils literal notranslate"><span class="pre">public_key.cer</span></code> to NVIDIA.</p></li>
+<li><p>After the request is approved, the FSKP Expansion Keys will be
+encrypted with the <code class="docutils literal notranslate"><span class="pre">public_key.cer</span></code> and sent back to you inside a
+<code class="docutils literal notranslate"><span class="pre">Results.zip</span></code> file.</p></li>
+<li><p>You can use the keys to prepare your encrypted and signed blob.</p></li>
+</ol>
+</section>
+<section id="generating-and-verifying-the-self-signed-x-509-certificate">
+<h2>Generating and Verifying the Self-Signed X.509 Certificate<a class="headerlink" href="FSKP.html#generating-and-verifying-the-self-signed-x-509-certificate" title="Link to this heading">#</a></h2>
+<p>The self-signed X.509 certificate is the certificate that the FSKP owner
+emails to the key custodian.</p>
+<p>Here are the requirements to generate and verify the certificate:</p>
+<ul class="simple">
+<li><p>A Linux system with the Java key tool utility (keytool) installed. Refer to <a class="reference external" href="https://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html">keytool - Key and Certificate Management
+Tool</a> for more information.</p></li>
+<li><p>The OpenSSL toolkit. Refer to the home page of the OpenSSL Project, <a class="reference external" href="https://www.openssl.org/">Welcome to Open SSL!</a> for more information.</p></li>
+</ul>
+<p>To generate a self-signed X.509 certificate, use <code class="docutils literal notranslate"><span class="pre">keytool</span></code> or <code class="docutils literal notranslate"><span class="pre">openssl</span></code>.</p>
+<section id="generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-1-with-keytool">
+<h3>Generating an RSA Key Pair and Creating a Certificate with the Public Key (Option 1 with keytool)<a class="headerlink" href="FSKP.html#generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-1-with-keytool" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>On the Linux system, create a directory to store the private and
+public key:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ mkdir ~/CKMS
+</pre></div>
+</div>
+</li>
+<li><p>Generate a Java keystore and an RSA key pair and place the key pair
+in the Java keystore.</p>
+<p>A Java keystore (JKS) is a storage area in the Linux file system
+where the Java key tool utility stores cryptographic keys and
+certificates. You can use the keytool command to generate the key
+pair and place it in the Java keystore where <em>&lt;alias&gt;</em> is an alias
+that keytool uses to identify the key pair. Although the alias is
+arbitrary, it must be unique in the Java keystore because the alias
+is used as the basename of the CER (certificate) file.</p>
+</li>
+<li><p>To access the keystore, enter a password.</p></li>
+<li><p>To access the RSA key pair, enter a password.</p></li>
+<li><p>Export the public key to a certificate (CER) file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>keytool -export -alias &lt;alias&gt; -file ~/CKMS/&lt;alias&gt;.cer \\ -keystore ~/CKMS/mystore.jks
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;alias&gt;</span></code> is assigned to the key pair, and the keytool utility
+creates the CER file with the specified name and stores the
+certificate in the CER file and the Java keystore.</p>
+</li>
+<li><p>Email the CER file to the NVIDIA key custodian.</p></li>
+</ol>
+</section>
+<section id="generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-2-with-openssl">
+<h3>Generating an RSA Key Pair and Creating a Certificate with the Public Key (Option 2 with openssl)<a class="headerlink" href="FSKP.html#generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-2-with-openssl" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Generate 4096 bits RSA Public and private keys:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>openssl genrsa -aes-256-cbc -out oem_rsa_priv.pem 4096
+</pre></div>
+</div>
+</li>
+<li><p>Generate RSA x509 based Certification:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>openssl req -new -x509 -outform PEM -key oem_rsa_priv.pem -out oem_publickey.cer -days 365
+</pre></div>
+</div>
+</li>
+<li><p>Email the CER file to the NVIDIA key custodian.</p></li>
+</ol>
+</section>
+</section>
+<section id="content-of-the-results-zip-file">
+<h2>Content of the Results.zip File<a class="headerlink" href="FSKP.html#content-of-the-results-zip-file" title="Link to this heading">#</a></h2>
+<p>FSKP Expansion keys, which are wrapped and encrypted with the OEM
+<code class="docutils literal notranslate"><span class="pre">public_key.cer</span></code>, will be sent from NVIDIA in a zip file.</p>
+<p>Here are the contents of the zip file:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_ak.bin.rsa_wrap</span></code>: The FSKP_AK wrapped with the RSA public key
+(binary).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_ak.bin.rsa_wrap.info</span></code>: metadata, Label, and String/Context used
+in KDF, and KCV of FSKP_AK.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_ek.bin.rsa_wrap</span></code>: FSKP_EK wrapped with RSA public key (binary).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_ek.bin.rsa_wrap.info</span></code>: metadata, Label, and String/Context used
+in KDF, and the KCV of FSKP_EK.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_conf.txt</span></code>: includes the AK and EK strings for fskp_fuseburn.py
+use.</p></li>
+</ul>
+</section>
+<section id="an-example-preparing-the-encrypted-and-signed-blob-at-hsm">
+<h2>An Example: Preparing the Encrypted and Signed Blob at HSM<a class="headerlink" href="FSKP.html#an-example-preparing-the-encrypted-and-signed-blob-at-hsm" title="Link to this heading">#</a></h2>
+<p>Here are the software requirements:</p>
+<ul class="simple">
+<li><p>Ubuntu 18.04, 20.04, or 22.04</p></li>
+<li><p>JetPack public release package:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Jetson_Linux_R3x.x.0_aarch64.tbz2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tegra_Linux_Sample-Root-Filesystem_R3x.x.0_aarch64.tbz2</span></code></p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>FSKP tool package: <code class="docutils literal notranslate"><span class="pre">fskp_partner_t234_R3x.x.0_aarch64.tbz2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Results.zip</span></code>: Obtained from NVIDIA.</p></li>
+<li><p>Openssl: <a class="reference external" href="https://www.openssl.org/">https://www.openssl.org/</a></p></li>
+</ul>
+<ol class="arabic">
+<li><p>Untar the JetPack release and the
+fskp_partner_t234_R3x.x.0_aarch64.tbz2 file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tar xpfv ${L4T_RELEASE_PACKAGE}
+$ sudo tar xpf ${SAMPLE_FS_PACKAGE} -C Linux_for_Tegra/rootfs/
+
+# Copy fskp_partner_t234_R3x.x.0_aarch64.tbz2 to the same directory
+
+$ cd Linux_for_Tegra/
+$ tar xvjf ../fskp_partner_t234_R3x.x.0_aarch64.tbz2
+$ sudo ./apply_binaries.sh
+$ sudo ./tools/l4t_flash_prerequisites.sh
+$ cd l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">Results.zip</span></code> file to the <code class="docutils literal notranslate"><span class="pre">l4t/tools/flashtools/fuseburn</span></code> folder and unzip it:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ unzip Results.zip
+</pre></div>
+</div>
+</li>
+<li><p>Decrypt the <code class="docutils literal notranslate"><span class="pre">*.rsa_warp</span></code> files (Encrypted keys).</p></li>
+<li><p>Navigate to the fuseburn scripts directory.</p></li>
+<li><p>To restore keys, run the openssl command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd l4t/tools/flashtools/fuseburn/Results
+
+openssl rsautl -decrypt -inkey oem_rsa_priv.pem -in fskp_ak.bin.rsa_wrap &gt; fskp_ak.bin
+
+openssl rsautl -decrypt -inkey oem_rsa_priv.pem -in fskp_ek.bin.rsa_wrap &gt; fskp_ek.bin
+</pre></div>
+</div>
+</li>
+<li><p>Copy these files from the Results directory to the fuseburn directory
+(one level above):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ mv fskp_ak.bin ..
+$ mv fskp_ek.bin ..
+$ mv fskp_conf.txt ..
+</pre></div>
+</div>
+</li>
+</ol>
+<section id="preparing-the-encrypted-and-signed-blob">
+<h3>Preparing the Encrypted and Signed Blob<a class="headerlink" href="FSKP.html#preparing-the-encrypted-and-signed-blob" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Make sure the board specifications files and the board configuration
+files have the correct information. The board specification file
+contains a non-exhaustive list of environment variables to pass to
+the NVIDIA-provided board specifications file to generate a list of
+files to use for the FSKP process. We recommend that you provide the
+following variables for the board specification. Refer to the
+official Jetson documentations on how to retrieve these values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BOARDID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CHIP_SKU</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BOARDSKU</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RAMCODE_ID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FAB</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BOARDREV</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All these variables can be retrieved by <code class="docutils literal notranslate"><span class="pre">flash.sh</span></code> with the <code class="docutils literal notranslate"><span class="pre">--read-info</span></code> command option.</p>
+</div>
+</li>
+<li><p>Run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd &lt;top&gt;/l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+<li><p>Depending on your device, run the following command:</p>
+<ul>
+<li><p>NVIDIA Orin AGX:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./fskp_fuseburn.py --board-spec orin-agx-board-spec.txt -f fuseblob.xml -i 62 --test --key-exp fskp_ak.bin fskp_ek.bin --fskpcfg fskp_conf.txt -g out/ -c 0x23 -B &lt;top&gt;/jetson-agx-orin-devkit.conf
+
+*fuseblob.xml is the fuse blob data to burn.
+</pre></div>
+</div>
+</li>
+<li><p>NVIDIA Orin Nano:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./fskp_fuseburn.py --board-spec orinnano-board-spec.txt -f fuseblob.xml -i 62 --test --key-exp fskp_ak.bin fskp_ek.bin --fskpcfg fskp_conf.txt -g out/ -c 0x23 -B &lt;top&gt;/jetson-orin-nano-devkit.conf
+
+*fuseblob.xml is the fuse blob data to burn.*
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This example uses the <code class="docutils literal notranslate"><span class="pre">--test</span></code> argument that will not burn the fuses. To burn the fuses, users need to change it to <code class="docutils literal notranslate"><span class="pre">-b</span></code>.</p>
+</div>
+</li>
+<li><p>When prompted whether to continue testing the fuses, enter <strong>No</strong>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>WARNING!! Testing Fuses option is selected
+
+do you want to continue testing the fuses (Yes/No) **No**
+
+The out.tar file will be generated, and it will contain the encrypted
+and signed blob files that can be delivered to the factory floor.
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="an-example-using-the-encrypted-and-signed-blob-at-the-factory">
+<h2>An Example: Using the Encrypted and Signed Blob at the Factory<a class="headerlink" href="FSKP.html#an-example-using-the-encrypted-and-signed-blob-at-the-factory" title="Link to this heading">#</a></h2>
+<p>Here are the software requirements:</p>
+<ul class="simple">
+<li><p>Ubuntu 18.04, 20.04, or 22.04</p></li>
+<li><p>JetPack public release package:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Jetson_Linux_R3x.x.0_aarch64.tbz2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Tegra_Linux_Sample-Root-Filesystem_R3x.x.0_aarch64.tbz2</span></code></p></li>
+</ul>
+</li>
+<li><p>FSKP tool package: <code class="docutils literal notranslate"><span class="pre">fskp_partner_t234_R3x.x.0_aarch64.tbz2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Out.tar</span></code>: Generated in 1.4 and is delivered to the factory floor.</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Untar the JetPack release and the <code class="docutils literal notranslate"><span class="pre">fskp_partner_t234.tbz2</span></code> file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ tar xpfv ${L4T_RELEASE_PACKAGE}
+$ sudo tar xpf ${SAMPLE_FS_PACKAGE} -C Linux_for_Tegra/rootfs/
+
+# Copy fskp_partner_t234_R3x.x.0_aarch64.tbz2 to the same directory
+
+$ cd Linux_for_Tegra/
+$ tar xvjf ../fskp_partner_t234_R3x.x.0_aarch64.tbz2
+$ sudo ./apply_binaries.sh
+$ sudo ./tools/l4t_flash_prerequisites.sh
+$cd l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+<p>Here is the Tegra UART output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo minicom -D /dev/ttyACM0
+</pre></div>
+</div>
+<p>You need to capture the Tegra UART output to determine whether the
+burn fuse process was successful.</p>
+</li>
+<li><p>Place the Tegra in Recovery mode:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd &lt;top&gt;/Linux_for_Tegra/tools/board_automation
+sudo ./boardctl -t topo recovery
+</pre></div>
+</div>
+</li>
+<li><p>Navigate to the fuseburn scripts directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd &lt;top&gt;/l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+<li><p>Copy the <code class="docutils literal notranslate"><span class="pre">out.tar</span></code> file that was delivered to the factory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#Untar the out.tar
+tar xpfv out.tar
+</pre></div>
+</div>
+</li>
+<li><p>Burn the fuses.</p>
+<ul>
+<li><p>NVIDIA Orin AGX:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./fskp_fuseburn.py --board-spec orin-agx-board-spec.txt -P ./out -c 0x23 -B &lt;top&gt;/jetson-agx-orin-devkit.conf
+</pre></div>
+</div>
+</li>
+<li><p>NVIDIA Orin Nano:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./fskp_fuseburn.py --board-spec orinnano-board-spec.txt -P ./out -c 0x23 -B &lt;top&gt;/jetson-orin-nano-devkit.conf
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-agx-orin-devkit.conf</span></code> file is used for NVIDIA Orin AGX, so you need to modify the board spec file with the correct information for your Tegra Hardware.</p>
+</div>
+</li>
+<li><p>When prompted about continuing to test the fuses, enter <strong>Yes</strong>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>WARNING!! Testing Fuses option is selected
+do you want to continue testing the fuses (Yes/No) **Yes**
+</pre></div>
+</div>
+</li>
+</ol>
+<section id="burn-status">
+<h3>Burn Status<a class="headerlink" href="FSKP.html#burn-status" title="Link to this heading">#</a></h3>
+<p>To determine the burn status:</p>
+<ol class="arabic">
+<li><p>On the Linux Host, verify that the following message is displayed:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FSKP execution successful
+</pre></div>
+</div>
+</li>
+<li><p>On the target (Tegra UART output), here is a sample fuseblob.xml
+result:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>I&gt; Task: Burn fuses (0x500039e4)
+I&gt; Index : 1 Kdk0 size: 32
+I&gt; Index : 2 OemK1 size: 32
+I&gt; Index : 3 PublicKeyHash size: 64
+I&gt; Index : 4 SecureBootKey size: 32
+I&gt; Index : 5 BootSecurityInfo size: 4
+I&gt; Index : 6 OdmId size: 8
+I&gt; Index : 7 OdmInfo size: 4
+I&gt; Fuse Blob found
+I&gt;
+I&gt; ...
+I&gt; **Successfully burnt fuses as per fuse info**
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Table 0‑1. Burn Status Actions</span><a class="headerlink" href="FSKP.html#id2" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>Burned
+successfully</p></td>
+<td><p>On the host</p>
+<p>Find this text:</p>
+<p><strong>FSKP execution successful</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>On the target (Tegra UART output), find this text:</p>
+<p><strong>Successfully burnt fuses as per fuse info.</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Failed to Burn</p></td>
+<td><p>If missing either of the texts from the host or the
+target.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="using-the-fskp-fuseburn-py-file-to-burn-fuses">
+<h2>Using the fskp_fuseburn.py File to Burn Fuses<a class="headerlink" href="FSKP.html#using-the-fskp-fuseburn-py-file-to-burn-fuses" title="Link to this heading">#</a></h2>
+<p>The FSKP fusing scripts include the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_fuseburn.py</span></code>: Provides a high-level script that is invoked by the user. The script prepares encrypted and signed blobs, performs fuse burning, and invokes other tools based on the input parameters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp_helper.py</span></code>, <code class="docutils literal notranslate"><span class="pre">fskp_parser.py</span></code>, and <code class="docutils literal notranslate"><span class="pre">fskp_shell_helper.py</span></code>: helper scripts for the <code class="docutils literal notranslate"><span class="pre">fskp_fuseburn.py</span></code> scripts.</p></li>
+</ul>
+<p>The FSKP tools include the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tegraparser_v2</span></code>: Parses a fuse XML configuration file and uses it to
+generate a blob that contains the fuse data and an FSKP target-binary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tegrarcm_v2</span></code>: Manages communication between the host and the target
+and exchanges data and commands over USB with target’s BootROM and
+bootloader.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tegrasign_v3.py</span></code>: Encrypts and signs an input image with the specified
+key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tegrabct_v2</span></code>: Creates BR_BCT, MB1_BCT, and the derivatives key
+binaries are used to encrypt and sign the fskp_blob.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>: Appends the necessary header and brushes binaries to
+help sign and encrypt the binary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fskp.bin</span></code>: This FSKP target-binary is a minimal bootloader that is
+used to burn fuses and write to storage. Optionally, it also completes RPMB provisioning.</p></li>
+<li><p><a class="reference external" href="FSKP.html#fuse-configuration-file">Fuse configuration file</a>:
+An XML file that contains the <strong>fuse list</strong> that is read by the tegraparser_v2 tool. The fuse list specifies the name, length, and value of each fuse to be burned in the order in which they are listed.</p></li>
+</ul>
+<p>Here is the FSKP fuse flow:</p>
+<ol class="arabic simple">
+<li><p>Prepare the fuse data and the fskp binary blob in a secure environment.</p></li>
+<li><p>Fuse the hardware fuses on the target chip in the factory where the environment might not be secure.</p></li>
+</ol>
+<section id="fskp-fuse-burn-script">
+<h3>FSKP Fuse Burn Script<a class="headerlink" href="FSKP.html#fskp-fuse-burn-script" title="Link to this heading">#</a></h3>
+<p><strong>Before</strong> you can use the <code class="docutils literal notranslate"><span class="pre">fskp_fuseburn.py</span></code> tool, the Python programming
+software must be installed on the host system.</p>
+<p>The tool completes the following tasks:</p>
+<ul class="simple">
+<li><p>Parses the fuse configuration file and prepares a blob that contains
+the fuse data and an FSKP target-binary.</p></li>
+<li><p>Encrypts and signs the blob with the input key.</p></li>
+<li><p>Signs MB1 and optionally creates MB1-BCT.</p></li>
+<li><p>Downloads MB1 to the target and optionally downloads MB1-BCT on the
+target using USB recovery mode commands.</p></li>
+<li><p>Downloads the blob to the target using USB Recovery Mode commands and
+performs fuse burning.</p></li>
+<li><p>Optionally completes RPMB provisioning.</p></li>
+</ul>
+<p><strong>Before you begin</strong>, create a flashing environment that can be used
+with this tool. Refer to <cite>To Flash the Jetson Developer Kit Operating
+Software &lt;&gt;</cite> for more information.</p>
+<ol class="arabic">
+<li><p>After you create the flashing environment, verify that the following
+folder exists:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./Linux_for_Tegra
+</pre></div>
+</div>
+</li>
+<li><p>To access the tool, extract fskp_partner_t234.tbz2:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo tar xpfv fskp_partner_t234.tbz2
+
+The script is in the following directory, executes on the host, and
+accepts the arguments in Table 2‑1.
+
+l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Here is an example of how the script is used:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo &lt;BOARD_SPEC&gt; ./fskp_fuseburn.py --board-spec &lt;board_spec&gt; -f &lt;fuse_config&gt; -i &lt;key_index&gt; -k &lt;FSKP_key&gt; -g &lt;out&gt; -c &lt;chip&gt; -B &lt;board&gt;
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Table 2‑1. Accepted Arguments</span><a class="headerlink" href="FSKP.html#id3" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Argument</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--help</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-h</span></code>)</p></td>
+<td><p>Displays the help menu.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--burnfuse</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-b</span></code>)</p></td>
+<td><p>Performs fuse burning.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--board</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-B</span></code>)</p></td>
+<td><p>Board name for which you want to create a
+fuse blob or program fuses. Check help for
+the default supported boards.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--chip</span> <span class="pre">&lt;chip&gt;</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">&lt;chip&gt;</span></code>)</p></td>
+<td><p>Sets tegra chipid, for example, 0x23 for
+NVIDIA Orin SoC.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--fskpcfg</span> <span class="pre">&lt;file&gt;</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-C</span> <span class="pre">&lt;file&gt;</span></code>)</p></td>
+<td><p>Sets the derivation strings values from a
+text file instead of using the default
+values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ecid</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-e</span></code>)</p></td>
+<td><p>Gets the ECID of the target.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--fusefile</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">&lt;file&gt;</span></code>)</p></td>
+<td><p>Specifies the fuse configuration file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--outdir</span> <span class="pre">&lt;path&gt;</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">&lt;path&gt;</span></code>)</p></td>
+<td><p>Generates a blob at &lt;path&gt; and does not
+perform a burn.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--keyindex</span> <span class="pre">&lt;index&gt;</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">&lt;index&gt;</span></code>)</p></td>
+<td><p>SoC FSKP key index allotted to the OEM.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--key</span></code> (or <code class="docutils literal notranslate"><span class="pre">-k</span></code>)</p></td>
+<td><p>FSKP key file provided to OEMs as per
+keyindex.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--key-exp</span>
+<span class="pre">&lt;AK_keyfile&gt;</span>
+<span class="pre">&lt;EK_keyfile&gt;</span></code></p></td>
+<td><p>FSKP expansion key file pair that is provided
+to OEMs as per the key index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--board-spec</span> <span class="pre">&lt;file&gt;</span></code></p></td>
+<td><p>A board specification contains the BOARDSKU,
+FAB, and other board specific values. For
+examples, default_board_spec.txt contains the
+following:</p>
+<ul class="simple">
+<li><p>BOARDID=3701</p></li>
+<li><p>BOARDSKU=0004</p></li>
+<li><p>FAB=000</p></li>
+<li><p>CHIP_SKU=”00:00:00:D0”</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--skipconfirmation</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-s</span></code>)</p></td>
+<td><p>Skips the confirmation message while burning
+the fuse.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--test</span></code> (or <code class="docutils literal notranslate"><span class="pre">-t</span></code>)</p></td>
+<td><p>Performs a dummy operation and does not burn
+fuses.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--skipuid</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-u</span></code>)</p></td>
+<td><p>Skips querying the UID of the target.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--verbose</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-v</span></code>)</p></td>
+<td><p>Enables verbose logs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--skipfskpkey</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-K</span></code>)</p></td>
+<td><p>Use FSKP without using a FSKP key.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--prebuilt</span> <span class="pre">&lt;path&gt;</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-P</span> <span class="pre">&lt;path&gt;</span></code>)</p></td>
+<td><p>Picks a prebuilt blob from &lt;path&gt; and does
+not generate a blob.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--version</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">-V</span></code>)</p></td>
+<td><p>Identifies the version number.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="fuse-configuration-file">
+<h3>Fuse Configuration File<a class="headerlink" href="FSKP.html#fuse-configuration-file" title="Link to this heading">#</a></h3>
+<p>The fuse configuration file is an XML file that contains the fuse data.
+The <code class="docutils literal notranslate"><span class="pre">tegraparser_v2</span></code> tool parses this file and uses it to generate a blob
+of fuse configuration data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the fuse configuration file contains XML tags, it does
+not need the <code class="docutils literal notranslate"><span class="pre">&lt;?xml...?&gt;</span></code> prolog defined by the XML standard because the
+fuse configurations might not have a prolog. To run general XML
+utilities on this file, you might have to add a prolog.</p>
+</div>
+<p>For information about the format of the fuse configuration file, refer
+to <a class="reference external" href="FSKP.html#format-of-the-fuse-configuration-file">Format of the Fuse Configuration File</a>.</p>
+<p>The fuse burn script burns fuses in the order in which they are
+specified in the fuse configuration file. It does not check for fuse
+dependencies. You must ensure that the fuse configuration file specifies
+fuses in an order that does not burn the dependent fuses <strong>before</strong> the
+fuses on which they depend.</p>
+<section id="format-of-the-fuse-configuration-file">
+<h4>Format of the Fuse Configuration File<a class="headerlink" href="FSKP.html#format-of-the-fuse-configuration-file" title="Link to this heading">#</a></h4>
+<p>A fuse configuration file contains a <code class="docutils literal notranslate"><span class="pre">&lt;genericfuse&gt;…</span> <span class="pre">&lt;/genericfuse&gt;</span></code> tag
+pair that contains one <code class="docutils literal notranslate"><span class="pre">&lt;fuse/&gt;</span></code> tag for each fuse that will be burned.
+The following template shows the format of the file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;genericfuse MagicId=&quot;0x45535546&quot; version=&quot;1.0.0&quot;&gt;
+
+&lt;fuse name=&quot;&lt;name&gt;&quot; size=&quot;&lt;size&gt;&quot; value=&quot;&lt;value&gt;&quot;/&gt;
+
+&lt;fuse name=&quot;&lt;name&gt;&quot; size=&quot;&lt;size&gt;&quot; value=&quot;&lt;value&gt;&quot;/&gt;
+
+. . .
+
+&lt;/genericfuse&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> is the name of a fuse and these names are documented in the
+table under Manufacture Programmable Fuses.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;size&gt;</span></code> is the size of the fuse in bytes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code> is the value to be burned into the fuse, with two
+hexadecimal digits per byte.</p></li>
+</ul>
+<p>MagicID is used by the FSKP target-binary and must not be changed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fskp.bin</span></code> burns fuses in the order in which they appear in the
+fuse configuration file. If the value of two or more fuses are
+interdependent, the independent fuses must be specified <strong>before</strong> the
+dependent fuses so that the independent fuses are burned first. That is,
+if the values that can be burned into fuse Z depend on the value of fuse
+Y, and the values that might be burned into fuse Y depend on the value
+of fuse X, the fuse configuration file must specify and burn the fuses
+in the following order:</p>
+<ol class="arabic simple">
+<li><p>Fuse X</p></li>
+<li><p>Fuse Y</p></li>
+<li><p>Fuse Z</p></li>
+</ol>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The FSKP fuse burning tool does not check for dependencies, so
+specifying a dependent fuse before the fuse on which it depends, might
+render the target device inoperable. Check the fuse list’s order
+carefully before you burn the fuses.</p>
+</div>
+<p>To use RPMB provisioning, the tool supports fusing the RPMB key on eMMC
+storage. The version field must be 2.0.0 for RPMB. This requires the
+OEM_K1 key to be present in the fuse configuration file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;genericfuse MagicId=&quot;0x45535546&quot; version=&quot;2.0.0&quot;&gt;
+
+&lt;rpmb provisioning = &quot;0x1&quot; dev_type = &quot;0x2&quot;/&gt;
+
+&lt;fuse name=&quot;&lt;name&gt;&quot; size=&quot;&lt;size&gt;&quot; value=&quot;&lt;value&gt;&quot;/&gt;
+
+&lt;fuse name=&quot;&lt;name&gt;&quot; size=&quot;&lt;size&gt;&quot; value=&quot;&lt;value&gt;&quot;/&gt;
+
+. . .
+
+&lt;/genericfuse&gt;
+</pre></div>
+</div>
+</section>
+<section id="a-reference-fuse-configuration-file">
+<h4>A Reference Fuse Configuration File<a class="headerlink" href="FSKP.html#a-reference-fuse-configuration-file" title="Link to this heading">#</a></h4>
+<p>The Jetson Linux platform provides a fuse configuration file for use as
+a reference, and the file is located here:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;top&gt;/l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+<p>The fuse list for this file is ordered correctly to allow for fuse
+dependencies.</p>
+<p>Some fuse values in the reference configuration file are enclosed in XML
+comments, as in the following example. To adapt the reference file for
+your use, uncomment them and replace the 0xFFFF… placeholder values with
+the actual key index values for your target:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;genericfuse MagicId=&quot;0x45535546&quot; version=&quot;1.0.0&quot;&gt; &lt;!-- &lt;fuse
+name=&quot;OdmId&quot; size=&quot;8&quot; value=&quot;0xFFFFFFFFFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm0&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm1&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm2&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm3&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm4&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm5&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm6&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;ReservedOdm7&quot; size=&quot;4&quot; value=&quot;0xFFFFFFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;OdmInfo&quot; size=&quot;4&quot; value=&quot;0x0000FFFF&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;SecureProvisionInfo&quot; size=&quot;4&quot; value=&quot;0x1&quot;/&gt; --&gt; &lt;!-- &lt;fuse
+name=&quot;PublicKeyHash&quot; size=&quot;64&quot;
+value=&quot;0x00000000111111112222222233333333444444445555555566666666777777778888888899999999aaaaaaaabbbbbbbbccccccccddddddddeeeeeeeeffffffff&quot;/&gt;
+--&gt; &lt;!-- &lt;fuse name=&quot;BootSecurityInfo&quot; size=&quot;4&quot; value=&quot;0x1&quot;/&gt; --&gt;
+&lt;!-- &lt;fuse name=&quot;SecurityMode&quot; size=&quot;4&quot; value=&quot;0x1&quot;/&gt;
+--&gt;&lt;/genericfuse&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although its size is 4, only the last two bytes in the Odminfo are allowed to be programmed.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="preparing-an-encrypted-and-signed-blob">
+<h2>Preparing an Encrypted and Signed Blob<a class="headerlink" href="FSKP.html#preparing-an-encrypted-and-signed-blob" title="Link to this heading">#</a></h2>
+<p>The FSKP blob encryption and signing is completed by using derived keys,
+and here is the process:</p>
+<ol class="arabic simple">
+<li><p>To parse the fuse configuration file and prepare a blob that contains
+fuse data and an FSKP target-binary, call <code class="docutils literal notranslate"><span class="pre">tegraparser_v2</span></code>.</p></li>
+<li><p>To generate the derived string binaries, call <code class="docutils literal notranslate"><span class="pre">tegrabct_v2</span></code> to parse
+the <code class="docutils literal notranslate"><span class="pre">dev_param</span></code> and the br-bct dts files.</p></li>
+<li><p>To create <code class="docutils literal notranslate"><span class="pre">BR-BCT</span></code>, <code class="docutils literal notranslate"><span class="pre">MB1-BCT</span></code>, and <code class="docutils literal notranslate"><span class="pre">MEM-BCT</span></code>, call <code class="docutils literal notranslate"><span class="pre">tegrabct_v2</span></code>.</p></li>
+<li><p>To append the BCH header and sign the BCT binaries in step 3, call
+<code class="docutils literal notranslate"><span class="pre">tegrasign_v3.py</span></code>.</p></li>
+<li><p>To align the FSKP blob, call <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+<li><p>To append the BCH header on FSKP blob, call <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+<li><p>To encrypt the FSKP blob with the encryption key and sign it next,
+call <code class="docutils literal notranslate"><span class="pre">tegrasign_v3.py</span></code>.</p></li>
+<li><p>To sign MB1, PSC-BL1 binaries, call <code class="docutils literal notranslate"><span class="pre">tegrasign_v3.py</span></code>.</p></li>
+<li><p>To append and fill the signature on the MB1 and PSC-BL1 binaries,
+call <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+<li><p>For the binaries to be included in the blob, cpu-bootloader, MB2,
+bpmp firmware, bpmp-dtb, spe firmware, mts, and psc firmware,
+complete the following tasks:</p>
+<ol class="loweralpha simple">
+<li><p>To align, call each one with <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+<li><p>To append the BCH header, call each one with <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+<li><p>To sign, call <code class="docutils literal notranslate"><span class="pre">tegrasign_v3.py</span></code>.</p></li>
+<li><p>To generate the blob, call each one with <code class="docutils literal notranslate"><span class="pre">tegrahost_v2</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+<section id="preparing-the-encrypted-and-signed-blob-1">
+<span id="id1"></span><h3>Preparing the Encrypted and Signed Blob<a class="headerlink" href="FSKP.html#preparing-the-encrypted-and-signed-blob-1" title="Link to this heading">#</a></h3>
+<p>The Results.zip file includes a fskp_conf.txt file that can be used
+as the <code class="docutils literal notranslate"><span class="pre">-fskpcfg</span></code> fskpcfg argument.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">fskp_conf.txt</span></code> file is not provided, users can create this file
+with the strings from <code class="docutils literal notranslate"><span class="pre">fskp_ak.bin.rsa_wrap.info</span></code> and
+<code class="docutils literal notranslate"><span class="pre">fskp_ek.bin.rsa_wrap.info</span></code> and place them in a configuration file of
+the following fixed format.</p>
+<p>The content of the strings are 32 bytes in hex, and here is an
+example:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>sec_provision_derivation_string1</p></th>
+<th class="head"><p>Encryption Key (EK)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sec_provision_derivation_string2</p></td>
+<td><p>Authentication Key (AK)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sec_provision_derivation_string1 =
+&quot;0x0000000000000000000000000000000000000000000000000000000000000001&quot;;
+
+sec_provision_derivation_string2 =
+&quot;0x0000000000000000000000000000000000000000000000000000000000000002&quot;;
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>Navigate to the fuseburn scripts directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;top&gt;/l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+<li><p>Run the fuseburn command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo &lt;BOARD_SPEC&gt; ./fskp_fuseburn.py [-b] -f &lt;fuse_config&gt; -i &lt;key_index&gt; -k &lt;FSKP_key&gt; -g &lt;out&gt; -c &lt;chip&gt; --fskpcfg &lt;fskp_cfg&gt; -B &lt;board&gt; [--board-spec &lt;board-spec-file&gt;]
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Where:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;fuse_config&gt;</span></code> is the fuse configuration file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;key_index&gt;</span></code> is the FSKP key index.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;FSKP_key&gt;</span></code> is the FSKP key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;out&gt;</span></code> is the directory where the command will write the output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;chip&gt;</span></code> is the chip for which the FSKP blob is generated. For example, 0x23 is for NVIDIA Orin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;fskp_cfg&gt;</span></code> is optionally generated by the OEM in step 1 to
+overwrite the default derivation strings. If you want default derivation strings, omit this argument.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;board&gt;</span></code> is the board config file in the Linux_for_Tegra folder. For
+example, <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/jetson-agx-orin-devkit.conf</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span></code> indicates that you need to use burn setting, but fuse burning
+does not take place.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span></code> indicates that you want to generate the fuse blob that burns the
+fuses. Without <code class="docutils literal notranslate"><span class="pre">-b</span></code>, the generated fuse blob will only do a dry run on the
+target when trying to burn fuses with the <em>-p</em> option.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;BOARD_SPEC&gt;</span></code> is the board information environment variables, such
+as BOARD_SKU, FAB, and so on.</p>
+<p>This will be provided for NVIDIA developer kits.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;board-spec-file&gt;</span></code> is like <code class="docutils literal notranslate"><span class="pre">&lt;BOARD_SPEC&gt;</span></code>, you can specify a shell
+script to define BOARD_SKU, FAB, and so on. NVIDIA provides the default_board_spec.txt file as an example for the AGX specification file.</p>
+<p>This command prepares an encrypted and signed blob and binaries and
+stores the binaries and the encrypted FSKP blob in the &lt;out&gt;
+directory. The directory can be used on the factory floor for fuse
+burning. The tool also conveniently generates a tarball (<code class="docutils literal notranslate"><span class="pre">&lt;out&gt;.tar</span></code>)
+so you can move the directory to other machines.</p>
+<p>For example, to generate a test fuse blob for Jetson AGX NVIDIA Orin
+devkit board, run the following fuse burn command with the debug key
+use index 63:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./fskp_fuseburn.py -f fuse.xml -i 63 -k debug.key -g out/ -c 0x23 -B /home/user/Linux_for_Tegra/jetson-agx-orin-devkit.conf --board-spec orin-agx-board-spec.txt
+</pre></div>
+</div>
+<ol class="loweralpha">
+<li><p>To generate a test fuse blob for Jetson AGX NVIDIA Orin devkit board,
+run the following fuse burn command with the debug key use index 63
+x:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./fskp_fuseburn.py -f fuse.xml -b -i 63 -k debug.key -g out/ -c 0x23 -B /home/user/Linux_for_Tegra/jetson-agx-orin-devkit.conf --board-spec orin-agx-board-spec.txt
+</pre></div>
+</div>
+</li>
+<li><p>To use the FSKP expansion by using derived key pair AK and EK, run
+the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo &lt;BOARD_SPEC&gt; ./fskp_fuseburn.py -f &lt;fuse_config&gt; -i &lt;key_index&gt; --key-exp &lt;AK_key&gt; &lt;EK_key&gt; -g &lt;out&gt; -c &lt;chip&gt; --fskpcfg &lt;fskp_cfg&gt; -B &lt;board&gt; [--board-spec &lt;board-spec-file&gt;]
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+</ul>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;fuse_config&gt;</span></code> is the fuse configuration file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;key_index&gt;</span></code> is the FSKP key index (should be 62).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;AK_key&gt;</span></code> is the FSKP derived authentication key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;EK_key&gt;</span></code> is the FSKP derived encryption key.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;out&gt;</span></code> is the directory where the command will write the output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;chip&gt;</span></code> is the chip for which the FSKP blob is generated. For example, 0x23 is for NVIDIA Orin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;fskp_cfg&gt;</span></code> is mandatory. The fskp_cfg expansion key is provided by NVIDIA, and its content cannot be modified by the OEM.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;board&gt;</span></code> is the board config file in the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra</span></code> folder. For example, <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/jetson-agx-orin-devkit.conf</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g``</span></code> indicates that you need to use burn setting, but fuse burning
+does not take place. <strong>Do not</strong> use <code class="docutils literal notranslate"><span class="pre">-s</span></code> to skip the fuse burning confirmation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span></code> indicates that you want to generate the fuse blob that burns the
+fuses. When trying to burn fuses with the -p option, without the -b option, the generated fuse blob will only complete a dry run on the target.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;BOARD_SPEC&gt;</span></code> is the board information environment variables, such
+as <code class="docutils literal notranslate"><span class="pre">BOARD_SKU</span></code>, <code class="docutils literal notranslate"><span class="pre">FAB</span></code>, and so on. These variables will be provided for NVIDIA developer kits.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;board-spec-file&gt;</span></code> is like <code class="docutils literal notranslate"><span class="pre">&lt;BOARD_SPEC&gt;</span></code> you can specify a shell
+script to define <code class="docutils literal notranslate"><span class="pre">BOARD_SKU</span></code>, <code class="docutils literal notranslate"><span class="pre">FAB</span></code>, and so on. NVIDIA provides the orin-agx-board-spec.txt file as an example for
+the AGX specification file.</p></li>
+</ul>
+<p>This command prepares an encrypted and signed blob and binaries as
+described earlier. It stores the binaries and the encrypted FSKP blob in
+the &lt;out&gt; directory, and this directory can be used on the factory floor
+for fuse burning. The tool also conveniently generates a tarball
+(&lt;out&gt;.tar) so you can move the directory to other machines.</p>
+<p>For example, to generate a test fuse blob for the Jetson AGX NVIDIA Orin
+devkit board:</p>
+<ol class="arabic">
+<li><p>Run the following fuseburn command with expansion key pair use index
+62:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./fskp_fuseburn.py -f fuse.xml -i 62 -key-exp AK.key EK.key --fskpcfg fskp_conf.txt -g out/ -c 0x23 -B /home/user/Linux_for_Tegra/jetson-agx-orin-devkit.conf --board-spec orin-agx-board-spec.txt
+</pre></div>
+</div>
+</li>
+<li><p>Run the following fuseburn command with expansion key pair use index
+62 to generate a real fuse blob for the Jetson AGX NVIDIA Orin devkit
+board:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./fskp_fuseburn.py -b -f fuse.xml -i 62 -key-exp AK.key EK.key --fskpcfg fskp_conf.txt -g out/ -c 0x23 -B /home/user/Linux_for_Tegra/jetson-agx-orin-devkit.conf --board-spec default_board_spec.txt
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="burning-fuses-in-the-factory">
+<h2>Burning Fuses in the Factory<a class="headerlink" href="FSKP.html#burning-fuses-in-the-factory" title="Link to this heading">#</a></h2>
+<p>Use the fskp_fuseburn.py fuse burn script to burn fuses in the factory.
+The script uses <code class="docutils literal notranslate"><span class="pre">tegrarcm_v2</span></code> to communicate with the target over USB and
+sends the blob to the target.</p>
+<section id="preparing-a-system-to-burn-fuses">
+<h3>Preparing a System to Burn Fuses<a class="headerlink" href="FSKP.html#preparing-a-system-to-burn-fuses" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Download the encrypted and signed blob from the secure facility and
+store it in the <code class="docutils literal notranslate"><span class="pre">&lt;top&gt;/out</span></code> directory.</p></li>
+<li><p>Place the target in the USB Recovery mode.</p></li>
+</ol>
+</section>
+<section id="burning-the-fuses">
+<h3>Burning the Fuses<a class="headerlink" href="FSKP.html#burning-the-fuses" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Navigate to the fuseburn scripts directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;top&gt;/l4t/tools/flashtools/fuseburn
+</pre></div>
+</div>
+</li>
+<li><p>Execute the fuseburn command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./fskp_fuseburn.py --board-spec &lt;board_spec&gt; -P ./out -b -c 0x23 -B &lt;board&gt;
+</pre></div>
+</div>
+<p>When the command successfully executes, here is the printout for the <code class="docutils literal notranslate"><span class="pre">fskp_fuseburn.py</span></code> script:</p>
+<ul>
+<li><p>On the host:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FSKP execution successful
+</pre></div>
+</div>
+</li>
+<li><p>On the target (Tegra UART output):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Successfully Burnt Fuses as per fuse inf
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SecureBoot.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Secure Boot</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="OpTee.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">OP-TEE: Open Portable Trusted Execution Environment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#requesting-fskp-expansion-keys">Requesting FSKP Expansion Keys</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#generating-and-verifying-the-self-signed-x-509-certificate">Generating and Verifying the Self-Signed X.509 Certificate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-1-with-keytool">Generating an RSA Key Pair and Creating a Certificate with the Public Key (Option 1 with keytool)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#generating-an-rsa-key-pair-and-creating-a-certificate-with-the-public-key-option-2-with-openssl">Generating an RSA Key Pair and Creating a Certificate with the Public Key (Option 2 with openssl)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#content-of-the-results-zip-file">Content of the Results.zip File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#an-example-preparing-the-encrypted-and-signed-blob-at-hsm">An Example: Preparing the Encrypted and Signed Blob at HSM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#preparing-the-encrypted-and-signed-blob">Preparing the Encrypted and Signed Blob</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#an-example-using-the-encrypted-and-signed-blob-at-the-factory">An Example: Using the Encrypted and Signed Blob at the Factory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#burn-status">Burn Status</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#using-the-fskp-fuseburn-py-file-to-burn-fuses">Using the fskp_fuseburn.py File to Burn Fuses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#fskp-fuse-burn-script">FSKP Fuse Burn Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#fuse-configuration-file">Fuse Configuration File</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#format-of-the-fuse-configuration-file">Format of the Fuse Configuration File</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#a-reference-fuse-configuration-file">A Reference Fuse Configuration File</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#preparing-an-encrypted-and-signed-blob">Preparing an Encrypted and Signed Blob</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#preparing-the-encrypted-and-signed-blob-1">Preparing the Encrypted and Signed Blob</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#burning-fuses-in-the-factory">Burning Fuses in the Factory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#preparing-a-system-to-burn-fuses">Preparing a System to Burn Fuses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="FSKP.html#burning-the-fuses">Burning the Fuses</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

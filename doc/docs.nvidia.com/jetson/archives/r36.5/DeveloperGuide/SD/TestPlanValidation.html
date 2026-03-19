@@ -1,0 +1,2857 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Test Plan and Validation &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/TestPlanValidation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Jetson Developer Kit Setup" href="../HR/JetsonDeveloperKitSetup.html" />
+    <link rel="prev" title="Working With Sources" href="WorkingWithSources.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="TestPlanValidation.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="TestPlanValidation.html#">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Test Plan...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="test-plan-and-validation">
+<h1>Test Plan and Validation<a class="headerlink" href="TestPlanValidation.html#test-plan-and-validation" title="Link to this heading">#</a></h1>
+<section id="flash-and-boot">
+<h2>Flash and Boot<a class="headerlink" href="TestPlanValidation.html#flash-and-boot" title="Link to this heading">#</a></h2>
+<p>This section provides information about the Flash and Boot test cases.</p>
+<section id="check-the-flash-and-boot-using-the-flash-sh-script">
+<h3>Check the Flash and Boot Using the flash.sh Script<a class="headerlink" href="TestPlanValidation.html#check-the-flash-and-boot-using-the-flash-sh-script" title="Link to this heading">#</a></h3>
+<p>To flash the target device:</p>
+<ol class="arabic simple">
+<li><p>Place the target device into recovery mode.</p>
+<ol class="loweralpha simple">
+<li><p>Power on the carrier board and hold the <strong>Recovery</strong> button.</p></li>
+<li><p>Press the RESET button.</p></li>
+</ol>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also run the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command to place device in recovery mode as mentioned in step 3. The <code class="docutils literal notranslate"><span class="pre">topo</span></code> command is supported only in Jetson Orin.</p>
+<p>If you did not place the target device in recovery mode manually, run the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command.</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>To download the customer release build from the server, run the following command:</p>
+</li>
+<li><p>(<strong>Optional</strong>) Start the serial console to check boot logs.</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+<li><p>Flash the device.</p>
+</li>
+</ol>
+<p>Expected Result: The device will boot correctly without a crash or kernel panic. Refer to <a class="reference internal" href="FlashingSupport.html#sd-flashingsupport"><span class="std std-ref">FlashingSupport</span></a> for more information.</p>
+</section>
+<section id="check-the-flash-and-boot-sdkm">
+<h3>Check the Flash and Boot SDKM<a class="headerlink" href="TestPlanValidation.html#check-the-flash-and-boot-sdkm" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following steps mention flashing of NVIDIA shared image on Jetson Platform. If you have a custom BSP, flash it first and then use SDKM only to install additional SDK packages.</p>
+</div>
+<ol class="arabic">
+<li><p>Go to <a class="reference external" href="https://developer.nvidia.com/nvidia-sdk-manager">https://developer.nvidia.com/nvidia-sdk-manager</a> and download sdkmanager.</p>
+<ul class="simple">
+<li><p>To install sdkmanager on your Ubuntu installation, run the following command.</p>
+</li>
+<li><p>To install sdk manager using .deb on your system run the following command.</p>
+</li>
+</ul>
+</li>
+<li><p>In a terminal window, to start SDK Manager, run the <code class="docutils literal notranslate"><span class="pre">sdkmanager</span></code> command.</p></li>
+<li><p>In the SDK Manager launch screen, select the appropriate login tab for your account type:
+- NVIDIA Developer (developer.nvidia.com)
+- NVONLINE (partners.nvidia.com)</p></li>
+<li><p>To connect serial console, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">minicom</span> <span class="pre">-c</span> <span class="pre">on</span> <span class="pre">-w</span> <span class="pre">-D</span> <span class="pre">/dev/ttyACM0</span></code> command.</p>
+<p>When you launch sdkmanager in step 1, your connected device should be identified/listed, for example, <code class="docutils literal notranslate"><span class="pre">jetson</span> <span class="pre">AGX</span> <span class="pre">Orin</span></code>.</p>
+</li>
+<li><p>To the target device into reset/recovery mode, complete the following tasks:</p>
+<ol class="loweralpha simple">
+<li><p>Make sure device is power ON, and if it is not, press the power button.</p></li>
+<li><p>Press and hold the <strong>Recovery(RCM)</strong> button.</p></li>
+<li><p>Press the <strong>Reset</strong> button.</p></li>
+<li><p>Release the <em>Recovery(RCM)*</em> button</p></li>
+</ol>
+</li>
+<li><p>Select <strong>Host Machine</strong>, <strong>Target Hardware(Jetson AGX Orin)</strong>, or the latest available version of JetPack.</p></li>
+<li><p>Select <strong>Packages to install</strong>.</p></li>
+<li><p>Select ALL the Product Category to be used to validate other feature use cases) continue to step 3.</p></li>
+<li><p>Select <strong>Manual Setup - Jetson Agx Orin</strong>, <strong>Emmc</strong> as the storage device, and the user name/password to be set for the flashed image.</p></li>
+</ol>
+<p>10.To debug a failure in the terminal tab in SDK manager, complete the steps in the <cite>SDK Manager User Guide&lt;https://docs.nvidia.com/sdk-manager/index.html&gt;_</cite>.</p>
+<ol class="arabic simple" start="11">
+<li><p>Select <strong>install</strong>.</p></li>
+<li><p>To verify the flash, log in to the device.</p></li>
+<li><p>Verify that the installation should completed successfully.</p></li>
+</ol>
+<p>Expected Result: The device boot should complete without any crash or kernel panic, and all JetPack components should be installed properly on boot. Refer to <a class="reference external" href="https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html">https://docs.nvidia.com/sdk-manager/install-with-sdkm-jetson/index.html</a> for more information.</p>
+</section>
+<section id="nvme-boot">
+<h3>NVME Boot<a class="headerlink" href="TestPlanValidation.html#nvme-boot" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>, ensure that you have an NVME with the minimum of 16GB.</p>
+<p>To flash the target device:</p>
+<ol class="arabic simple">
+<li><p>To place the target device in recovery mode, complete the following tasks:</p>
+<ol class="loweralpha simple">
+<li><p>Power on the carrier board and keep the <strong>Recovery</strong> button pressed.</p></li>
+<li><p>Press the <strong>Reset</strong> button.</p></li>
+</ol>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command to place the device in recovery mode.</p>
+<p>If you have not yet manually placed the target device in recovery mode, run the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command.</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>Download the customer release build from server.</p>
+</li>
+<li><p>(Optional) To check boot logs, start the serial console.</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+<li><p>Flash the device.</p>
+</li>
+<li><p>Complete the set up, for example, typing the user name, the location, the timezone, and so on.</p></li>
+<li><p>Log in to system.</p></li>
+</ol>
+</section>
+<section id="nfs-boot">
+<h3>NFS Boot<a class="headerlink" href="TestPlanValidation.html#nfs-boot" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>install the packages for NFS.</p>
+</li>
+<li><p>Complete the following steps to flash the target device:</p>
+<ol class="loweralpha simple">
+<li><p>Place the target device into recovery mode.</p></li>
+<li><p>Power on the carrier board and press the <strong>Recovery</strong> button.</p></li>
+<li><p>Press the <strong>Reset</strong> button.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command to place device in recovery mode.</p>
+</div>
+</li>
+<li><p>Download the customer release build from the server.</p>
+<p>If you have not yet manually placed the target device in recovery mode, run the <code class="docutils literal notranslate"><span class="pre">topo</span></code> command.</p>
+</li>
+<li><p>(Optional) To check boot logs, start the serial console.</p>
+<blockquote>
+<div></div></blockquote>
+</li>
+<li><p>Add the rootfs path to the <code class="docutils literal notranslate"><span class="pre">/etc/exports</span></code> directory.</p>
+</li>
+<li><p>Restart the NFS service.</p>
+<p>Refer to <a class="reference internal" href="FlashingSupport.html#sd-flashingsupport"><span class="std std-ref">To RCM boot to NFS</span></a> for more information.</p>
+</li>
+<li><p>Just to make sure your NFS share is visible to the client, run the following command on the NFS server.</p>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">rcm</span> <span class="pre">boot</span></code> command.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./flash.sh</span> <span class="pre">-N</span> <span class="pre">10.24.212.249:$HOME/generic_release_aarch64/Linux_for_Tegra/Linux_for_Tegra/rootfs</span> <span class="pre">--rcm-boot</span> <span class="pre">jetson-agx-orin-devkit</span> <span class="pre">eth0</span></code></p>
+</li>
+<li><p>Complete the set up.</p></li>
+<li><p>Log in to system.</p></li>
+</ol>
+<p>Expected Result: The device should boot properly without a crash or kernel panic. Refer to <a class="reference external" href="https://forums.developer.nvidia.com/t/how-to-boot-from-nfs-on-xavier-nx/142505">https://forums.developer.nvidia.com/t/how-to-boot-from-nfs-on-xavier-nx/142505</a> for more information.</p>
+</section>
+</section>
+<section id="system-software">
+<h2>System Software<a class="headerlink" href="TestPlanValidation.html#system-software" title="Link to this heading">#</a></h2>
+<section id="detection-of-usb-hub-fs-hs-ss">
+<h3>Detection of USB Hub (FS/HS/SS)<a class="headerlink" href="TestPlanValidation.html#detection-of-usb-hub-fs-hs-ss" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Boot the target.</p></li>
+<li><p>Connect the USB Hub (FS/HS/SS) to one USB port in the target device.</p></li>
+<li><p>Check on serial terminal.</p>
+<p>Serial terminal will show you model and speed of the hub. You can also check the demsg logs for more information.</p>
+</li>
+<li><p>Connect the hub to the second port and check.</p></li>
+</ol>
+<p>Expected Result: The USB hub should be enumerated on all USB ports of the target.</p>
+</section>
+<section id="detection-of-usb-3-0-flashdrive-hot-plug-in">
+<h3>Detection of USB-3.0 Flashdrive (Hot plug-in)<a class="headerlink" href="TestPlanValidation.html#detection-of-usb-3-0-flashdrive-hot-plug-in" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Boot the target.</p></li>
+<li><p>Connect the USB3 pendrive to one USB port of the target.</p></li>
+<li><p>Using a serial terminal, check whether the flash drive has enumerated by running the <code class="docutils literal notranslate"><span class="pre">lsusb</span></code> command.</p>
+<p>You can also check whether the drive is listed in the file browser and check the demsg logs for more information.</p>
+</li>
+<li><p>Copy the files to pendrive.</p></li>
+<li><p>Complete steps 1-4 on all USB ports on the target.</p></li>
+</ol>
+<p>Expected Result: The USB3 Pendrive should be detected on all of the USB ports of the target.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all ports are USB 3.0 capable, so your device might operate at lower speeds. Review the relevant developer kit documentation to determine whether USB 3.0-capable ports.</p>
+</div>
+</section>
+<section id="detecting-the-keyboard">
+<h3>Detecting the Keyboard<a class="headerlink" href="TestPlanValidation.html#detecting-the-keyboard" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Connect keyboard to the device.</p></li>
+<li><p>Using a serial terminal, check whether the keyboard has enumerated by running the <code class="docutils literal notranslate"><span class="pre">serial</span> <span class="pre">terminal</span></code> command.</p></li>
+<li><p>Press any key on keyboard to verify the functionality.</p></li>
+</ol>
+<p>Expected Result: The keyboard should be successfully detected and functional.</p>
+</section>
+<section id="detecting-the-mouse">
+<h3>Detecting the Mouse<a class="headerlink" href="TestPlanValidation.html#detecting-the-mouse" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Connect the USB mouse to the device.</p></li>
+<li><p>Using a serial terminal, check whether the mouse has enumerated.</p></li>
+<li><p>Use the connected mouse to verify the functionality.</p></li>
+</ol>
+<p>Expected Result: The mouse should be successfully detected and functional.</p>
+</section>
+<section id="cold-boot-10-cycles">
+<h3>Cold Boot 10 Cycles<a class="headerlink" href="TestPlanValidation.html#cold-boot-10-cycles" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Log in to the device.</p></li>
+<li><p>Run the power down command, for example:</p>
+</li>
+<li><p>Press the power button.</p></li>
+</ol>
+<p>Expected Result: The device should reboot successfully for each iterations without any kernel panic, failures, and errors.</p>
+</section>
+<section id="warm-boot-10-cycles">
+<h3>Warm Boot 10 Cycles<a class="headerlink" href="TestPlanValidation.html#warm-boot-10-cycles" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Log in to the device.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">reboot</span></code> command to warm boot the device.</p></li>
+</ol>
+<p>Expected Result: The device should reboot successfully for each iterations without any kernel panic, failures, and errors.</p>
+</section>
+<section id="checking-for-failures-and-error-messages-in-dmesg">
+<h3>Checking for Failures and Error Messages in dmesg<a class="headerlink" href="TestPlanValidation.html#checking-for-failures-and-error-messages-in-dmesg" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Check the dmesg logs for failures and errors.</p>
+</li>
+</ol>
+<p>Expected Result: There should be no error and failures messages in the dmesg log.</p>
+</section>
+<section id="using-the-display-port-dp">
+<h3>Using the Display Port (DP)<a class="headerlink" href="TestPlanValidation.html#using-the-display-port-dp" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target with the Display Port (DP) connected (1080P/4K).</p></li>
+<li><p>Ensure that you see boot logo, framebuffer, and the desktop on the connected DP.</p></li>
+</ol>
+<p>Expected Result: There should be no corruption on the display.</p>
+</section>
+<section id="lp0-resume-basic-functionality">
+<h3>LP0-Resume Basic Functionality<a class="headerlink" href="TestPlanValidation.html#lp0-resume-basic-functionality" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This check needs to be completed five times.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Ensure that you can access the serial terminal, for example, <code class="docutils literal notranslate"><span class="pre">ttyUSB0</span></code>.</p></li>
+<li><p>On the serial terminal, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">suspend</span></code> command.</p></li>
+</ol>
+<p>Expected Result: The device suspend prints are displayed on the serial terminal and that the display is off.</p>
+<p>You can wake up the device by using the connected USB keyboard.</p>
+</section>
+<section id="uart-i-o-debug-print-messages">
+<h3>UART I/O (Debug Print Messages)<a class="headerlink" href="TestPlanValidation.html#uart-i-o-debug-print-messages" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>Ensure that you can access the serial terminal, for example, <code class="docutils literal notranslate"><span class="pre">ttyUSB0</span></code>.</p>
+</li>
+</ol>
+</section>
+<section id="configuring-the-40-pin-expansion-header">
+<h3>Configuring the 40-Pin Expansion Header<a class="headerlink" href="TestPlanValidation.html#configuring-the-40-pin-expansion-header" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Start Jetson-IO, and on the developer kit, run the following command:</p>
+</li>
+<li><p>The options to configure the I/O are displayed.</p></li>
+<li><p>Complete the steps in <a class="reference external" href="https://docs.nvidia.com/jetson/l4t/index.html#page/Tegra%2520Linux%2520Driver%2520Package%2520Development%2520Guide">https://docs.nvidia.com/jetson/l4t/index.html#page/Tegra%2520Linux%2520Driver%2520Package%2520Development%2520Guide</a>.</p></li>
+<li><p>Save and reboot.</p></li>
+<li><p>After configuring the pins, reboot the device.</p></li>
+<li><p>Start the jetson-io.oy and check whether the pins have been configured for the selected option.</p>
+<p>Refer to <a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html#hr-configuringthejetsonexpansionheaders"><span class="std std-ref">ConfiguringTheJetsonExpansionHeaders</span></a> for more information.</p>
+</li>
+</ol>
+</section>
+<section id="jetson-linux-watchdog-timer-enable-verification">
+<h3>Jetson-Linux WatchDog Timer Enable Verification<a class="headerlink" href="TestPlanValidation.html#jetson-linux-watchdog-timer-enable-verification" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the target.</p></li>
+<li><p>On the serial console, to crash the system, run the following command.</p>
+</li>
+<li><p>Check WatchDog Timer reboots device after the timeout, for example, 180 seconds.</p></li>
+</ol>
+<p>Expected Result: The device should be rebooted by the WatchDog Timer without errors and failures.</p>
+</section>
+<section id="verifying-the-boot-time-services-and-scripts">
+<h3>Verifying the Boot Time Services and Scripts<a class="headerlink" href="TestPlanValidation.html#verifying-the-boot-time-services-and-scripts" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Verify that all boot time scripts are correctly initialized.</p></li>
+<li><p>To check that there are no failures because of the scripts, run the following command.</p>
+</li>
+<li><p>To verify that the services/scripts start without failure/errors, run the following command.</p>
+</li>
+<li><p>Check serial logs during the device boot-up.</p></li>
+</ol>
+<p>Expected Result: There should not be any errors.</p>
+</section>
+</section>
+<section id="nvpmodel-power-modes">
+<h2>nvpmodel: Power Modes<a class="headerlink" href="TestPlanValidation.html#nvpmodel-power-modes" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nvpmodel introduces different power modes on the Jetson platforms. The selected mode determines which CPU cores are used and the maximum frequency of the CPU and GPU. Detailed specifications of the supported power modes for Jetson AGX Orin, Orin NX, and Orin Nano are listed in the section <a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-supportedmodesandpowerefficiency"><span class="std std-ref">Supported Modes and Power Efficiency</span></a>.
+You can also find the power mode details for your device in <code class="docutils literal notranslate"><span class="pre">/etc/nvpmodel.conf</span></code>.</p>
+</div>
+<section id="setting-and-verifying-supported-power-modes">
+<h3>Setting and Verifying Supported Power Modes<a class="headerlink" href="TestPlanValidation.html#setting-and-verifying-supported-power-modes" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To check the current power mode, boot the device and run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-q</span></code> command.</p></li>
+<li><p>To set a desired power mode, run the <code class="docutils literal notranslate"><span class="pre">'sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-m</span> <span class="pre">x</span></code> command.</p>
+<p>In this command, <code class="docutils literal notranslate"><span class="pre">x</span></code> is a supported power mode ID.</p>
+</li>
+<li><p>To set the maximum supported power, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-m</span> <span class="pre">0</span></code> command.</p></li>
+<li><p>To check various settings for a power mode, run the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-q</span> <span class="pre">--verbose</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+<li><p>Repeat steps 1 to 4 for all supported power modes. Refer to the section <a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-supportedmodesandpowerefficiency"><span class="std std-ref">Supported Modes and Power Efficiency</span></a> to find the supported power modes for your device and SKU.</p></li>
+</ol>
+<p>Expected Result: You should be able to set a supported power model. The CPU/GPU/EMC frequency should be changed based on the selected power mode.</p>
+</section>
+<section id="verify-cpu-gpu-and-emc-frequencies">
+<h3>Verify CPU, GPU, and EMC Frequencies<a class="headerlink" href="TestPlanValidation.html#verify-cpu-gpu-and-emc-frequencies" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Perform a stress test on the system by installing and running a dedicated stress utility or glmark2. Alternatively, execute a <code class="docutils literal notranslate"><span class="pre">dd</span></code> command.</p></li>
+<li><p>Monitor CPU, GPU and EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+</ol>
+<p>Expected Result: The CPU/GPU/EMC frequencies should be as per the current power mode and they should not cross power mode’s max freq.</p>
+</section>
+<section id="verify-cpu-gpu-and-emc-frequencies-after-resuming-from-sc7-state">
+<h3>Verify CPU, GPU, and EMC Frequencies after Resuming from SC7 State<a class="headerlink" href="TestPlanValidation.html#verify-cpu-gpu-and-emc-frequencies-after-resuming-from-sc7-state" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Put the system into SC7 state and resume.</p></li>
+<li><p>After resuming from SC7 state, perform a stress test on the system by installing and running a dedicated stress utility or glmark2. Alternatively, execute a <code class="docutils literal notranslate"><span class="pre">dd</span></code> command.</p></li>
+<li><p>Monitor CPU, GPU and EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+</ol>
+<p>Expected Result: The CPU/GPU/EMC frequencies should be as per the current power mode and they should not cross power mode’s max freq.</p>
+</section>
+<section id="verify-power-mode-is-preserved-after-cold-boot">
+<h3>Verify Power Mode Is Preserved after Cold Boot<a class="headerlink" href="TestPlanValidation.html#verify-power-mode-is-preserved-after-cold-boot" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Turn off the device using <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">poweroff</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>.</p></li>
+<li><p>Boot the device by pressing the power button.</p></li>
+<li><p>After reboot, check the current power mode and CPU/GPU/EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+<li><p>Perform a stress test on the system by installing and running a dedicated stress utility or glmark2. Alternatively, execute a <code class="docutils literal notranslate"><span class="pre">dd</span></code> command.</p></li>
+<li><p>Check the current power mode and CPU/GPU/EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+<li><p>Repeat for 5 cold boot cycles.</p></li>
+</ol>
+<p>Expected Result: The power mode should not change after cold boot. The CPU/GPU/EMC frequencies should be as per the power mode.</p>
+</section>
+<section id="verify-power-mode-is-preserved-after-warm-boot">
+<h3>Verify Power Mode Is Preserved after Warm Boot<a class="headerlink" href="TestPlanValidation.html#verify-power-mode-is-preserved-after-warm-boot" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Warm reboot the device using ‘sudo reboot’ or ‘sudo shutdown -r now’.</p></li>
+<li><p>After reboot, check the current power mode and CPU/GPU/EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+<li><p>Perform a stress test on the system by installing and running a dedicated stress utility or glmark2. Alternatively, execute a <code class="docutils literal notranslate"><span class="pre">dd</span></code> command.</p></li>
+<li><p>Check the current power mode and CPU/GPU/EMC frequencies using the command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tegrastats</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">jetson_clocks</span> <span class="pre">--show</span></code>.</p></li>
+</ol>
+<p>Expected Result: The power mode should not change after warm boot. The CPU/GPU/EMC frequencies should be as per the power mode.</p>
+</section>
+<section id="running-the-tegrastats-command">
+<h3>Running the tegrastats Command<a class="headerlink" href="TestPlanValidation.html#running-the-tegrastats-command" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">tegrastats</span></code> command.</p>
+</li>
+</ol>
+<p>Expected Result: The specification values for active CPUs and GPUs should be reflected in the output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>07-11-2023 07:10:08 RAM 4601/63895MB (lfb 3x64MB) CPU [0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729,0%@729] GR3D_FREQ 0% cv0@0C cpu@45.062C tboard@33.25C soc2@41.062C tdio
+de@38.625C soc0@41.656C cv1@0C gpu@0C tj@45.062C soc1@40.781C cv2@0C VDD_GPU_SOC 3065mW/3065mW VDD_CPU_CV 766mW/766mW VIN_SYS_5V0 3623mW/3623mW NC 0mW/0mW VDDQ_VDD2_1V8AO 503mW/503mW NC 0mW/0mW
+</pre></div>
+</div>
+</section>
+</section>
+<section id="graphics">
+<h2>Graphics<a class="headerlink" href="TestPlanValidation.html#graphics" title="Link to this heading">#</a></h2>
+<section id="running-a-graphics-application-using-x11">
+<h3>Running a Graphics Application Using X11<a class="headerlink" href="TestPlanValidation.html#running-a-graphics-application-using-x11" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Connect the display to the target and boot the target.</p></li>
+<li><p>If GDM is enabled, log in to the device via the Desktop interface. This step is also necessary to run X11 graphics binaries over SSH. If desired, automatic log in can be enabled by editing <code class="docutils literal notranslate"><span class="pre">/etc/gdm3/custom.conf</span></code> and adding <code class="docutils literal notranslate"><span class="pre">AutomaticLoginEnable=True</span></code> and <code class="docutils literal notranslate"><span class="pre">AutomaticLogin=&lt;username&gt;</span></code> under the <code class="docutils literal notranslate"><span class="pre">[daemon]</span></code> section.</p>
+</li>
+<li><p>Export the DISPLAY variable, for example <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">DISPLAY=:0</span></code>.</p></li>
+<li><p>To check for various display modes that are supported by the display, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ xrandr
+</pre></div>
+</div>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">glxgears</span></code> sample application by executing the following command. Verify that the frames per second matches the display information in the previous step.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ glxgears -fullscreen
+</pre></div>
+</div>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">bubble</span></code> graphics application by executing the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ /usr/src/nvidia/graphics_demos/prebuilts/bin/x11/bubble
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The graphics applications should render successfully on the display, and no corruption or hang should be observed while rendering. Refer to <a class="reference internal" href="Graphics.html#sd-graphics"><span class="std std-ref">Graphics</span></a> for more information.</p>
+</section>
+<section id="running-a-graphics-application-using-egldevice-drm">
+<h3>Running a Graphics Application Using EGLdevice (DRM)<a class="headerlink" href="TestPlanValidation.html#running-a-graphics-application-using-egldevice-drm" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Connect the display to the target and boot the target.</p></li>
+<li><p>Stop GDM and if <code class="docutils literal notranslate"><span class="pre">X</span></code> is running on the target, kill it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo service gdm stop (Stop GDM)
+$ sudo pkill x
+</pre></div>
+</div>
+</li>
+<li><p>Load the NVIDIA drm module.</p>
+<ul>
+<li><p>For Jetson AGX Orin:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo modprobe nvidia_drm modeset=1
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">bubble</span></code> graphics application by executing the following command.</p>
+</li>
+</ol>
+<p>Expected Result: The graphics application should render successfully on the display. There should be no corruption or hang while rendering.</p>
+</section>
+<section id="running-a-graphics-application-using-wayland">
+<h3>Running a Graphics Application Using Wayland<a class="headerlink" href="TestPlanValidation.html#running-a-graphics-application-using-wayland" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Connect the display to the target and boot it after flashing.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">X</span></code> is running on the target, kill it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo service gdm stop (Stop GDM)
+$ sudo pkill x3. Launch wayland using below commands.
+$ unset DISPLAY
+</pre></div>
+</div>
+</li>
+<li><p>Run the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ export WESTON_TTY=1
+$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston --tty=$WESTON_TTY --idle-time=0 &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Press <strong>Enter</strong>.</p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">bubble</span></code> graphics application by executing the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg /usr/src/nvidia/graphics_demos/prebuilts/bin/wayland/bubble
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The graphics binary should render successfully on the display. No corruption or hang should be observed while rendering.</p>
+<p>Refer to <a class="reference internal" href="Graphics.html#sd-graphics"><span class="std std-ref">Graphics</span></a> for more information.</p>
+</section>
+</section>
+<section id="kernel">
+<h2>Kernel<a class="headerlink" href="TestPlanValidation.html#kernel" title="Link to this heading">#</a></h2>
+<section id="checking-the-kernel-version">
+<h3>Checking the Kernel Version<a class="headerlink" href="TestPlanValidation.html#checking-the-kernel-version" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the device.</p></li>
+<li><p>To determine the kernel version number, run the <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-r</span></code> command.</p></li>
+</ol>
+<p>Expected Result: The Kernel version should display accordingly, for example, 5.16.0-tegra-g44acfbed970e.</p>
+</section>
+<section id="verifying-unloading-of-kernel-modules-using-modprobe">
+<h3>Verifying Unloading of Kernel Modules Using modprobe<a class="headerlink" href="TestPlanValidation.html#verifying-unloading-of-kernel-modules-using-modprobe" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Log in to the device.</p></li>
+<li><p>To locate the loaded, active module, run the <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> command.</p>
+<p>The output will list the active, and other dependent, modules (for example,  <code class="docutils literal notranslate"><span class="pre">x_tables</span> <span class="pre">49152</span> <span class="pre">5</span> <span class="pre">xt_conntrack,iptable_filter,xt_addrtype,ip_tables,xt_MASQUERADE</span></code>).</p>
+</li>
+<li><p>To remove this module, run the <cite>‘sudo modprobe -r x_tables`</cite> command.</p>
+<p>The following error message will display:</p>
+<p><code class="docutils literal notranslate"><span class="pre">modprobe:</span> <span class="pre">FATAL:</span> <span class="pre">Module</span> <span class="pre">x_tables</span> <span class="pre">is</span> <span class="pre">in</span> <span class="pre">use</span></code></p>
+<p>This message is expected because the module is being used by other modules that appear in the <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> output against x_tables. You have to remove all modules that depend on x_tables and then remove the x_tables.</p>
+</li>
+<li><p>Remove modules that have no dependent modules.</p>
+<p>This step will not throw an error like rtl8822ce.</p>
+</li>
+<li><p>Test the modules without dependencies, where “used by” is 0.</p></li>
+<li><p>After the module is removed, removing it again will not print anything, for example, rtl8822ce , userspace_alert, so this outcome is expected.</p></li>
+</ol>
+<p>Expected Result: Unloading of the module should happen without failure. No error/failure/warning/long delay should happen during, or after, the process, and the system should remain stable.</p>
+</section>
+<section id="verifying-the-previous-hang-log-last-kmsg-console-ramoops">
+<h3>Verifying the Previous Hang log - last_kmsg/console-ramoops<a class="headerlink" href="TestPlanValidation.html#verifying-the-previous-hang-log-last-kmsg-console-ramoops" title="Link to this heading">#</a></h3>
+<p>To checks whether the console-ramoops, which are also known as the <code class="docutils literal notranslate"><span class="pre">last_kmsg</span></code> file, is being generated after a reboot when a system hang happens.</p>
+<ol class="arabic">
+<li><p>Power off the device using the <strong>Power</strong> button or by running the using command <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">poweroff</span></code> command.</p></li>
+<li><p>Manually power the device on again.</p></li>
+<li><p>After the system boots up, ensure that there is no system node (<code class="docutils literal notranslate"><span class="pre">/sys/fs/pstore/console-ramoops</span></code>).</p></li>
+<li><p>To complete a typical boot, run the <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">reboot</span></code> command.</p></li>
+<li><p>After the system boots up, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">cat</span> <span class="pre">/sys/fs/pstore/console-ramoops-[0]</span></code> command and check whether logs are being dumped into the generated file.</p></li>
+<li><p>To trigger a kernel panic, run the <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">bash</span> <span class="pre">-c</span> <span class="pre">echo</span> <span class="pre">c</span> <span class="pre">&gt;</span> <span class="pre">/proc/sysrq-trigger</span></code> command.</p></li>
+<li><p>Reboot device manually.</p></li>
+<li><p>After system boots up, to check whether <code class="docutils literal notranslate"><span class="pre">console_ramoops</span></code> is generated, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">cat</span> <span class="pre">/sys/fs/pstore/console-ramoops-[0]</span></code> command.</p>
+<p>The output should show show the watchdog timeout kernel messages.</p>
+</li>
+<li><p>Check for <code class="docutils literal notranslate"><span class="pre">dmesg-ramoops-[0]</span> <span class="pre">logs</span></code> for the dmesg logs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">console-ramoops-x</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the numeric value generated run time.</p>
+</li>
+</ol>
+<p>Expected Result: When a system hangs, a console_ramoops file is generated under <code class="docutils literal notranslate"><span class="pre">/sys/fs/pstore</span></code> with enough information about previous hang.</p>
+</section>
+<section id="check-dvfs-scaling">
+<h3>Check DVFS Scaling<a class="headerlink" href="TestPlanValidation.html#check-dvfs-scaling" title="Link to this heading">#</a></h3>
+<p>This procedure allows you to check whether Dynamic Voltage/Frequency Scaling (DVFS) and EMC scaling are working.</p>
+<p><strong>Before you begin</strong>:</p>
+<ul>
+<li><p>Ensure that <code class="docutils literal notranslate"><span class="pre">jetson_clocks</span></code> is not active. (You can just reboot the device).</p></li>
+<li><p>Verify that the nvpmodel setting is Max-N.</p>
+<p>To verify this setting, run the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-m</span> <span class="pre">0</span></code> command.</p>
+</li>
+</ul>
+<ol class="arabic">
+<li><p>Keep device idle for five minutes.</p></li>
+<li><p>Display and note down the CPU frequency values.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cat /sys/devices/system/cpu/cpu[0-9]/cpufreq/cpuinfo_cur_freq
+</pre></div>
+</div>
+</li>
+<li><p>Run CPU workload, such as the system benchmark, for example, SpecInt.</p></li>
+<li><p>Observe change in freq values.</p></li>
+</ol>
+<p>Expected Result: The values should be reflected in scaling nodes. To check change in CPU/GPU frequencies, you can also run the <code class="docutils literal notranslate"><span class="pre">tegrastats</span></code> command instead of the frequency scaling nodes.</p>
+</section>
+<section id="cpu-therm-system-throttle-alert-check">
+<h3>CPU-therm System Throttle Alert Check<a class="headerlink" href="TestPlanValidation.html#cpu-therm-system-throttle-alert-check" title="Link to this heading">#</a></h3>
+<p>NVIDIA is providing users UI notifications when CPU temperature reaches the trip point. The CPU hot/thermal throttle alert persistent toast message appears in the upper right corner and <code class="docutils literal notranslate"><span class="pre">!</span></code> appears in the task bar.</p>
+<ol class="arabic simple">
+<li><p>To raise the temperature of the device, run multiple apps/benchmark on the device for long time.</p></li>
+<li><p>When the CPU temperature reaches the trip point, the <strong>CPU thermal warning</strong> toast message will appear.</p></li>
+</ol>
+<p>Expected Result: You should see <strong>Hot surface</strong> alert when CPU temperature reaches the trip point. You should also see <strong>throttle-alert cooling state</strong> alerts on serial console. Refer to <a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html#sd-platformpowerandperformance-jetsonorinnanojetsonorinnxandjetsonagxorin"><span class="std std-ref">ThermalSpecifcations</span></a> for more information.</p>
+</section>
+</section>
+<section id="camera">
+<span id="sd-testplanvalidation-camera"></span><h2>Camera<a class="headerlink" href="TestPlanValidation.html#camera" title="Link to this heading">#</a></h2>
+<p><strong>Before you begin</strong>:</p>
+<ul class="simple">
+<li><p>Install the v4l2 utility on the device.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">sensor-id</span></code> based on the output from <code class="docutils literal notranslate"><span class="pre">v4l2-ctl</span> <span class="pre">--list-devices</span></code> (for example, /dev/video&lt;0/1/2&gt; where 0/1/2 are the sensor-id identified by v4l2-ctl</p></li>
+</ul>
+<section id="device-test-image-capture-with-camera-devices">
+<h3>Device: Test Image Capture with Camera Devices<a class="headerlink" href="TestPlanValidation.html#device-test-image-capture-with-camera-devices" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Start the argus camera app with every camera device capture image.</p></li>
+<li><p>View the captured image.</p></li>
+</ol>
+<p>Expected Result: You should be able to start the camera and capture the image. Refer to <a class="reference internal" href="Multimedia/AcceleratedGstreamer.html#sd-multimedia-acceleratedgstreamer"><span class="std std-ref">AcceleratedGstreamer</span></a> for more information.</p>
+</section>
+<section id="device-test-video-capture-with-camera-devices">
+<h3>Device: Test Video Capture with Camera Devices<a class="headerlink" href="TestPlanValidation.html#device-test-video-capture-with-camera-devices" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Start the argus camera app with every camera device capture video.</p></li>
+<li><p>View the captured video.</p></li>
+</ol>
+<p>Expected Result: You should be able to start the camera and capture the image. Refer to <a class="reference internal" href="Multimedia/AcceleratedGstreamer.html#sd-multimedia-acceleratedgstreamer"><span class="std std-ref">AcceleratedGstreamer</span></a> for more information.</p>
+<ol class="arabic simple" start="3">
+<li><p>Turn on screen reader support.</p></li>
+</ol>
+<p>To enable screen reader support, press Ctrl+Alt+Z. To learn about keyboard shortcuts, press Ctrl+slash for more information.</p>
+</section>
+<section id="verifying-imx274-camera-sensor">
+<h3>Verifying IMX274 Camera Sensor<a class="headerlink" href="TestPlanValidation.html#verifying-imx274-camera-sensor" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To connect the IMX274 dual camera module to the target, run one of the following commands:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--sensorinfo</span> <span class="pre">--c</span> <span class="pre">&lt;sensor-id1&gt;</span></code></p>
+<blockquote>
+<div><p>For example, <code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--sensorinfo</span> <span class="pre">--c</span> <span class="pre">0</span></code></p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--sensorinfo</span> <span class="pre">--c</span> <span class="pre">&lt;sensor-id2&gt;</span></code></p>
+<blockquote>
+<div><p>For example, <code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--sensorinfo</span> <span class="pre">--c</span> <span class="pre">1</span></code></p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Verify that both sensors are detected.</p></li>
+</ol>
+</section>
+<section id="capturing-a-jpeg-image-from-each-sensor">
+<h3>Capturing a JPEG Image from Each Sensor<a class="headerlink" href="TestPlanValidation.html#capturing-a-jpeg-image-from-each-sensor" title="Link to this heading">#</a></h3>
+<p>To capture a .jpeg image from each sensor, run one of the following commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--c</span> <span class="pre">0</span> <span class="pre">--format</span> <span class="pre">jpg</span> <span class="pre">--file</span> <span class="pre">${HOME}/frame-cam0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvargus_nvraw</span> <span class="pre">--c</span> <span class="pre">1</span> <span class="pre">--format</span> <span class="pre">jpg</span> <span class="pre">--file</span> <span class="pre">${HOME}/frame-cam1</span></code></p></li>
+</ul>
+<p>Expected Result: You should be able to capture the image.</p>
+</section>
+</section>
+<section id="comms">
+<h2>Comms<a class="headerlink" href="TestPlanValidation.html#comms" title="Link to this heading">#</a></h2>
+<section id="wifi-ap-connectivity-with-wpa2-security">
+<h3>WiFi AP Connectivity with WPA2 Security<a class="headerlink" href="TestPlanValidation.html#wifi-ap-connectivity-with-wpa2-security" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the device.</p></li>
+<li><p>Open the GUI Wi-Fi settings and connect to AP with WPA2 security.</p></li>
+</ol>
+<p>Expected Result: You should be able to connect selected Wi-Fi AP.</p>
+</section>
+<section id="mm-content-youtube-tm-1080p-streaming-over-wifi">
+<h3>MM Content (YouTube|(TM) 1080p) Streaming Over WiFi<a class="headerlink" href="TestPlanValidation.html#mm-content-youtube-tm-1080p-streaming-over-wifi" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Connect to the Wi-Fi AP through the GUI or the command-line interface (CLI).</p></li>
+<li><p>Ensure that the Ethernet cable is disconnected.</p></li>
+<li><p>Start the Chrome (TM) browser on the target.</p></li>
+<li><p>Play any 1080P video on YouTube.</p></li>
+</ol>
+<p>Expected Result: This test checks the Wi-Fi connectivity, and YouTube video playback should happen.</p>
+</section>
+<section id="setting-up-wifi-ap-connection-over-the-command-line-interface">
+<h3>Setting up WiFi AP Connection over the Command-Line Interface<a class="headerlink" href="TestPlanValidation.html#setting-up-wifi-ap-connection-over-the-command-line-interface" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Flash the build that has no GUI installed.</p>
+<p>If you have ubuntu-desktop, disable WiFi using WiFi settings after the boot is complete.</p>
+</li>
+<li><p>Boot the device and connect it to an AP using the command-line interface (CLI).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ifconfig -a
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the WiFi is soft/hard blocked by the <code class="docutils literal notranslate"><span class="pre">rfkill</span> <span class="pre">run</span></code> command, run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rfkill</span> <span class="pre">unblock</span> <span class="pre">all</span></code>.</p>
+</div>
+</li>
+<li><p>Identify WiFi interface and configure it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ iwconfig
+$ sudo ifconfig wlan0 up
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo iwlist wlan0 scan | grep ESSID
+$ sudo apt install wpasupplicant
+$ wpa_passphrase YOUR_AP_NAME PASSWORD | sudo tee /etc/wpa_supplicant.conf
+$ sudo wpa_supplicant -c /etc/wpa_supplicant.conf -i wlan0
+8. Open another terminal: $ sudo systemctl stop NetworkManager
+$ iwconfig
+$ ifconfig wlan0
+$ sudo ifconfig wlan0 up
+$ sudo dhclient wlan0
+$ ifconfig wlan0
+$ ifconfig -a
+</pre></div>
+</div>
+</li>
+<li><p>Verify network connectivity.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ping -I wlan0 8.8.8.8 (you can test your local IP)
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The Wi-Fi should be turn on and be connected to AP, and the connection should be consistent and free from any drops.</p>
+</section>
+<section id="bluetooth-pairing-and-unpairing">
+<h3>Bluetooth Pairing and Unpairing<a class="headerlink" href="TestPlanValidation.html#bluetooth-pairing-and-unpairing" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Boot the device.</p></li>
+<li><p>Open the Bluetooth GUI settings.</p></li>
+<li><p>Check nearby Bluetooth devices.</p></li>
+<li><p>Pair the selected device, for example, the Bluetooth Keyboard.</p></li>
+<li><p>To disconnect device, double click on connected device, and turn off the connection.</p></li>
+<li><p>To permanently remove the device, click <strong>Remove disconnected device</strong> .</p></li>
+</ol>
+<p>Expected Result: You should be able to pair selected device, for example the Bluetooth keyboard, and ensure that the connected device works properly.</p>
+</section>
+<section id="ethernet-lan-connectivity">
+<h3>Ethernet LAN Connectivity<a class="headerlink" href="TestPlanValidation.html#ethernet-lan-connectivity" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Boot the device with the Ethernet cable connected to the device’s Ethernet port.</p></li>
+<li><p>In a terminal window, ping 8.8.8.8. For example, if the Ethernet interface is <code class="docutils literal notranslate"><span class="pre">eno1</span></code>, execute the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ping -I eno1 8.8.8.8
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: You should be able to ping www.google.com without any packet loss.</p>
+</section>
+<section id="ethernet-lan-hot-plug">
+<h3>Ethernet LAN Hot-plug<a class="headerlink" href="TestPlanValidation.html#ethernet-lan-hot-plug" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Boot the device with the Ethernet cable to the device’s Ethernet port.</p></li>
+<li><p>Disconnect and reconnect the Ethernet cable.</p></li>
+<li><p>In a terminal window, ping 8.8.8.8. For example, if the Ethernet interface is <code class="docutils literal notranslate"><span class="pre">eno1</span></code>, execute the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ping -I eno1 8.8.8.8
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: You should be able to ping www.google.com without any packet loss.</p>
+</section>
+<section id="ethernet-lan-bandwidth">
+<h3>Ethernet LAN Bandwidth<a class="headerlink" href="TestPlanValidation.html#ethernet-lan-bandwidth" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Boot the device with the Ethernet cable connected to the device’s Ethernet port.</p></li>
+<li><p>Check the device’s Ethernet IP address. For example, if the Ethernet interface is <code class="docutils literal notranslate"><span class="pre">eno1</span></code>, execute the following command to see the IP address.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ip addr show eno1
+2: eno1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 48:b0:2d:78:83:46 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.180/24 brd 192.168.1.255 scope global dynamic eno1
+       valid_lft 77658sec preferred_lft 77658sec
+    inet6 fe80::cbba:a3a8:ccf5:d0e8/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+</pre></div>
+</div>
+</li>
+<li><p>Check the Ethernet line speed (reported in Mbps). For example, if the Ethernet interface is <code class="docutils literal notranslate"><span class="pre">eno1</span></code>, execute the following command to check the line speed.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat /sys/class/net/eno1/speed
+1000
+</pre></div>
+</div>
+</li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">iperf3</span></code> on the target device and a host machine on the same network. To install <code class="docutils literal notranslate"><span class="pre">iperf3</span></code> on the target device, execute the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt update
+$ sudo apt install iperf3
+</pre></div>
+</div>
+</li>
+<li><p>Start <code class="docutils literal notranslate"><span class="pre">iperf3</span></code> server on the target.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ iperf3 -s
+</pre></div>
+</div>
+</li>
+<li><p>Start <code class="docutils literal notranslate"><span class="pre">iperf3</span></code> client on the host machine.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ iperf3 -c &lt;target-ip-address&gt; -P8 -t 60
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The bandwidth reported by <code class="docutils literal notranslate"><span class="pre">iperf3</span></code> should be close to the line speed of the ethernet connection.</p>
+</section>
+</section>
+<section id="multimedia-encode-decode">
+<h2>Multimedia Encode/Decode<a class="headerlink" href="TestPlanValidation.html#multimedia-encode-decode" title="Link to this heading">#</a></h2>
+<p><strong>Before you begin</strong>:</p>
+<ol class="arabic simple">
+<li><p>nvidia-l4t-gstreamer must be installed to run GStreamer pipelines. Refer to <a class="reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html#sd-softwarepackagesandtheupdatemechanism"><span class="std std-ref">SoftwarePackagesAndTheUpdateMechanism</span></a> for more information.</p></li>
+<li><p>Log in to the device and open a terminal window.</p></li>
+<li><p>Verify that the MM sample files are available on the device.</p></li>
+<li><p>If required, the 4K display should be connected by the test case.</p></li>
+<li><p>Ensure that your HDMI TV is connected, and the X server and the Ubuntu desktop are running.</p></li>
+</ol>
+<section id="camera-capture-using-gstreamer">
+<h3>Camera capture using GStreamer<a class="headerlink" href="TestPlanValidation.html#camera-capture-using-gstreamer" title="Link to this heading">#</a></h3>
+<p>For enabled ISP processing for CSI cameras or Bayer captures, use the <code class="docutils literal notranslate"><span class="pre">nvarguscamerasrc</span></code> GStreamer plugin.</p>
+<p><strong>Before you begin</strong>, ensure the camera is connected and is working. Refer <a class="reference internal" href="TestPlanValidation.html#sd-testplanvalidation-camera"><span class="std std-ref">Camera</span></a> for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set the <code class="docutils literal notranslate"><span class="pre">sensor-id</span></code> based on the output by running the <code class="docutils literal notranslate"><span class="pre">v4l2-ctl</span> <span class="pre">--list-devices</span></code> command.</p>
+</div>
+<section id="capture-an-image">
+<h4>Capture an image<a class="headerlink" href="TestPlanValidation.html#capture-an-image" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=1 sensor-id=0 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12&#39; ! nvjpegenc ! filesink location=${HOME}/gst-frame-cam0.jpg
+$ gst-launch-1.0 nvarguscamerasrc num-buffers=1 sensor-id=1 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12&#39; ! nvjpegenc ! filesink location=${HOME}/gst-frame-cam1.jpg
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: You should be able to capture the image.</p>
+</section>
+<section id="capturing-a-motion-jpeg-stream">
+<h4>Capturing a Motion-JPEG Stream<a class="headerlink" href="TestPlanValidation.html#capturing-a-motion-jpeg-stream" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=300 sensor-id=0 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1&#39; ! nvjpegenc !  avimux ! filesink location=${HOME}/mjpeg.avi -e
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The motion-JPEG stream should get captured without crashes or errors.</p>
+</section>
+<section id="preview-the-camera-stream">
+<h4>Preview the Camera Stream<a class="headerlink" href="TestPlanValidation.html#preview-the-camera-stream" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=300 sensor-id=0 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1&#39; ! nvegltransform ! nveglglessink sync=0
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: You should be able to stream without crashes or errors.</p>
+</section>
+<section id="capturing-video-from-the-camera-and-record">
+<h4>Capturing Video from the Camera and Record<a class="headerlink" href="TestPlanValidation.html#capturing-video-from-the-camera-and-record" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=300 sensor-id=0 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1&#39; ! nvv4l2h265enc bitrate=8000000 ! h265parse ! qtmux ! filesink location=&lt;filename_h264&gt;.mp4
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: You should be able to playback the stream without crashes and errors.</p>
+</section>
+</section>
+<section id="encode-using-gstreamer">
+<h3>Encode using GStreamer<a class="headerlink" href="TestPlanValidation.html#encode-using-gstreamer" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run one of the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 nvarguscamerasrc num-buffers=300 sensor-id=0 ! &#39;video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)NV12, framerate=(fraction)30/1&#39; ! nvv4l2h265enc ! h265parse ! qtmux ! filesink location=&lt;filename_h265&gt;.mp4
+$ gst-launch-1.0 videotestsrc num-buffers=300 ! &#39;video/x-raw, width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)I420&#39; ! nvv4l2h264enc ! h264parse ! qtmux ! filesink location=&lt;filename_h264&gt;.mp4 -e
+$ gst-launch-1.0 filesrc location=&lt;filename_1080.yuv&gt;! videoparse width=1920 height=1080 format=2 framerate=30 ! &#39;video/x-raw, format=(string)I420&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)NV12&#39; ! nvv4l2av1enc ! matroskamux ! filesink location=&lt;filename_av1&gt;.mkv -e
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The encoded stream should be correct, and there should be no corruption the stream.</p>
+</section>
+<section id="decode-using-gstreamer">
+<h3>Decode using GStreamer<a class="headerlink" href="TestPlanValidation.html#decode-using-gstreamer" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run one of the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=&lt;filename_h264&gt;.mp4 ! qtdemux ! queue ! h264parse ! nvv4l2decoder ! nv3dsink -e
+$ gst-launch-1.0 filesrc location=&lt;filename_h265&gt;.mp4 ! qtdemux ! queue ! h265parse ! nvv4l2decoder ! nv3dsink -e
+$ gst-launch-1.0 filesrc location=&lt;filename_av1&gt;.webm ! matroskademux ! queue ! nvv4l2decoder ! nv3dsink -e
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: There should be no corruption or buffer drops during playback.</p>
+</section>
+<section id="jpeg-decode-using-gstreamer">
+<h3>JPEG Decode using GStreamer<a class="headerlink" href="TestPlanValidation.html#jpeg-decode-using-gstreamer" title="Link to this heading">#</a></h3>
+<p>You can complete this task in one of the following ways:</p>
+<ul>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">nv3dsink</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 -v filesrc location=&lt;JPEG_IMAGE_LOCATION&gt;&lt;IMAGE_NAME&gt;.jpg ! jpegparse ! nvjpegdec ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=RGBA&#39; ! nv3dsink
+</pre></div>
+</div>
+</li>
+<li><p>Using <code class="docutils literal notranslate"><span class="pre">nveglglessink</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 -v filesrc location=&lt;JPEG_IMAGE_LOCATION&gt;&lt;IMAGE_NAME&gt;.jpg ! jpegparse ! nvjpegdec ! nvegltransform ! nveglglessink
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Expected Result: The JPEG decoding should be correct, and there should be no corruption with the decoded image.</p>
+</section>
+<section id="jpeg-encode-using-gstreamer">
+<h3>JPEG Encode using GStreamer<a class="headerlink" href="TestPlanValidation.html#jpeg-encode-using-gstreamer" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 videotestsrc num-buffers=1 ! &#39;video/x-raw, width=1920, height=1080, format=(string)I420&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM)&#39; ! nvjpegenc ! filesink location=${HOME}/frame.jpg
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: JPEG encode should be be correct, and there should be no corruption with the decoded image.</p>
+</section>
+<section id="transform-using-gstreamer">
+<h3>Transform using GStreamer<a class="headerlink" href="TestPlanValidation.html#transform-using-gstreamer" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">nvvidconv</span></code> can be used to perform video format conversion, scaling, and cropping operations. Refer to <a class="reference internal" href="Multimedia/AcceleratedGstreamer.html#sd-multimedia-acceleratedgstreamer-videoformatconversionwithgstreamer10"><span class="std std-ref">AcceleratedGstreamer</span></a> for more information.</p>
+<ol class="arabic">
+<li><p>Run one of the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 videotestsrc num-buffers=100 ! &#39;video/x-raw, format=(string)UYVY, width=(int)1280, height=(int)720&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)I420&#39; ! nvv4l2h264enc ! h264parse ! qtmux ! filesink location=&lt;test&gt;.mp4
+$ gst-launch-1.0 videotestsrc num-buffers=100 ! &#39;video/x-raw, format=(string)I420, width=(int)1280, height=(int)720&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), width=(int)640, height=(int)480, format=(string)I420&#39; ! nvv4l2h264enc ! h264parse ! qtmux ! filesink location=&lt;test&gt;.mp4
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The encoded files should be correct with no corruption.</p>
+</section>
+<section id="transcode-using-gstreamer">
+<h3>Transcode using GStreamer<a class="headerlink" href="TestPlanValidation.html#transcode-using-gstreamer" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run one of the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=&lt;filename_1080p_h264.mp4&gt; ! qtdemux ! h264parse ! nvv4l2decoder ! nvv4l2h265enc ! h265parse ! qtmux ! filesink location=&lt;Transcoded_filename&gt;.mp4 -e
+$ gst-launch-1.0 filesrc location=&lt;filename_1080p_h265.mp4&gt; ! qtdemux ! h265parse ! nvv4l2decoder ! nvv4l2av1enc ! matroskamux ! filesink location=&lt;Transcoded_filename&gt;.mkv -e
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The encoded file stream should run correctly with no corruption.</p>
+</section>
+<section id="video-playback-using-application">
+<h3>Video Playback using Application<a class="headerlink" href="TestPlanValidation.html#video-playback-using-application" title="Link to this heading">#</a></h3>
+<p>This procedure verifies that the playback of a 4K video with H265 codec is successful using nvgstplayer-1.0.</p>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nvgstplayer-1.0 -i &lt;H265_FILE_NAME&gt;.webm --stats
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: Video playback should be smooth without any corruption and dropped frames.</p>
+</section>
+<section id="mp3-playback-test-to-verify-that-mp3-playback-is-successful-using-nvgstplayer-1-0">
+<h3>MP3 Playback Test to Verify that MP3 Playback is Successful Using nvgstplayer-1.0<a class="headerlink" href="TestPlanValidation.html#mp3-playback-test-to-verify-that-mp3-playback-is-successful-using-nvgstplayer-1-0" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nvgstplayer-1.0 -i MP3_file.mp3 --stats
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The MP3 playback should run correctly with no glitches or corruption.</p>
+</section>
+<section id="mp3-streaming-stream-the-mp3-file-from-an-http-server">
+<h3>MP3 Streaming (Stream the MP3 file from an HTTP Server)<a class="headerlink" href="TestPlanValidation.html#mp3-streaming-stream-the-mp3-file-from-an-http-server" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>, ensure that the display is connected and the X server and the Ubuntu desktop are running.</p>
+<ol class="arabic">
+<li><p>Ensure that the host MP3 file is on the HTTP server for streaming.</p></li>
+<li><p>Log in to the device and open a terminal window.</p></li>
+<li><p>Navigate to the directory where MP3 file is located and run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python3 -m http.server 8001 &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Download or copy the MP3 image to the device.</p></li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nvgstplayer-1.0 -i http://&lt;IP_ADDR_OF_DEVICE&gt;:8001/MP3_file.mp3 --stats
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The Audio streaming should be with out noise and breaks, and there should be no hangs or crashed while streaming.</p>
+</section>
+<section id="streaming-audio-and-video-file-from-the-http-server">
+<h3>Streaming Audio and Video File from the HTTP Server<a class="headerlink" href="TestPlanValidation.html#streaming-audio-and-video-file-from-the-http-server" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>, ensure that the display is connected and the X server and the Ubuntu desktop are running.</p>
+<ol class="arabic">
+<li><p>Ensure that the host MP3 file is on the HTTP server for streaming.</p></li>
+<li><p>Log in to the device and open a terminal window.</p></li>
+<li><p>Navigate to the directory where MP3 file is located and run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python3 -m http.server 8001 &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Download or copy the audio and video image to the device.</p></li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nvgstplayer-1.0 -i  http://&lt;IP_ADDR_OF_DEVICE&gt;:8001/&lt;VP9_FILE_NAME&gt;.webm --stats
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: Video streaming should be with out distortion or issues, and there should be no hang or crash while streaming.</p>
+</section>
+<section id="audio-video-rtsp-streaming-h264-aac">
+<h3>AUDIO+VIDEO rtsp streaming:H264+AAC<a class="headerlink" href="TestPlanValidation.html#audio-video-rtsp-streaming-h264-aac" title="Link to this heading">#</a></h3>
+<p>This procedure allows you to stream the clip link from an rtsp server.</p>
+<ol class="arabic simple">
+<li><p>Open the browser.</p></li>
+<li><p>Stream the content from the rtsp server.</p></li>
+<li><p>Open the link, for example, <a class="reference external" href="http://your_streaming_site.com/rtsp-server.html">http://your_streaming_site.com/rtsp-server.html</a>.</p></li>
+<li><p>Click the AUDIO+VIDEO test file and stream.</p></li>
+</ol>
+<p>Expected Result: Video streaming should have no distortion or issues, and there should be no hang or crash while streaming.</p>
+</section>
+</section>
+<section id="camera-argus-samples">
+<h2>Camera Argus Samples<a class="headerlink" href="TestPlanValidation.html#camera-argus-samples" title="Link to this heading">#</a></h2>
+<section id="compiling-argus-sdk-samples-compilation-and-running-cudahistogram">
+<h3>Compiling Argus SDK Samples Compilation and Running _cudahistogram<a class="headerlink" href="TestPlanValidation.html#compiling-argus-sdk-samples-compilation-and-running-cudahistogram" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /usr/src/jetson_multimedia_api/argus
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install cmake; sudo apt-get install build-essential; sudo apt-get install pkg-config; sudo apt-get install libx11-dev; sudo apt-get install libgtk-3-dev; sudo apt-get install libexpat1-dev; sudo apt-get install libjpeg-dev; sudo apt-get install libgstreamer1.0-dev
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo mkdir build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake ..
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd samples/cudaHistogram
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No failures should be observed during the compilation, and the sample binary should exist and run without issues.</p>
+</section>
+<section id="compiling-argus-sdk-samples-and-running-gstvideoencode">
+<h3>Compiling Argus SDK Samples and Running _gstvideoencode<a class="headerlink" href="TestPlanValidation.html#compiling-argus-sdk-samples-and-running-gstvideoencode" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /usr/src/jetson_multimedia_api/argus
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install cmake; sudo apt-get install build-essential; sudo apt-get install pkg-config; sudo apt-get install libx11-dev; sudo apt-get install libgtk-3-dev; sudo apt-get install libexpat1-dev; sudo apt-get install libjpeg-dev; sudo apt-get install libgstreamer1.0-dev
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo mkdir build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake ..
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd samples/gstVideoEncode
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No failures should be observed during compilation, and the sample binary should exist and run without issues.</p>
+</section>
+<section id="argus-sdk-samples-compilation-and-run-multisensor">
+<h3>Argus SDK samples compilation and run _multisensor<a class="headerlink" href="TestPlanValidation.html#argus-sdk-samples-compilation-and-run-multisensor" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>, ensure that two camera sensors are connected to the device.</p>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /usr/src/jetson_multimedia_api/argus
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install cmake; sudo apt-get install build-essential; sudo apt-get install pkg-config; sudo apt-get install libx11-dev; sudo apt-get install libgtk-3-dev; sudo apt-get install libexpat1-dev; sudo apt-get install libjpeg-dev; sudo apt-get install libgstreamer1.0-dev
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo mkdir build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd build
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake ..
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd samples/multiSensor
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo make install
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No failures should be observed during compilation, and the sample binary should exist and run without issues.</p>
+</section>
+</section>
+<section id="web-camera-capture-using-gstreamer">
+<h2>Web Camera capture using GStreamer<a class="headerlink" href="TestPlanValidation.html#web-camera-capture-using-gstreamer" title="Link to this heading">#</a></h2>
+<p>USB cameras, Bayer sensors, and YUV sensors output YUV images without ISP processing and do not use the NVIDIA camera software stack.
+As a result, the OSS GStreamer <code class="docutils literal notranslate"><span class="pre">v4l2src</span></code> plugin is used for streaming.</p>
+<p><strong>Before you begin</strong>:</p>
+<ul class="simple">
+<li><p>Ensure that <code class="docutils literal notranslate"><span class="pre">gst-launch</span></code> is available on the device with all dependencies installed.</p></li>
+<li><p>identify the <code class="docutils literal notranslate"><span class="pre">/dev/videX</span></code> interface for the USB web cam.</p></li>
+</ul>
+<section id="capturing-video-from-a-usb-web-camera-and-recording-the-video">
+<h3>Capturing Video from a USB Web Camera and Recording the Video<a class="headerlink" href="TestPlanValidation.html#capturing-video-from-a-usb-web-camera-and-recording-the-video" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Capture the video from the USB web cam in the MP4 format.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 v4l2src device=/dev/video0 num-buffers=300 ! &#39;video/x-raw, width=640, height=480, format=(string)YUY2, framerate=(fraction)30/1&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)NV12&#39; ! nvv4l2h264enc bitrate=8000000 ! h264parse ! qtmux ! filesink location=${HOME}/test.mp4 -e 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+<li><p>Decode and render the captured video.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=${HOME}/test.mp4 !  qtdemux ! h264parse ! nvv4l2decoder ! nvegltransform ! nveglglessink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+<li><p>Capture a video from USB web cam in the mjpeg.avi format.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 v4l2src device=/dev/video0 num-buffers=300 ! &#39;video/x-raw, width=640, height=480, format=(string)YUY2, framerate=(fraction)30/1 ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)I420&#39; ! nvjpegenc ! avimux ! filesink location=${HOME}/mjpeg.avi -e 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+<li><p>Decode and render the captured video.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=${HOME}/mjpeg.avi ! avidemux ! nvv4l2decoder mjpeg=true ! nvegltransform ! nveglglessink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: Video Capture and Video Encode should be successful using the USB web cam.</p>
+</section>
+<section id="capturing-and-displaying-the-video-from-a-usb-web-camera">
+<h3>Capturing and displaying the Video from a USB Web Camera<a class="headerlink" href="TestPlanValidation.html#capturing-and-displaying-the-video-from-a-usb-web-camera" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Capture the video from the USB web cam and display it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 v4l2src device=/dev/video0 num-buffers=300 ! &#39;video/x-raw, width=640, height=480, format=(string)YUY2, framerate=(fraction)30/1 ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)NV12&#39; ! nvegltransform ! nveglglessink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The captured Video should successfully display.</p>
+</section>
+<section id="capturing-videos-from-a-usb-web-cam-and-running-it-through-trt">
+<h3>Capturing Videos from a USB web cam and Running it Through TRT<a class="headerlink" href="TestPlanValidation.html#capturing-videos-from-a-usb-web-cam-and-running-it-through-trt" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Capture a video from the USB web cam and run it through TRT.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 v4l2src device=/dev/video0 num-buffers=300 ! &#39;video/x-raw, width=640, height=480, format=(string)YUY2, framerate=(fraction)30/1&#39; ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=(string)NV12&#39; ! m.sink_0 nvstreammux width=640 height=480 name=m batch-size=1 ! nvinfer config-file-path=/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_infer_primary.txt batch_size=1 ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=RGBA&#39; ! nvdsosd process-mode=1 ! nvegltransform ! nveglglessink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The captured video should successfully run through TRT.</p>
+</section>
+</section>
+<section id="nvidia-containers">
+<h2>NVIDIA Containers<a class="headerlink" href="TestPlanValidation.html#nvidia-containers" title="Link to this heading">#</a></h2>
+<section id="install-container-engine-and-nvidia-container-toolkit">
+<h3>Install Container Engine and NVIDIA Container Toolkit<a class="headerlink" href="TestPlanValidation.html#install-container-engine-and-nvidia-container-toolkit" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Install a supported container engine <code class="docutils literal notranslate"><span class="pre">(Docker,</span> <span class="pre">Containerd,</span> <span class="pre">CRI-O,</span> <span class="pre">Podman)</span></code> for your Linux distribution.</p></li>
+<li><p>Install the NVIDIA Container Toolkit: Refer to the <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">instructions here</a>.</p></li>
+<li><p>Configure container engine: Refer to the <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration">instructions here</a>.</p></li>
+</ol>
+</section>
+<section id="run-jetpack-container">
+<span id="rst-run-jetpack-container"></span><h3>Run JetPack Container<a class="headerlink" href="TestPlanValidation.html#run-jetpack-container" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Pull the JetPack Container.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># For docker
+sudo docker pull nvcr.io/nvidia/l4t-jetpack:r36.3.0
+
+# For podman
+podman pull nvcr.io/nvidia/l4t-jetpack:r36.3.0
+</pre></div>
+</div>
+</li>
+<li><p>Run the JetPack Container.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># For docker
+sudo docker run --rm -it \
+ -e DISPLAY --net=host \
+ --runtime nvidia \
+ -v /tmp/.X11-unix/:/tmp/.X11-unix \
+ -v ${HOME}/cuda-samples:/root/cuda-samples \
+ nvcr.io/nvidia/l4t-jetpack:r36.3.0 /bin/bash
+
+# For podman
+podman run --rm -it \
+ -e DISPLAY --net=host \
+ --device nvidia.com/gpu=all \
+ --group-add keep-groups \
+ --security-opt label=disable \
+ -v ${HOME}/cuda-samples:/root/cuda-samples \
+ nvcr.io/nvidia/l4t-jetpack:r36.3.0 /bin/bash
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="cuda-samples">
+<h2>CUDA Samples<a class="headerlink" href="TestPlanValidation.html#cuda-samples" title="Link to this heading">#</a></h2>
+<p><strong>Before you begin</strong>: Get the CUDA samples and set up DISPLAY.</p>
+<ul>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">git</span></code> on the device.</p></li>
+<li><p>Get the CUDA 12 samples:</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}
+git clone -b v12.2 https://github.com/NVIDIA/cuda-samples.git
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Log in to the display and check the display TTY using the command <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>11:54:08 up 3 min,  2 users,  load average: 0.33, 0.14, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+ubuntu   ttyS0    -                11:50    0.00s  0.09s  0.04s w
+ubuntu   :1       :1               11:53   ?xdm?  39.26s  0.04s /usr/lib/gdm3/g
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Set up the DISPLAY environment variable based on the output in step 1.</p>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>export DISPLAY=:1
+xhost +local:
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<section id="build-and-run-cuda-samples-natively-on-target-device">
+<h3>Build and Run CUDA Samples Natively on Target Device<a class="headerlink" href="TestPlanValidation.html#build-and-run-cuda-samples-natively-on-target-device" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>:
+Pre-condition</p>
+<ul class="simple">
+<li><p>CUDA 12.2 should be installed on device with all dependencies.</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Build CUDA samples.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libglfw3
+sudo apt-get install libglfw3-dev
+cd ${HOME}/cuda-samples
+make clean
+make -j$(nproc)
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed during the compilation, and an executable binary file should appear after the compilation is complete. Refer to <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-samples/index.html#getting-started-with-cuda-samples">https://docs.nvidia.com/cuda/cuda-samples/index.html#getting-started-with-cuda-samples</a> for more information.</p>
+<ol class="arabic simple" start="2">
+<li><p>Go to the section <a class="reference internal" href="TestPlanValidation.html#rst-run-cuda-samples"><span class="std std-ref">Run CUDA Samples</span></a> and run the given commands on the target.</p></li>
+</ol>
+</section>
+<section id="build-and-run-cuda-samples-in-container-on-target-device">
+<h3>Build and Run CUDA Samples in Container on Target Device<a class="headerlink" href="TestPlanValidation.html#build-and-run-cuda-samples-in-container-on-target-device" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the JetPack container using the instructions in the section <a class="reference internal" href="TestPlanValidation.html#rst-run-jetpack-container"><span class="std std-ref">Run JetPack Container</span></a>.</p></li>
+<li><p>Build the CUDA samples within it.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>apt update &amp;&amp; apt install -y libglfw3 libglfw3-dev libdrm-dev pkg-config cmake
+
+cd ${HOME}/cuda-samples
+make clean
+make -j$(nproc)
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed during the compilation, and an executable binary file should appear after the compilation is complete. Refer to <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-samples/index.html#getting-started-with-cuda-samples">https://docs.nvidia.com/cuda/cuda-samples/index.html#getting-started-with-cuda-samples</a> for more information.</p>
+<ol class="arabic simple" start="3">
+<li><p>Go to the section <a class="reference internal" href="TestPlanValidation.html#rst-run-cuda-samples"><span class="std std-ref">Run CUDA Samples</span></a> and run the given commands within the container.</p></li>
+</ol>
+</section>
+<section id="run-cuda-samples">
+<span id="rst-run-cuda-samples"></span><h3>Run CUDA Samples<a class="headerlink" href="TestPlanValidation.html#run-cuda-samples" title="Link to this heading">#</a></h3>
+<p>The following instructions to run CUDA samples can be executed natively on the target or within the JetPack container.</p>
+<ol class="arabic">
+<li><p>Run Bandwidth test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./bandwidthTest
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="2">
+<li><p>Run the device query test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./deviceQuery
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed and the sample application should run successfully.</p>
+<ol class="arabic" start="3">
+<li><p>Run simpleGL test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./simpleGL
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="4">
+<li><p>Run boxFilter test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./boxFilter
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="5">
+<li><p>Run nbody test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./nbody
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="6">
+<li><p>Run smokeParticles test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./smokeParticles
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="7">
+<li><p>Run particles test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./particles
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Results: No error/failure should be observed, and sample application should run successfully.</p>
+<ol class="arabic" start="8">
+<li><p>Run FDTD3d test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./FDTD3d
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic" start="9">
+<li><p>Run simpleCUBLAS test sample applications.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./simpleCUBLAS
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic simple" start="10">
+<li><p>Run batchCUBLAS test sample applications.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./batchCUBLAS
+</pre></div>
+</div>
+</div></blockquote>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic simple" start="11">
+<li><p>Run .simpleCUFFT test sample applications.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./simpleCUFFT
+</pre></div>
+</div>
+</div></blockquote>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+<ol class="arabic simple" start="12">
+<li><p>Run MersenneTwisterGP11213 test sample applications.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/cuda-samples/bin/aarch64/linux/release
+./MersenneTwisterGP11213
+</pre></div>
+</div>
+</div></blockquote>
+<p>Expected Result: No error/failure should be observed, and the sample application should run successfully.</p>
+</section>
+<section id="run-cudnn-samples">
+<h3>Run cuDNN Samples<a class="headerlink" href="TestPlanValidation.html#run-cudnn-samples" title="Link to this heading">#</a></h3>
+<p>The following instructions to build and run the cuDNN samples can be executed natively on the target or within the JetPack container.</p>
+<ol class="arabic">
+<li><p>Build and run the Converted sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /usr/src/cudnn_samples_v8
+cd conv_sample
+sudo make -j8
+
+sudo chmod +x run_conv_sample
+sudo ./run_conv_sample.sh
+</pre></div>
+</div>
+</li>
+<li><p>Build and run the mnistCUDNN sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /usr/src/cudnn_samples_v8
+cd mnistCUDNN
+sudo make -j8
+
+sudo chmod +x mnistCUDNN
+sudo ./mnistCUDNN
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after the compilation and run without issues. Refer to     <a class="reference external" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#verify">https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#verify</a> for more information.</p>
+</section>
+</section>
+<section id="tensorrt-samples">
+<h2>TensorRT Samples<a class="headerlink" href="TestPlanValidation.html#tensorrt-samples" title="Link to this heading">#</a></h2>
+<p>The following instructions to build and run the TensorRT samples can be executed natively on the target or within the JetPack container.</p>
+<ol class="arabic">
+<li><p>Build TensorRT samples.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>mkdir ${HOME}/tensorrt-samples
+ln -s /opt/nvidia/tensorrt/data ${HOME}/tensorrt-samples/data
+cp -a /opt/nvidia/tensorrt/samples ${HOME}/tensorrt-samples/
+cd ${HOME}/tensorrt-samples/samples
+make clean
+make
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after the compilation. Refer to <a class="reference external" href="https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html">https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html</a> for more information.</p>
+<section id="run-the-trt-sample-sample-algorithm-selector">
+<h3>Run the TRT sample (sample algorithm selector)<a class="headerlink" href="TestPlanValidation.html#run-the-trt-sample-sample-algorithm-selector" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/tensorrt-samples/bin
+./sample_algorithm_selector
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html">https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html</a> for more information.</p>
+</section>
+<section id="run-trt-sample-sample-onnx-mnist">
+<h3>Run TRT sample (sample_onnx_mnist)<a class="headerlink" href="TestPlanValidation.html#run-trt-sample-sample-onnx-mnist" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/tensorrt-samples/bin
+./sample_onnx_mnist
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html">https://docs.nvidia.com/deeplearning/tensorrt/sample-support-guide/index.html</a> for more information.</p>
+</section>
+<section id="run-a-trt-sample-sample-onnx-mnist-usedlacore-0">
+<h3>Run a TRT sample (sample_onnx_mnist useDLACore=0)<a class="headerlink" href="TestPlanValidation.html#run-a-trt-sample-sample-onnx-mnist-usedlacore-0" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/tensorrt-samples/bin
+./sample_onnx_mnist --useDLACore=0
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after compilation and run without issues.</p>
+</section>
+<section id="run-a-trt-sample-sample-onnx-mnist-usedlacore-1">
+<h3>Run a TRT sample (sample_onnx_mnist useDLACore=1)<a class="headerlink" href="TestPlanValidation.html#run-a-trt-sample-sample-onnx-mnist-usedlacore-1" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}/tensorrt-samples/bin
+./sample_onnx_mnist --useDLACore=1
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after compilation and run without issues.</p>
+</section>
+</section>
+<section id="trt-mm">
+<h2>TRT + MM<a class="headerlink" href="TestPlanValidation.html#trt-mm" title="Link to this heading">#</a></h2>
+<p>Test video decode and TensorRT object detection with output rendered to the display.</p>
+<ol class="arabic">
+<li><p>Run one of the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 filesrc location=/opt/nvidia/deepstream/deepstream/samples/streams/sample_720p.h264 ! h264parse ! nvv4l2decoder ! m.sink_0 nvstreammux width=1280 height=720 name=m batch-size=1 !  nvinfer config-file-path=/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_infer_primary.txt batch_size=1 ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=RGBA&#39; ! nvdsosd process-mode=1 ! nv3dsink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 filesrc location=/opt/nvidia/deepstream/deepstream/samples/streams/sample_720p.h264 ! h264parse ! nvv4l2decoder ! m.sink_0 nvstreammux width=1280 height=720 name=m batch-size=1 !  nvinfer config-file-path=/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_infer_primary.txt batch_size=1 ! nvvidconv ! &#39;video/x-raw(memory:NVMM), format=RGBA&#39; ! nvdsosd process-mode=1 ! nvegltransform ! nveglglessink sync=0 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: Test video decoding and TensorRT object detection with output rendered to the display should be successful without any corruption or noise.</p>
+</section>
+<section id="mm-samples">
+<h2>MM Samples<a class="headerlink" href="TestPlanValidation.html#mm-samples" title="Link to this heading">#</a></h2>
+<p><strong>Before you begin</strong>, ensure that MM API samples are available on the device.</p>
+<section id="checking-the-compilation-and-running-of-the-video-convert-app">
+<h3>Checking the Compilation and Running of the video_convert App<a class="headerlink" href="TestPlanValidation.html#checking-the-compilation-and-running-of-the-video-convert-app" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /usr/src/jetson_multimedia_api/samples/07_video_convert
+$ sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./video_convert &lt;in-file&gt; &lt;in-width&gt; &lt;in-height&gt; &lt;in-format&gt; &lt;out-file-prefix&gt; &lt;out-width&gt; &lt;out-height&gt; &lt;out-format&gt; [OPTIONS]
+</pre></div>
+</div>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./video_convert</span> <span class="pre">../../data/Picture/nvidia-logo.yuv</span> <span class="pre">1920</span> <span class="pre">1080</span> <span class="pre">YUV420</span> <span class="pre">test.yuv</span> <span class="pre">1920</span> <span class="pre">1080</span> <span class="pre">YUYV</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The video_convert sample consumes a YUV file. If you do not have a YUV file, use the jpeg_decode sample to generate one. For example, run the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">jetson_multimedia_api/samples/06_jpeg_decode/</span></code>
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">./jpeg_decode</span> <span class="pre">num_files</span> <span class="pre">1</span> <span class="pre">../../data/Picture/nvidia-logo.jpg</span> <span class="pre">../../data/Picture/nvidia-logo.yuv</span></code></p>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation, and the executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_07_video_convert.html">https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_07_video_convert.html</a> for more information.</p>
+</section>
+<section id="check-the-compilation-and-run-the-backend-app">
+<h3>Check the Compilation and Run the Backend App<a class="headerlink" href="TestPlanValidation.html#check-the-compilation-and-run-the-backend-app" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /usr/src/jetson_multimedia_api/samples/backend
+$ sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./backend 1 ../../data/Video/sample_outdoor_car_1080p_10fps.h264 H264 \
+--trt-deployfile ../../data/Model/GoogleNet_one_class/GoogleNet_modified_oneClass_halfHD.prototxt \
+--trt-modelfile ../../data/Model/GoogleNet_one_class/GoogleNet_modified_oneClass_halfHD.caffemodel \
+--trt-mode 0 --trt-proc-interval 1 -fps 10
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation and specific executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_backend.html">https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_backend.html</a> for more information.</p>
+</section>
+<section id="check-the-compilation-and-run-the-video-encode-app">
+<h3>Check the Compilation and Run the video_encode App<a class="headerlink" href="TestPlanValidation.html#check-the-compilation-and-run-the-video-encode-app" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /usr/src/jetson_multimedia_api/samples/01_video_encode
+$ sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo video_encode &lt;in-file&gt; &lt;in-width&gt; &lt;in-height&gt; &lt;encoder-type&gt; &lt;out-file&gt; [OPTIONS]
+</pre></div>
+</div>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./video_encode</span> <span class="pre">../../data/Video/sample_outdoor_car_1080p_10fps.yuv</span> <span class="pre">1920</span> <span class="pre">1080</span> <span class="pre">H264</span> <span class="pre">sample_outdoor_car_1080p_10fps.h264</span></code>.</p>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation and specific executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_01_video_encode.html">https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_01_video_encode.html</a> for more information.</p>
+</section>
+<section id="check-the-compilation-and-run-the-video-decode-app">
+<h3>Check the Compilation and Run the video_decode App<a class="headerlink" href="TestPlanValidation.html#check-the-compilation-and-run-the-video-decode-app" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd /usr/src/jetson_multimedia_api/samples/00_video_decode
+$ sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ./video_decode &lt;in-format&gt; [options] &lt;in-file&gt;
+</pre></div>
+</div>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">./video_decode</span> <span class="pre">H264</span> <span class="pre">../../data/Video/sample_outdoor_car_1080p_10fps.h264</span></code></p>
+</li>
+</ol>
+<p>Expected Result: No error/failure should be observed on compilation and specific executable binary should appear after compilation and run without issues. Refer to <a class="reference external" href="https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_00_video_decode.html">https://docs.nvidia.com/jetson/archives/r36.4/ApiReference/l4t_mm_00_video_decode.html</a> for more information.</p>
+</section>
+</section>
+<section id="complete-pipeline-inferencing">
+<h2>Complete Pipeline: Inferencing<a class="headerlink" href="TestPlanValidation.html#complete-pipeline-inferencing" title="Link to this heading">#</a></h2>
+<section id="jetson-classifying-images-with-imagenet-googlenet-caffe">
+<h3>[Jetson] Classifying Images with ImageNet (googlenet,caffe)<a class="headerlink" href="TestPlanValidation.html#jetson-classifying-images-with-imagenet-googlenet-caffe" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Flash the device with the test image.</p></li>
+<li><p>Install the JetPack components.</p></li>
+<li><p>Build the project on the device from the source (<a class="github reference external" href="https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md">dusty-nv/jetson-inference</a>).</p>
+<p>The repository for TensorRT-accelerated deep learning networks for image recognition, object detection with localization (for example, bounding boxes), and semantic segmentation will be downloaded. Various pre-trained DNN models are automatically downloaded.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get install git cmake libpython3-dev python3-numpy
+$ git clone --recursive https://github.com/dusty-nv/jetson-inference
+$ cd jetson-inference
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make
+$ sudo make install
+$ sudo ldconfig
+</pre></div>
+</div>
+<p>Refer to <a class="github reference external" href="https://github.com/dusty-nv/jetson-inference/blob/master/docs/jetpack-setup-2.md">dusty-nv/jetson-inference</a> for more information.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd jetson-inference/build/aarch64/bin
+$ sudo python3.6 ./imagenet-console.py --network=googlenet images/orange_0.jpg output_0.jpg # --network flag is optional, default is googlenet
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first time you run each model, TensorRT will take a few minutes to optimize the network. The optimized network file is cached to disk, so future runs using the model will load faster.</p>
+</div>
+</li>
+</ol>
+<p>Expected Result: The installation should complete without any issues, and inferencing should give us expected output. For example, the image is recognized as <code class="docutils literal notranslate"><span class="pre">orange</span></code> (class #950) with 97.900391% confidence. Refer to <a class="github reference external" href="https://github.com/dusty-nv/jetson-inference">dusty-nv/jetson-inference</a> for more information.</p>
+</section>
+<section id="jetson-running-the-live-camera-recognition-demo-with-imagenet-googlenet-caffe">
+<h3>[Jetson] Running the Live Camera Recognition Demo with ImageNet (googlenet,caffe)<a class="headerlink" href="TestPlanValidation.html#jetson-running-the-live-camera-recognition-demo-with-imagenet-googlenet-caffe" title="Link to this heading">#</a></h3>
+<p><strong>Before you begin</strong>, ensure that the Ubuntu Desktop with the graphical desktop packages is installed.</p>
+<ol class="arabic">
+<li><p>Flash device with the test image.</p></li>
+<li><p>Connect the camera to the device.</p></li>
+<li><p>Install the JetPack components.</p></li>
+<li><p>Build the project on device from the source (refer to <a class="github reference external" href="https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md">dusty-nv/jetson-inference</a> for more information).</p>
+<blockquote>
+<div><p>The repository for TensorRT-accelerated deep learning networks for image recognition, object detection with localization (for example, bounding boxes), and semantic segmentation will be downloaded. Various pre-trained DNN models are automatically downloaded.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd $HOME
+$ sudo apt-get update
+$ sudo apt-get install git cmake libpython3-dev python3-numpy
+$ git clone --recursive https://github.com/dusty-nv/jetson-inference
+$ cd jetson-inference
+$ mkdir build
+$ cd build
+$ cmake ../
+$ make
+$ sudo make install
+$ sudo ldconfig
+</pre></div>
+</div>
+<p>Refer to <a class="github reference external" href="https://github.com/dusty-nv/jetson-inference/blob/master/docs/jetpack-setup-2.md">dusty-nv/jetson-inference</a> for more information.</p>
+</div></blockquote>
+</li>
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">$HOME/jetson-inference/build/aarch64/bin#</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo python3.6 ./imagenet-camera --network=resnet-18 # using ResNet-18, default MIPI CSI camera (1280x720)
+</pre></div>
+</div>
+</li>
+<li><p>Interrupt the test.</p></li>
+<li><p>Run for 5 minutes.</p></li>
+</ol>
+<p>Expected Result: The installation should complete without any issues, and inferencing should give us expected output. In this case, it is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>class 0400 - 0.021591 (academic gown, academic robe, judge&#39;s robe)
+class 0413 - 0.025543 (assault rifle, assault gun)
+class 0526 - 0.023438 (desk)
+class 0534 - 0.011513 (dishwasher, dish washer, dishwashing machine)
+class 0592 - 0.027084 (hard disc, hard disk, fixed disk)
+class 0667 - 0.238525 (mortarboard) To be tested
+</pre></div>
+</div>
+</section>
+</section>
+<section id="deepstream-test-apps">
+<h2>DeepStream Test Apps<a class="headerlink" href="TestPlanValidation.html#deepstream-test-apps" title="Link to this heading">#</a></h2>
+<section id="run-the-deepstream-test-apps">
+<h3>Run the DeepStream Test Apps<a class="headerlink" href="TestPlanValidation.html#run-the-deepstream-test-apps" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To achieve best performance set the max clock settings</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-image-decode-test
+  deepstream-image-decode-app /opt/nvidia/deepstream/deepstream/samples/streams/sample_720p_mjpeg.mp4
+  cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-test1
+  deepstream-test1-app ./dstest1_config.yml 2&gt; /dev/null
+  cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-test2
+  deepstream-test2-app ./dstest2_config.yml 2&gt; /dev/null
+  cd /opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-test3
+  deepstream-test3-app ./dstest3_config.yml 2&gt; /dev/null
+
+.. note::
+
+  Messages such as **WARNING: Deserialize engine failed because file path: &lt;engine-name&gt; open error** are expected for engines that are not present.
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="test-the-secondary-gstreamer-inference-engine-sgie">
+<h3>Test the Secondary gstreamer Inference Engine (SGIE)<a class="headerlink" href="TestPlanValidation.html#test-the-secondary-gstreamer-inference-engine-sgie" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Avoid dropping frames during playback.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo sed -i &#39;s/sync=1/sync=0/&#39; /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt
+</pre></div>
+</div>
+</li>
+<li><p>To achieve the best performance, set the max clock settings.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo jetson_clocks
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deepstream-app -c /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt 2&gt; /dev/null
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Messages such as <strong>WARNING: Deserialize engine failed because file path: &lt;engine-name&gt; open error</strong> are expected for engines that are not present.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="test-30-streams-video-decode-and-tensorrt-object-detection-with-output-rendered-to-the-display">
+<h3>Test 30 Streams Video Decode and TensorRT Object Detection with Output Rendered to the Display<a class="headerlink" href="TestPlanValidation.html#test-30-streams-video-decode-and-tensorrt-object-detection-with-output-rendered-to-the-display" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>To avoid dropping frames during playback, run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo sed -i &#39;s/sync=1/sync=0/&#39; /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/source30_1080p_dec_infer-resnet_tiled_display_int8.txt
+</pre></div>
+</div>
+</li>
+<li><p>To achieve best performance set the max clock settings, run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo jetson_clocks
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>deepstream-app -c /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/source30_1080p_dec_infer-resnet_tiled_display_int8.txt 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+<li><p>The perf rate display should be approximately 21fps.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>**PERF:  21.39 (21.16)  21.39 (21.09)   21.39 (21.09)   21.39 (21.09)   21.39 (21.09)   21.39 (21.05)   21.39 (21.09)   21.39 (21.09)   21.39 (21.16)   21.39 (21.09)   21.39 (21.05)   21.39 (21.10)   21.39 (21.16)   21.39 (21.09)   21.39 (21.09) 21.39 (21.09)   21.39 (21.09)   21.39 (21.16)   21.39 (21.16)   21.39 (21.16)   21.39 (21.16)   21.39 (21.09)   21.39 (21.09)   21.39 (21.09)   21.39 (21.16)   21.39 (21.09)   21.39 (21.16)   21.39 (21.16)   21.39 (21.09)   21.39 (21.09)
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Clicking the left mouse button on a video stream zooms into that stream and clicking the right mouse button zooms back out again. The frame-rate should be greater than 20fps (as shown below) for Jetson AGX Xavier and around 13-14fps for Jetson Xavier NX. Messages such as <strong>WARNING: Deserialize engine failed because file path: &lt;engine-name&gt; open error</strong> are expected for engines that are not present.</p>
+</section>
+</section>
+<section id="triton">
+<h2>Triton<a class="headerlink" href="TestPlanValidation.html#triton" title="Link to this heading">#</a></h2>
+<section id="run-the-sample-deepstream-triton-application">
+<h3>Run the Sample DeepStream Triton Application<a class="headerlink" href="TestPlanValidation.html#run-the-sample-deepstream-triton-application" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Install Triton.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/deepstream/deepstream/samples
+sudo ./prepare_ds_triton_model_repo.sh
+sudo apt -y install ffmpeg
+sudo ./prepare_classification_test_video.sh
+sudo ./triton_backend_setup.sh
+</pre></div>
+</div>
+</li>
+<li><p>Remove the GStreamer cache and verify that the nvinterserver is present.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>rm ~/.cache/gstreamer-1.0/registry.aarch64.bin
+gst-inspect-1.0 nvinferserver
+</pre></div>
+</div>
+</li>
+<li><p>Run the sample DeepStream Triton application.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>export DISPLAY=&lt;local-display&gt;
+cd /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app-triton
+deepstream-app -c source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt 2&gt; /dev/null
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Release: The DeepStream Triton application should run successfully.</p>
+</section>
+</section>
+<section id="jetson-ai-benchmarks">
+<h2>Jetson AI Benchmarks<a class="headerlink" href="TestPlanValidation.html#jetson-ai-benchmarks" title="Link to this heading">#</a></h2>
+<section id="run-the-jetson-ai-benchmarks">
+<h3>Run the Jetson AI Benchmarks<a class="headerlink" href="TestPlanValidation.html#run-the-jetson-ai-benchmarks" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following commands.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ${HOME}
+git clone https://github.com/NVIDIA-AI-IOT/jetson_benchmarks.git
+cd jetson_benchmarks
+mkdir models
+sudo sh install_requirements.sh
+</pre></div>
+</div>
+</li>
+<li><p>Ensure the fan service is running.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart nvfancontrol.service
+
+python3 utils/download_models.py --all --csv_file_path ./benchmark_csv/orin-benchmarks.csv --save_dir ${HOME}/jetson_benchmarks/models
+</pre></div>
+</div>
+</li>
+<li><p>Set Orin to the maximum power mode and reboot the device when prompted.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo nvpmodel -m 0
+
+cd ${HOME}/jetson_benchmarks
+sudo python3 benchmark.py --all --csv_file_path ./benchmark_csv/orin-benchmarks.csv --model_dir ${HOME}/jetson_benchmarks/models --jetson_clocks
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The reference TensorRT performance numbers for Jetson AGX Orin are published by NVIDIA.</p>
+</section>
+</section>
+<section id="vpi">
+<h2>VPI<a class="headerlink" href="TestPlanValidation.html#vpi" title="Link to this heading">#</a></h2>
+<p><strong>Before you begin</strong>:</p>
+<ul>
+<li><p>VPI should be installed on device and sample application should be available on device rootfs.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ubuntu@tegra-ubuntu:~$ dpkg -l | grep -i vpi
+ii  libnvvpi3                                  3.2.4                                      amd64        NVIDIA Vision Programming Interface library
+ii  python3.10-vpi3                            3.2.4                                      amd64        NVIDIA VPI Python 3.10 bindings
+ii  vpi3-dev                                   3.2.4                                      amd64        NVIDIA VPI C/C++ development library and headers
+ii  vpi3-samples                               3.2.4                                      amd64        NVIDIA VPI command-line sample applications
+</pre></div>
+</div>
+</li>
+<li><p>Provide sudo/root permissions to users and compile the sample application or log in with root.</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Run the 2D Image Convolution sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/vpi3/samples/01-convolve_2d
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_01_convolve_2d cpu ../assets/kodim08.png
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p>View the output (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_conv2d.html">https://docs.nvidia.com/vpi/sample_conv2d.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog edges_cpu.png
+</pre></div>
+</div>
+</li>
+<li><p>Run the Python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cpu ../assets/kodim08.png
+</pre></div>
+</div>
+</li>
+<li><p>View the output (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_conv2d.html">https://docs.nvidia.com/vpi/sample_conv2d.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog edges_python3_cpu.png
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The 2D Image Concolution sample should run successfully. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_conv2d.html">https://docs.nvidia.com/vpi/sample_conv2d.html</a> for more information.</p>
+<section id="running-the-stereo-disparity-sample">
+<h3>Running the Stereo Disparity Sample<a class="headerlink" href="TestPlanValidation.html#running-the-stereo-disparity-sample" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/vpi3/samples/02-stereo_disparity
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_02_stereo_disparity cuda ../assets/chair_stereo_left.png ../assets/chair_stereo_right.png
+</pre></div>
+</div>
+</li>
+<li><p>View the outputs (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_stereo.html">https://docs.nvidia.com/vpi/sample_stereo.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog confidence_cuda.png
+eog disparity_cuda.png
+</pre></div>
+</div>
+</li>
+<li><p>Run the Python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cuda ../assets/chair_stereo_left.png ../assets/chair_stereo_right.png
+</pre></div>
+</div>
+</li>
+<li><p>View the output (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_stereo.html">https://docs.nvidia.com/vpi/sample_stereo.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog confidence_python3_cuda.png
+eog disparity_python3_cuda.png
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The Stereo Disparity sample should run successfully. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_stereo.html">https://docs.nvidia.com/vpi/sample_stereo.html</a> for more information.</p>
+</section>
+<section id="run-the-harris-corners-detector-sample-that-uses-the-pva">
+<h3>Run the Harris Corners Detector Sample that Uses the PVA<a class="headerlink" href="TestPlanValidation.html#run-the-harris-corners-detector-sample-that-uses-the-pva" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/vpi3/samples/03-harris_corners
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_03_harris_corners pva ../assets/kodim08.png
+</pre></div>
+</div>
+</li>
+<li><p>View the output (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_harris_detector.html">https://docs.nvidia.com/vpi/sample_harris_detector.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog harris_corners_pva.png
+</pre></div>
+</div>
+</li>
+<li><p>Run the python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py pva ../assets/kodim08.png
+</pre></div>
+</div>
+</li>
+<li><p>View the output (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_harris_detector.html">https://docs.nvidia.com/vpi/sample_harris_detector.html</a>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>eog harris_corners_python3_pva.png
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Expected Result: The Harris Corners Detector sample that is using the PVA should run successfully.</p>
+</section>
+<section id="run-the-klt-bounding-box-tracker">
+<h3>Run the KLT Bounding Box Tracker<a class="headerlink" href="TestPlanValidation.html#run-the-klt-bounding-box-tracker" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd  /opt/nvidia/vpi3/samples/06-klt_tracker
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_06_klt_tracker cuda ../assets/dashcam.mp4 ../assets/dashcam_bboxes.txt
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_klt_tracker.html">https://docs.nvidia.com/vpi/sample_klt_tracker.html</a>).</p></li>
+<li><p>Run the python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cuda ../assets/dashcam.mp4 ../assets/dashcam_bboxes.txt
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_klt_tracker.html">https://docs.nvidia.com/vpi/sample_klt_tracker.html</a>).</p></li>
+</ol>
+<p>Expected Result: The KLT Bounding Box Tracker should be successful. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_harris_detector.html">https://docs.nvidia.com/vpi/sample_harris_detector.html</a> for more information.</p>
+</section>
+<section id="run-the-temporal-noise-reduction">
+<h3>Run the Temporal Noise Reduction<a class="headerlink" href="TestPlanValidation.html#run-the-temporal-noise-reduction" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd  /opt/nvidia/vpi3/samples/09-tnr
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_09_tnr cuda ../assets/noisy.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_tnr.html">https://docs.nvidia.com/vpi/sample_tnr.html</a>).</p></li>
+<li><p>Run the python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cuda ../assets/noisy.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_tnr.html">https://docs.nvidia.com/vpi/sample_tnr.html</a>).</p></li>
+</ol>
+<p>Expected Result: Running the Temporal Noise Reduction should be successful. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_tnr.html">https://docs.nvidia.com/vpi/sample_tnr.html</a> for more information.</p>
+</section>
+<section id="run-the-perspective-warp">
+<h3>Run the Perspective Warp<a class="headerlink" href="TestPlanValidation.html#run-the-perspective-warp" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd  /opt/nvidia/vpi3/samples/10-perspwarp
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_10_perspwarp cuda ../assets/noisy.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_perspwarp.html">https://docs.nvidia.com/vpi/sample_perspwarp.html</a>).</p></li>
+<li><p>Run the python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cuda ../assets/noisy.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_perspwarp.html">https://docs.nvidia.com/vpi/sample_perspwarp.html</a>).</p></li>
+</ol>
+<p>Expected Result: The Perspective Warp should be successful. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_background_subtractor.html">https://docs.nvidia.com/vpi/sample_background_subtractor.html</a> for more information.</p>
+</section>
+<section id="run-the-background-subtractor">
+<h3>Run the Background Subtractor<a class="headerlink" href="TestPlanValidation.html#run-the-background-subtractor" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Run the following command.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/vpi3/samples/14-background_subtractor
+</pre></div>
+</div>
+</li>
+<li><p>Build the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo cmake .
+sudo make
+</pre></div>
+</div>
+</li>
+<li><p>Run the C++ sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ./vpi_sample_14_background_subtractor cpu ../assets/pedestrians.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_background_subtractor.html">https://docs.nvidia.com/vpi/sample_background_subtractor.html</a>).</p></li>
+<li><p>Run the python sample.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo python3 main.py cpu ../assets/pedestrians.mp4
+</pre></div>
+</div>
+</li>
+<li><p>Play the output video (refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_background_subtractor.html">https://docs.nvidia.com/vpi/sample_background_subtractor.html</a>).</p></li>
+</ol>
+<p>Expected Result: Background Subtractor should be successful. Refer to <a class="reference external" href="https://docs.nvidia.com/vpi/sample_background_subtractor.html">https://docs.nvidia.com/vpi/sample_background_subtractor.html</a> for more information.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="WorkingWithSources.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Working With Sources</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../HR/JetsonDeveloperKitSetup.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Jetson Developer Kit Setup</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#flash-and-boot">Flash and Boot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-the-flash-and-boot-using-the-flash-sh-script">Check the Flash and Boot Using the flash.sh Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-the-flash-and-boot-sdkm">Check the Flash and Boot SDKM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#nvme-boot">NVME Boot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#nfs-boot">NFS Boot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#system-software">System Software</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#detection-of-usb-hub-fs-hs-ss">Detection of USB Hub (FS/HS/SS)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#detection-of-usb-3-0-flashdrive-hot-plug-in">Detection of USB-3.0 Flashdrive (Hot plug-in)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#detecting-the-keyboard">Detecting the Keyboard</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#detecting-the-mouse">Detecting the Mouse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#cold-boot-10-cycles">Cold Boot 10 Cycles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#warm-boot-10-cycles">Warm Boot 10 Cycles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#checking-for-failures-and-error-messages-in-dmesg">Checking for Failures and Error Messages in dmesg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#using-the-display-port-dp">Using the Display Port (DP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#lp0-resume-basic-functionality">LP0-Resume Basic Functionality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#uart-i-o-debug-print-messages">UART I/O (Debug Print Messages)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#configuring-the-40-pin-expansion-header">Configuring the 40-Pin Expansion Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jetson-linux-watchdog-timer-enable-verification">Jetson-Linux WatchDog Timer Enable Verification</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verifying-the-boot-time-services-and-scripts">Verifying the Boot Time Services and Scripts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#nvpmodel-power-modes">nvpmodel: Power Modes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#setting-and-verifying-supported-power-modes">Setting and Verifying Supported Power Modes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verify-cpu-gpu-and-emc-frequencies">Verify CPU, GPU, and EMC Frequencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verify-cpu-gpu-and-emc-frequencies-after-resuming-from-sc7-state">Verify CPU, GPU, and EMC Frequencies after Resuming from SC7 State</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verify-power-mode-is-preserved-after-cold-boot">Verify Power Mode Is Preserved after Cold Boot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verify-power-mode-is-preserved-after-warm-boot">Verify Power Mode Is Preserved after Warm Boot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#running-the-tegrastats-command">Running the tegrastats Command</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#graphics">Graphics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#running-a-graphics-application-using-x11">Running a Graphics Application Using X11</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#running-a-graphics-application-using-egldevice-drm">Running a Graphics Application Using EGLdevice (DRM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#running-a-graphics-application-using-wayland">Running a Graphics Application Using Wayland</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#kernel">Kernel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#checking-the-kernel-version">Checking the Kernel Version</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verifying-unloading-of-kernel-modules-using-modprobe">Verifying Unloading of Kernel Modules Using modprobe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verifying-the-previous-hang-log-last-kmsg-console-ramoops">Verifying the Previous Hang log - last_kmsg/console-ramoops</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-dvfs-scaling">Check DVFS Scaling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#cpu-therm-system-throttle-alert-check">CPU-therm System Throttle Alert Check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#camera">Camera</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#device-test-image-capture-with-camera-devices">Device: Test Image Capture with Camera Devices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#device-test-video-capture-with-camera-devices">Device: Test Video Capture with Camera Devices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#verifying-imx274-camera-sensor">Verifying IMX274 Camera Sensor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-a-jpeg-image-from-each-sensor">Capturing a JPEG Image from Each Sensor</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#comms">Comms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#wifi-ap-connectivity-with-wpa2-security">WiFi AP Connectivity with WPA2 Security</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#mm-content-youtube-tm-1080p-streaming-over-wifi">MM Content (YouTube|(TM) 1080p) Streaming Over WiFi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#setting-up-wifi-ap-connection-over-the-command-line-interface">Setting up WiFi AP Connection over the Command-Line Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#bluetooth-pairing-and-unpairing">Bluetooth Pairing and Unpairing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#ethernet-lan-connectivity">Ethernet LAN Connectivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#ethernet-lan-hot-plug">Ethernet LAN Hot-plug</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#ethernet-lan-bandwidth">Ethernet LAN Bandwidth</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#multimedia-encode-decode">Multimedia Encode/Decode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#camera-capture-using-gstreamer">Camera capture using GStreamer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capture-an-image">Capture an image</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-a-motion-jpeg-stream">Capturing a Motion-JPEG Stream</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#preview-the-camera-stream">Preview the Camera Stream</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-video-from-the-camera-and-record">Capturing Video from the Camera and Record</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#encode-using-gstreamer">Encode using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#decode-using-gstreamer">Decode using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jpeg-decode-using-gstreamer">JPEG Decode using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jpeg-encode-using-gstreamer">JPEG Encode using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#transform-using-gstreamer">Transform using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#transcode-using-gstreamer">Transcode using GStreamer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#video-playback-using-application">Video Playback using Application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#mp3-playback-test-to-verify-that-mp3-playback-is-successful-using-nvgstplayer-1-0">MP3 Playback Test to Verify that MP3 Playback is Successful Using nvgstplayer-1.0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#mp3-streaming-stream-the-mp3-file-from-an-http-server">MP3 Streaming (Stream the MP3 file from an HTTP Server)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#streaming-audio-and-video-file-from-the-http-server">Streaming Audio and Video File from the HTTP Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#audio-video-rtsp-streaming-h264-aac">AUDIO+VIDEO rtsp streaming:H264+AAC</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#camera-argus-samples">Camera Argus Samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#compiling-argus-sdk-samples-compilation-and-running-cudahistogram">Compiling Argus SDK Samples Compilation and Running _cudahistogram</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#compiling-argus-sdk-samples-and-running-gstvideoencode">Compiling Argus SDK Samples and Running _gstvideoencode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#argus-sdk-samples-compilation-and-run-multisensor">Argus SDK samples compilation and run _multisensor</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#web-camera-capture-using-gstreamer">Web Camera capture using GStreamer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-video-from-a-usb-web-camera-and-recording-the-video">Capturing Video from a USB Web Camera and Recording the Video</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-and-displaying-the-video-from-a-usb-web-camera">Capturing and displaying the Video from a USB Web Camera</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#capturing-videos-from-a-usb-web-cam-and-running-it-through-trt">Capturing Videos from a USB web cam and Running it Through TRT</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#nvidia-containers">NVIDIA Containers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#install-container-engine-and-nvidia-container-toolkit">Install Container Engine and NVIDIA Container Toolkit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-jetpack-container">Run JetPack Container</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#cuda-samples">CUDA Samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#build-and-run-cuda-samples-natively-on-target-device">Build and Run CUDA Samples Natively on Target Device</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#build-and-run-cuda-samples-in-container-on-target-device">Build and Run CUDA Samples in Container on Target Device</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-cuda-samples">Run CUDA Samples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-cudnn-samples">Run cuDNN Samples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#tensorrt-samples">TensorRT Samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-trt-sample-sample-algorithm-selector">Run the TRT sample (sample algorithm selector)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-trt-sample-sample-onnx-mnist">Run TRT sample (sample_onnx_mnist)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-a-trt-sample-sample-onnx-mnist-usedlacore-0">Run a TRT sample (sample_onnx_mnist useDLACore=0)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-a-trt-sample-sample-onnx-mnist-usedlacore-1">Run a TRT sample (sample_onnx_mnist useDLACore=1)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#trt-mm">TRT + MM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#mm-samples">MM Samples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#checking-the-compilation-and-running-of-the-video-convert-app">Checking the Compilation and Running of the video_convert App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-the-compilation-and-run-the-backend-app">Check the Compilation and Run the Backend App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-the-compilation-and-run-the-video-encode-app">Check the Compilation and Run the video_encode App</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#check-the-compilation-and-run-the-video-decode-app">Check the Compilation and Run the video_decode App</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#complete-pipeline-inferencing">Complete Pipeline: Inferencing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jetson-classifying-images-with-imagenet-googlenet-caffe">[Jetson] Classifying Images with ImageNet (googlenet,caffe)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jetson-running-the-live-camera-recognition-demo-with-imagenet-googlenet-caffe">[Jetson] Running the Live Camera Recognition Demo with ImageNet (googlenet,caffe)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#deepstream-test-apps">DeepStream Test Apps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-deepstream-test-apps">Run the DeepStream Test Apps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#test-the-secondary-gstreamer-inference-engine-sgie">Test the Secondary gstreamer Inference Engine (SGIE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#test-30-streams-video-decode-and-tensorrt-object-detection-with-output-rendered-to-the-display">Test 30 Streams Video Decode and TensorRT Object Detection with Output Rendered to the Display</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#triton">Triton</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-sample-deepstream-triton-application">Run the Sample DeepStream Triton Application</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#jetson-ai-benchmarks">Jetson AI Benchmarks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-jetson-ai-benchmarks">Run the Jetson AI Benchmarks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#vpi">VPI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#running-the-stereo-disparity-sample">Running the Stereo Disparity Sample</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-harris-corners-detector-sample-that-uses-the-pva">Run the Harris Corners Detector Sample that Uses the PVA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-klt-bounding-box-tracker">Run the KLT Bounding Box Tracker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-temporal-noise-reduction">Run the Temporal Noise Reduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-perspective-warp">Run the Perspective Warp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="TestPlanValidation.html#run-the-background-subtractor">Run the Background Subtractor</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

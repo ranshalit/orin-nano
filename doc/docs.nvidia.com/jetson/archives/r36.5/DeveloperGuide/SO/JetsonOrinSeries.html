@@ -1,0 +1,1943 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jetson Orin Series &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SO/JetsonOrinSeries';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Flashing Support" href="../SD/FlashingSupport.html" />
+    <link rel="prev" title="Partition Configuration" href="../AR/BootArchitecture/PartitionConfiguration.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="JetsonOrinSeries.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="JetsonOrinSeries.html#">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SD/FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SD/Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SD/Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SD/PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SD/PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SD/TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Jetson Orin Series</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="jetson-orin-series">
+<h1>Jetson Orin Series<a class="headerlink" href="JetsonOrinSeries.html#jetson-orin-series" title="Link to this heading">#</a></h1>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux supports these software features, which provide users a complete package to bring up Linux on <span class="html">Jetson AGX Orin&trade;</span>, <span class="html">Jetson Orin&trade; NX</span>, and <span class="html">Jetson Orin&trade; Nano</span> devices.</p>
+<section id="bootloader">
+<span id="so-jetson-orin-series-bootloader"></span><h2>Bootloader<a class="headerlink" href="JetsonOrinSeries.html#bootloader" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bootloader Binary</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="7"><p>BPMP processor
+boot binaries</p></td>
+<td><p>Storage location</p></td>
+<td><p>Cold boot: QSPI</p>
+<p>RCM boot: Downloaded over USB
+recovery port</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Next stage storage
+location</p></td>
+<td><p>Cold boot: QSPI</p>
+<p>RCM boot: Downloaded over USB
+recovery port</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Next stage</p></td>
+<td><p>UEFI</p></td>
+</tr>
+<tr class="row-odd"><td><p>Storage device
+support</p></td>
+<td><p>QSPI</p></td>
+</tr>
+<tr class="row-even"><td><p>Partition table
+support</p></td>
+<td><p>GPT (with protective MBR)</p></td>
+</tr>
+<tr class="row-odd"><td><p>File system support</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p>I/O bus support</p>
+<p>Console UART</p>
+</td>
+<td><p>I<sup>2</sup>C</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="toolchain">
+<span id="so-jetson-orin-series-toolchain"></span><h2>Toolchain<a class="headerlink" href="JetsonOrinSeries.html#toolchain" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table" id="at-jetsonlinuxtoolchainbrief">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Tool chains</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Aarch64</p></td>
+<td><p>gcc-11.3-glibc-2.35</p></td>
+<td><p>For 64-bit kernel and user space</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="kernel">
+<span id="so-jetson-orin-series-kernel"></span><h2>Kernel<a class="headerlink" href="JetsonOrinSeries.html#kernel" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Interface</p></th>
+<th class="head"><p>Feature</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Linux kernel</p></td>
+<td><p>Version 5.15.148</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="camera-interface">
+<span id="so-jetson-orin-series-camera-interface"></span><h2>Camera Interface<a class="headerlink" href="JetsonOrinSeries.html#camera-interface" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Interface</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AGX Orin</p></td>
+<td><p>Camera support (CSI
+input support)</p></td>
+<td><p>V4L2 Media-Controller
+(V4L2 API bypasses ISP)</p></td>
+<td><p>CSI0, CSI1, CSI2, CSI3,
+CSI4, CSI5, CSI6, CSI7</p></td>
+</tr>
+<tr class="row-odd"><td><p>Orin NX and
+Orin Nano</p></td>
+<td><p>Camera support (CSI
+input support)</p></td>
+<td><p>V4L2 Media-Controller
+(V4L2 API bypasses ISP)</p></td>
+<td><p>CSI0, CSI1, CSI2, CSI3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend using a camera with a frame rate of less than or equal to 60 FPS.</p>
+</div>
+</section>
+<section id="lsio">
+<span id="so-jetson-orin-series-lsio"></span><h2>LSIO<a class="headerlink" href="JetsonOrinSeries.html#lsio" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="10"><p>UART</p></td>
+<td><p>PIO mode</p></td>
+<td><p>FIFO access using CPU.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA mode</p></td>
+<td><p>FIFO access using DMA.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware-/software-based flow
+control</p></td>
+<td><p>Flow control line toggling from
+hardware or software.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Buffer throttling</p></td>
+<td><p>Flow control based on data in receive
+buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p>RX and TX DMA mode selection</p></td>
+<td><p>DMA mode transfer on RX and TX or on
+only one path.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interrupt mode</p></td>
+<td><p>Data transfer complete handling through
+interrupt.</p></td>
+</tr>
+<tr class="row-even"><td><p>Polling mode</p></td>
+<td><p>Data transfer complete handling through
+polling.</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCR control</p></td>
+<td><p>Modem control access.</p></td>
+</tr>
+<tr class="row-even"><td><p>Baud rate/port configuration</p></td>
+<td><p>Changing port configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Baud rate adjustment</p></td>
+<td><p>Adjusting baud rate to fall within
+tolerance range.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="17"><p>I<sup>2</sup>C
+controller</p></td>
+<td><p>Speed mode (standard, FM, FM+)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Repeat start</p></td>
+<td><p>Repeat start on transfer of data.</p></td>
+</tr>
+<tr class="row-even"><td><p>No start</p></td>
+<td><p>No address cycle after repeat start.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Packet mode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Normal/byte mode</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>7-bit/10-bit addressing mode</p></td>
+<td><p>7-bit/10-bit addressing mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>DMA mode</p></td>
+<td><p>APB/GPC DMA for FIFO access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clock gating and clock always
+on</p></td>
+<td><p>Clock control after each transfer for
+power saving.</p></td>
+</tr>
+<tr class="row-even"><td><p>Runtime PM</p></td>
+<td><p>Runtime power management.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dynamic clock speed change</p></td>
+<td><p>Change speed of the bus.</p></td>
+</tr>
+<tr class="row-even"><td><p>Interrupt-based</p></td>
+<td><p>Transfer complete handling using
+interrupt.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Polling</p></td>
+<td><p>Transfer complete handling using
+polling.</p></td>
+</tr>
+<tr class="row-even"><td><p>Bit banging for data transfer</p></td>
+<td><p>Use GPIO APIs for data transfer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple transfer request</p></td>
+<td><p>Multiple transfer request.</p></td>
+</tr>
+<tr class="row-even"><td><p>Bus clear support</p></td>
+<td><p>Bus clear handling when bus is held by
+device.</p></td>
+</tr>
+<tr class="row-odd"><td><p>&gt;4K on software-based split</p></td>
+<td><p>&gt;4K on software-based split.</p></td>
+</tr>
+<tr class="row-even"><td><p>&gt;64K on software-based split</p></td>
+<td><p>&gt;64K on software-based split.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="20"><p>SPI
+controller</p></td>
+<td><p>Packed/unpacked</p></td>
+<td><p>Data can be put on FIFO in packed or
+unpacked format. Packed format reduces
+the number of I/O accesses on FIFO.</p></td>
+</tr>
+<tr class="row-even"><td><p>Full duplex mode</p></td>
+<td><p>Device can read and write data
+simultaneously.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Least significant bit</p></td>
+<td><p>Option to send least significant bit
+first from packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>Dual SPI</p></td>
+<td><p>SPI PICO/POCI (previously MOSI/MISO)
+can act as RX and TX.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Least significant byte first</p></td>
+<td><p>Option to send least significant byte
+first from packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware-based CS control and
+CS setup/hold time</p></td>
+<td><p>Hardware control the CS and maintain CS
+setup and hold time.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Software or hardware chip
+select polarity section</p></td>
+<td><p>Chip select can be active high or
+active low based on the external device
+property.</p></td>
+</tr>
+<tr class="row-even"><td><p>Supported modes 0–3</p></td>
+<td><p>SPI communication support mode 0, 1, 2,
+or 3.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA mode</p></td>
+<td><p>Data written to and read from FIFO using
+DMA mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>PIO (non-DMA) mode</p></td>
+<td><p>CPU has direct access to FIFO for
+read and write.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPIO-based chip select</p></td>
+<td><p>CS line is controlled by the GPIO APIs.</p></td>
+</tr>
+<tr class="row-even"><td><p>SPI different clock rates</p></td>
+<td><p>Set the interface clock speed based on
+what device can support.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prod configuration</p></td>
+<td><p>Platform-/chip-specific configuration of
+controller and interface.</p></td>
+</tr>
+<tr class="row-even"><td><p>Clock delay between packets</p></td>
+<td><p>Provision for delay between packets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clock gating and clock always
+on</p></td>
+<td><p>Dynamic clock enable/disable for power
+save.</p></td>
+</tr>
+<tr class="row-even"><td><p>Runtime PM</p></td>
+<td><p>Runtime power management.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interrupt-based</p></td>
+<td><p>Transfer-done handling through
+interrupt.</p></td>
+</tr>
+<tr class="row-even"><td><p>Polling</p></td>
+<td><p>Transfer-done handling through polling.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Different packet bit length</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Multiple-transfer request</p></td>
+<td><p>Multiple SPI transfer request from a
+single call.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="9"><p>GPIO</p></td>
+<td><p>GPIO request/free</p></td>
+<td><p>GPIO access permission.</p></td>
+</tr>
+<tr class="row-even"><td><p>Pinmux integration with GPIOS</p></td>
+<td><p>GPIO APIs call pinmux for required pin
+configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Direction set/get</p></td>
+<td><p>GPIO direction configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p>Value set/get</p></td>
+<td><p>GPIO value set to pin and get from pin.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interrupt support from all
+pins</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Wake-up support for SC7</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>GPIO register dump</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Support for libgpiod library
+and tools</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Suspend/resume</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="10"><p>Pinmux</p></td>
+<td><p>Function configuration</p></td>
+<td><p>Pinmux function configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pinmux configuration</p></td>
+<td><p>Configuration of various pinmux
+properties, such as pull up/pull down,
+input, and tristate.</p></td>
+</tr>
+<tr class="row-even"><td><p>Suspend/resume</p></td>
+<td><p>Save and restore pinmux context.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Drive strength</p></td>
+<td><p>Drive strength configuration of pins.</p></td>
+</tr>
+<tr class="row-even"><td><p>Prod setting</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Static pinmux configuration</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Dynamic pinmux configuration</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pinmux register dump</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Pinmux configuration dumping</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pinmux-GPIO integration</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="6"><p>APBDMA/
+GPCDMA</p></td>
+<td><p>Memory to memory</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Memory to I/O</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>I/O to memory</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Cyclic-once mode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Transfer done through
+interrupt mode</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple transfer requests</p></td>
+<td><p>Queue mechanism for transfer requests.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>Watchdog</p></td>
+<td><p>Watchdog framework support</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>System reset on CPU hang</p></td>
+<td><p>System reset on WDT expiry.</p></td>
+</tr>
+<tr class="row-even"><td><p>Suspend/resume support</p></td>
+<td><p>Suspend/resume handling.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Watchdog interrupt support</p></td>
+<td><p>WDT reset on ISR.</p></td>
+</tr>
+<tr class="row-even"><td><p>Watchdog polling/ping support</p></td>
+<td><p>WDT start/stop/pin from user space.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p>PWM</p></td>
+<td><p>PWM ops</p></td>
+<td><p>PWM registration to framework.</p></td>
+</tr>
+<tr class="row-even"><td><p>Prod setting</p></td>
+<td><p>Tegra-specific controller configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clock accuracy calculation</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="7"><p>PMC</p></td>
+<td><p>Controlling I/O PAD voltage
+(PWR_DETECT)</p></td>
+<td><p>Pad voltage configuration by software.</p></td>
+</tr>
+<tr class="row-odd"><td><p>I/O DPD configuration</p></td>
+<td><p>Deep power-down configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p>IO_NOPOWER through regulator</p></td>
+<td><p>IO_NOPOWER configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Read/write PMC registers</p></td>
+<td><p>PMC register access interface.</p></td>
+</tr>
+<tr class="row-even"><td><p>PMC config for BootROM
+I<sup>2</sup>C</p></td>
+<td><p>PMC configuration for BootROM
+I<sup>2</sup>C/MMIO commands.</p></td>
+</tr>
+<tr class="row-odd"><td><p>PMC LED blink</p></td>
+<td><p>PMC provides the control for blinking
+LED, including in deep-sleep mode. The
+blinking control is a PWM signal.</p></td>
+</tr>
+<tr class="row-even"><td><p>PMC soft LED breathing</p></td>
+<td><p>PMC soft LED breathing to control LED
+ramp up, ramp down, and on time.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tachometer</p></td>
+<td><p>Read RPM</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="6"><p>BPMP I<sup>2</sup>C
+controller</p></td>
+<td><p>Speed mode (standard, FM, FM+)</p></td>
+<td><p>Bus speed configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Packet mode</p></td>
+<td><p>I<sup>2</sup>C controller configuration
+in packet mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>Normal/byte mode</p></td>
+<td><p>I<sup>2</sup>C controller configuration
+in normal mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p>7-bit/10-bit addressing mode</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>DMA mode</p></td>
+<td><p>I<sup>2</sup>C FIFO access through APB
+DMA.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bus-clear support</p></td>
+<td><p>Bus-clear handling when bus is held by
+device.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>SPE-UART</p></td>
+<td><p>PIO mode</p></td>
+<td><p>FIFO access using CPU.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA mode</p></td>
+<td><p>FIFO access using DMA.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware flow control</p></td>
+<td><p>Flow control line toggling from
+hardware and software.</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIFO mode</p></td>
+<td><p>FIFO mode of UART controller.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>SPE DMA</p></td>
+<td><p>Memory to memory</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Memory to I/O</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>I/O to memory</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Continuous mode support</p></td>
+<td><p>Cyclic mode.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="6"><p>I<sup>2</sup>C
+target</p></td>
+<td><p>Normal/byte mode</p></td>
+<td><p>I<sup>2</sup>C controller configuration
+in normal mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p>FIFO mode</p></td>
+<td><p>I<sup>2</sup>C controller configuration
+in FIFO mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>7-bit addressing</p></td>
+<td><p>7-bit addressing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>10-bit addressing</p></td>
+<td><p>10-bit addressing.</p></td>
+</tr>
+<tr class="row-even"><td><p>Repeat start</p></td>
+<td><p>Repeat start on transfer of data.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clock stretching</p></td>
+<td><p>Clock line stretching.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="13"><p>CAN 2.0 A</p></td>
+<td><p>CAN FD</p></td>
+<td><p>CAN FD increases the maximum data
+throughput to ~3.7 Mbps. 10 Mbps over
+10 meters. Maximum signal frequency:
+15 Mbps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>TX Standard CAN message</p></td>
+<td><p>TX Standard CAN with 11-bit message
+message identifiers, originally
+specified to operate at a maximum
+frequency of 250 Kbps. Maximum signal
+frequency: 1 Mbps. Available bitrates:
+125 Kbps, 250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-even"><td><p>RX Standard CAN message</p></td>
+<td><p>RX Standard CAN with bitrates of 125
+Kbps, 250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>TX+RX Standard CAN message</p></td>
+<td><p>TX+RX Standard CAN with bitrates of 125
+Kbps, 250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-even"><td><p>TX Extended CAN message</p></td>
+<td><p>TX Extended CAN with 29-bit message
+identifiers, originally specified to
+operate at a maximum frequency of 1
+Mbps. Available bitrates: 125 Kbps,
+250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RX Extended CAN message</p></td>
+<td><p>RX Extended CAN with bitrates of 125
+Kbps, 250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-even"><td><p>TX+RX Extended CAN message</p></td>
+<td><p>TX+RX Extended CAN with bitrates of 125
+Kbps, 250 Kbps, 500 Kbps, and 1 Mbps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>CAN loopback</p></td>
+<td><p>Internal controller loopback.</p></td>
+</tr>
+<tr class="row-even"><td><p>Standard FD (BRS/non-BRS)</p></td>
+<td><p>Standard FD frame with bitrate switching
+and non-bitrate switching.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extended FD (BRS/non-BRS)</p></td>
+<td><p>Extended FD frame with bitrate switching
+and non-bitrate switching.</p></td>
+</tr>
+<tr class="row-even"><td><p>Timestamping</p></td>
+<td><p>Timestamp generation of TX/RX frames.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Listen-only mode</p></td>
+<td><p>Listen-only mode to monitor CAN bus.</p></td>
+</tr>
+<tr class="row-even"><td><p>Restart bus-off</p></td>
+<td><p>Restart bus after CAN bus-off state.</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="14"><p>QSPI</p></td>
+<td><p>Interface widths</p></td>
+<td><p>Single, Dual, and Quad supported.</p></td>
+</tr>
+<tr class="row-even"><td><p>SDR and DDR modes</p></td>
+<td><p>Data rates on one or both clock edges.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bit lengths</p></td>
+<td><p>Packets of 8, 16, and 32 bits
+supported.</p></td>
+</tr>
+<tr class="row-even"><td><p>Transfer modes 0 and 3</p></td>
+<td><p>Transfer modes 0 and 3 for SDR and mode
+0 for DDR.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA/PIO mode selection</p></td>
+<td><p>Option to select data written to or read
+from FIFO using DMA or CPU.</p></td>
+</tr>
+<tr class="row-even"><td><p>Packed/unpacked</p></td>
+<td><p>Data can be put in packed or unpacked
+format on FIFO. Packed format reduces
+the number of I/O accesses.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Endianness LSByte and LSBit</p></td>
+<td><p>Option to send least-significant
+byte or bit first from packet.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware-based chip select
+control and CS setup/hold time</p></td>
+<td><p>Hardware control of chip select pin and
+CS setup and hold time.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Software or hardware chip
+select polarity selection</p></td>
+<td><p>Chip select can be active high or active
+low based on the external device
+property.</p></td>
+</tr>
+<tr class="row-even"><td><p>Combined sequence mode</p></td>
+<td><p>CDM, ADDR, and DATA transferred in
+single GO resulting in single interrupt.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Various clock rates</p></td>
+<td><p>Set the interface clock speed based on
+what device can support.</p></td>
+</tr>
+<tr class="row-even"><td><p>Golden Register settings</p></td>
+<td><p>Platform-/chip-specific configuration of
+controller and interface.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Active clock delay between
+packets</p></td>
+<td><p>Provision to have delay between packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>Runtime power management</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="hsio">
+<span id="so-jetson-orin-series-hsio"></span><h2>HSIO<a class="headerlink" href="JetsonOrinSeries.html#hsio" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Feature</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="16"><p>EthernetControllerFeaturesEqos</p></td>
+<td><p>Speed mode change through ethtool</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10/100 Mbps support</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>1000 Mbps support</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>10000 Mbps support</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Half-duplex support</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ARP offload</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>IEEE 1588-2008 (PTP)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Energy-Efficient Ethernet (EEE)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Transmit checksum offload</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Receive checksum offload</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>TCP segmentation offload</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Jumbo frame support</p></td>
+<td><p>Up to 9 KB (9018 bytes untagged or 9022
+bytes tagged).</p></td>
+</tr>
+<tr class="row-even"><td><p>Flow control/PAUSE frame support</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>EAVB support</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Up to 4 TX/RX queue/channels with 4 KB
+size</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN (insertion/stripping of VLAN tag
+in hardware)</p></td>
+<td><p>VLAN tag-based filtering supported
+for only one VLAN tag.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>Ethernet</p></td>
+<td><p>Ping</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Remote wake-up</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>NFS boot</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Suspend/resume support over NFS</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="20"><p>PCIe</p></td>
+<td><p>Controllers with x8 link width</p></td>
+<td><p>Max x8 link width (few controllers).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Controllers with x4 link width</p></td>
+<td><p>Max x4 link width (few controllers).</p></td>
+</tr>
+<tr class="row-even"><td><p>Controllers with x2 link width</p></td>
+<td><p>Max x4 link width (few controllers).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Controllers with x1 link width</p></td>
+<td><p>Max x1 link width (few controllers).</p></td>
+</tr>
+<tr class="row-even"><td><p>Legacy interrupts</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSI &amp; MSI-X interrupts</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-even"><td><p>128-byte maximum payload size</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>256-byte maximum payload size</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-even"><td><p>Gen-1 speed</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gen-2 speed</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-even"><td><p>Gen-3 speed</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gen-4 speed (not applicable to Orin
+Nano)</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-even"><td><p>ASPM - L0s</p></td>
+<td><p>Applicable to all controllers (enabled
+by default only on C1 controller).</p></td>
+</tr>
+<tr class="row-odd"><td><p>ASPM - L1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ASPM - L1.1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ASPM - L1.2</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Wake support</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Advanced error reporting (AER)</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-even"><td><p>DMA support in Root Port</p></td>
+<td><p>Applicable to all controllers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Endpoint mode support</p></td>
+<td><div class="line-block">
+<div class="line">AGX Orin: C5 and C7 controllers.</div>
+<div class="line">Orin NX/Nano: C4 controllers.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td rowspan="22"><p>SDMMC</p></td>
+<td><p>DR50</p></td>
+<td><p>eMMC interface running in DDR mode at
+50 MHz.</p></td>
+</tr>
+<tr class="row-odd"><td><p>HS200</p></td>
+<td><p>eMMC interface running in SDR mode at
+200 MHz.</p></td>
+</tr>
+<tr class="row-even"><td><p>HS400</p></td>
+<td><p>eMMC interface running in DDR mode at
+200 MHz.</p></td>
+</tr>
+<tr class="row-odd"><td><p>HS533</p></td>
+<td><p>eMMC interface running in DDR mode at
+267 MHz.</p></td>
+</tr>
+<tr class="row-even"><td><p>HW tuning</p></td>
+<td><p>Supports tuning in SDMMC controller.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Packed commands</p></td>
+<td><p>Read and write commands can be packed
+in groups (either all read or all write)
+that transfer data for all commands in
+the group in one transfer on the bus,
+to reduce overhead.</p></td>
+</tr>
+<tr class="row-even"><td><p>Cache</p></td>
+<td><p>Similar to CPU cache, but implemented
+in eMMC; helps improve performance.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Discard</p></td>
+<td><p>Erases data if necessary during
+background erase events.</p></td>
+</tr>
+<tr class="row-even"><td><p>Sanitize</p></td>
+<td><p>Physically removes data from unmapped
+user address space.</p></td>
+</tr>
+<tr class="row-odd"><td><p>RPMB</p></td>
+<td><p>Secure access.</p></td>
+</tr>
+<tr class="row-even"><td><p>BKOPS</p></td>
+<td><p>Allows execution of background
+operations when host is not being
+serviced.</p></td>
+</tr>
+<tr class="row-odd"><td><p>HPI</p></td>
+<td><p>High-priority interrupt to stop ongoing
+background operations and reliable
+writes.</p></td>
+</tr>
+<tr class="row-even"><td><p>Power-off notification</p></td>
+<td><p>Allows device to prepare itself to
+power off properly and improve user
+experience during power-on.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sleep</p></td>
+<td><p>Minimizes power consumption of the eMMC
+device.</p></td>
+</tr>
+<tr class="row-even"><td><p>RTPM</p></td>
+<td><p>Software feature to save power by
+switching off clocks when no
+transactions are on the bus.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Field firmware upgrade</p></td>
+<td><p>Update eMMC firmware.</p></td>
+</tr>
+<tr class="row-even"><td><p>Device Life Estimation types A and B</p></td>
+<td><p>Device Health is a mechanism to get
+vital NAND flash program/erase cycles
+information as a percentage of useful
+flash lifespan.</p>
+<div class="line-block">
+<div class="line">Type A: SLC device health information</div>
+<div class="line">Type B: MLC device health information</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>PRE EOL information</p></td>
+<td><p>Provides indication about device
+lifetime reflected by average reserved
+blocks.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware command queue</p></td>
+<td><p>Performed by SD/MMC controller.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enhanced strobe mode (ESM) in HS400 mode</p></td>
+<td><p>Optional for devices; indicated by
+STROBE_SUPPORT[184] register of EXT_CSD.</p></td>
+</tr>
+<tr class="row-even"><td><p>eMMC CQ CQIC feature</p></td>
+<td><p>Generates coalesced interrupts when
+the interrupt coalescing mechanism is
+enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Suspend/resume and shutdown</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="12"><p>UFS</p></td>
+<td><div class="line-block">
+<div class="line">PWM-G1</div>
+<div class="line">PWM-G2</div>
+<div class="line">PWM-G3</div>
+<div class="line">PWM-G4</div>
+<div class="line">PWM-G5</div>
+<div class="line">PWM-G6</div>
+</div>
+</td>
+<td><p>UFS (m-phy) interface runs in low
+performance (PWM-Gx) modes.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">HS-G1</div>
+<div class="line">HS-G2</div>
+<div class="line">HS-G3</div>
+<div class="line">HS-G4</div>
+</div>
+</td>
+<td><p>UFS (m-phy) interface runs in high
+performance (HS-Gx) modes.</p></td>
+</tr>
+<tr class="row-even"><td><p>Native Command Queue support</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Hibernation</p></td>
+<td><p>Low power state.</p></td>
+</tr>
+<tr class="row-even"><td><p>Runtime time power management</p></td>
+<td><p>Driver issues software hibernation
+entry in runtime suspend, and
+hibernation exit in runtime resume.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Auto hibernation</p></td>
+<td><p>Hibernation triggered by controller.</p></td>
+</tr>
+<tr class="row-even"><td><p>PWM SLOW modes</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>PWM SLOW_AUTO modes</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HS FAST modes</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HS FAST_AUTO modes</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>HS RATE_A series</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>HS RATE_B series</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td rowspan="28"><p>USB 3.0</p></td>
+<td><p>SuperSpeedPlus host</p></td>
+<td><p>USB host in 3.1 Gen2 mode (10 Gbps).</p></td>
+</tr>
+<tr class="row-odd"><td><p>SuperSpeed host</p></td>
+<td><p>USB host in 3.0 mode (5 Gbps).</p></td>
+</tr>
+<tr class="row-even"><td><p>High Speed host</p></td>
+<td><p>USB host in 2.0 mode (480 Mbps).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Full Speed host</p></td>
+<td><p>USB host in 2.0 or 1.2 mode (12 Mbps).</p></td>
+</tr>
+<tr class="row-even"><td><p>Low Speed host</p></td>
+<td><p>USB host in 2.0 or 1.2 mode (1.5 Mbps).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Auto-suspend</p></td>
+<td><p>USB host suspends the port/connected
+device if there is no activity.</p></td>
+</tr>
+<tr class="row-even"><td><p>Remote wake-up</p></td>
+<td><p>USB host resumes the port/connected
+device if wake-up is triggered by the
+device.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Auto-resume</p></td>
+<td><p>USB host resumes the port/connected
+device if wake-up is triggered by the
+host.</p></td>
+</tr>
+<tr class="row-even"><td><p>ELPG for xUSB High Speed partition</p></td>
+<td><p>Engine-level power gating support for
+xUSB High Speed partition.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ELPG for xUSB SuperSpeed partition</p></td>
+<td><p>Engine-level power gating support for
+xUSB SuperSpeed partition.</p></td>
+</tr>
+<tr class="row-even"><td><p>Lower power state (U3 state)</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>LPM states (U1, U2 states)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Hot plug support</p></td>
+<td><p>USB drives can be removed and connected
+while system is active.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Port multiplier support</p></td>
+<td><p>Hub for USB.</p></td>
+</tr>
+<tr class="row-even"><td><p>Host mass storage</p></td>
+<td><p>Protocol for storage devices.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Host USB video class</p></td>
+<td><p>Protocol for camera devices.</p></td>
+</tr>
+<tr class="row-even"><td><p>Host USB ECM</p></td>
+<td><p>Protocol for ethernet over USB.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Host USB audio class</p></td>
+<td><p>Protocol for audio over USB.</p></td>
+</tr>
+<tr class="row-even"><td><p>Host USB modem—NCM</p></td>
+<td><p>NCM protocol support for modem
+functionality.</p></td>
+</tr>
+<tr class="row-odd"><td><p>USB HID protocol</p></td>
+<td><p>Human interface devices.</p></td>
+</tr>
+<tr class="row-even"><td><p>SuperSpeed device (xUSB)</p></td>
+<td><p>USB device in 3.0 mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p>High Speed device (xUSB)</p></td>
+<td><p>USB device in 2.0 mode.</p></td>
+</tr>
+<tr class="row-even"><td><p>BC1.2 charging support</p></td>
+<td><p>Support for battery charging per BC1.2
+spec.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Apple charger</p></td>
+<td><p>Support for detecting Apple charger.</p></td>
+</tr>
+<tr class="row-even"><td><p>MTP device mode</p></td>
+<td><p>MTP protocol support for data transfer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ADB device mode</p></td>
+<td><p>ADB protocol support for data transfer.</p></td>
+</tr>
+<tr class="row-even"><td><p>RNDIS device mode</p></td>
+<td><p>RNDIS protocol support for data transfer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OTG</p></td>
+<td><p>USB host and device (cable-based
+detection).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="hdmi">
+<span id="so-jetson-orin-series-hdmi"></span><span id="so-jetsonorinseries-hdmi"></span><h2>HDMI<a class="headerlink" href="JetsonOrinSeries.html#hdmi" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EDID support</p></td>
+<td><p>Read and parse EDID.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hot-plug
+detection</p></td>
+<td><p>Hot-plug detection with HDMI® monitors and TVs.</p></td>
+</tr>
+<tr class="row-even"><td><p>HDMI 1.4</p></td>
+<td><p>Support for HDMI 1.4 (480p, 720p, 1080p, and 4K
+at 30 Hz).</p></td>
+</tr>
+<tr class="row-odd"><td><p>HDMI 2.0</p></td>
+<td><p>Support for HDMI 2.0 (4K at 30 Hz and 60 Hz).</p>
+<div class="line-block">
+<div class="line">4K at 60 Hz is not supported on Orin Nano.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>Driver
+suspend/resume</p></td>
+<td><p>Driver suspend/resume for low power.</p></td>
+</tr>
+<tr class="row-odd"><td><p>HDMI as
+primary
+display</p></td>
+<td><p>Support HDMI as the primary display.</p></td>
+</tr>
+<tr class="row-even"><td><p>Sideband
+information</p></td>
+<td><p>Sends the sideband information, such as
+infoframes and audio data, to the panel during
+video refresh.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Jetson Orin HDMI passed the HDMI2.1 certificate with the GCTS2.1f version, and only the features in the preceding table are supported.</p>
+</div>
+</section>
+<section id="displayport">
+<span id="so-jetson-orin-series-displayport"></span><h2>DisplayPort<a class="headerlink" href="JetsonOrinSeries.html#displayport" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EDID</p></td>
+<td><p>Read and parse EDID.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DP hot-plug
+support</p></td>
+<td><p>Hot-plug detection with DP monitors or TV.</p></td>
+</tr>
+<tr class="row-even"><td><p>DP 4K at 60 Hz</p></td>
+<td><p>4K mode in DP.</p>
+<div class="line-block">
+<div class="line">Not supported for Orin Nano.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>DP 4K at 120 Hz
+or 8K at 30 Hz</p></td>
+<td><p>HBR3 with 4K at 120 Hz or 8K at 30 Hz.</p>
+<div class="line-block">
+<div class="line">Supported only on Orin AGX; not supported for Orin NX and Nano.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>Enhanced
+framing</p></td>
+<td><p>Error recovery methods.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Full link
+training</p></td>
+<td><p>Handshake signaling between host and device.</p></td>
+</tr>
+<tr class="row-even"><td><p>HPD_IRQ event</p></td>
+<td><p>Feedback from the panels in case of link synchronization loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+suspend/resume</p></td>
+<td><p>Driver suspend/resume for low power.</p></td>
+</tr>
+<tr class="row-even"><td><p>Primary
+display</p></td>
+<td><p>Support DP as primary display.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DP MST</p></td>
+<td><p>Support two different multiple streams on different monitors.</p></td>
+</tr>
+<tr class="row-even"><td><p>Link rates
+1.62, 2.7, 5.4,
+and 8.1 Gbps</p></td>
+<td><p>Link rates supported by the driver up to HBR3.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aux link</p></td>
+<td><p>Support DP aux link.</p></td>
+</tr>
+<tr class="row-even"><td><p>Sideband
+information</p></td>
+<td><p>Sends the sideband information, such as infoframes and audio
+data, to the panel during video refresh.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Jetson Orin Platform does not support embedded DisplayPort (eDP).</p>
+</div>
+</section>
+<section id="security-engine">
+<span id="so-jetson-orin-series-security-engine"></span><h2>Security Engine<a class="headerlink" href="JetsonOrinSeries.html#security-engine" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AES-CBC/ECB/OFB/CTR/XTS</p></td>
+<td><p>Uses AES1 engine running on SE2
+through Host1x bus.</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CMAC</p></td>
+<td><p>Uses AES1 engine running on SE2
+through Host1x bus.</p></td>
+</tr>
+<tr class="row-even"><td><p>AEAD-AES_CCM/GCM</p></td>
+<td><p>Uses AES1 engine running on SE2
+through Host1x bus.</p></td>
+</tr>
+<tr class="row-odd"><td><p>HMAC-SHA</p></td>
+<td><p>Uses HASH engine running on SE4
+through Host1x bus.</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA1/2/3-224/256/384/512</p></td>
+<td><p>Uses HASH engine running on SE4
+through Host1x bus.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="power-modes-profiles">
+<span id="so-jetson-orin-series-power-modes"></span><h2>Power Modes (Profiles)<a class="headerlink" href="JetsonOrinSeries.html#power-modes-profiles" title="Link to this heading">#</a></h2>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Reference power profiles such as 10W, 15W, and 30W are supported for the various Jetson Orin modules.</p></li>
+<li><p>NVPModel interface for power mode selection and custom mode creation.</p></li>
+</ul>
+</section>
+<section id="rtc">
+<span id="so-jetson-orin-series-rtc"></span><h2>RTC<a class="headerlink" href="JetsonOrinSeries.html#rtc" title="Link to this heading">#</a></h2>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Alarm.</p></li>
+<li><p>Wake-up from SC7.</p></li>
+</ul>
+</section>
+<section id="system">
+<span id="so-jetson-orin-series-system"></span><h2>System<a class="headerlink" href="JetsonOrinSeries.html#system" title="Link to this heading">#</a></h2>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Reboot support.</p></li>
+<li><p>Shutdown support.</p></li>
+<li><p>SC7.</p></li>
+<li><p>cpuidle.</p></li>
+<li><p>Wake from idle.</p></li>
+<li><p>Wake from sleep.</p></li>
+<li><p>CPU hotplug.</p></li>
+<li><p>DVFS.</p></li>
+<li><p>CPU/GPU frequency governor.</p></li>
+<li><p>EMC bandwidth manager.</p></li>
+<li><p>Power monitor.</p></li>
+<li><p>Clock and thermal management.</p></li>
+<li><p>initrd support.</p></li>
+<li><p>System boot with ATF as secure monitor.</p></li>
+<li><p>Experimental generic timestamping engine (GTE) support for LIC IRQ lines and AON GPIOs.</p></li>
+</ul>
+</section>
+<section id="porting-to-custom-platforms">
+<span id="so-jetson-orin-series-porting-to-custom-platforms"></span><h2>Porting to Custom Platforms<a class="headerlink" href="JetsonOrinSeries.html#porting-to-custom-platforms" title="Link to this heading">#</a></h2>
+<p>To adapt the software to custom platforms, follow the <a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html#hr-jetsonmoduleadaptationandbringup-jetsonagxorinseries"><span class="std std-ref">Orin AGX Platform Adaptation and Bring-Up</span></a> guide for <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span> and the <a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html#hr-jetsonmoduleadaptationandbringup-jetsonorinnxnanoseries"><span class="std std-ref">Jetson Orin NX and Nano Series</span></a> guide for <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson Orin&trade; NX</span>.</p>
+</section>
+<section id="unsupported-features">
+<span id="so-jetson-orin-series-unsupported-features"></span><h2>Unsupported Features<a class="headerlink" href="JetsonOrinSeries.html#unsupported-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The SDIO feature is not supported in software. For Wi-Fi or Bluetooth use cases, we recommend using PCIe.</p></li>
+<li><p>EMMC boot devices are not supported for Orin NX series.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../AR/BootArchitecture/PartitionConfiguration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Partition Configuration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../SD/FlashingSupport.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Flashing Support</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#bootloader">Bootloader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#toolchain">Toolchain</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#kernel">Kernel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#camera-interface">Camera Interface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#lsio">LSIO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#hsio">HSIO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#hdmi">HDMI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#displayport">DisplayPort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#security-engine">Security Engine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#power-modes-profiles">Power Modes (Profiles)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#rtc">RTC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#system">System</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#porting-to-custom-platforms">Porting to Custom Platforms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="JetsonOrinSeries.html#unsupported-features">Unsupported Features</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

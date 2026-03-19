@@ -1,0 +1,1286 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Weston (Wayland) &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/WindowingSystems/WestonWayland';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="X Window System" href="XWindowSystem.html" />
+    <link rel="prev" title="Windowing Systems" href="../WindowingSystems.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="WestonWayland.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="WestonWayland.html#">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../WindowingSystems.html" class="nav-link">Windowing Systems</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Weston (Wayland)</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="weston-wayland">
+<h1>Weston (Wayland)<a class="headerlink" href="WestonWayland.html#weston-wayland" title="Link to this heading">#</a></h1>
+<p><strong>Wayland</strong> is a protocol for communication between a
+display server and its clients. A <strong>Wayland server</strong> uses the Wayland protocol
+to communicate with a GUI program, which is a <strong>Wayland client</strong>.
+A Wayland server is also called
+a <strong>Wayland compositor</strong>, as it also acts as a compositing window manager.</p>
+<p>The Weston server, usually just called <strong>Weston</strong>,
+is the reference implementation of a Wayland compositor. It manages
+the displays, including composition of their contents, support for
+their input device events (touch screen, mouse, keyboard, etc.), and their
+settings (wallpapers, resolution, multi-monitor display, etc.).</p>
+<p>Weston is lightweight compared to X11, and is fast as a compositor. It is suitable for many embedded and mobile use cases.</p>
+<p>The current release of Jetson Linux supports Weston 13.0.</p>
+<section id="weston-wayland-architecture">
+<h2>Weston/Wayland Architecture<a class="headerlink" href="WestonWayland.html#weston-wayland-architecture" title="Link to this heading">#</a></h2>
+<p>A Wayland server and a set of Weston libraries are collectively known
+as <strong>Weston/Wayland</strong>. This diagram describes the Weston/Wayland architecture.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Block diagram explains Weston/Wayland overview." src="../../_images/WestonWaylandOverview.svg" />
+</figure>
+<p>The Wayland
+server libraries implement the Wayland protocol for Weston. The Weston libraries
+implement the Wayland compositor, which uses the Linux Kernel Mode Setting (KMS)
+for setting up the display, performs the compositing using
+<a class="reference external" href="https://en.wikipedia.org/wiki/OpenGL_ES">OpenGL® ES</a>
+and
+<a class="reference external" href="https://en.wikipedia.org/wiki/Direct_Rendering_Manager">Direct Rendering Manager (DRM)</a>,
+and manages the Linux input devices.</p>
+<p>The <strong>Wayland client</strong> application uses the Wayland
+protocol to communicate with the Wayland compositor. It may be
+an EGL<span class="html">&trade;</span> application, an X server (rootless), or another type of display server.</p>
+</section>
+<section id="shells">
+<h2>Shells<a class="headerlink" href="WestonWayland.html#shells" title="Link to this heading">#</a></h2>
+<p>Weston supports different graphical user interfaces through
+<strong>shell plugins</strong>. NVIDIA distributes it with two plugins: the Desktop
+shell and the IVI shell.</p>
+<p>The Desktop and the IVI shell each provides its own Wayland protocol interface
+for Wayland clients. Thus a Wayland client written for a specific shell
+protocol does not work with others.</p>
+<p>The <strong>desktop shell</strong> provides a modern desktop environment similar to X11,
+plus interfaces to the keyboard and mouse. It is implemented by the library
+<code class="docutils literal notranslate"><span class="pre">desktop-shell.so</span></code>. A
+special desktop shell client, <code class="docutils literal notranslate"><span class="pre">weston-desktop-shell</span></code>,
+renders the wallpaper, panel, and other desktop elements.</p>
+<p><strong>IVI shell</strong> is designed for In-Vehicle Infotainment (IVI) applications.
+It provides a GENIVI Layer Manager-compatible API through its controller
+modules, and a simple protocol for use by IVI applications. It is implemented
+by the library <code class="docutils literal notranslate"><span class="pre">ivi-shell.so</span></code>.</p>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="WestonWayland.html#configuration" title="Link to this heading">#</a></h2>
+<p>The user can configure the the weston shell’s look and behavior preferences
+through <strong>/etc/xdg/weston/weston.ini</strong> file.</p>
+<p>Please refer to <a class="reference external" href="http://manpages.ubuntu.com/manpages/jammy/en/man5/weston.ini.5.html">Ubuntu weston.ini manpage</a>
+to know more about how to configure it.</p>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="WestonWayland.html#environment-variables" title="Link to this heading">#</a></h2>
+<p><strong>WAYLAND_DEBUG</strong>: If set to any value, causes <code class="docutils literal notranslate"><span class="pre">libwayland</span></code> to print the live protocol to stderr.</p>
+<p><strong>XDG_RUNTIME_DIR</strong>: The directory for Weston’s socket and lock files. If this variable is set,
+Weston creates its socket under this directory, and Wayland clients use the socket
+from this directory to communicate with Weston.</p>
+</section>
+<section id="gbm">
+<h2>GBM<a class="headerlink" href="WestonWayland.html#gbm" title="Link to this heading">#</a></h2>
+<p>Generic Buffer Management (GBM) is a memory allocation API developed as a component of the Mesa open source project.</p>
+<p>The libgbm library provides a driver-dependent API to allocate buffers and provides a GBM handle to the buffers. The library allows you to create buffers for different use cases, including scanout, rendering, cursors, and CPU-access. Weston depends on libgbm for buffer allocation and for its swapchain.</p>
+<p>Recently, NVIDIA submitted a merge request (<a class="reference external" href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/9902">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/9902</a>) to the Mesa open-source community to discover and load the alternate GBM backend at runtime. After this request was merged, NVIDIA implemented its own NVGBM backend, which supports the allocation of the nvidia_drm driver.</p>
+<p>With the addition of the NVGBM backend, the EGL_KHR_platform_gbm extension has also been enabled. Now, the gbm_device and gbm_surface handles that GBM creates can be used to initialize the EGL and to create render target buffers with the support of the EGL_KHR_platform_gbm extension. Refer to <a class="reference external" href="https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_platform_gbm.txt">https://www.khronos.org/registry/EGL/extensions/KHR/EGL_KHR_platform_gbm.txt</a> for more information.</p>
+<p>With the libgbm library from Mesa open-source community, the NVGBM backend, and the EGL_KHR_platform_gbm extension support, Weston creates EGLDisplay with gbm_device and allocates the EGLSurface from gbm_surface and calls eglSwapBuffers API with the EGLSurface during the repaint cycle. This process is known as the GBM swapchain.</p>
+</section>
+<section id="custom-upgrades-by-nvidia">
+<h2>Custom Upgrades by NVIDIA<a class="headerlink" href="WestonWayland.html#custom-upgrades-by-nvidia" title="Link to this heading">#</a></h2>
+<section id="enhanced-downscaling-quality-with-gl-renderer">
+<h3>Enhanced Downscaling Quality with GL Renderer<a class="headerlink" href="WestonWayland.html#enhanced-downscaling-quality-with-gl-renderer" title="Link to this heading">#</a></h3>
+<p>When using the default GL composition shaders in Weston 13, the downscaling quality
+becomes suboptimal for scaling factors of 4x or greater. To improve the visual output,
+NVIDIA has integrated a custom 5-tap filter into the fragment shader. This filter is
+automatically applied when the downscaling factor reaches or exceeds 4x, significantly
+improving the visual quality for downscaled content.</p>
+</section>
+<section id="socket-naming-adjustment">
+<h3>Socket Naming Adjustment<a class="headerlink" href="WestonWayland.html#socket-naming-adjustment" title="Link to this heading">#</a></h3>
+<p>By default, Weston looks for available Wayland socket names from <code class="docutils literal notranslate"><span class="pre">wayland-1</span></code> to
+<code class="docutils literal notranslate"><span class="pre">wayland-32</span></code> to prevent conflicts when a computer with a running Wayland compositor
+is accessed via other methods (such as an X session on a different virtual terminal, or over SSH).
+In L4T, this mechanism is unnecessary and leads to issues. Most of our client applications
+(such as <code class="docutils literal notranslate"><span class="pre">nvgldemo</span></code> and Wayland test apps) fail to start correctly unless the socket is
+named <code class="docutils literal notranslate"><span class="pre">wayland-0</span></code>. To address this, Weston has been configured to prioritize <code class="docutils literal notranslate"><span class="pre">wayland-0</span></code>
+as the preferred socket name to ensure smooth operation of these applications, avoiding the
+need to manually set the <code class="docutils literal notranslate"><span class="pre">WAYLAND_DISPLAY</span></code> environment variable.</p>
+</section>
+</section>
+<section id="running-weston">
+<h2>Running Weston<a class="headerlink" href="WestonWayland.html#running-weston" title="Link to this heading">#</a></h2>
+<p>There are two ways to launch Weston, described in the following subsections.</p>
+<section id="to-launch-weston-with-a-script">
+<h3>To launch Weston with a script<a class="headerlink" href="WestonWayland.html#to-launch-weston-with-a-script" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Enter this command to launch Weston:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nvstart-weston.sh
+</pre></div>
+</div>
+<p>The script may ask for your password to run some preliminary steps, such as modprobing the display driver and adding your username to proper group. It may also ask you to reboot after a fresh flash of BSP.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This script launches Weston with <code class="docutils literal notranslate"><span class="pre">desktop-shell</span></code>, without any additional options. If you want to run different shell or with options, such as <code class="docutils literal notranslate"><span class="pre">--modules</span></code>, you must use the manual procedure described in the next section.</p>
+</div>
+</li>
+<li><p>Enter this command to run a Wayland client:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ weston-simple-egl
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You do not need to use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> or set the environment variable <code class="docutils literal notranslate"><span class="pre">XDG_RUNTIME_DIR</span></code> to run a client when you have launched Weston with the <code class="docutils literal notranslate"><span class="pre">nvstart-weston.sh</span></code> script.</p>
+</div>
+</li>
+</ul>
+</section>
+<section id="to-launch-weston-manually">
+<h3>To launch Weston manually<a class="headerlink" href="WestonWayland.html#to-launch-weston-manually" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>If the X server is running, stop it:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo service gdm stop; sudo pkill -9 Xorg
+</pre></div>
+</div>
+</li>
+<li><p>Modprobe the <code class="docutils literal notranslate"><span class="pre">nvidia_drm</span></code> driver:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo modprobe nvidia_drm modeset=1
+</pre></div>
+</div>
+</li>
+<li><p>Set up the environment and directory permissions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ unset DISPLAY
+$ mkdir /tmp/xdg
+$ chmod 700 /tmp/xdg
+</pre></div>
+</div>
+</li>
+<li><p>Launch Weston.</p>
+<ul>
+<li><p>To launch Weston as a root user, enter this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston --idle-time=0 &amp;
+</pre></div>
+</div>
+<p>Optional: Set the environment variable ‘WAYLAND_DEBUG’ to ‘server’ to dump protocol messages from the server to ‘stderr’:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ WAYLAND_DEBUG=server
+</pre></div>
+</div>
+</li>
+<li><p>Optionally, Weston can be launched as a non-root user as below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ XDG_RUNTIME_DIR=/tmp/xdg weston --idle-time=0 &amp;
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Run a Wayland client:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-simple-egl
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to launch the client is unnecessary when Weston is run as a non-root user.</p>
+</div>
+<p>Optional: Set the environment variable <code class="docutils literal notranslate"><span class="pre">WAYLAND_DEBUG</span></code> to 1 to dump all protocol messages to <code class="docutils literal notranslate"><span class="pre">stderr</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ WAYLAND_DEBUG=1
+</pre></div>
+</div>
+</li>
+</ol>
+<p>To launch Weston with <code class="docutils literal notranslate"><span class="pre">ivi-shell</span></code> and <code class="docutils literal notranslate"><span class="pre">ivi-controller</span></code> on the device, pass these arguments to the Weston binary:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>--shell=ivi-shell.so --modules=ivi-controller.so
+</pre></div>
+</div>
+</section>
+</section>
+<section id="multiple-display-heads">
+<h2>Multiple Display Heads<a class="headerlink" href="WestonWayland.html#multiple-display-heads" title="Link to this heading">#</a></h2>
+<p>Weston supports multiple display heads with multiple overlays on all Jetson devices.
+Use <code class="docutils literal notranslate"><span class="pre">weston.ini</span></code> to set the expected resolution and orientation of the monitors.</p>
+<p>If multiple displays are connected, applications are launched on the one
+that contains the mouse pointer at the time of launch. Once an
+application is launched, you can drag it across a boundary between
+displays.</p>
+<p>If multiple displays are connected and they have different resolutions,
+Weston reports the frame rate of the display on which more than 50% of
+its window is displayed.</p>
+<p>If a monitor is removed while Weston is running (hot removal), running
+applications dynamically shift to the remaining active monitor.</p>
+</section>
+<section id="example-of-weston-ini-display-options">
+<h2>Example of weston.ini Display Options<a class="headerlink" href="WestonWayland.html#example-of-weston-ini-display-options" title="Link to this heading">#</a></h2>
+<p>Use this example as a model for setting your own display options in
+<code class="docutils literal notranslate"><span class="pre">weston.ini</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>name=HDMI-A-1
+mode=1920x1080@60.0
+transform=90 (0,90,180,270)
+</pre></div>
+</div>
+</section>
+<section id="hot-plugging">
+<h2>Hot-Plugging<a class="headerlink" href="WestonWayland.html#hot-plugging" title="Link to this heading">#</a></h2>
+<p>Weston monitors events sent by the Direct Rendering Manager (<strong>DRM</strong>)
+subsystem using <code class="docutils literal notranslate"><span class="pre">udev</span></code>. When the display configuration changes, <code class="docutils literal notranslate"><span class="pre">udev</span></code>
+receives a <code class="docutils literal notranslate"><span class="pre">HOTPLUG</span></code> event. It calls <code class="docutils literal notranslate"><span class="pre">drmModeGetResources()</span></code> to identify
+connectors that have been added or removed, and takes actions
+accordingly.</p>
+<section id="verified-use-cases">
+<h3>Verified Use Cases<a class="headerlink" href="WestonWayland.html#verified-use-cases" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Disconnect and connect the <span class="html">HDMI<sup><small>®</small></sup></span> display after launching Weston.</p></li>
+<li><p>Disconnect and connect the HDMI display while the application
+<code class="docutils literal notranslate"><span class="pre">nvgldemo</span></code> is running, and verify that application drawing is visible
+after connection.</p></li>
+<li><p>Launch Weston without an HDMI display connected and then connect an
+HDMI display.</p></li>
+<li><p>Launch Weston without an HDMI display connected, launch the nvgldemo
+application, and then connect an HDMI display.</p></li>
+</ul>
+<p>All of the use cases above are also verified with DisplayPort displays.</p>
+</section>
+</section>
+<section id="compositing-mode-in-weston">
+<h2>Compositing Mode in Weston<a class="headerlink" href="WestonWayland.html#compositing-mode-in-weston" title="Link to this heading">#</a></h2>
+<p>Jetson devices have multiple planes per head. The major types of planes are:</p>
+<ul class="simple">
+<li><p>Primary plane</p></li>
+<li><p>Overlay plane</p></li>
+<li><p>Cursor plane</p></li>
+</ul>
+<p>On every frame, Weston evaluates all surfaces and views and chooses
+one of these strategies to composite them:</p>
+<ul class="simple">
+<li><p><strong>Overlay-only mode</strong>: Weston tries to assign a plane for each surface or view.
+If that is not possible, it shifts to “mixed mode.”</p></li>
+<li><p><strong>Mixed mode</strong>: Weston tries to assign overlay plane(s) to some of the
+surfaces and views, composite the remaining surfaces and views using GL, and update the result to the primary plane. If that is also not possible, it proceeds with “GL-only mode.”</p></li>
+<li><p><strong>GL-only mode</strong>: Weston composites all of the surfaces and views using GL,
+and updates the result to the primary plane.</p></li>
+</ul>
+<p>With all of these strategies, Weston makes sure to preserve the
+rendering order of the surfaces and views.</p>
+<p>You can force “GL-only mode” compositing by setting the
+environment variable <code class="docutils literal notranslate"><span class="pre">WESTON_FORCE_RENDERER</span></code> to 1.</p>
+<p>The demo application <code class="docutils literal notranslate"><span class="pre">weston-simple-dmabuf-egldevice</span></code> demonstrates
+mixed-mode compositing in Weston, where some surfaces are assigned
+overlay planes and others are composited with GL to the primary plane.</p>
+<p>You can use the application <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> to verify that overlay planes
+are being assigned. Use the following procedure:</p>
+<ol class="arabic">
+<li><p>Stop X if it is running and prepare the device for launching Weston:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo service gdm stop; sudo pkill -9 Xorg
+$ unset DISPLAY
+$ mkdir /tmp/xdg
+$ chmod 700 /tmp/xdg
+</pre></div>
+</div>
+</li>
+<li><p>Modprobe the <code class="docutils literal notranslate"><span class="pre">nvidia_drm</span></code> driver:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo modprobe nvidia_drm modeset=1
+</pre></div>
+</div>
+</li>
+<li><p>Launch Weston with the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> switch:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston --idle-time=0 --debug &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Launch a few Weston client applications:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-simple-egl &amp;
+$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-simple-dmabuf-egldevice &amp;
+$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-simple-dmabuf-egldevice &amp;
+$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-simple-dmabuf-egldevice &amp;
+</pre></div>
+</div>
+</li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> application:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg ./weston-debug -a
+</pre></div>
+</div>
+</li>
+<li><p>Look for information like that shown below in the <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code>
+output. Blue colored surfaces are overlay-composited and
+green-colored surfaces are GL-composited:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Layer 5 (pos 0x50000000):
+    View 0 (role xdg_toplevel, PID 8080, surface ID 3, top-level window &#39;simple-dmabuf-egldevice&#39;, 0x33c798b0):
+        position: (714, 860) -&gt; (970, 1116)
+        [not opaque]
+        outputs: 0 (HDMI-A-1) (primary)
+        dmabuf buffer
+                format: 0x34325258 XRGB8888
+                modifier: 0x3800000000fe014
+    View 1 (role xdg_toplevel, PID 8073, surface ID 3, top-level window &#39;simple-dmabuf-egldevice&#39;, 0x33bb9500):
+        position: (209, 591) -&gt; (465, 847)
+         [not opaque]
+        outputs: 0 (HDMI-A-1) (primary)
+        dmabuf buffer
+            format: 0x34325258 XRGB8888
+            modifier: 0x3800000000fe014
+
+    View 2 (role xdg_toplevel, PID 8066, surface ID 3, top-level window &#39;simple-dmabuf-egldevice&#39;, 0x31769110):
+        position: (1129, 339) -&gt; (1385, 595)
+        [not opaque]
+        outputs: 0 (HDMI-A-1) (primary)
+        dmabuf buffer
+            format: 0x34325258 XRGB8888
+            modifier: 0x3800000000fe014
+
+View 3 (role xdg_toplevel, PID 8051, surface ID 9, top-level window &#39;simple-egl&#39;, 0x314c6430):
+    position: (1343, 642) -&gt; (1593, 892)
+     [not opaque]
+    outputs: 0 (HDMI-A-1) (primary)
+    EGL buffer
+
+Layer 6 (pos 0x2):
+    ...
+     [view] evaluating view 0x33c798b0 for output HDMI-A-1 (0)
+     [view] view 0x33c798b0 format: XRGB8888
+         [overlay] provisionally placing view 0x33c798b0 on overlay 4002 in mixed mode
+     [view] evaluating view 0x33bb9500 for output HDMI-A-1 (0)
+     [view] view 0x33bb9500 format: XRGB8888
+         [overlay] provisionally placing view 0x33bb9500 on overlay 4001 in mixed mode
+     [view] evaluating view 0x31769110 for output HDMI-A-1 (0)
+     [view] view 0x31769110 format: XRGB8888
+         [overlay] not placing view 0x31769110 on overlay: no free overlay planes
+     [view] evaluating view 0x314c6430 for output HDMI-A-1 (0)
+         [overlay] not placing view 0x314c6430 on overlay: couldn&#39;t get fb
+[repaint] Using mixed state composition
+[repaint] view 0x33c798b0 on Overlay plane 4002
+[repaint] view 0x33bb9500 on Overlay plane 4001
+[repaint] view 0x31769110 using renderer composition
+[repaint] view 0x314c6430 using renderer composition
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="dma-buffer-rendering">
+<h2>DMA Buffer Rendering<a class="headerlink" href="WestonWayland.html#dma-buffer-rendering" title="Link to this heading">#</a></h2>
+<p>DRM now supports NV16 and NV24 color formats. To use these formats,
+construct an EGLImage from the DMA buffer via the exposed
+<code class="docutils literal notranslate"><span class="pre">EXT_image_dma_buf_import</span></code> and <code class="docutils literal notranslate"><span class="pre">EXT_image_dma_buf_import_modifiers</span></code>
+extensions.</p>
+<p>Currently only block-linear DMA buffer layouts are supported.
+<code class="docutils literal notranslate"><span class="pre">DRM_FORMAT_NV21</span></code>, <code class="docutils literal notranslate"><span class="pre">DRM_FORMAT_NV16</span></code>, and <code class="docutils literal notranslate"><span class="pre">DRM_FORMAT_NV24</span></code> have been added to
+<code class="docutils literal notranslate"><span class="pre">supported_drm_formats</span></code>.</p>
+<section id="to-run-a-verified-use-case-video-playback-test">
+<h3>To run a verified use case (video playback test)<a class="headerlink" href="WestonWayland.html#to-run-a-verified-use-case-video-playback-test" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Enter this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gst-launch-1.0 filesrc location=&lt;mp4_src_file&gt; ! qtdemux ! h264parse ! nvv4l2decoder ! nvvidconv !
+      &#39;video/x-raw(memory:NVMM), width=(int)1280, height=(int)720, format=(string)&lt;format&gt;&#39; ! nvdrmvideosink
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;mp4_src_file&gt;</span></code> is the pathname of the apt source file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;format&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">NV16</span></code> or <code class="docutils literal notranslate"><span class="pre">NV24</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">gst-launch-1.0</span></code> command is a GStreamer pipeline to display video. It
+uses the nvvidconv plugin to convert other formats in the stream to
+NV16/NV24. The video is displayed with the <code class="docutils literal notranslate"><span class="pre">nvdrmvideosink</span></code> plugin, which
+internally uses DRM.</p>
+</section>
+<section id="to-run-a-sample-case">
+<h3>To run a sample case<a class="headerlink" href="WestonWayland.html#to-run-a-sample-case" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">weston-simple-dmabuf-egldevice</span></code> application with the <code class="docutils literal notranslate"><span class="pre">-p</span></code> switch.</p>
+<p>To verify the correctness of the result, examine it on the screen.</p>
+</li>
+</ul>
+</section>
+<section id="current-limitations">
+<h3>Current Limitations<a class="headerlink" href="WestonWayland.html#current-limitations" title="Link to this heading">#</a></h3>
+<p>HDCP currently is not supported. It will be supported in a later
+release.</p>
+</section>
+</section>
+<section id="weston-dma-buf-support">
+<h2>Weston dma-buf Support<a class="headerlink" href="WestonWayland.html#weston-dma-buf-support" title="Link to this heading">#</a></h2>
+<p>Clients can post dma-buf buffers to Weston using the Linux DMA-BUF
+Unstable V1 Protocol of Wayland. Dma-buf support with Weston has
+following components.</p>
+<section id="buffer-allocation">
+<h3>Buffer Allocation<a class="headerlink" href="WestonWayland.html#buffer-allocation" title="Link to this heading">#</a></h3>
+<p>GBM is commonly used to allocate buffers, which are backed by the
+dma-buf file descriptor.</p>
+<p>This code snippet shows how to allocate a buffer using GBM:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>drm_fd = open(&quot;/dev/dri/card0&quot;, O_RDWR);
+device = gbm_create_device(drm_fd);
+bo = gbm_bo_create_with_modifiers(device, width, height, format, modifiers, modifiers_count);
+</pre></div>
+</div>
+<p>Weston supports the formats <code class="docutils literal notranslate"><span class="pre">DRM_FORMAT_XRGB8888</span></code> and <code class="docutils literal notranslate"><span class="pre">DRM_FORMAT_ARGB8888</span></code>.</p>
+<p>A <strong>modifier</strong> is an encoding of vendor-specific buffer layout
+parameters. Weston supports modifiers that are supported by DRM (see the
+<code class="docutils literal notranslate"><span class="pre">IN_FORMATS</span></code> plane property blob) and by EGL (call
+<code class="docutils literal notranslate"><span class="pre">eglQueryDmaBufModifiersEXT()</span></code><span class="html">&nbsp;</span>).</p>
+</section>
+<section id="buffer-write-read-from-cpu">
+<h3>Buffer Write/read from CPU<a class="headerlink" href="WestonWayland.html#buffer-write-read-from-cpu" title="Link to this heading">#</a></h3>
+<p>You can use this API function to write data directly into a GBM buffer:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gbm_bo_write(bo, user_buffer, sizeof user_buffer);
+</pre></div>
+</div>
+<p>You also can memory map a GBM buffer and get a CPU-accessible address to
+the data written to or read from it. The following code snippet shows how:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>uint32_t dst_stride = 0;
+void *gbo_mapping = NULL;
+// Map bo to CPU accessible address.
+char *dst_ptr = gbm_bo_map(bo,
+                           0, 0,
+                           width,
+                           height,
+                           GBM_BO_TRANSFER_READ_WRITE,
+                           &amp;dst_stride,
+                           &amp;gbo_mapping);
+
+// Write data to or read data from dst_ptr.
+ . . .
+
+// Unmap bo.
+gbm_bo_unmap(bo, gbo_mapping);
+</pre></div>
+</div>
+</section>
+<section id="wayland-protocol-to-post-dma-buf-buffers-to-weston">
+<h3>Wayland Protocol to Post dma-buf Buffers to Weston<a class="headerlink" href="WestonWayland.html#wayland-protocol-to-post-dma-buf-buffers-to-weston" title="Link to this heading">#</a></h3>
+<p>Weston uses the Generic Buffer Management (GBM) library to allocate
+buffers, which are backed by dma-buf file descriptors. Client
+applications must call the following GBM functions to get the dma-buf
+file descriptor and associated parameters from the GBM buffer object. To
+post the dma-buf to a Wayland surface, the file descriptor and
+parameters must be provided via Linux DMA-BUF Unstable V1 Protocol.</p>
+<p>The following code snippet shows the main calls involved:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>stride = gbm_bo_get_stride_for_plane(bo, 0);
+offset = gbm_bo_get_offset(bo, 0);
+handle = gbm_bo_get_handle_for_plane(bo, 0);
+modifier = gbm_bo_get_modifier(bo);
+drmPrimeHandleToFD(drm_fd, handle, 0, &amp;dmabuf_fd);
+zwp_linux_buffer_params_v1_add(params, dmabuf_fds, 0, offset,
+                                       stride, modifier &gt;&gt; 32,
+                                       modifier &amp; 0xffffffff);
+zwp_linux_buffer_params_v1_create(params, width, height,
+                                       format, flags);
+</pre></div>
+</div>
+</section>
+<section id="gl-renderer-in-weston">
+<h3>GL Renderer in Weston<a class="headerlink" href="WestonWayland.html#gl-renderer-in-weston" title="Link to this heading">#</a></h3>
+<p>The GL renderer in Weston creates an <code class="docutils literal notranslate"><span class="pre">EGLImage</span></code> from a dma-buf object that
+it receives with Linux DMA-BUF Unstable V1 Protocol using the
+<code class="docutils literal notranslate"><span class="pre">EGL_EXT_image_dma_buf_import</span></code> and <code class="docutils literal notranslate"><span class="pre">EGL_EXT_image_dma_buf_import_modifiers</span></code>
+extensions. Weston obtains the GL texture target to be used with this
+<code class="docutils literal notranslate"><span class="pre">EGLImage</span></code> by calling <code class="docutils literal notranslate"><span class="pre">eglQueryDmaBufModifiersEXT()</span></code>, and binds the <code class="docutils literal notranslate"><span class="pre">EGLImage</span></code>
+to the texture.</p>
+</section>
+<section id="display-hardware-compositing-in-weston">
+<h3>Display Hardware Compositing in Weston<a class="headerlink" href="WestonWayland.html#display-hardware-compositing-in-weston" title="Link to this heading">#</a></h3>
+<p>The DRM compositor in Weston calls <code class="docutils literal notranslate"><span class="pre">drmModeAddFB2WithModifiers()</span></code> to
+associate a DRM frame buffer ID with the dma-buf it receives via Linux
+DMA-BUF Unstable V1 Protocol. It then uses the frame buffer ID to present
+the dma-buf to one of the available display hardware planes using
+<code class="docutils literal notranslate"><span class="pre">drmModeSetPlane()</span></code>, in the legacy path, or <code class="docutils literal notranslate"><span class="pre">drmModeAtomicCommit()</span></code>, in the
+atomic modeset path. This takes the form of a flip, where the reference
+to the new buffer is swapped in during vblank.</p>
+</section>
+<section id="weston-dma-buf-sample">
+<h3>Weston dma-buf Sample<a class="headerlink" href="WestonWayland.html#weston-dma-buf-sample" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">weston-dmabuf-formats</span></code> is a simple application to test Weston dmabuf support
+for different formats, such as XRGB8888, NV12, NV16, NV24.</p>
+<p>Enter this command to launch the application:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston-dmabuf-formats --import-format=&lt;format&gt; --loop=&lt;count&gt; --use-gbm
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Where:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;format&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">NV16</span></code> or <code class="docutils literal notranslate"><span class="pre">NV24</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;count&gt;</span></code> is number of iterations to execute.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--use-gbm</span></code> indicates that the application is to use GBM instead of <code class="docutils literal notranslate"><span class="pre">nvbuf_utils</span></code> for buffer allocation.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+<section id="weston-debug">
+<h2>weston-debug<a class="headerlink" href="WestonWayland.html#weston-debug" title="Link to this heading">#</a></h2>
+<p>The client application <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> receives and prints debug messages
+using the <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> protocol. For example, when Weston is
+recompositing it prints all surface views and descriptions of the
+decision process regarding their assignment to overlays and GL
+compositing.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> to work, you must run Weston with the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> switch.
+Do not use this switch in production.</p>
+<p>You can pass <code class="docutils literal notranslate"><span class="pre">weston-debug</span></code> additional parameters to choose categories of
+debug output to display:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo XDG_RUNTIME_DIR=/tmp/xdg weston --debug
+$ sudo XDG_RUNTIME_DIR=/tmp/xdg ./weston-debug -a
+</pre></div>
+</div>
+<p>Alternatively, you can enable Weston debug output by setting the
+environment variable <code class="docutils literal notranslate"><span class="pre">WAYLAND_DEBUG=server</span></code>, and Weston client debug by
+setting <code class="docutils literal notranslate"><span class="pre">WAYLAND_DEBUG=1</span></code>.</p>
+</section>
+<section id="gnome-wayland-desktop-shell-support">
+<h2>GNOME Wayland Desktop Shell Support<a class="headerlink" href="WestonWayland.html#gnome-wayland-desktop-shell-support" title="Link to this heading">#</a></h2>
+<p>Jetson Linux supports the GNOME Wayland windowing system. Jetson Linux support for GNOME Wayland is currently experimental.</p>
+<p>This section describes the steps for enabling and using Gnome-Wayland.</p>
+<section id="to-start-the-windowing-system">
+<h3>To start the windowing system<a class="headerlink" href="WestonWayland.html#to-start-the-windowing-system" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Enable Wayland in GDM config:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Set ``WaylandEnable=true`` in ``/etc/gdm3/custom.conf``.
+</pre></div>
+</div>
+</li>
+<li><p>Stop GDM:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl stop gdm
+</pre></div>
+</div>
+</li>
+<li><p>Kill X server:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo pkill X
+</pre></div>
+</div>
+</li>
+<li><p>Set experimental features in GSettings:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gsettings set org.gnome.mutter experimental-features [\&quot;kms-modifiers\&quot;]
+</pre></div>
+</div>
+</li>
+<li><p>(Optional) Set GSettings to disable screen timeout:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ gsettings set org.gnome.desktop.lockdown disable-lock-screen true
+$ gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+$ gsettings set org.gnome.desktop.screensaver lock-enabled false
+$ gsettings set org.gnome.desktop.session idle-delay 0
+$ gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
+</pre></div>
+</div>
+</li>
+<li><dl class="simple">
+<dt>Load NVIDIA DRM module::</dt><dd><p>$ sudo modprobe nvidia_drm modeset=1</p>
+</dd>
+</dl>
+</li>
+<li><p>Start GDM:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo systemctl start gdm
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../WindowingSystems.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Windowing Systems</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="XWindowSystem.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">X Window System</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#weston-wayland-architecture">Weston/Wayland Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#shells">Shells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#environment-variables">Environment Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#gbm">GBM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#custom-upgrades-by-nvidia">Custom Upgrades by NVIDIA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#enhanced-downscaling-quality-with-gl-renderer">Enhanced Downscaling Quality with GL Renderer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#socket-naming-adjustment">Socket Naming Adjustment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#running-weston">Running Weston</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#to-launch-weston-with-a-script">To launch Weston with a script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#to-launch-weston-manually">To launch Weston manually</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#multiple-display-heads">Multiple Display Heads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#example-of-weston-ini-display-options">Example of weston.ini Display Options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#hot-plugging">Hot-Plugging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#verified-use-cases">Verified Use Cases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#compositing-mode-in-weston">Compositing Mode in Weston</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#dma-buffer-rendering">DMA Buffer Rendering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#to-run-a-verified-use-case-video-playback-test">To run a verified use case (video playback test)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#to-run-a-sample-case">To run a sample case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#current-limitations">Current Limitations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#weston-dma-buf-support">Weston dma-buf Support</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#buffer-allocation">Buffer Allocation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#buffer-write-read-from-cpu">Buffer Write/read from CPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#wayland-protocol-to-post-dma-buf-buffers-to-weston">Wayland Protocol to Post dma-buf Buffers to Weston</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#gl-renderer-in-weston">GL Renderer in Weston</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#display-hardware-compositing-in-weston">Display Hardware Compositing in Weston</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#weston-dma-buf-sample">Weston dma-buf Sample</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#weston-debug">weston-debug</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#gnome-wayland-desktop-shell-support">GNOME Wayland Desktop Shell Support</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="WestonWayland.html#to-start-the-windowing-system">To start the windowing system</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

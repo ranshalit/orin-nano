@@ -1,0 +1,1413 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UEFI Adaptation &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Bootloader/UEFI';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Update and Redundancy" href="UpdateAndRedundancy.html" />
+    <link rel="prev" title="Security Configuration" href="SecurityConfig.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="UEFI.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="UEFI.html#">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Bootloader.html" class="nav-link">Bootloader</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">UEFI Adaptation</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="uefi-adaptation">
+<h1>UEFI Adaptation<a class="headerlink" href="UEFI.html#uefi-adaptation" title="Link to this heading">#</a></h1>
+<p>This section provides high level info for the users to adapt to using UEFI. CBoot was used in the prior rel-32 release, and is now replaced with UEFI starting with rel-34 release and onward.</p>
+<section id="sources-and-compilation">
+<h2>Sources and Compilation<a class="headerlink" href="UEFI.html#sources-and-compilation" title="Link to this heading">#</a></h2>
+<p>UEFI sources and compilation details for this release are available <a class="github reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki">NVIDIA/edk2-nvidia</a>.</p>
+</section>
+<section id="viewing-the-bsp-version-in-uefi">
+<h2>Viewing the BSP Version in UEFI<a class="headerlink" href="UEFI.html#viewing-the-bsp-version-in-uefi" title="Link to this heading">#</a></h2>
+<p>The Jetson BSP version shows on the screen when booting to UEFI. The string format is as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Jetson System firmware version &lt;bsp_branch&gt;.&lt;bsp_major&gt;.&lt;bsp_minor&gt;-gcid-&lt;xxxxxxxx&gt; date &lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;T&lt;HH&gt;:&lt;MM&gt;:&lt;SS&gt;+&lt;TZ&gt;
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Jetson System firmware version 36.3.0-gcid-36191598 date 2024-05-06T16:58:59+00:00
+</pre></div>
+</div>
+</section>
+<section id="uefi-variables">
+<h2>UEFI Variables<a class="headerlink" href="UEFI.html#uefi-variables" title="Link to this heading">#</a></h2>
+<p>UEFI variables provide a way to store data, in particular non-volatile data. Some UEFI variables are shared between platform firmware and operating systems. The variables are defined as key/value pairs that consist of identifying information plus attributes (the key) and arbitrary data (the value).</p>
+<p>Refer to <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki/VariableList#nvidia-defined-variables">NVIDIA Defined variables</a> for more information about <span class="html">NVIDIA<sup><small>®</small></sup></span> defined variables.</p>
+<p>There are two additional UEFI variables defined for Rootfs A/B:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Name</p></th>
+<th class="head"><p>Space</p></th>
+<th class="head"><p>Attribute</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Structure</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RootfsStatusSlotA</p></td>
+<td><p>Public</p></td>
+<td><p>BS, NV, RT</p></td>
+<td><p>The status of rootfs slot A</p></td>
+<td><dl class="simple">
+<dt>Value:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0x0</span></code>: Normal (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0xFF</span></code>: Unbootable.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><p>RootfsStatusSlotB</p></td>
+<td><p>Public</p></td>
+<td><p>BS, NV, RT</p></td>
+<td><p>The status of rootfs slot B</p></td>
+<td><dl class="simple">
+<dt>Value:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0x0</span></code>: Normal (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0xFF</span></code>: Unbootable.</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the other UEFI variables defined in the UEFI Specification, refer to <a class="reference external" href="https://uefi.org/specs/UEFI/2.10/03_Boot_Manager.html#global-variables">Globally Defined Variables</a> for more information.</p>
+</section>
+<section id="boot-order-selection">
+<h2>Boot Order Selection<a class="headerlink" href="UEFI.html#boot-order-selection" title="Link to this heading">#</a></h2>
+<section id="supported-boot-device-and-the-default-boot-order">
+<h3>Supported Boot Device and the Default Boot Order<a class="headerlink" href="UEFI.html#supported-boot-device-and-the-default-boot-order" title="Link to this heading">#</a></h3>
+<p>OS boot is supported from eMMC/SD/UFS/NvME/USB (T234 only). Removable devices (SD/USB) take precedence over
+non-removable (eMMC/NvME/UFS) devices in the default boot order.</p>
+</section>
+<section id="selecting-the-boot-device-in-the-uefi">
+<h3>Selecting the Boot Device in the UEFI<a class="headerlink" href="UEFI.html#selecting-the-boot-device-in-the-uefi" title="Link to this heading">#</a></h3>
+<p>On the landing page of UEFI menu options, when you are prompted to <strong>Press ESCAPE for boot options</strong>, navigate
+to <strong>Boot Manager</strong> and select an option from this list.</p>
+</section>
+<section id="customizing-the-default-boot-order-in-the-configuration-file">
+<h3>Customizing the Default Boot Order in the Configuration File<a class="headerlink" href="UEFI.html#customizing-the-default-boot-order-in-the-configuration-file" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method only sets the default boot order on the first boot after flashing. If additional storage devices are added in subsequent boots, those storage devices will be appended to the top or the bottom boot order based on UEFI Boot Order setting in the UEFI menu regardless of the storage device type.</p>
+</div>
+<p>If the user does not rebuild UEFI from source, change the default boot order in <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dtbo</span></code> or
+change the default boot order in <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dts</span></code> in the UEFI source.</p>
+<section id="customizing-the-default-boot-order-in-l4tconfiguration-dtbo-in-the-bsp-directory">
+<h4>Customizing the Default Boot Order in L4TConfiguration.dtbo in the BSP Directory<a class="headerlink" href="UEFI.html#customizing-the-default-boot-order-in-l4tconfiguration-dtbo-in-the-bsp-directory" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Convert the L4TConfiguration.dtbo file to L4TConfiguration.dts file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd &lt;top&gt;
+$ kernel/dtc -I dtb -O dts -o kernel/dtb/L4TConfiguration.dts kernel/dtb/L4TConfiguration.dtbo
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">&lt;top&gt;</span></code> is the pathname of the flash.sh directory, which contains the PDK installation package.</p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>Change the default boot order in L4TConfiguration.dts:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/ {
+    overlay-name = &quot;L4T Configuration Settings&quot;;
+
+    fragment@0 {
+        target-path = &quot;/&quot;;
+        board_config {
+            sw-modules = &quot;uefi&quot;;
+        };
+
+        __overlay__ {
+            firmware {
+                uefi {
+                  variables {
+                        gNVIDIAPublicVariableGuid {
+                           ... ... ...
+                        };
+
+                        gNVIDIATokenSpaceGuid {
+                            DefaultBootPriority {
+                                data = &quot;usb,nvme,emmc,sd,ufs&quot;;
+/*                              data = &quot;Replace above data with your default boot order strings&quot;; */
+                                locked;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+};
+</pre></div>
+</div>
+</li>
+<li><p>Set the default boot order to the <code class="docutils literal notranslate"><span class="pre">DefaultBootPriority</span></code> variable and separate the strings by commas. The valid strings are:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;usb&quot;    - USB devices
+&quot;sd&quot;     - SD devices
+&quot;emmc&quot;   - eMMC devices
+&quot;nvme&quot;   - NVMe devices
+&quot;ufs&quot;    - UFS devices
+&quot;sata&quot;   - SATA devices
+&quot;scsi&quot;   - SCSI devices
+&quot;pxev4&quot;  - IPv4 PXE boot
+&quot;httpv4&quot; - IPv4 HTTP boot
+&quot;pxev6&quot;  - IPv6 PXE boot
+&quot;httpv6&quot; - IPv6 HTTP boot
+&quot;cdrom&quot;  - CD/DVD drives
+&quot;boot.img&quot; - Android style boot.img partition
+</pre></div>
+</div>
+</li>
+<li><p>Convert the L4TConfiguration.dts file to L4TConfiguration.dtbo file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd &lt;top&gt;
+$ kernel/dtc -I dts -O dtb -o kernel/dtb/L4TConfiguration.dtbo kernel/dtb/L4TConfiguration.dts
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">&lt;top&gt;</span></code> is the pathname of the flash.sh directory, which contains the PDK installation package.</p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Flash the Jetson device.</p></li>
+</ol>
+</section>
+<section id="customize-the-default-boot-order-in-the-l4tconfiguration-dts-in-uefi-source">
+<h4>Customize the Default Boot Order in the L4TConfiguration.dts in UEFI Source<a class="headerlink" href="UEFI.html#customize-the-default-boot-order-in-the-l4tconfiguration-dts-in-uefi-source" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Change the default boot order variable <code class="docutils literal notranslate"><span class="pre">DefaultBootPriority</span></code> in the L4TConfiguration.dts file
+in the <code class="docutils literal notranslate"><span class="pre">Silicon/NVIDIA/Tegra/DeviceTree/</span></code> UEFI source directory.</p></li>
+<li><p>Build the UEFI from source and copy the generated <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dtbo</span></code> file to the <code class="docutils literal notranslate"><span class="pre">&lt;top&gt;/kernel/dtb/</span></code> BSP directory.</p></li>
+<li><p>Flash the Jetson device.</p></li>
+</ol>
+</section>
+</section>
+<section id="overriding-the-default-boot-order-during-flashing">
+<h3>Overriding the Default Boot Order During Flashing<a class="headerlink" href="UEFI.html#overriding-the-default-boot-order-during-flashing" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method only sets the default boot order on the first boot after flashing. If additional storage devices are added in subsequent boots, those storage devices will be appended to the top or the bottom boot order based on UEFI Boot Order setting in the UEFI menu regardless of the storage device type.</p>
+</div>
+<p>In addition to customizing the default boot order, you can also override the default boot order by providing a <code class="docutils literal notranslate"><span class="pre">DTBO</span></code> through
+<code class="docutils literal notranslate"><span class="pre">ADDITIONAL_DTB_OVERLAY</span></code> environment variable. For example, you can set the NVMe as default boot device for Jetson AGX Orin:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sudo ADDITIONAL_DTB_OVERLAY=&quot;BootOrderNvme.dtbo&quot; ./flash.sh jetson-agx-orin-devkit nvme0n1p1
+</pre></div>
+</div>
+<p>To set another storage device as the default boot device, set the following <code class="docutils literal notranslate"><span class="pre">DTBO</span></code> to the <code class="docutils literal notranslate"><span class="pre">ADDITIONAL_DTB_OVERLAY</span></code> environment variable:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>eMMC device: <code class="docutils literal notranslate"><span class="pre">BootOrderEmmc.dtbo</span></code></p></li>
+<li><p>USB device: <code class="docutils literal notranslate"><span class="pre">BootOrderUsb.dtbo</span></code></p></li>
+<li><p>UFS device: <code class="docutils literal notranslate"><span class="pre">BootOrderUfs.dtbo</span></code></p></li>
+<li><p>SATA device: <code class="docutils literal notranslate"><span class="pre">BootOrderSata.dtbo</span></code></p></li>
+<li><p>PXE boot: <code class="docutils literal notranslate"><span class="pre">BootOrderPxe.dtbo</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="customizing-the-default-boot-order-in-the-uefi-menu">
+<span id="sd-bootloader-uefi-customizingthedefaultbootorderintheuefimenu"></span><h3>Customizing the Default Boot Order in the UEFI Menu<a class="headerlink" href="UEFI.html#customizing-the-default-boot-order-in-the-uefi-menu" title="Link to this heading">#</a></h3>
+<p>When prompted to <strong>Press ESCAPE for boot options</strong> from the landing page of UEFI menu, navigate to <strong>Boot Maintenance manager</strong>
+and click <strong>Boot Options</strong> -&gt; <strong>Change Boot Order</strong>. The boot order can be changed at this time.</p>
+</section>
+</section>
+<section id="boot-mode-selection">
+<h2>Boot Mode Selection<a class="headerlink" href="UEFI.html#boot-mode-selection" title="Link to this heading">#</a></h2>
+<p>In the JetPack SDK, L4tLauncher serves as the default OS Loader for the UEFI. L4tLauncher provides multiple ways to load the kernel image and DTB, controlled by the Boot Mode setting.</p>
+<section id="customizing-the-default-boot-mode-in-the-configuration-file">
+<h3>Customizing the Default Boot Mode in the Configuration File<a class="headerlink" href="UEFI.html#customizing-the-default-boot-mode-in-the-configuration-file" title="Link to this heading">#</a></h3>
+<p>Change the default boot mode in <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dtbo</span></code> if users do not rebuild UEFI from the source or
+change the default boot mode in <code class="docutils literal notranslate"><span class="pre">L4TConfiguration.dts</span></code> in the UEFI source.</p>
+<section id="customizing-the-default-boot-mode-in-l4tconfiguration-dtbo-in-the-bsp-directory">
+<h4>Customizing the Default Boot Mode in L4TConfiguration.dtbo in the BSP Directory<a class="headerlink" href="UEFI.html#customizing-the-default-boot-mode-in-l4tconfiguration-dtbo-in-the-bsp-directory" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Convert the L4TConfiguration.dtbo file to L4TConfiguration.dts file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd &lt;top&gt;
+$ kernel/dtc -I dtb -O dts -o kernel/dtb/L4TConfiguration.dts kernel/dtb/L4TConfiguration.dtbo
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">&lt;top&gt;</span></code> is the pathname of the flash.sh directory, which contains the PDK installation package.</p>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p>Change the default boot mode in the L4TConfiguration.dts:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/ {
+    overlay-name = &quot;L4T Configuration Settings&quot;;
+     fragment@0 {
+        target-path = &quot;/&quot;;
+        board_config {
+            sw-modules = &quot;uefi&quot;;
+        };
+
+        __overlay__ {
+            firmware {
+                uefi {
+                    variables {
+                        gNVIDIAPublicVariableGuid {
+                            QuickBootEnabled {
+                                data = [00];
+                                non-volatile;
+                            };
+
+                             ... ... ...
+
+                            L4TDefaultBootMode {
+                                data = [01 00 00 00];
+/*                              data = &quot;Replace above data with your default boot mode value&quot;; */
+                                runtime;
+                                non-volatile;
+                            };
+                        };
+
+                        gNVIDIATokenSpaceGuid {
+                           ... ... ...
+                        };
+                    };
+                };
+            };
+        };
+    };
+};
+</pre></div>
+</div>
+</li>
+<li><p>Set the default boot mode to the <code class="docutils literal notranslate"><span class="pre">L4TDefaultBootMode</span></code> variable. The valid values are:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[ 00 00 00 00 ]  - Boot GRUB
+[ 01 00 00 00 ]  - Boot normal kernel and DTB in filesystem
+[ 02 00 00 00 ]  - Boot normal kernel and DTB in partitions
+[ 03 00 00 00 ]  - Boot recovery kernel and DTB in partitions
+</pre></div>
+</div>
+</li>
+<li><p>Convert the L4TConfiguration.dts file to L4TConfiguration.dtbo file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd &lt;top&gt;
+$ kernel/dtc -I dts -O dtb -o kernel/dtb/L4TConfiguration.dtbo kernel/dtb/L4TConfiguration.dts
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">&lt;top&gt;</span></code> is the pathname of the flash.sh directory, which contains the PDK installation package.</p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Flash the Jetson device.</p></li>
+</ol>
+</section>
+<section id="customizing-the-default-boot-mode-in-l4tconfiguration-dts-in-the-uefi-source">
+<h4>Customizing the Default Boot Mode in L4TConfiguration.dts in the UEFI Source<a class="headerlink" href="UEFI.html#customizing-the-default-boot-mode-in-l4tconfiguration-dts-in-the-uefi-source" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Change the <code class="docutils literal notranslate"><span class="pre">L4TDefaultBootMode</span></code> default boot mode variable in the L4TConfiguration.dts file in the
+<code class="docutils literal notranslate"><span class="pre">Silicon/NVIDIA/Tegra/DeviceTree/</span></code> UEFI source directory.</p></li>
+<li><p>Build the UEFI from source and copy the generated L4TConfiguration.dtbo file to the <code class="docutils literal notranslate"><span class="pre">&lt;top&gt;/kernel/dtb/</span></code> BSP directory.</p></li>
+<li><p>Flash the Jetson device.</p></li>
+</ol>
+</section>
+</section>
+<section id="customizing-the-default-boot-mode-in-the-uefi-menu">
+<h3>Customizing the Default Boot Mode in the UEFI Menu<a class="headerlink" href="UEFI.html#customizing-the-default-boot-mode-in-the-uefi-menu" title="Link to this heading">#</a></h3>
+<p>When prompted to <strong>Press ESCAPE for boot options</strong> from the landing page of UEFI menu, navigate to <strong>Device Manager</strong> and
+click <strong>NVIDIA Configuration</strong> -&gt; <strong>L4T Configuration</strong> -&gt; <strong>L4T Boot Mode</strong>. The boot order can be changed at this time.</p>
+</section>
+</section>
+<section id="disabling-the-uefi-shell-in-the-uefi-menu">
+<h2>Disabling the UEFI Shell in the UEFI Menu<a class="headerlink" href="UEFI.html#disabling-the-uefi-shell-in-the-uefi-menu" title="Link to this heading">#</a></h2>
+<p>The UEFI shell is a command-line interface environment that is built into the UEFI firmware and provides access to various system utilities and tools.
+This environment allows you to execute UEFI applications, including UEFI boot loaders, and provides commands to obtain system information, modify boot variables,
+load drivers, and edit text files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We strongly recommend that you disable the UEFI shell for production devices.</p>
+</div>
+<p>To disable the UEFI shell:</p>
+<ol class="arabic">
+<li><p>Change the source file <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/blob/main/Platform/NVIDIA/Kconfig#L746">Platform/NVIDIA/Kconfig</a>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>menuconfig SHELL
+bool &quot;UEFI Shell support&quot;
+-default y
++default n
+help
+   Support for UEFI shell in the main UEFI firmware image
+</pre></div>
+</div>
+</li>
+<li><p>Rebuild the UEFI source (refer to <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki/Build">Building UEFI for NVIDIA Platforms</a> for more information).</p></li>
+</ol>
+</section>
+<section id="enabling-the-uefi-menu-password-protection">
+<h2>Enabling the UEFI Menu Password Protection<a class="headerlink" href="UEFI.html#enabling-the-uefi-menu-password-protection" title="Link to this heading">#</a></h2>
+<p>To enable the UEFI menu password protection:</p>
+<ol class="arabic simple">
+<li><p>When prompted to <strong>Press ESCAPE for boot options</strong> from the UEFI menu’s landing page, navigate to <strong>Device Manager</strong>.</p></li>
+<li><p>Click <strong>User Password Management</strong> and press <strong>Enter</strong>.</p></li>
+<li><p>When prompted to enter your new password, enter the password twice and save.</p></li>
+<li><p>Continue boot or reboot the system.</p></li>
+</ol>
+<p>The next time you want to enter the UEFI menu, when prompted, enter the admin password.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For production devices, we strongly recommend that you enable password protection for the UEFI menu.</p>
+</div>
+</section>
+<section id="set-the-system-to-normal-boot-from-the-recovery-kernel-boot">
+<span id="sd-bootloader-uefi-setthesystemtonormalbootfromtherecoverykernelboot"></span><h2>Set the System to Normal Boot from the Recovery Kernel Boot<a class="headerlink" href="UEFI.html#set-the-system-to-normal-boot-from-the-recovery-kernel-boot" title="Link to this heading">#</a></h2>
+<p>When the system enters the recovery kernel shell, you can exit the recovery boot in one of the following ways:</p>
+<ul class="simple">
+<li><p>Change the configurations in the UEFI menu.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">RootfsStatusSlotA</span></code> and <code class="docutils literal notranslate"><span class="pre">L4TDefaultBootMode</span></code> UEFI variables in the recovery shell. Set the <code class="docutils literal notranslate"><span class="pre">RootfsStatusSlotB</span></code>
+UEFI variable if the rootfs A/B is enabled.</p></li>
+</ul>
+<section id="set-the-configurations-in-the-uefi-menu">
+<h3>Set the Configurations in the UEFI Menu<a class="headerlink" href="UEFI.html#set-the-configurations-in-the-uefi-menu" title="Link to this heading">#</a></h3>
+<p>After you are prompted to <strong>Press ESCAPE for boot options</strong> from the landing page of UEFI menu:</p>
+<ol class="arabic simple">
+<li><p>Navigate to <strong>Device Manager</strong> and click <strong>NVIDIA Configuration</strong> -&gt; <strong>L4T Configuration</strong> -&gt; <strong>OS chain A status</strong>.</p></li>
+<li><p>Change the value to <strong>Normal</strong>.</p></li>
+<li><p>If the rootfs A/B is enabled, change the <strong>OS chain B status</strong> to <strong>Normal</strong>.</p></li>
+<li><p>Save the change.</p></li>
+<li><p>Navigate to <strong>Device Manager</strong> and click <strong>NVIDIA Configuration</strong> -&gt; <strong>L4T Configuration</strong> -&gt; <strong>L4T Boot Mode</strong>.</p></li>
+<li><p>Change the boot mode to <strong>ExtLinux</strong> and save it.</p></li>
+<li><p>Reboot the target device.</p></li>
+</ol>
+<p>The UEFI will attempt a normal boot.</p>
+</section>
+<section id="set-the-uefi-variable-in-the-recovery-kernel-shell">
+<h3>Set the UEFI Variable in the Recovery Kernel Shell<a class="headerlink" href="UEFI.html#set-the-uefi-variable-in-the-recovery-kernel-shell" title="Link to this heading">#</a></h3>
+<p>When the system enters the recovery kernel shell, to set the system back to normal boot:</p>
+<ol class="arabic">
+<li><p>Mount the <code class="docutils literal notranslate"><span class="pre">efivarfs</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># mount -t efivarfs none /sys/firmware/efi/efivars/
+</pre></div>
+</div>
+</li>
+<li><p>Restore the rootfs status UEFI variable:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cd /sys/firmware/efi/efivars/
+# printf &quot;\x07\x00\x00\x00\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+# chattr -i RootfsStatusSlotA-781e084c-a330-417c-b678-38e696380cb9
+# dd if=/tmp/var_tmp.bin of=RootfsStatusSlotA-781e084c-a330-417c-b678-38e696380cb9 bs=8;sync
+# xxd RootfsStatusSlotA-781e084c-a330-417c-b678-38e696380cb9   # check the value
+# chattr +i RootfsStatusSlotA-781e084c-a330-417c-b678-38e696380cb9
+</pre></div>
+</div>
+<p>If Rootfs A/B is enabled:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># printf &quot;\x07\x00\x00\x00\x00\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+# chattr -i RootfsStatusSlotB-781e084c-a330-417c-b678-38e696380cb9
+# dd if=/tmp/var_tmp.bin of=RootfsStatusSlotB-781e084c-a330-417c-b678-38e696380cb9 bs=8;sync
+# xxd RootfsStatusSlotB-781e084c-a330-417c-b678-38e696380cb9   # check the value
+# chattr +i RootfsStatusSlotB-781e084c-a330-417c-b678-38e696380cb9
+</pre></div>
+</div>
+</li>
+<li><p>Restore the default boot mode UEFI variable:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cd /sys/firmware/efi/efivars/
+# printf &quot;\x07\x00\x00\x00\x01\x00\x00\x00&quot; &gt; /tmp/var_tmp.bin
+# chattr -i L4TDefaultBootMode-781e084c-a330-417c-b678-38e696380cb9
+# dd if=/tmp/var_tmp.bin of=L4TDefaultBootMode-781e084c-a330-417c-b678-38e696380cb9 bs=8;sync
+# xxd L4TDefaultBootMode-781e084c-a330-417c-b678-38e696380cb9    # check the value
+# chattr +i L4TDefaultBootMode-781e084c-a330-417c-b678-38e696380cb9
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the target device:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cd /
+# umount /sys/firmware/efi/efivars/
+# reboot
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="customized-logo">
+<h2>Customized Logo:<a class="headerlink" href="UEFI.html#customized-logo" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><ul>
+<li><p>How to customize BMP?</p>
+<p>For <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson AGX Orin&trade;</span></p>
+<p>To change the logo displayed during UEFI boot, edit the files in edk2-nvidia/Silicon/NVIDIA/Assets.
+If you add/remove files or change names the files info can be updated in Platform/NVIDIA/NVIDIA.fvmain.fdf.inc.
+The relevant section is as shown below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>FILE FREEFORM = gNVIDIAPlatformLogoGuid {
+   SECTION RAW = Silicon/NVIDIA/Assets/nvidiagray480.bmp
+   SECTION RAW = Silicon/NVIDIA/Assets/nvidiagray720.bmp
+   SECTION RAW = Silicon/NVIDIA/Assets/nvidiagray1080.bmp
+}
+Customers can replace the NVIDIA provided logo files with their own files and ensure the UEFI binary with the logo file(s) do not exceed the UEFI partition size (3.5MB) in the partition XML file. The partition XML files for various platforms are located in the ./bootloader/generic/cfg/ directory.
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="dtb-support">
+<h2>DTB Support<a class="headerlink" href="UEFI.html#dtb-support" title="Link to this heading">#</a></h2>
+<ul>
+<li><dl>
+<dt>Selection Order</dt><dd><blockquote>
+<div><p>L4tLauncher selects the kernel image and DTB as shown in the following flowchart:</p>
+</div></blockquote>
+<figure class="align-default" style="width: 800px">
+<img alt="../../_images/UEFI-Kernel-DTB-Selection.png" src="../../_images/UEFI-Kernel-DTB-Selection.png" />
+</figure>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>How to customize</dt><dd><p>User can specify a custom DTB for kernel by modifying the FDT tag in /boot/extlinux/extlinux.conf file in rootfs. User can also uncomment backup boot option in the same file for adding an entirely new OS boot option.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>DTB Overlays</dt><dd><p>DTB in use by UEFI and/or kernel can be updated using overlays that are applied during boot based on platform parameters like board-id/odm-data/fuse-info/sw-module. Criteria for applying an overlay can be specified in board_config node and if every criteria in the node matches, the overlay is applied on base DTB.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>An example structure of an overlay device tree file is as shown below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/ {
+    fragment@0 {
+        target= &quot;&lt;&amp;uartc&gt;&quot;;
+        delete_prop = &quot;early-print-console-channel&quot;;
+        board_config {
+            ids = &quot;2888-0001-400&quot;, &quot;3360-1099-100&quot; ;
+            odm-data = &quot;enable-high-speed-uart&quot;;
+            sw-modules = “kernel”;
+        };
+        __overlay__ {
+            compatible = &quot;nvidia,tegra186-hsuart&quot;;
+            reset-names = &quot;serial&quot;;
+        };
+    };
+
+    fragment@1 {
+        target-path = &quot;/nvenc@154c0000&quot;;
+        board_config {
+            fuse-info = &quot;fuse-disable-nvenc&quot;;
+    };
+        __overlay__ {
+            status = &quot;disabled&quot;;
+        };
+    };
+};
+
+- ids property in board_config can specify a list of board-id, one of which has to match
+  the board IDs read from platform EEPROMs.
+
+- odm-data property in board_config can specify a list of odm data strings that are matched
+  against /chosen/odm-data property strings in base DTB to find if there is a match.
+  User can specify valid odm data strings for a platform during flash.
+
+- fuse-info property in board_config can specify a list of fuse strings for floor sweeping configuration.
+
+- The sw-modules property in board_config can specify if an overlay needs to be applied to only UEFI DTB,
+  kernel DTB or both. If this property is not present, overlay is applied to both kernel as well as UEFI dtb.
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Supporting DTBO (Device Tree Blob Overlay) for the camera module (instead of using the prior supported plug-in manager)</dt><dd><p>Because UEFI boot is enabled in this release, the plugin manager is no longer supported.
+You must create a device tree overlay (DTB overlay, or .dtbo) file to register the camera module.
+If your camera module has on-board EEPROM and is programmed with a valid camera ID,
+you can use the device tree overlay file at to apply the overlay for a specific camera module and
+update the device tree entries with proper information at run time. Using a device tree overlay with
+an EEPROM ID allows a single system image to support multiple camera devices.
+To select a different camera, power down the device, replace the camera module, and then reboot.
+The new module works automatically.</p>
+</dd>
+</dl>
+</li>
+<li><p>To create and apply a device tree overlay file:</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Add the .dtsi file to the camera configuration .dtsi file.</p></li>
+<li><p>Set the status of your device tree nodes to “disabled”:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>imx185_cam0: imx185_a@1a {
+    status = &quot;disabled&quot;;
+};
+</pre></div>
+</div>
+</li>
+<li><p>Add the overlay information as fragments below to a new .dts file like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;top&gt;/hardware/nvidia/t23x/nv-public/overlay/tegra234-p3737-camera-dual-imx274-overlay.dts
+
+#You can also see the camera DTB overlay files provided with current release for example.
+</pre></div>
+</div>
+</li>
+<li><p>Update the .dts file with proper overlay information and a compatible string:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>overlay-name = &quot;Jetson Camera Dual-IMX274&quot;;
+jetson-header-name = &quot;Jetson AGX CSI Connector&quot;;
+compatible = &quot;nvidia,p3737-0000+p3701-0000&quot;, &quot;nvidia,p3737-0000+p3701-0004&quot;, &quot;nvidia,p3737-0000+p3701-0005&quot;;
+
+fragment@0 {
+   target-path = &quot;/bus@0/i2c@3180000/tca9546@70/i2c@0/imx274_a@1a&quot;;
+   board_config {
+   ids = &quot;LPRD-dual-imx274-002&quot;;
+   sw-modules = &quot;kernel&quot;;
+};
+__overlay__ {
+   status = &quot;okay&quot;;
+  };
+};
+
+fragment@1 {
+   ... ... ...
+};
+</pre></div>
+</div>
+</li>
+<li><p>Compile the .dts file to generate a .dtbo file. Move the .dtbo file to flash_folder/kernel/dtb/ before flashing.</p></li>
+<li><p>Add this line to the &lt;board&gt;.conf file, which is used for flashing the device:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OVERLAY_DTB_FILE=”${OVERLAY_DTB_FILE},tegra234-p3737-camera-dual-imx274-overlay.dtbo”;
+
+# The line causes the following steps to be performed:
+# - If a specific camera board is found when the kernel boots, the override data is applied to
+    that camera board’s tree nodes.
+# - The tree nodes are made available for the system to use.
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="grub-support">
+<h2>Grub support<a class="headerlink" href="UEFI.html#grub-support" title="Link to this heading">#</a></h2>
+<p>The default OS Loader is L4tLauncher. To use Grub to boot Jetson devices, complete the following steps:</p>
+<ol class="arabic">
+<li><p>Flash the Jetson device. Refer to <a class="reference internal" href="../../IN/QuickStart.html#in-quickstart-toflashjetsondeveloperkitoperatingsoftware-forcerecoverymode"><span class="std std-ref">To Flash Jetson Developer Kit Operating Software</span></a> for more information.</p></li>
+<li><p>Ensure that the Jetson device is connected to the Internet and boot the device.</p></li>
+<li><p>Back up the default OS Loader <code class="docutils literal notranslate"><span class="pre">BOOTAA64.efi</span></code> (L4tLauncher):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Back up the defalut BOOTAA64.efi
+$ sudo mv /boot/efi/EFI/BOOT/BOOTAA64.efi /boot/efi/EFI/BOOT/Backup_BOOTAA64.efi
+$ ls -R /boot/efi
+</pre></div>
+</div>
+</li>
+<li><p>To install the Grub Debian package, run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
+$ sudo apt-get install grub-efi-arm64-bin
+</pre></div>
+</div>
+</li>
+<li><p>To install Grub, run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Install Grub to system
+$ sudo grub-install --bootloader-id=Ubuntu --efi-directory=/boot/efi --target=arm64-efi
+
+# Check installed Grub version
+$ sudo grub-install --version
+
+# Check the installed files
+$ ls -R /boot/efi
+</pre></div>
+</div>
+</li>
+<li><p>Customize the Grub template file (<code class="docutils literal notranslate"><span class="pre">/etc/grub.d/40_custom</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Get the device node of current rootfs: RFS_DEV
+$ sudo df -h
+For example, RFS_DEV=/dev/mmcblk0p1
+
+# Get the filesystem UUID of current rootfs: RFS_FSUUID
+$ sudo tune2fs -l ${RFS_DEV} | grep UUID
+For example, RFS_FSUUID=acad60d2-d5c7-45f7-83e5-8721f08dfea7
+
+# Get the command line of target device: CMD_LINE
+$ cat /proc/cmdline
+For example, CMD_LINE=&quot;root=/dev/mmcblk0p1 rw rootwait rootfstype=ext4 mminit_loglevel=4 console=ttyTCU0,115200 console=ttyAMA0,115200 console=tty0 firmware_class.path=/etc/firmware fbcon=map:0 net.ifnames=0&quot;
+
+# Add following entries to ``/etc/grub.d/40_custom`` that will be displayed on the Grub menu.
+menuentry &#39;Jetson Linux&#39; {
+        echo &quot;Booting Jetson Linux...&quot;
+        search --no-floppy --fs-uuid --set=root ${RFS_FSUUID}
+        linux   /boot/Image ${CMD_LINE}
+        initrd  /boot/initrd
+}
+
+menuentry &quot;System restart&quot; {
+        echo &quot;System rebooting...&quot;
+        reboot
+}
+</pre></div>
+</div>
+</li>
+<li><p>Generate the main configuration file (<code class="docutils literal notranslate"><span class="pre">/boot/grub/grub.cfg</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo su -c &quot;grub-mkconfig &gt; /boot/grub/grub.cfg&quot;
+</pre></div>
+</div>
+</li>
+<li><p>(Optional)
+To test the Grub menu, change the default configurations in <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> to the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Add a “#” at the beginning of the line
+#GRUB_TIMEOUT_STYLE=hidden
+
+# Change the timeout for grub menu
+GRUB_TIMEOUT=10
+
+# To see grub output on serial port rather than display
+GRUB_TERMINAL=console
+</pre></div>
+</div>
+<p>Change grub menu order such that Jetson Linux is first/default:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo su -c &quot;mv /etc/grub.d/30_uefi-firmware /etc/grub.d/42_uefi-firmware&quot;
+</pre></div>
+</div>
+<p>Update the /boot/grub/grub.cfg:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo su -c &quot;update-grub&quot;
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the Jetson device, and the system will successfully boot with Grub. When booting the Linux kernel, the following log is displayed:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Booting Jetson Linux...
+EFI stub: Booting Linux Kernel...
+......
+</pre></div>
+</div>
+</li>
+</ol>
+<p>The “Ubuntu” entry is at top of Boot Manager Menu if entering <strong>UEFI menu</strong> -&gt; <strong>Boot Manager</strong>.
+The Grub menu will appear when UEFI boots Grub if step 8 is done.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To switch back to boot L4tLauncher, create a boot entry using <strong>efibootmgr</strong>. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo efibootmgr -c -d /dev/mmcblk0 -p 10 -L &quot;L4TLauncher&quot; -l &quot;\EFI\BOOT\Backup_BOOTAA64.efi
+</pre></div>
+</div>
+</div>
+</section>
+<section id="miniuefi-support">
+<h2>miniUEFI Support<a class="headerlink" href="UEFI.html#miniuefi-support" title="Link to this heading">#</a></h2>
+<p>There is a minimal configuration UEFI called <code class="docutils literal notranslate"><span class="pre">miniUEFI</span></code> for the Jetson AGX Orin series. This build disables all unnecessary hardware to boot off
+eMMC on Orin, and it is smaller and boots faster.</p>
+<p>The build is configured to launch the built-in L4TLauncher binary in BDS. Security is provided by encrypted load targets for components that are loaded off eMMC (kernel, initrd, and so on).
+UEFI Secure boot is enabled and expected to be set up using the device tree methods. Persistent variables are not supported.</p>
+<section id="building-the-miniuefi">
+<h3>Building the miniUEFI<a class="headerlink" href="UEFI.html#building-the-miniuefi" title="Link to this heading">#</a></h3>
+<p>To build the <code class="docutils literal notranslate"><span class="pre">miniUEFI</span></code>, refer to <a class="reference external" href="https://github.com/NVIDIA/edk2-nvidia/wiki/Build">Building UEFI for NVIDIA Platforms</a> for more information.</p>
+<p>Run the following commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cd nvidia-uefi
+$ edk2_docker edk2-nvidia/Platform/NVIDIA/JetsonMinimal/build.sh
+</pre></div>
+</div>
+<p>The generated <code class="docutils literal notranslate"><span class="pre">miniUEFI</span></code> binaries <code class="docutils literal notranslate"><span class="pre">uefi_JetsonMinimal_DEBUG.bin</span></code> and <code class="docutils literal notranslate"><span class="pre">uefi_JetsonMinimal_RELEASE.bin</span></code> are under the <code class="docutils literal notranslate"><span class="pre">images</span></code> directory.</p>
+</section>
+<section id="flashing-the-miniuefi">
+<h3>Flashing the miniUEFI<a class="headerlink" href="UEFI.html#flashing-the-miniuefi" title="Link to this heading">#</a></h3>
+<p>To flash the miniUEFI to the Jetson AGX Orin, replace the <code class="docutils literal notranslate"><span class="pre">Linux_for_Tegra/bootloader/uefi_jetson.bin</span></code> with the generated <code class="docutils literal notranslate"><span class="pre">miniUEFI</span></code> binary.
+Put the device into recovery mode.</p>
+<p>Run the following command to flash the entire device:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo ADDITIONAL_DTB_OVERLAY=&quot;BootOrderEmmc.dtbo&quot; ./flash.sh jetson-agx-orin-devkit internal
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SecurityConfig.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Security Configuration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="UpdateAndRedundancy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Update and Redundancy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#sources-and-compilation">Sources and Compilation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#viewing-the-bsp-version-in-uefi">Viewing the BSP Version in UEFI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#uefi-variables">UEFI Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#boot-order-selection">Boot Order Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#supported-boot-device-and-the-default-boot-order">Supported Boot Device and the Default Boot Order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#selecting-the-boot-device-in-the-uefi">Selecting the Boot Device in the UEFI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-order-in-the-configuration-file">Customizing the Default Boot Order in the Configuration File</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-order-in-l4tconfiguration-dtbo-in-the-bsp-directory">Customizing the Default Boot Order in L4TConfiguration.dtbo in the BSP Directory</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customize-the-default-boot-order-in-the-l4tconfiguration-dts-in-uefi-source">Customize the Default Boot Order in the L4TConfiguration.dts in UEFI Source</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#overriding-the-default-boot-order-during-flashing">Overriding the Default Boot Order During Flashing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-order-in-the-uefi-menu">Customizing the Default Boot Order in the UEFI Menu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#boot-mode-selection">Boot Mode Selection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-mode-in-the-configuration-file">Customizing the Default Boot Mode in the Configuration File</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-mode-in-l4tconfiguration-dtbo-in-the-bsp-directory">Customizing the Default Boot Mode in L4TConfiguration.dtbo in the BSP Directory</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-mode-in-l4tconfiguration-dts-in-the-uefi-source">Customizing the Default Boot Mode in L4TConfiguration.dts in the UEFI Source</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customizing-the-default-boot-mode-in-the-uefi-menu">Customizing the Default Boot Mode in the UEFI Menu</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#disabling-the-uefi-shell-in-the-uefi-menu">Disabling the UEFI Shell in the UEFI Menu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#enabling-the-uefi-menu-password-protection">Enabling the UEFI Menu Password Protection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#set-the-system-to-normal-boot-from-the-recovery-kernel-boot">Set the System to Normal Boot from the Recovery Kernel Boot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#set-the-configurations-in-the-uefi-menu">Set the Configurations in the UEFI Menu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#set-the-uefi-variable-in-the-recovery-kernel-shell">Set the UEFI Variable in the Recovery Kernel Shell</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#customized-logo">Customized Logo:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#dtb-support">DTB Support</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#grub-support">Grub support</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#miniuefi-support">miniUEFI Support</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#building-the-miniuefi">Building the miniUEFI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="UEFI.html#flashing-the-miniuefi">Flashing the miniUEFI</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

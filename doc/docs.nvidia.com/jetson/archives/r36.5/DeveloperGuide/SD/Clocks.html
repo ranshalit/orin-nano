@@ -1,0 +1,1064 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clocks &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../_static/design-tabs.js@v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Clocks';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Platform Power and Performance" href="PlatformPowerAndPerformance.html" />
+    <link rel="prev" title="Audio Setup and Development" href="Communications/AudioSetupAndDevelopment.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="Clocks.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Security.html">Security</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/OpTee.html">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Security/PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="Clocks.html#">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Clocks</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="clocks">
+<h1>Clocks<a class="headerlink" href="Clocks.html#clocks" title="Link to this heading">#</a></h1>
+<p><span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Board Support Package (BSP) supports configuring Jetson clocks and peripheral clocks through software. This topic describes how to check the clock status, get the maximum rates for clocks, and configure the clock sources for <span class="html">NVIDIA<sup><small>®</small></sup></span> Jetson AGX Orin devices.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For information about available Jetson clock sources and capabilities, see the “Clock and Reset Controller” section of the <a class="reference external" href="https://developer.nvidia.com/embedded/downloads#?search=technical%20reference%20manual">Technical Reference Manual</a> (TRM) for your Jetson processor. This section of the TRM also describes clock source multiplexers and provides descriptions of available clock sources for each component.</p>
+</div>
+<p>Linux kernel supports the common clock framework (CCF) from version 4.9. As a result:</p>
+<ul class="simple">
+<li><p>All device drivers use the public CCF API defined by <code class="docutils literal notranslate"><span class="pre">include/linux/clk.h</span></code> and
+<code class="docutils literal notranslate"><span class="pre">include/linux/clk-provider.h</span></code>, including functions such as <code class="docutils literal notranslate"><span class="pre">clk_get()</span></code>, <code class="docutils literal notranslate"><span class="pre">clk_enable()</span></code>, <code class="docutils literal notranslate"><span class="pre">devm_clk_get()</span></code>, <code class="docutils literal notranslate"><span class="pre">clk_prepare_enable()</span></code>, <code class="docutils literal notranslate"><span class="pre">clk_prepare_disable()</span></code>, <code class="docutils literal notranslate"><span class="pre">clk_disable()</span></code>, and others, instead of device-specific APIs.</p></li>
+<li><p>All clock drivers, including the Jetson custom clk driver, implement the structure <code class="docutils literal notranslate"><span class="pre">clk_ops</span></code>.</p></li>
+<li><p>Clock sources and clocks required by devices are defined in the device tree.</p></li>
+<li><p>Clocks are controlled by an R5 called the Boot and Power Management Processor.
+It runs RTOS software from <code class="docutils literal notranslate"><span class="pre">bpmp.bin</span></code>. The Linux kernel running on CCPLEX requests this software for clock programming.</p></li>
+</ul>
+<p>The <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux clock driver wrapper is available at <code class="docutils literal notranslate"><span class="pre">nvidia/drivers/clk/tegra/</span></code>.</p>
+<section id="to-check-clock-status">
+<h2>To check clock status<a class="headerlink" href="Clocks.html#to-check-clock-status" title="Link to this heading">#</a></h2>
+<p>On the device, enter the following command to launch debugfs and check the clock:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ sudo -s
+# cat /sys/kernel/debug/bpmp/debug/clk/clk_tree
+</pre></div>
+</div>
+<p>This is a portion of the sample <code class="docutils literal notranslate"><span class="pre">debugfs</span></code> output that is generated when you run the command above on the <span class="html">NVIDIA<sup><small>®</small></sup></span> Jetson AGX Orin device:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>clock                                                 on       rate bpmp  mrq vdd
+---------------------------------------------------------------------------------
+clk_m                                                  1   19200000   11    1
+    actmon                                             1   19200000    2    1 vdd_core@625000
+    tach0                                              1    1010526    1    1 vdd_core@625000
+    ufsdev_ref                                         0   19200000    0    0
+    ist                                                0   19200000    0    0
+    fuse_serial                                        0   19200000    0    0
+    la                                                 0   19200000    0    0
+    tsense                                             1    2742858    1    0 vdd_core@625000
+</pre></div>
+</div>
+</section>
+<section id="overriding-default-clock-rates">
+<h2>Overriding Default Clock Rates<a class="headerlink" href="Clocks.html#overriding-default-clock-rates" title="Link to this heading">#</a></h2>
+<p>The default clock rate of each component is set during system boot time and updated under control of the Jetson custom clk driver by sending requests to the BPMP to adjust the clock rate. The <code class="docutils literal notranslate"><span class="pre">debugfs</span></code> affords a way to override the default clock rate and set a fixed clock rate. However, you should use <code class="docutils literal notranslate"><span class="pre">debugfs</span></code> for debugging and experimental purposes only.</p>
+<p>Here is an example to check the clock-specific attributes of the <code class="docutils literal notranslate"><span class="pre">emc</span></code> clock node under the <code class="docutils literal notranslate"><span class="pre">debugfs</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cd /sys/kernel/debug/bpmp/debug/clk
+# ls emc
+
+dvfs        flags   max_rate  mrqcount         parent       rate      state
+dvfs_table  hz_off  min_rate  mrq_rate_locked  pto_counter  refcount  vdd_core
+</pre></div>
+</div>
+<p>You can use these attributes to change the clock parent, clock rate, and so on.</p>
+<p>For example, you can override the <cite>emc</cite> rate by entering these commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># echo 1 &gt; /sys/kernel/debug/bpmp/debug/clk/emc/mrq_rate_locked
+# echo 1 &gt; /sys/kernel/debug/bpmp/debug/clk/emc/state
+# echo 1 &gt; /sys/kernel/debug/bpmp/debug/bwmgr/bwmgr_halt
+# echo x &gt; /sys/kernel/debug/bpmp/debug/clk/emc/rate
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">x</span></code> value in the third command can be any value between the <code class="docutils literal notranslate"><span class="pre">min_rate</span></code> and the <code class="docutils literal notranslate"><span class="pre">max_rate</span></code>.</p>
+</section>
+<section id="configuring-gpu-clocks">
+<h2>Configuring GPU Clocks<a class="headerlink" href="Clocks.html#configuring-gpu-clocks" title="Link to this heading">#</a></h2>
+<p>With GPU <a class="reference external" href="Clocks.html#frequency-boost-feature">DVFS</a> enabled using the devfreq framework, GPU frequency changes
+based on load. You can run the GPU at a fixed frequency instead if necessary.</p>
+<section id="to-run-the-gpu-at-a-fixed-frequency">
+<h3>To run the GPU at a fixed frequency<a class="headerlink" href="Clocks.html#to-run-the-gpu-at-a-fixed-frequency" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Enter one of these commands:</p>
+<ul>
+<li><p>For the GPU on the Jetson AGX Orin series devices:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cd /sys/devices/platform/17000000.gpu/devfreq/17000000.gpu/
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>List the available frequencies:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cat available_frequencies
+</pre></div>
+</div>
+<p>The command displays a list of available frequencies like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>306000000 408000000 510000000 612000000 714000000 816000000 918000000 1020000000 1122000000 1224000000 1300500000
+</pre></div>
+</div>
+</li>
+<li><p>Fix the frequency.</p>
+<ul>
+<li><p>To fix the frequency at the maximum supported value:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># echo &lt;max&gt; &gt; min_freq
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;max&gt;</span></code> in the maximum supported frequency. For example, to fix the frequency at the maximum supported frequency from the list in step 2:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># echo 1377000000 &gt; min_freq
+</pre></div>
+</div>
+</li>
+<li><p>To fix the frequency at any other supported value:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># echo &lt;freq&gt; &gt; min_freq
+# echo &lt;freq&gt; &gt; max_freq
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;freq&gt;</span></code> in the desired frequency range.</p>
+<p>For example, to fix the frequency at 828750000:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># echo 828750000 &gt; min_freq
+# echo 828750000 &gt; max_freq
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>Get the current frequency.</p>
+<ul>
+<li><p>To get the current frequency:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cat cur_freq
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Print the GPU load on the Jetson AGX Orin series devices:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># cat /sys/devices/platform/17000000.gpu/load
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The command shows the GPU load value, and the value divided by 10 represents load percentage.</p>
+</section>
+</section>
+<section id="configuring-vic-clocks">
+<h2>Configuring VIC Clocks<a class="headerlink" href="Clocks.html#configuring-vic-clocks" title="Link to this heading">#</a></h2>
+<p><strong>Video Image Compositor</strong> (VIC) provides a set of video processing
+services, including geometry transform processing for lens distortion
+correction and temporal noise reduction. The VIC voltage and frequency
+are dynamically scaled to conserve power, based on utilization as
+measured by the <strong>activity monitor</strong> (actmon).</p>
+<p>For more information about VIC, see the “Video Image Compositor” section in the
+<a class="reference external" href="https://developer.nvidia.com/embedded/downloads#?search=technical%20reference%20manual">Technical Reference Manual</a>
+(TRM) for your Jetson processor.</p>
+</section>
+<section id="vic-dynamic-voltage-and-frequency-scaling">
+<h2>VIC Dynamic Voltage and Frequency Scaling<a class="headerlink" href="Clocks.html#vic-dynamic-voltage-and-frequency-scaling" title="Link to this heading">#</a></h2>
+<p id="dvfs"><strong>VIC actmon</strong> is a hardware block which monitors VIC active cycles in a
+fixed time window. It works with the <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> devfreq governor to
+perform <strong>dynamic voltage and frequency scaling</strong> (DVFS) operations for VIC.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> tries to keep the <strong>current load</strong> (the ratio of
+VIC active cycle to total cycle, scaled to [0, 1000]) within a certain
+percentage range. It sets upper and lower bounds for the current load.
+When current load goes outside these bounds, VIC actmon raises an
+interrupt which causes <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> to raise the VIC frequency, reducing
+the current load, or lower the frequency, increasing it.</p>
+<p>The control logic in wmark_active is:</p>
+<ol class="arabic" id="current-load">
+<li><p>Compute the current load:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{cur}{r\_ load}_{} = \ \frac{\text{VIC}\ \text{active}\ \text{cycle}}{\text{VIC}\ \text{total}\ \text{cycle}\ &#64;\text{current}\ \text{frequency}}*1000\)</span></p>
+</div></blockquote>
+</li>
+<li><p>If (<em>freq_boost_en</em> &amp;&amp; <em>curr_load</em> &gt;= <em>load_max</em>):</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(curr\_ ideal\_ freq = \ F_{\max}\)</span></p>
+</div></blockquote>
+<p>else:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(curr\_ ideal\_ freq = \ \frac{curr\_ load}{load\_ target}*curr\_ freq\)</span></p>
+<p><span class="math notranslate nohighlight">\(\text{av}{g\_ target\_ freq}_{\text{current}} = \ \frac{\text{smooth}}{\text{smooth}\  + \ 1}*\text{av}{g\_ target\_ freq}_{\text{previous}} + \ \frac{1}{\text{smooth}\  + \ 1}*\text{cur}{r\_ ideal\_ freq}_{}\)</span></p>
+</div></blockquote>
+<p>Where:</p>
+<ul class="simple">
+<li><p><em>curr_load</em> is the current load.</p></li>
+<li><p><em>freq_boost_en</em> is a knob which enables or disables the <a class="reference external" href="Clocks.html#frequency-boost-feature">frequency boost</a> feature.</p></li>
+<li><p><em>F</em><sub>max</sub> is the maximum possible VIC frequency.</p></li>
+<li><p><em>load_max</em> is the <strong>frequency boost threshold</strong>. Its range is [0, 1000]. <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> boosts the VIC frequency to <em>F</em><sub>max</sub> when <em>load_level</em> exceeds this threshold.</p></li>
+</ul>
+<ul class="simple" id="load-target">
+<li><p><em>load_target</em> (the <strong>load target</strong>) is the value of <em>curr_load</em> that <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> tries to maintain.</p></li>
+<li><p><em>curr_freq</em> is the current VIC frequency, in hertz.</p></li>
+<li><p><em>curr_ideal_freq</em> is the VIC frequency, in hertz, that would yield a <em>curr_load</em> value of <em>load_target</em> under current instantaneous operating conditions.</p></li>
+<li><p><em>avg_target_freq</em> is the moving average of the target frequency, in
+hertz. It is used to avoid abrupt changes in <em>curr_freq</em> when it is recalculated. This property is described more fully in
+<a class="reference external" href="Clocks.html#to-customize-vic-dvfs-with-control-knobs">To customize VIC DVFS with control knobs</a>.</p></li>
+</ul>
+</li>
+</ol>
+<p>Select the first available frequency step that is greater than or equal to <em>avg_target_freq</em><sub>current</sub>.</p>
+</section>
+<section id="sysfs-paths-for-dvfs-control">
+<h2>Sysfs Paths for DVFS Control<a class="headerlink" href="Clocks.html#sysfs-paths-for-dvfs-control" title="Link to this heading">#</a></h2>
+<p>This section describes the use of several knobs that control the
+operation of VIC DVFS.</p>
+<section id="pathnames-of-sysfs-nodes-for-dvfs-control">
+<h3>Pathnames of Sysfs Nodes for DVFS Control<a class="headerlink" href="Clocks.html#pathnames-of-sysfs-nodes-for-dvfs-control" title="Link to this heading">#</a></h3>
+<p>The sysfs nodes that control VIC knobs are located in a pair of
+directories whose locations are device-dependent. The descriptions
+that follow use these placeholders to represent those directories:</p>
+<ul class="simple">
+<li><p>For <span class="html">NVIDIA<sup><small>®</small></sup></span> Jetson AGX Orin family series:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;knobpath&gt;</span></code> represents <code class="docutils literal notranslate"><span class="pre">/sys/devices/platform/bus&#64;0/13e00000.host1x/15340000.vic</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;knobpath_devfreq&gt;</span></code> represents <code class="docutils literal notranslate"><span class="pre">/sys/devices/platform/bus&#64;0/13e00000.host1x/15340000.vic/devfreq/15340000.vic</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>In the following procedures, replace these placeholders with the appropriate pathnames for your Jetson device.</p>
+</section>
+<section id="vic-dvfs-control-terminology">
+<h3>VIC DVFS Control Terminology<a class="headerlink" href="Clocks.html#vic-dvfs-control-terminology" title="Link to this heading">#</a></h3>
+<p>Many of the control knobs concern the <a class="reference external" href="Clocks.html#current-load">current load</a> and the <a class="reference external" href="Clocks.html#load-target">load target</a>.  The default load target is 700, i.e. <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> tries to keep the VIC active cycle at 70% of the current VIC frequency.</p>
+<p>A lower load target makes VIC frequency scaling more aggressive, because the VIC frequency scales up to <em>F</em><sub>max</sub> when the VIC active cycle exceeds (load target / 1000) <span class="html">&times;</span> <em>F</em><sub>max</sub>.</p>
+</section>
+<section id="to-enable-or-disable-vic-dvfs">
+<h3>To enable or disable VIC DVFS<a class="headerlink" href="Clocks.html#to-enable-or-disable-vic-dvfs" title="Link to this heading">#</a></h3>
+<p>VIC DVFS is enabled by default. You can disable VIC DVFS by changing the underlying devfreq governor to <code class="docutils literal notranslate"><span class="pre">userspace</span></code> governor for the VIC engine.</p>
+<p>Here is an example to change the devfreq governor of the VIC engine:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;gov&gt; &gt; &lt;knobpath_devfreq&gt;/governor
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;gov&gt;</span></code> is the name of the VIC devfreq governor to be used:</p>
+<ul class="simple">
+<li><p>To enable VIC DVFS, type <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> for the <code class="docutils literal notranslate"><span class="pre">&lt;gov&gt;</span></code></p></li>
+<li><p>To disable VIC DVFS, type <code class="docutils literal notranslate"><span class="pre">userspace</span></code> for the <code class="docutils literal notranslate"><span class="pre">&lt;gov&gt;</span></code></p></li>
+</ul>
+</section>
+<section id="to-customize-vic-dvfs-with-control-knobs">
+<h3>To customize VIC DVFS with control knobs<a class="headerlink" href="Clocks.html#to-customize-vic-dvfs-with-control-knobs" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">block_window</span></code> control knob defines the shortest period between VIC frequency scaling operations, in microseconds. VIC actmon skips frequency scaling if the last VIC frequency scaling operation was performed less than <code class="docutils literal notranslate"><span class="pre">block_window</span></code> microseconds ago.</p>
+<p>To set <code class="docutils literal notranslate"><span class="pre">block_window</span></code>, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;period&gt; &gt; &lt;knobpath&gt;/block_window
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;period&gt;</span></code> is the <code class="docutils literal notranslate"><span class="pre">block_window</span></code> value to set.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">load_target</span></code> control knob sets the VIC load target. To set the load_target, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;target&gt; &gt; &lt;knobpath&gt;/load_target
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;target&gt;</span></code> is the load target to set. The value range for the <code class="docutils literal notranslate"><span class="pre">&lt;target&gt;</span></code> is between 0 and 1000.</p>
+</li>
+</ul>
+<ul id="frequency-boost-feature">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">freq_boost_en</span></code> control knob enables or disables the <strong>frequency
+boost</strong> feature. If frequency boost is enabled, <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> boosts the VIC frequency to <em>F</em><sub>max</sub> when the VIC load level exceeds the frequency boost threshold (set by the <code class="docutils literal notranslate"><span class="pre">load_max</span></code> control knob, below).</p>
+<p>To enable or disable frequency boost, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;b&gt; &gt; &lt;knobpath&gt;/freq_boost_en
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;b&gt;</span></code> is 1 to enable frequency boost, or 0 to disable it.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">load_max</span></code> control knob sets the <strong>frequency boost threshold</strong>.
+<code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> boosts the VIC frequency to <em>F</em><sub>max</sub> when the VIC load level exceeds the frequency boost threshold. Its range is [0, 1000]. Its default value is 900.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">wmark_active</span></code> boosts the VIC frequency only if <code class="docutils literal notranslate"><span class="pre">freq_boost_en</span></code> (above) is enabled.</p>
+<p>To set the frequency boost threshold, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;max&gt; &gt; &lt;knobpath&gt;/load_max
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;max&gt;</span></code> is the frequency boost threshold to set.</p>
+</li>
+<li><p><em>curr_ideal_freq</em> is the VIC frequency, in hertz, that would yield a
+<em>curr_load</em> value of <em>load_target</em> under current instantaneous operating conditions.</p></li>
+<li><p><em>avg_target_freq</em> is the average target frequency, in hertz. That is, it is a
+moving average of the target frequency, in hertz.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">smooth</span></code> knob adjusts the weights that <em>avg_target_freq</em><sub>previous</sub> and <em>curr_ideal_freq</em> are given in adjusting the value of <em>avg_target_freq</em> toward the target frequency:</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\({\text{avg}\_\text{target}\_\text{freq}}_{\text{current}} = \ \frac{\text{smooth}}{\text{smooth}\  + \ 1}*{\text{avg}\_\text{target}\_\text{freq}}_{\text{previous}}\  + \ \frac{1}{\text{smooth}\  + \ 1}*\text{curr}\_\text{ideal}\_\text{freq}\)</span></p>
+</div></blockquote>
+<p>If <code class="docutils literal notranslate"><span class="pre">smooth</span></code> is 0, the weight of <em>avg_target_freqprevious</em> is 0% and the weight of <em>curr_ideal_freq</em> is 100%, so <em>avg_target_freqcurrent</em> is set to <em>curr_ideal_freq</em> each time it is adjusted.</p>
+<p>To set smooth, enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;value&gt; &gt; &lt;knobpath&gt;/smooth
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;value&gt;</span></code> is the value to set.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="setting-the-static-vic-frequency">
+<h2>Setting the Static VIC Frequency<a class="headerlink" href="Clocks.html#setting-the-static-vic-frequency" title="Link to this heading">#</a></h2>
+<p>For debugging or power/performance evaluation, you may want to set the
+VIC frequency to a fixed value. You can set the <strong>static VIC frequency</strong>
+directly if you disable VIC DVFS.</p>
+<section id="to-set-the-static-vic-frequency">
+<span id="sd-clocks-settingthestaticvicfrequency-tosetthestaticvicfrequency"></span><h3>To set the static VIC frequency<a class="headerlink" href="Clocks.html#to-set-the-static-vic-frequency" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Disable VIC runtime power management (PM) suspend. This forces the
+VIC hardware block into a power-on state so that you can configure
+the VIC frequency with commands:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo on &gt; &lt;knobpath&gt;/power/control
+</pre></div>
+</div>
+</li>
+<li><p>Read the runtime status:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat &lt;knobpath&gt;/power/runtime_status
+</pre></div>
+</div>
+<p>The command should display a runtime status of <em>active</em>.</p>
+</li>
+<li><p>Disable VIC DVFS:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo userspace &gt; &lt;knobpath_devfreq&gt;/governor
+</pre></div>
+</div>
+</li>
+<li><p>Check the available VIC frequency settings:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ cat &lt;knobpath_devfreq&gt;/available_frequencies
+</pre></div>
+</div>
+<p>The command lists the available frequencies like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>115200000 128000000 140800000 153600000 166400000 179200000 192000000 204800000 217600000 230400000 243200000 256000000 268800000 281600000 294400000 307200000 320000000 332800000 345600000 358400000 371200000 384000000 396800000 409600000 422400000 435200000 448000000 460800000 473600000 486400000 499200000 512000000 524800000 537600000 550400000 563200000 576000000 588800000 601600000 614400000 627200000 640000000 652800000 665600000 678400000 691200000 704000000 716800000 729600000
+</pre></div>
+</div>
+</li>
+<li><p>Choose one of the available frequencies, and set the VIC maximum
+frequency and the VIC frequency to that value:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo &lt;frequency&gt; &gt; &lt;knobpath_devfreq&gt;/max_freq
+$ echo &lt;frequency&gt; &gt; &lt;knobpath_devfreq&gt;/userspace/set_freq
+</pre></div>
+</div>
+</li>
+<li><p>Enable VIC runtime PM suspend:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ echo auto &gt; &lt;knobpath&gt;/power/control
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuring-clocks">
+<span id="sd-clocks-configuringclocks"></span><h2>Configuring Clocks<a class="headerlink" href="Clocks.html#configuring-clocks" title="Link to this heading">#</a></h2>
+<p>In general, each block or module has a dedicated clock source register. For detailed information about a given register, see your Jetson device’s
+<a class="reference external" href="https://developer.nvidia.com/embedded/downloads#?search=technical%20reference%20manual">Technical Reference Manual</a>
+for information about <code class="docutils literal notranslate"><span class="pre">CLK_RST_CONTROLLER_CLK_SOURCE_&lt;module_name&gt;</span></code>.</p>
+<p>Clock source registers provide clock source selection and clock divider
+control for the module. The divider is typically 8 bits: 7 integer bits
+and 1 fractional bit (U7.1).</p>
+<section id="to-change-clock-configurations-in-the-kernel-device-driver-module">
+<h3>To change clock configurations in the kernel device driver module<a class="headerlink" href="Clocks.html#to-change-clock-configurations-in-the-kernel-device-driver-module" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Declare the clocks in the device tree. For example, for <code class="docutils literal notranslate"><span class="pre">mttcan</span></code>, clocks
+can be declared like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>clocks = &lt;&amp;bpmp TEGRA234_CLK_CAN1_CORE&gt;,
+        &lt;&amp;bpmp TEGRA234_CLK_CAN1_HOST&gt;,
+        &lt;&amp;bpmp TEGRA234_CLK_CAN1&gt;,
+        &lt;&amp;bpmp TEGRA234_CLK_PLLAON&gt;;
+clock-names = &quot;can_core&quot;, &quot;can_host&quot;,&quot;can&quot;,&quot;pllaon&quot;;
+</pre></div>
+</div>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">devm_clk_get()</span></code> to obtain the desired clock source using <code class="docutils literal notranslate"><span class="pre">clock-names</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">clk_get_parent()</span></code> to obtain the parent clock for the desired clock.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">clk_set_parent()</span></code> to select the specified clock source for the target clock.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">clk_set_rate()</span></code> to set the frequency of the target clock.</p>
+<p>The divider is calculated automatically according to the target rate. Successful clock frequency settings must meet use one of the available dividers of that module and the frequency of the clock source.</p>
+</li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">clk_round_rate()</span></code> to get the exact clock frequency that can be configured from the current clock source.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">clk_prepare_enable()</span></code>, or <code class="docutils literal notranslate"><span class="pre">clk_prepare()</span></code> and <code class="docutils literal notranslate"><span class="pre">clk_enable()</span></code>, to enable the clock. You can use <code class="docutils literal notranslate"><span class="pre">clk_prepare()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">clk_enable()</span></code> to enable a clock if the operation may sleep.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Communications/AudioSetupAndDevelopment.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Audio Setup and Development</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="PlatformPowerAndPerformance.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Platform Power and Performance</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-check-clock-status">To check clock status</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#overriding-default-clock-rates">Overriding Default Clock Rates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#configuring-gpu-clocks">Configuring GPU Clocks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-run-the-gpu-at-a-fixed-frequency">To run the GPU at a fixed frequency</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#configuring-vic-clocks">Configuring VIC Clocks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#vic-dynamic-voltage-and-frequency-scaling">VIC Dynamic Voltage and Frequency Scaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#sysfs-paths-for-dvfs-control">Sysfs Paths for DVFS Control</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#pathnames-of-sysfs-nodes-for-dvfs-control">Pathnames of Sysfs Nodes for DVFS Control</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#vic-dvfs-control-terminology">VIC DVFS Control Terminology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-enable-or-disable-vic-dvfs">To enable or disable VIC DVFS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-customize-vic-dvfs-with-control-knobs">To customize VIC DVFS with control knobs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#setting-the-static-vic-frequency">Setting the Static VIC Frequency</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-set-the-static-vic-frequency">To set the static VIC frequency</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#configuring-clocks">Configuring Clocks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Clocks.html#to-change-clock-configurations-in-the-kernel-device-driver-module">To change clock configurations in the kernel device driver module</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

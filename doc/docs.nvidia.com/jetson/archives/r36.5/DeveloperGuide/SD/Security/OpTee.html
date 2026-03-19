@@ -1,0 +1,1409 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>OP-TEE: Open Portable Trusted Execution Environment &#8212; NVIDIA Jetson Linux Developer Guide</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css@digest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css@v=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/nvidia-sphinx-theme.css@v=c5edffae.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css@v=767de534.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css@v=76b2166b.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css@v=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script rel="preload" src="../../_static/modal-table.js"></script>
+    <script src="../../_static/documentation_options.js@v=b08bce9f"></script>
+    <script src="../../_static/doctools.js@v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js@v=dc90522c"></script>
+    <script src="../../_static/scrollspy-patch.js@v=edc4054a"></script>
+    <script src="../../_static/clipboard.min.js@v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js@v=3ccfd28f"></script>
+    <script src="../../_static/design-tabs.js@v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SD/Security/OpTee';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../_static/version-patch.js@v=c24f8c5d"></script>
+    <link rel="icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Disk Encryption" href="DiskEncryption.html" />
+    <link rel="prev" title="Factory Secure Key and Expansion Key Provisioning" href="FSKP.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Feb 03, 2026"/>
+
+    <!-- Adobe tracking script -->
+    <script src="https://assets.adobedtm.com/5d4962a43b79/814eb6e9b4e1/launch-4bc07f1e0b0b.min.js"></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="OpTee.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA Jetson Linux Developer Guide - Home"/>
+    <script>document.write(`<img src="../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA Jetson Linux Developer Guide - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">NVIDIA Jetson Linux Developer Guide</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IN/QuickStart.html">Quick Start</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AR/JetsonSoftwareArchitecture.html">Jetson Software Architecture</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AR/BootArchitecture.html">Boot Architecture</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/JetsonOrinSeriesBootFlow.html">Jetson AGX Orin, Orin NX, and Orin Nano Boot Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AR/BootArchitecture/PartitionConfiguration.html">Partition Configuration</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Feature Overview</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../SO/JetsonOrinSeries.html">Jetson Orin Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Software Features in Depth</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../FlashingSupport.html">Flashing Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EmulationSupport.html">Emulation Flash Configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RootFileSystem.html">Root File System</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Bootloader.html">Bootloader</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/T23xBCTLoaderIntro.html">T23x Boot Configuration Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PinmuxGpioConfig.html">Pinmux and GPIO Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/CommonProdConfig.html">Common Prod Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/ControllerProdConfig.html">Controller Product Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PadVoltageDtBinding.html">Pad Voltage DT Binding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/PmicConfig.html">PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/StorageDeviceConfig.html">Storage Device Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UphyLaneConfig.html">UPHY Lane Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/OemFwRachetConfig.html">OEM-FW Ratchet Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/BootROMResetPMICConfig.html">BootROM Reset PMIC Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/MiscConfig.html">Miscellaneous Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SdramConfig.html">SDRAM Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/DramEcc.html">DRAM-ECC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/GpioInterruptMapConfig.html">GPIO Interrupt Mapping Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/Mb2BctMiscConfig.html">MB2 BCT Misc Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/SecurityConfig.html">Security Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UEFI.html">UEFI Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html">Update and Redundancy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Kernel.html">Kernel</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelAdaptation.html">Kernel Adaptation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelCustomization.html">Kernel Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/RealTimeKernel.html">Installing Real-Time Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/BringYourOwnKernel.html">Bring Your Own Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/GenericTimestampEngine.html">Generic Timestamp Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/Bmi088ImuIioDriver.html">BMI088 IMU Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/KernelBootTimeOptimization.html">Kernel Boot Time Optimization</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp.html">Display Configuration and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/CommonDisplayconfig.html">Common Display configurations for all Platforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Kernel/DisplayConfigurationAndBringUp/OrinDisplayconfig.html">Orin specific Display Configuration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Kernel/DebuggingTools.html">Kernel Debugging Tools</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Multimedia.html">Multimedia</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/MultimediaApis.html">Multimedia APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedDecodeWithFfmpg.html">Accelerated Decode with ffmpeg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/AcceleratedGstreamer.html">Accelerated GStreamer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Multimedia/SoftwareEncodeInOrinNano.html">Software Encode in Orin Nano</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardwareAccelerationInTheWebrtcFramework.html">Hardware Acceleration in the WebRTC Framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/GraphicsAPIs.html">Graphics APIs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Graphics/GraphicsProgramming.html">Graphics Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/BinaryShaderProgramManagement.html">Binary Shader Program Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/GlslcShaderProgramCompiler.html">GLSLC Shader Program Compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Graphics/GraphicsProgramming/OpenglEsProgrammingTips.html">OpenGL ES Programming Tips</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Eglstream.html">EGLStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/Egldevice.html">EGLDevice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/SampleApplications.html">Sample Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/OpenWFD.html">OpenWFD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSC.html">Vulkan SC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graphics/VulkanSCSamples.html">Vulkan SC Samples</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../WindowingSystems.html">Windowing Systems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/WestonWayland.html">Weston (Wayland)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WindowingSystems/XWindowSystem.html">X Window System</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../CameraDevelopment.html">Camera Development</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraSoftwareDevelopmentSolution.html">Camera Software Development Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/SensorSoftwareDriverProgramming.html">Sensor Software Driver Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/JetsonVirtualChannelWithGmslCameraFramework.html">Jetson Virtual Channel with GMSL Camera Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/ArgusNvrawTool.html">Argus NvRaw Tool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CameraDevelopment/CameraDriverPorting.html">Camera Driver Porting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Security.html">Security</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="SecureBoot.html">Secure Boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FSKP.html">Factory Secure Key and Expansion Key Provisioning</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="OpTee.html#">OP-TEE: Open Portable Trusted Execution Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DiskEncryption.html">Disk Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecureStorage.html">Secure Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirmwareTPM.html">Firmware TPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RollbackProtection.html">Rollback Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MemoryEncryption.html">Memory Encryption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PVAAuthentication.html">PVA Authentication</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Communications.html">Communications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/PcieEndpointMode.html">PCIe Endpoint Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/EnablingBluetoothAudio.html">Enabling Bluetooth Audio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Communications/AudioSetupAndDevelopment.html">Audio Setup and Development</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Clocks.html">Clocks</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../PlatformPowerAndPerformance.html">Platform Power and Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PlatformPowerAndPerformance/JetsonOrinNanoSeriesJetsonOrinNxSeriesAndJetsonAgxOrinSeries.html">Jetson Orin Nano Series, Jetson Orin NX Series and Jetson AGX Orin Series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SoftwarePackagesAndTheUpdateMechanism.html">Software Packages and the Update Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BootTimeOptimization.html">Boot Time Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WorkingWithSources.html">Working With Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TestPlanValidation.html">Test Plan and Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hardware References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonDeveloperKitSetup.html">Jetson Developer Kit Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/JetsonEepromLayout.html">Jetson EEPROM Layout</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp.html">Jetson Module Adaptation and Bring-Up</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonAgxOrinSeries.html">Jetson AGX Orin Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/JetsonOrinNxNanoSeries.html">Jetson Orin NX and Nano Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HR/JetsonModuleAdaptationAndBringUp/Checklists.html">Checklists</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ConfiguringTheJetsonExpansionHeaders.html">Configuring the Jetson Expansion Headers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HR/ControllerAreaNetworkCan.html">Controller Area Network (CAN)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications and Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../AT/BoardAutomation.html">Board Automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/JetsonLinuxToolchain.html">Jetson Linux Toolchain</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools.html">Jetson Linux Development Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/DebuggingOnJetsonPlatforms.html">Debugging on Jetson Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/ProgramTraceMacrocell.html">Program Trace Macrocell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegrastatsUtility.html">Tegrastats Utility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AT/JetsonLinuxDevelopmentTools/TegraCombinedUART.html">Tegra Combined UART</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AT/HowToSubmitABugReport.html">How to Submit a Bug Report</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Material</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../RM/PackageManifest.html">Package Manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/RelatedDocumentation.html">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RM/LegalInformation.html">Legal Information</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../Security.html" class="nav-link">Security</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">OP-TEE:...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="op-tee-open-portable-trusted-execution-environment">
+<h1>OP-TEE: Open Portable Trusted Execution Environment<a class="headerlink" href="OpTee.html#op-tee-open-portable-trusted-execution-environment" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Applies to</strong> the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series.</p>
+</div></blockquote>
+<p><a class="reference external" href="https://www.trustedfirmware.org/projects/op-tee/">Open Portable Trusted Execution Environment</a>
+(OP-TEE) is an open-source
+<strong>trusted execution environment</strong> (TEE) based on
+<a class="reference external" href="https://www.arm.com/technologies/trustzone-for-cortex-a">Arm® TrustZone® technology</a>,
+created by
+<a class="reference external" href="https://www.trustedfirmware.org/">trustedfirmware.org</a>,
+and maintained by
+<a class="reference external" href="https://www.linaro.org/">Linaro</a>.</p>
+<p>The overall framework of OP-TEE combines with two major components:
+<a class="reference external" href="https://github.com/OP-TEE/optee_os">optee_os</a>,
+which is the trusted side of the TEE (the <strong>secure world</strong>), and
+<a class="reference external" href="https://github.com/OP-TEE/optee_client">optee_client</a>,
+which is the untrusted, or “normal,” side of the TEE (the <strong>normal world</strong>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">optee_os</span></code> is a TEE operating system running at ARMv8 secure EL-1 level. It provides generic OS-level functions
+like interrupt handling, thread handling, crypto services, and shared memory. It implements the
+<a class="reference external" href="https://globalplatform.org/">GlobalPlatform</a>
+<a class="reference external" href="https://globalplatform.org/specs-library/?filter-committee=tee">TEE Internal Core API</a>.
+You can use this API to build <strong>Trusted Applications</strong> (TAs) that run in the secure world at ARMv8 secure EL-0 level.</p>
+<p><code class="docutils literal notranslate"><span class="pre">optee_client</span></code> has three components: a normal world user space library, a normal world PKCS #11 crypto interface library, and a normal world user space daemon.
+The library <code class="docutils literal notranslate"><span class="pre">libteec.so</span></code> implements the GlobalPlatform <a class="reference external" href="https://globalplatform.org/specs-library/?filter-committee=tee">TEE Client API</a>,
+which defines the interface with which normal world <strong>Client Applications</strong> (CAs) communicate with the TA in the secure world.
+The library <code class="docutils literal notranslate"><span class="pre">libckteec.so</span></code> implements the <a class="reference external" href="https://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html">PKCS #11 Cryptographic Token Interface Base Specification Version 2.40</a> based on the <code class="docutils literal notranslate"><span class="pre">TEE</span> <span class="pre">Client</span> <span class="pre">API</span></code> and a <code class="docutils literal notranslate"><span class="pre">PKCS</span> <span class="pre">#11</span> <span class="pre">TA</span></code>.
+The daemon <code class="docutils literal notranslate"><span class="pre">tee-supplicant</span></code> implements some miscellaneous features for TrustedOS, for example, file system access
+to load the TAs from the normal world file system into the secure world.</p>
+<p><a class="reference external" href="https://optee.readthedocs.io/en/latest/index.html">OP-TEE Documentation</a>
+is available on the Web. The documentation source files are in ReStructuredText (RST) format, and are available from the
+<a class="reference external" href="https://github.com/OP-TEE/optee_docs">OPTEE/optee_docs project</a>
+on GitHub.</p>
+<p>The OP-TEE project also provides a sanity test suite,
+<a class="reference external" href="https://github.com/OP-TEE/optee_test">optee_test</a>,
+which offers thousands of tests, collectively known as <code class="docutils literal notranslate"><span class="pre">xtest</span></code>. See the <code class="docutils literal notranslate"><span class="pre">optee_test</span></code> project itself and the
+<a class="reference external" href="https://optee.readthedocs.io/en/latest/building/gits/optee_test.html">optee_test documentation</a>
+for more information.</p>
+<section id="op-tee-in-jetson-linux">
+<h2>OP-TEE in Jetson Linux<a class="headerlink" href="OpTee.html#op-tee-in-jetson-linux" title="Link to this heading">#</a></h2>
+<p>OP-TEE in <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux enables you to boot OP-TEE on supported Jetson devices.
+The version of OP-TEE in <span class="html">NVIDIA<sup><small>®</small></sup></span> <span class="html">Jetson™</span> Linux 36.3 is v4.2.0.
+The following sections explain how to set up and use OP-TEE.</p>
+<p>This topic uses some terms that are specific to trusted applications and OP-TEE in particular:</p>
+<ul class="simple">
+<li><p><strong>ATF</strong>: Arm Trusted Firmware.</p></li>
+<li><p><strong>CA</strong>: Client Application.</p></li>
+<li><p><strong>TA</strong>: Trusted Application; any application that runs within OP-TEE.</p></li>
+<li><p><strong>TEE</strong>: Trusted Execution Environment, the secure environment
+provided by OP-TEE for running trusted applications.</p></li>
+<li><p><strong>TOS</strong>: An acronym for “Trusted OS.” OP-TEE is a TOS supported by Jetson Linux.</p></li>
+</ul>
+</section>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="OpTee.html#architecture" title="Link to this heading">#</a></h2>
+<p>OP-TEE resides in a separate storage partition and boots as part of a
+chain of trust or a secure boot sequence. It creates two environments in
+a device with different security modes:</p>
+<ul class="simple">
+<li><p><strong>Non-Secure Environment (NSE)</strong>: An environment for running software
+components in non-secure mode. This environment constitutes the “normal
+world.” A rich OS, such as Linux, typically runs in this environment.</p></li>
+<li><p><strong>Trusted Execution Environment (TEE)</strong>: A separate environment that
+provides trusted operations and runs in a secure mode enforced by
+hardware. This environment constitutes the “secure world.” OP-TEE runs in
+this environment.</p></li>
+</ul>
+<p>The normal world OS and OP-TEE software operate in a client-server
+relationship, with OP-TEE as the server.</p>
+<p>Bootloader allocates a dedicated carveout, TZ-DRAM, to run OP-TEE or another secure
+OS. All secure operations are initiated by a client application running
+in the non-secure environment. A trusted application, in the secure
+world, never initiates contact with the non-secure environment.</p>
+<p>This diagram shows the relationships among the components:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Relationship among components in the normal world and the secure world" src="../../_images/Architecture.svg" />
+</figure>
+<section id="execution-steps">
+<h3>Execution Steps<a class="headerlink" href="OpTee.html#execution-steps" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>When a client application (CA) must perform a secure operation, it sends a request to a trusted application (TA) by calling functions in the TEE Client API library.</p></li>
+<li><p>The TEE Client API library routes the request to the OP-TEE Linux Kernel Driver.</p></li>
+<li><p>The OP-TEE Linux Driver routes the client application request to Arm Trusted Firmware (ATF).</p></li>
+<li><p>A monitor routes the request to the OP-TEE OS.</p>
+<p>The Jetson Linux monitor implementation is based on ATF. For more information about ATF, see the
+<a class="reference external" href="https://www.trustedfirmware.org/projects/tf-a/">Trusted Firmware A (TF-A)</a>.</p>
+</li>
+<li><p>The OP-TEE OS framework determines which trusted application (TA) is to handle the request.</p></li>
+<li><p>The OP-TEE OS framework passes control to the TA to handle the request.</p></li>
+<li><p>Upon completion, execution control returns along the reverse path to the client application, which receives a return value and any processed data.</p></li>
+</ol>
+</section>
+</section>
+<section id="trusted-application-and-client-application-development">
+<h2>Trusted Application and Client Application Development<a class="headerlink" href="OpTee.html#trusted-application-and-client-application-development" title="Link to this heading">#</a></h2>
+<p>This section gives a brief overview of the OP-TEE Trusted Application and Client Application (TA/CA) architecture.</p>
+<p>The OP-TEE TA/CA is a client-server model that follows the GlobalPlatform TEE API.
+The Client Application uses the TEE Client API to invoke the Trusted
+Application service in the secure world. The Trusted Application
+implements the functions defined by TEE Internal Core API Specification.</p>
+<p>This diagram shows a simplified working model of the OP-TEE TA/CA and the
+APIs that the TAs must implement to support the model.</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Brief working model of TA/CA with GlobalPlatform TEE API" src="../../_images/TaCaModel.svg" />
+</figure>
+<p><a class="reference external" href="https://optee.readthedocs.io/en/latest/architecture/core.html#using-shared-memory">Shared Memory</a>
+is a memory block which the OP-TEE framework uses internally to communicate data between CAs in the non-secure
+world and TAs in the secure world. See the
+<a class="reference external" href="https://github.com/linaro-swg/optee_examples/tree/master/hello_world">hello_world</a>
+sample application in GitHub for a working example.</p>
+<section id="how-to-cross-compiling-a-trusted-application-and-run-it-on-jetson-devices">
+<h3>How to Cross Compiling a Trusted Application and Run it on Jetson Devices<a class="headerlink" href="OpTee.html#how-to-cross-compiling-a-trusted-application-and-run-it-on-jetson-devices" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Download the appropriate Jetson-Linux toolchain from Jetson release page (<a class="reference external" href="https://developer.nvidia.com/embedded/jetson-linux-archive">https://developer.nvidia.com/embedded/jetson-linux-archive</a>).</p></li>
+<li><p>Create a folder and extract the toolchain in this folder:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>jetson-toolchain
+<span class="nb">cd</span><span class="w"> </span>jetson-toolchain
+tar<span class="w"> </span>xf<span class="w"> </span>&lt;bootlin<span class="w"> </span>toolchain<span class="w"> </span>gcc<span class="w"> </span>package&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Download the appropriate Jetson-Linux BSP source package from Jetson release page (<a class="reference external" href="https://developer.nvidia.com/embedded/jetson-linux-archive">https://developer.nvidia.com/embedded/jetson-linux-archive</a>).</p></li>
+<li><p>Create a folder, extract the BSP source package in this folder, and extract the nvidia-jetson-optee-source.tbz2 file.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>jetson-public-srcs
+<span class="nb">cd</span><span class="w"> </span>jetson-public-srcs
+tar<span class="w"> </span>xf<span class="w"> </span>&lt;public_sources.tbz2&gt;
+<span class="nb">cd</span><span class="w"> </span>Linux_for_Tegra/source
+mkdir<span class="w"> </span>jetson-optee-srcs
+<span class="nb">cd</span><span class="w"> </span>jetson-optee-srcs
+tar<span class="w"> </span>xf<span class="w"> </span>../nvidia-jetson-optee-source.tbz2
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>To build the OP-TEE components (including the OP-TEE image, optee_client, and optee_test files), complete the steps in the <code class="docutils literal notranslate"><span class="pre">atf_and_optee_README.txt</span></code> file. This file is a part of the <code class="docutils literal notranslate"><span class="pre">nvidia-jetson-optee-source.tbz2</span></code> file. ATF and TOS image building is only needed when plan to change the Jetson OP-TEE.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to build the Jetson OP-TEE source package because the user CA and TA building requires the <code class="docutils literal notranslate"><span class="pre">optee_client</span></code> and <code class="docutils literal notranslate"><span class="pre">optee_os</span></code> header files and configurations.</p>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Run the following command to build your trusted application.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>-C<span class="w"> </span>&lt;<span class="nb">source</span><span class="w"> </span>directory&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span><span class="s2">&quot;&lt;jetson-toolchain&gt;/bin/aarch64-buildroot-linux-gnu-&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">TA_DEV_KIT_DIR</span><span class="o">=</span><span class="s2">&quot;&lt;jetson-optee-srcs&gt;/optee/build/t234/export-ta_arm64/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">OPTEE_CLIENT_EXPORT</span><span class="o">=</span><span class="s2">&quot;&lt;jetson-optee-srcs&gt;/optee/install/t234/usr&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">TEEC_EXPORT</span><span class="o">=</span><span class="s2">&quot;&lt;jetson-optee-srcs&gt;/optee/install/t234/usr&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-j<span class="s2">&quot;</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Copy the CA to the <code class="docutils literal notranslate"><span class="pre">/usr/sbin</span></code> directory of your Jetson device.</p></li>
+<li><p>Copy the TA to the <code class="docutils literal notranslate"><span class="pre">/lib/optee_armtz</span></code> directory of your Jetson device.</p></li>
+<li><p>You can now run the CA. When the CA requests services from the TA, OP-TEE automatically loads the TA from <code class="docutils literal notranslate"><span class="pre">/lib/optee_armtz</span></code>.</p></li>
+</ol>
+</section>
+<section id="how-to-implement-a-new-trusted-application-or-port-an-existing-one">
+<h3>How to Implement a New Trusted Application or Port an Existing One<a class="headerlink" href="OpTee.html#how-to-implement-a-new-trusted-application-or-port-an-existing-one" title="Link to this heading">#</a></h3>
+<p>Every TA must conform to a structure determined by the TA/CA model, and when you design a new TA, it must conform too. See the
+<a class="reference external" href="https://optee.readthedocs.io/en/latest/building/trusted_applications.html#build-trusted-applications">Trusted Applications</a>
+section of the OP-TEE official documentation for a detailed description with a <code class="docutils literal notranslate"><span class="pre">hello_world</span></code> example. This section explains useful concepts and shows you how to create and set up
+a TA step by step from the beginning of the process through TA signing and encryption.</p>
+<p>To port an existing TA from another TOS to OP-TEE, you must replace the application’s original API calls with calls to the GlobalPlatform TEE API.
+For example,  a Trusty TA uses IPC to handle low-level message communication between the TA and CAs. For OP-TEE  functions in both TA and CA sides. To operate with OP-TEE it must use an RPC (Remote Procedure Call) function instead. See the
+<a class="reference external" href="https://optee.readthedocs.io/en/latest/architecture/globalplatform_api.html">GlobalPlatform API</a>
+section of the OP-TEE documentation
+for information about the API the client uses. Other Trusty API calls must be replaced by other OP-TEE Internal Core API calls.</p>
+<p>There are two groups of cryptographic functions you may use. The GlobalPlatform TEE Internal Core API provides procedures for using the cryptographic functions
+provided by <code class="docutils literal notranslate"><span class="pre">optee_os</span></code>. Alternatively,you may use the
+<a class="reference external" href="https://github.com/OP-TEE/optee_os/tree/master/lib/libmbedtls/mbedtls">MbedTLS library</a>,
+which is bundled with <code class="docutils literal notranslate"><span class="pre">optee_os</span></code>. If the original TA already uses one of these groups of functions,  no conversion is needed.</p>
+</section>
+<section id="types-of-trusted-applications">
+<h3>Types of Trusted Applications<a class="headerlink" href="OpTee.html#types-of-trusted-applications" title="Link to this heading">#</a></h3>
+<p>There are two types of TAs, <strong>user mode TAs</strong> and <strong>pseudo TAs</strong> (PTAs). See the
+<a class="reference external" href="https://optee.readthedocs.io/en/latest/architecture/trusted_applications.html">Trusted Applications</a>
+section in the “Architecture” chapter of
+the OP-TEE official documentation for a more detailed description. Jetson Linux provides secure sample apps for both types.</p>
+<p>A user mode TA runs as a secure application in ARMv8 S-EL0 mode, which is the user space layer of the secure world. It gets OS services exclusively by calling the GlobalPlatform TEE Internal Core API. When you implement a new TA or port an existing TA from another TEE, it is of this type.</p>
+<p>A pseudo TA runs in ARMv8 S-EL1 mode, which is the OS layer of the secure world. Running in this layer, a pseudo TA cannot use the GlobalPlatform TEE Internal Core API.
+If you need a specific secure function that the API does not provide, you can implement it in a pseudo TA and export it as a function to user mode TAs. For example, you can implement pseudo TAs to provide user mode TAs with access to hardware drivers.</p>
+</section>
+<section id="subkeys">
+<h3>Subkeys<a class="headerlink" href="OpTee.html#subkeys" title="Link to this heading">#</a></h3>
+<p>Subkeys is an implementation specific to OP-TEE that provides a public key hierarchy. Subkeys can be delegated to allow different actors to sign different TAs without sharing a private key.</p>
+<p>Refer to OP-TEE’s document about <a class="reference external" href="https://optee.readthedocs.io/en/4.2.0/architecture/subkeys.html">Subkeys</a>
+for more details.</p>
+</section>
+</section>
+<section id="ekb-encrypted-key-blob">
+<h2>EKB: Encrypted Key Blob<a class="headerlink" href="OpTee.html#ekb-encrypted-key-blob" title="Link to this heading">#</a></h2>
+<p>Different security functions often need different types of keys to encrypt, decrypt, authenticate, and verify data. These keys are usually confidential and sensitive, and compromising them would have serious consequences. As a complement to fuse, Encrypted Key Blob (EKB) is designed to meet user’s requirement for additional storage for security keys and data. Its usage is completely defined by the user, making it flexible and scalable.</p>
+<p>The EKB is encrypted by the EKB Encryption Key (<code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code>) and authenticated by the EKB Authentication Key (<code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>), both of which are derived from a hardware-backed key (<code class="docutils literal notranslate"><span class="pre">EKB</span> <span class="pre">Fuse</span> <span class="pre">Key</span></code>). The EKB content is visible in plaintext only to the secure world. In this section, we will introduce how EKB works and how to use it. Although we designed EKB to store user keys, it can also be used to save any sensitive data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The EKB can only be updated through OTA but not at runtime.</p>
+</div>
+<p>An EKB binary is often called “<code class="docutils literal notranslate"><span class="pre">eks_t&lt;platform&gt;.img</span></code>,” which is the filename of the EKB binary that is flashed to the EKS partition by default. For example, the EKB binary for the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series is <code class="docutils literal notranslate"><span class="pre">eks_t234.img</span></code>.</p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="OpTee.html#prerequisites" title="Link to this heading">#</a></h3>
+<p>In order to better understand how EKB works, you need to understand the following specialized terms.</p>
+<section id="keyslot">
+<h4>Keyslot<a class="headerlink" href="OpTee.html#keyslot" title="Link to this heading">#</a></h4>
+<p>A secure storage area in the Jetson Security Engine (SE) that protects the secure keys from unauthorized reading and writing.</p>
+<p>For the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series, during the early boot, PSC-BL1 loads the secure keys from fuse storage to the keyslots so that OP-TEE can use SE later to derive the keys from the keyslots.</p>
+</section>
+<section id="ekb-fuse-key">
+<h4>EKB Fuse Key<a class="headerlink" href="OpTee.html#ekb-fuse-key" title="Link to this heading">#</a></h4>
+<p>An AES key that is burned into a fuse.</p>
+<p>This key is not visible to the software, but OP-TEE uses it during boot through the SE to derive <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, which is the EKB Root Key. For the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series, this key has 256 bits and can be burned into the <code class="docutils literal notranslate"><span class="pre">OEM_K1</span></code> fuse or the <code class="docutils literal notranslate"><span class="pre">OEM_K2</span></code> fuse. We recommend that you use the <code class="docutils literal notranslate"><span class="pre">OEM_K1</span></code> fuse as the EKB fuse key.</p>
+</section>
+<section id="ekb-rk">
+<h4>EKB_RK<a class="headerlink" href="OpTee.html#ekb-rk" title="Link to this heading">#</a></h4>
+<p>A 128-bit AES key that is derived from the <code class="docutils literal notranslate"><span class="pre">EKB</span> <span class="pre">Fuse</span> <span class="pre">Key</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must not use this key directly, but use it to derive keys. Then use the derived key to encrypt and authenticate data.</p>
+</div>
+</section>
+<section id="ekb-ek">
+<h4>EKB_EK<a class="headerlink" href="OpTee.html#ekb-ek" title="Link to this heading">#</a></h4>
+<p>A 128-bit AES key that is derived from <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, and it is is used only to encrypt and decrypt EKB.</p>
+</section>
+<section id="ekb-ak">
+<h4>EKB_AK<a class="headerlink" href="OpTee.html#ekb-ak" title="Link to this heading">#</a></h4>
+<p>A 128-bit AES key that is derived from <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, and it is is used only to authenticate EKB content.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA strongly recommends that you use the same KDF as OP-TEE to generate different keys for different purposes. For example, use <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> to encrypt and decrypt EKB content and use <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> to authenticate EKB content.</p>
+</div>
+</section>
+<section id="se">
+<h4>SE<a class="headerlink" href="OpTee.html#se" title="Link to this heading">#</a></h4>
+<p>The Jetson Security Engine.</p>
+</section>
+<section id="mb2">
+<h4>MB2<a class="headerlink" href="OpTee.html#mb2" title="Link to this heading">#</a></h4>
+<p>The Bootloader stage that passes the EKB to OP-TEE. The boot flow executes MB2 before the Trusted OS is initialized.</p>
+</section>
+<section id="key-derivation-function-kdf">
+<h4>Key Derivation Function (KDF)<a class="headerlink" href="OpTee.html#key-derivation-function-kdf" title="Link to this heading">#</a></h4>
+<p>A Key derivation function to derive <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>. OP-TEE uses a <strong>Key Derivation Function</strong> (KDF) that follows NIST-SP-800-108.</p>
+<p><strong>Pseudocode for the NIST-SP-800-108 algorithm</strong>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>NIST-SP-800-108(KI, KO, L, context_string, label_string) {
+    uint8_t count = 0x01;
+    for (count=0x01; count&lt;=L/128; count++) {
+        AES-128-CMAC(key=KI, count || label_string || 0x00 || context_string || L, output=&amp;KO[count*128]);
+    }
+}
+</pre></div>
+</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KI</span></code> is a 128-bit or 256-bit input key</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KO</span></code> is a output key</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">L</span></code> is multiple of 128, the bit length of KO.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">context_string</span></code> and <code class="docutils literal notranslate"><span class="pre">label_string</span></code> have the values shown in this table:</p></li>
+</ul>
+<p>Below are the derivation parameters required to derive <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> from <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Derived Key</p></th>
+<th class="head"><p>context_string</p></th>
+<th class="head"><p>label_string</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code></p></td>
+<td><p>“ekb”</p></td>
+<td><p>“encryption”</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code></p></td>
+<td><p>“ekb”</p></td>
+<td><p>“authentication”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="ekb-format">
+<h3>EKB Format<a class="headerlink" href="OpTee.html#ekb-format" title="Link to this heading">#</a></h3>
+<p>The EKB format is designed to be as generic as possible, giving you full control of the actual key blob structure. Below is the EKB layout:</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB format" src="../../_images/EkbLayout.svg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is designed to save user keys or similar data, and the user can customize the format of the EKB.</p>
+</div>
+<section id="ekb-header">
+<h4>EKB Header<a class="headerlink" href="OpTee.html#ekb-header" title="Link to this heading">#</a></h4>
+<p>The EKB header contains <code class="docutils literal notranslate"><span class="pre">Header</span></code> (this data includes <code class="docutils literal notranslate"><span class="pre">EKB_size</span></code>, <code class="docutils literal notranslate"><span class="pre">Magic</span></code>, <code class="docutils literal notranslate"><span class="pre">Major</span></code>, and <code class="docutils literal notranslate"><span class="pre">Minor</span></code>), <code class="docutils literal notranslate"><span class="pre">FV</span></code>, and <code class="docutils literal notranslate"><span class="pre">MAC</span></code>. The EKB header is consumed and parsed by OP-TEE. It must match the following layout:</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB header" src="../../_images/EkbHeader.svg" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">EKB_size</span></code> is the length of the EKB binary starting from the <code class="docutils literal notranslate"><span class="pre">Magic</span></code> field. <code class="docutils literal notranslate"><span class="pre">EKB_size</span></code> is four bytes long, in little endian format. Its value must be 4 less than the length of the EKB binary in bytes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Magic</span></code> is eight bytes long, and must contain the exact string <code class="docutils literal notranslate"><span class="pre">&quot;NVEKBP\0\0&quot;</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Major</span></code> is two bytes long, the current major version is 2.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Minor</span></code> is two bytes long, the current minor version is 0.</p>
+<p><code class="docutils literal notranslate"><span class="pre">FV</span></code> is a fixed vector that has a fixed 16-byte value and is part of the <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code> key derivation. It can be generated with a random number generator. NVIDIA recommends using <code class="docutils literal notranslate"><span class="pre">/dev/random</span></code> or <code class="docutils literal notranslate"><span class="pre">/dev/urandom</span></code>. This command generates a 16-byte random number and saves it in hexadecimal form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ openssl rand -rand /dev/urandom -hex 16 &gt; fv_hex_file
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For EKB version 1, FV is a hardcoded 16-byte value. For EKB version 2, FV is a randomly generated 16-byte value and stored right after EKB the field <code class="docutils literal notranslate"><span class="pre">Minor</span></code>.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MAC</span></code> is a message authentication code, used to authenticate the data from content header to the end. It is generated by the AES-CMAC algorithm using <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>.</p>
+</section>
+<section id="ekb-content-header">
+<h4>EKB Content Header<a class="headerlink" href="OpTee.html#ekb-content-header" title="Link to this heading">#</a></h4>
+<p>The EKB content header contains <code class="docutils literal notranslate"><span class="pre">Content_header</span></code> (this data included <code class="docutils literal notranslate"><span class="pre">Content_size</span></code>, <code class="docutils literal notranslate"><span class="pre">Content_magic</span></code>, and <code class="docutils literal notranslate"><span class="pre">Reserved</span></code>.) and  <code class="docutils literal notranslate"><span class="pre">IV</span></code>. The EKB content header information is parsed by OP-TEE. It must match the following layout:</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB content header" src="../../_images/EkbContentHeader.svg" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">Content_size</span></code> is the length of the encrypted EKB key data starting after the <code class="docutils literal notranslate"><span class="pre">IV</span></code> field. <code class="docutils literal notranslate"><span class="pre">Content_Size</span></code> is four bytes long, in little endian format.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Content_magic</span></code> is four bytes long, and must contain the exact string <code class="docutils literal notranslate"><span class="pre">&quot;EEKB&quot;</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Reserved</span></code> is an 8 bytes reserved field for future use. Its default value is zero.</p>
+<p><code class="docutils literal notranslate"><span class="pre">IV</span></code> is 16 bytes long, and it is used to encrypt and decrypt the EKB key data with <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code>. IV can be generated with a random number generator. NVIDIA recommends using <code class="docutils literal notranslate"><span class="pre">/dev/random</span></code> or <code class="docutils literal notranslate"><span class="pre">/dev/urandom</span></code>. This command generates a 16-byte random number and saves it in hexadecimal form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ openssl rand -rand /dev/urandom -hex 16 &gt; iv_hex_file
+</pre></div>
+</div>
+</section>
+<section id="ekb-key-format">
+<h4>EKB Key Format<a class="headerlink" href="OpTee.html#ekb-key-format" title="Link to this heading">#</a></h4>
+<p>The EKB content may contain any number of key or similar data and is ended by a <code class="docutils literal notranslate"><span class="pre">End_tag1</span></code> (0000) and a <code class="docutils literal notranslate"><span class="pre">End_tag2</span></code> (0000). The EKB content format is as below.</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB key format" src="../../_images/EkbKeyFormat.svg" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">Key_tag</span></code> is the type of data stored in the EKB. <code class="docutils literal notranslate"><span class="pre">Key_tag</span></code> is four bytes long, in little endian format.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Key_len</span></code> is four bytes long, it indicates the length of the data that follows.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Key</span></code> is data content of the tag, and the data content length is indicated by <code class="docutils literal notranslate"><span class="pre">Key_len</span></code>.</p>
+<p>You can add additional keys or data to the EKB by adding key or data that conform to the EKB key format(<code class="docutils literal notranslate"><span class="pre">key_tag</span></code>, <code class="docutils literal notranslate"><span class="pre">Key_len</span></code>, <code class="docutils literal notranslate"><span class="pre">Key</span></code>) and extending the script (see <a class="reference external" href="OpTee.html#tool-for-ekb-generation">Tool for EKB Generation</a>) to support additional keys.</p>
+</section>
+</section>
+<section id="ekb-binary-size-restrictions">
+<h3>EKB Binary Size Restrictions<a class="headerlink" href="OpTee.html#ekb-binary-size-restrictions" title="Link to this heading">#</a></h3>
+<p>For security reasons, an EKB binary must be at least 1024 bytes long, and it must not exceed the EKS partition size. If an EKB binary’s size is not in this range, flashing fails.</p>
+<p>If you have very little EKB content, the EKB generation tool will pad the EKB binary to a length of at least 1024 bytes. The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA in OP-TEE will decrypt the entire binary, then discard the padding.</p>
+</section>
+<section id="ekb-generation">
+<span id="sd-security-optee-ekb-ekbgeneration"></span><h3>EKB Generation<a class="headerlink" href="OpTee.html#ekb-generation" title="Link to this heading">#</a></h3>
+<p>The sample EKB layout is intended to help you design a sufficiently secure mechanism to protect private data in the EKB. It stores user-defined keys in the EKB. As the figures under <a class="reference external" href="OpTee.html#ekb-format">EKB Format</a> show, you can easily extend EKB content, for example, by adding EKB keys in the EKB key format for multiple keys.</p>
+<p>NVIDIA recommends that you use the EKB layout described in <a class="reference external" href="OpTee.html#ekb-format">EKB Format</a>. However, you can always replace it with a customized layout.</p>
+<p>The following will describe the generation process of EKB in more detail through the formula.</p>
+<ol class="arabic">
+<li><p>Define a format for the EKB content and generate the EKB content in plaintext.</p></li>
+<li><p>Generate a symmetric key as an EKB fuse key. For the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series, the key size must be 256 bits.</p></li>
+<li><p>Burn the EKB fuse key into the device’s fuse.</p>
+<ul class="simple">
+<li><p>For the Jetson AGX Orin series, Jetson Orin NX series, and Jetson Orin Nano series, the fuse is OEM_K1.</p></li>
+</ul>
+<p>For more information about the fuses, see the <a class="reference external" href="https://developer.nvidia.com/embedded/downloads#?search=fuse%20specification">Fuse Specification Application Note</a> for your Jetson device.</p>
+<p>For more information, see the topic <a class="reference internal" href="SecureBoot.html#sd-security-secureboot"><span class="std std-ref">Secure Boot</span></a>.</p>
+</li>
+<li><p>Generate a random FV and save it to <code class="docutils literal notranslate"><span class="pre">FV</span></code> field in EKB header.</p></li>
+<li><p>Compute <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code> by using AES ECB encryption based on the following formula:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code> = AES−128−ECB(<code class="docutils literal notranslate"><span class="pre">FV</span></code>, EKB fuse key)</p>
+</div></blockquote>
+</li>
+<li><p>Follow the NIST-SP-800-108 KDF recommendation to derive <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> = NIST-SP-800-108-KDF(Key = <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, Label = “ekb”, Context = “encryption”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> = NIST-SP-800-108-KDF(Key = <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, Label = “ekb”, Context = “authentication”)</p>
+</div></blockquote>
+</li>
+<li><p>Generate a random IV and save it in <code class="docutils literal notranslate"><span class="pre">IV</span></code> field in EKB content header, encrypt the <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(plaintext)</span></code> with <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">IV</span></code>, using the desired crypto algorithm to obtain the <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(ciphertext)</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(ciphertext)</span></code> = AES-128-CBC(<code class="docutils literal notranslate"><span class="pre">IV</span></code>, <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code>, <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(plaintext)</span></code>)</p>
+</div></blockquote>
+</li>
+<li><p>Concatenate the <code class="docutils literal notranslate"><span class="pre">Content_header</span></code>, <code class="docutils literal notranslate"><span class="pre">IV</span></code>, and the <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(ciphertext)</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB_content</span></code> = <code class="docutils literal notranslate"><span class="pre">Content_header</span></code> + <code class="docutils literal notranslate"><span class="pre">IV</span></code> + <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(ciphertext)</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Calculate the MAC of the <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code> with <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>, using the desired crypto algorithm to obtain a MAC and save it to the <code class="docutils literal notranslate"><span class="pre">MAC</span></code> field of <code class="docutils literal notranslate"><span class="pre">EKB_header</span></code>.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code> = AES−CMAC(Key = <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>, <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code>)</p>
+</div></blockquote>
+</li>
+<li><p>Concatenate <code class="docutils literal notranslate"><span class="pre">EKB_header</span></code> and <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code> as described in <a class="reference external" href="OpTee.html#ekb-format">EKB Format</a>. The resulting file is a fully generated EKB binary.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB</span></code> = <code class="docutils literal notranslate"><span class="pre">EKB</span> <span class="pre">header</span></code>  + <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Flash the EKB binary to the Jetson device’s EKS partition.</p></li>
+</ol>
+<p>This flow diagram illustrates the EKB generation process:</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB generation" src="../../_images/EkbGeneration.svg" />
+</figure>
+<section id="tool-for-ekb-generation">
+<h4>Tool for EKB Generation<a class="headerlink" href="OpTee.html#tool-for-ekb-generation" title="Link to this heading">#</a></h4>
+<p>Before you generate the EKB, refer to <a class="reference internal" href="SecureBoot.html#sd-security-secureboot"><span class="std std-ref">Secure Boot</span></a> for more information about burning keys into fuses, including the OEM_K1 or OEM_K2 fuse, and the Secure Boot requirements for using OP-TEE on Jetson devices.</p>
+<p>You can generate user-defined keys separately by running the <code class="docutils literal notranslate"><span class="pre">openssl</span></code> tool from the command line and store them in different files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For EKB version 1, a hardcoded FV in the EKB generation tool is used for EKB generation, and the same FV is hardcoded in OP-TEE for EKB extraction.</p></li>
+<li><p>For EKB version 2, FV is a randomly generated 16-byte value and stored in EKB. This FV is used for EKB generation and EKB extraction.</p></li>
+</ul>
+<p>The EKB generation tool in the current JetPack release supports only EKB version 2. But the extraction in <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA is backward compatible. It still supports EKB version 1.</p>
+</div>
+<p>The following example shows you how to run the EKB generation tool for the Jetson AGX Orin series, Jetson Orin NX series, and Jetson Orin Nano series:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python3 gen_ekb.py -chip t234
+                     -oem_k1_key &lt;oem_k1.key&gt; \
+                     -in_sym_key &lt;sym_t234.key&gt; \
+                     -in_sym_key2 &lt;sym2_t234.key&gt; \
+                     -in_auth_key &lt;auth_t234.key&gt; \
+                     -out &lt;eks_t234.img&gt;
+</pre></div>
+</div>
+<p>Where:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;oem_k1.key&gt;</span></code> is the key that is stored in the OEM_K1 fuse.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sym_t234.key&gt;</span></code> is the UEFI payload encryption key.</p>
+<p>In current L4T reference implementation, this is the UEFI payload encryption key provided by the <code class="docutils literal notranslate"><span class="pre">--uefi-enc</span></code> option in the flash command(refer to <a class="reference internal" href="SecureBoot.html#sd-security-secureboot-uefipayloadencryption-preparetheuserencryptionkey"><span class="std std-ref">Prepare the User Key</span></a> in the topic <a class="reference internal" href="SecureBoot.html#sd-security-secureboot"><span class="std std-ref">Secure Boot</span></a> for more information). The encryption key must be the same as the one used to encrypt custom-built kernel images.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;sym_t234.key&gt;</span></code> is the disk encryption key.</p>
+<p>This key is used in two reference implementations. One is the secure sample implemented by hwkey-agent and hwkey-app. This sample uses the key for data encryption and decryption. In the other case, the key is the source key of the key generation of the LUKS key in the disk encryption reference implementation.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;auth_t234.key&gt;</span></code> is the UEFI variable authentication key.</p>
+<p>In current L4T reference implementation, this is the <a class="reference internal" href="SecureBoot.html#sd-security-secureboot-uefivariableprotection"><span class="std std-ref">UEFI Variable Protection</span></a> key. The authentication key is saved in EKB and used by OP-TEE.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;eks_t234.img&gt;</span></code> is the output image file which is intended to be flashed onto the EKS partition of the device.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For the Jetson AGX Orin series, the Jetson Orin NX series, and the Jetson Orin Nano series, you can copy and substitute <code class="docutils literal notranslate"><span class="pre">&lt;Linux_for_Tegra&gt;/bootloader/eks_t234.img</span></code> by using the EKS image you create. As described in the EKB generation section, the EKS image is encrypted and signed by the OEM_K1 (or OEM_K2 in earlier releases). To test the EKS feature on a board, where OEM_K1 has not been burned, OP-TEE uses a pre-defined hard-coded key instead of OEM_K1. However, after the security mode fuse is burned (make sure OEM_K1 fuse is burned before the security mode fuse), the EKS image must be created with the OEM_K1 value as the signing and encryption key. Refer to <code class="docutils literal notranslate"><span class="pre">example.sh</span></code>, which is in the OP-TEE source package for an example of an EKS image that is generated with the test key.</p></li>
+<li><p>To update the EKB image in the EKS partitions with Capsule update, by default the EKB image is packed to the Capsule payload. If the EKB image does not need to be updated, refer to <a class="reference internal" href="../Bootloader/UpdateAndRedundancy.html#sd-bootloader-updateandredundancy-tocustomizethebup"><span class="std std-ref">To Customize the BUP</span></a> for more information about how to not pack the EKB image to the Capsule payload.</p></li>
+</ul>
+</div>
+<p>Because EKB version 2 introduced randomized FV, changes to the FV result in changes to the HUK. However, the secure storage root key is derived from the HUK. So changes to the FV (updates to the EKS image) cause secure storage to become unusable. Therefore, we introduce the <code class="docutils literal notranslate"><span class="pre">-reuse_fv</span></code> option to use the same FV as the input EKS image for the newly generated EKS image.</p>
+<p>The following example shows you how to run the EKB generation tool to generate a new EKS image from an existing EKS image for the Jetson AGX Orin series, Jetson Orin NX series, and Jetson Orin Nano series:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ python3 gen_ekb.py -chip t234
+                     -oem_k1_key &lt;oem_k1.key&gt; \
+                     -in_sym_key &lt;sym_t234.key&gt; \
+                     -in_sym_key2 &lt;sym2_t234.key&gt; \
+                     -in_auth_key &lt;auth_t234.key&gt; \
+                     -reuse_fv &lt;old_eks_t234.img&gt; \
+                     -out &lt;eks_t234.img&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ekb-extraction">
+<h3>EKB Extraction<a class="headerlink" href="OpTee.html#ekb-extraction" title="Link to this heading">#</a></h3>
+<p>The following outline shows the most logical sequence of operations for extracting information from an EKB. It is essentially the reverse of the
+process for EKB generation. During boot, the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA in OP-TEE performs the following steps:</p>
+<ol class="arabic">
+<li><p>Requests the SE to derive the <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code> with the following formula:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code> = AES−128−ECB(<code class="docutils literal notranslate"><span class="pre">FV</span></code>, EKB fuse key)</p>
+</div></blockquote>
+</li>
+<li><p>Derives <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> following the NIST-SP-800-108 KDF.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> = NIST-SP-800-108-KDF(Key = <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, Label = “ekb”, Context = “encryption”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> = NIST-SP-800-108-KDF(Key = <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>, Label = “ekb”, Context = “authentication”)</p>
+</div></blockquote>
+</li>
+<li><p>Authenticates the <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code> with <code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code> and <code class="docutils literal notranslate"><span class="pre">MAC</span></code> stored in the EKS image using the chosen crypto algorithm.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">MAC</span></code> = AES−CMAC(<code class="docutils literal notranslate"><span class="pre">EKB_AK</span></code>, <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code>)</p>
+</div></blockquote>
+</li>
+<li><p>If authenticates success, decrypts the <code class="docutils literal notranslate"><span class="pre">EKB_content</span></code> with <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code> and <code class="docutils literal notranslate"><span class="pre">IV</span></code> from <code class="docutils literal notranslate"><span class="pre">EKB_content_header</span></code> and using the chosen crypto algorithm to obtain plaintext.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(plaintext)</span></code> = AES−128−CBC(<code class="docutils literal notranslate"><span class="pre">IV</span></code>, <code class="docutils literal notranslate"><span class="pre">EKB_EK</span></code>, <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(ciphertext)</span></code>)</p>
+</div></blockquote>
+</li>
+<li><p>Extracts user keys in <code class="docutils literal notranslate"><span class="pre">EKB</span> <span class="pre">key</span> <span class="pre">foramt</span></code> from <code class="docutils literal notranslate"><span class="pre">Content</span> <span class="pre">(plaintext)</span></code> and stores user keys into a linked list. Then utilizes the keys as desired within the PTA.</p></li>
+</ol>
+<p>The following diagram shows the process of EKB extraction.</p>
+<figure class="align-default" style="width: 640px">
+<img alt="EKB extraction" src="../../_images/EkbExtraction.svg" />
+</figure>
+<section id="ekb-extraction-sample">
+<h4>EKB Extraction Sample<a class="headerlink" href="OpTee.html#ekb-extraction-sample" title="Link to this heading">#</a></h4>
+<p>For an example of how to perform EKB extraction, see the source code of the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA in OP-TEE.</p>
+</section>
+</section>
+<section id="se-keyslot-clearing">
+<h3>SE Keyslot Clearing<a class="headerlink" href="OpTee.html#se-keyslot-clearing" title="Link to this heading">#</a></h3>
+<p>The fuse keys are loaded into keyslots during an early boot stage before OP-TEE runs. Because software cannot read them back from the keyslots, a TA can only derive the keys from the keyslots through SE. After the EKB fuse key in the keyslot is being used, the EKB fuse key no longer needs to persist in the keyslot. To prevent a component from using this key after the device boots, NVIDIA <em>strongly</em> recommends that you wipe the key from the keyslot.</p>
+<p>The person who uses the EKB fuse key is responsible for clearing the key. You can clear the keyslot by calling the <code class="docutils literal notranslate"><span class="pre">tegra_se_clear_aes_keyslots()</span></code> function provided by the <code class="docutils literal notranslate"><span class="pre">SE</span></code> driver.</p>
+</section>
+</section>
+<section id="sample-applications">
+<h2>Sample Applications<a class="headerlink" href="OpTee.html#sample-applications" title="Link to this heading">#</a></h2>
+<p>The diagram below shows an overview of secure sample applications.
+There are:</p>
+<ul class="simple">
+<li><p>A PTA, <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA in the OP-TEE OS</p></li>
+<li><p>Three CAs and TAs, <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA and <code class="docutils literal notranslate"><span class="pre">luks</span></code> TA with corresponding CAs in the normal world user space, <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> TA with the corresponding CA in L4T Launcher.</p></li>
+</ul>
+<figure class="align-default" style="width: 600px">
+<img alt="Secure sample applications overview" src="../../_images/SecureSampleApplicationsArchitecture.svg" />
+</figure>
+<section id="jetson-user-key-pta">
+<h3>Jetson User Key PTA<a class="headerlink" href="OpTee.html#jetson-user-key-pta" title="Link to this heading">#</a></h3>
+<p>The jetson user key TA is a pseudo TA that is bundled with OP-TEE OS and runs at OS layer. This TA provides APIs to the user TA and exports these APIs to the user TA via GlobalPlatform TEE API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before studying the service interface of this PTA, you should understand how the GlobalPlatform TEE API defines the application communication interface and flow. This pattern applies to communication between TA and TA, TA and PTA, and CA and TA.</p>
+<ol class="arabic simple">
+<li><p>The user TA initializes a session with the PTA using <code class="docutils literal notranslate"><span class="pre">TEE_OpenTASession</span></code>. Establishing a session requires the <code class="docutils literal notranslate"><span class="pre">UUID</span></code> of the PTA as input so that it knows which PTA to communicate with.</p></li>
+<li><p>After the session is created, the TA calls the service in the PTA using <code class="docutils literal notranslate"><span class="pre">TEE_InvokeTACommand</span></code>, with the command ID and parameters stored in the structure <code class="docutils literal notranslate"><span class="pre">TEE_Param</span></code>. The <code class="docutils literal notranslate"><span class="pre">TEE_Param</span></code> structure can store two types of data, a value or a memory reference pointer.</p></li>
+</ol>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA provides EKB key management, user key services, random number generator, key derivation function, and CPUBL payload decryption services.</p>
+<section id="ekb-key-management">
+<h4>EKB Key Management<a class="headerlink" href="OpTee.html#ekb-key-management" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA shows how to derive keys from the SE keyslot and derive other keys for different security purposes.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OEM_K1</span></code>: Root key for <code class="docutils literal notranslate"><span class="pre">RPMB_Key</span></code> and  <code class="docutils literal notranslate"><span class="pre">EKB_RK</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OEM_K2</span></code>: Root key for <code class="docutils literal notranslate"><span class="pre">SSK_RK</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RPMB_Key</span></code>: Per-device unique key derived from <code class="docutils literal notranslate"><span class="pre">OEM_K1</span></code>. This key should be provisioned to the eMMC device and generated at runtime. The runtime generated key must be exactly the same as the key provisioned to the eMMC device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SSK_RK</span></code>: Per-device unique key derived from <code class="docutils literal notranslate"><span class="pre">OEM_K2</span></code>. You can use it to encrypt data that is bound to the device. The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA does not use this key, but only shows how to derive it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">User</span> <span class="pre">Keys</span></code>: User-defined keys stored in the EKB.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA extracts user-defined keys from EKB and saves the keys into a linked list. For security reasons, all the keys should not leave the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA, at least not leave the secure world, and the PTA services can only be accessed by user TA.</p>
+</section>
+<section id="user-key-services">
+<h4>User Key Services<a class="headerlink" href="OpTee.html#user-key-services" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> pta provides three APIs for users to get keys.</p>
+<ol class="arabic simple">
+<li><p>The user space TA can get a derived key from the user-defined keys through <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA interface via command ID <code class="docutils literal notranslate"><span class="pre">JETSON_USER_KEY_CMD_GEN_KEY</span></code> and <code class="docutils literal notranslate"><span class="pre">Key_tag</span></code>.</p></li>
+<li><p>The user space TA can get a per-device unique derived key from a user-defined keys through <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA interface via command ID <code class="docutils literal notranslate"><span class="pre">JETSON_USER_KEY_CMD_GEN_UNIQUE_KEY_BY_EKB</span></code> and <code class="docutils literal notranslate"><span class="pre">Key_tag</span></code>.</p></li>
+<li><p>The user space TA can also get the user keys through the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA interface directly via the command ID <code class="docutils literal notranslate"><span class="pre">JETSON_USER_KEY_CMD_GET_EKB_KEY</span></code> and <code class="docutils literal notranslate"><span class="pre">Key_tag</span></code>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although we provide the API for the user TA to directly get the user keys, we do not recommend doing so because it will cause the user key to leave the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA.</p>
+</div>
+</section>
+<section id="random-number-generator">
+<h4>Random Number Generator<a class="headerlink" href="OpTee.html#random-number-generator" title="Link to this heading">#</a></h4>
+<p>The GlobalPlatform TEE Internal API provides an interface for the user TA to get random numbers from OP-TEE. This hooks into HW RNG.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/* Cryptographic Operations API - Random Number Generation Functions */</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">TEE_GenerateRandom</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">randomBuffer</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">randomBufferLen</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In addition to this, the user TA can also access the hardware RNG through <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA interface via the command ID <code class="docutils literal notranslate"><span class="pre">JETSON_USER_KEY_CMD_GET_RANDOM</span></code>.</p>
+</section>
+<section id="key-derivation-function">
+<h4>Key Derivation Function<a class="headerlink" href="OpTee.html#key-derivation-function" title="Link to this heading">#</a></h4>
+<p>The software-based NIST-SP 800-108 KDF in <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA. This function implements a counter-mode KDF with AES-CMAC as PRF.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * A software-based NIST-SP 800-108 KDF.</span>
+<span class="cm"> *  derives keys from a key in a key buffer.</span>
+<span class="cm"> *</span>
+<span class="cm"> * *key       [in] input key for derivation.</span>
+<span class="cm"> * key_len    [in] length of input key in bytes.</span>
+<span class="cm"> * *context   [in] a pointer to a NIST-SP 800-108 context string.</span>
+<span class="cm"> * *label     [in] a pointer to a NIST-SP 800-108 label string.</span>
+<span class="cm"> * dk_len     [in] length of the derived key in bytes (16 or any multiple of 16).</span>
+<span class="cm"> * *out_dk    [out] a pointer to the derived key.</span>
+<span class="cm"> */</span>
+<span class="n">TEE_Result</span><span class="w"> </span><span class="nf">nist_sp_800_108_cmac_kdf</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">key_len</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">label</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">dk_len</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">out_dk</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The user TA can access the software-based NIST 800-108 KDF through the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA interface via the command ID <code class="docutils literal notranslate"><span class="pre">JETSON_USER_KEY_CMD_GEN_KEY</span></code>.</p>
+</section>
+<section id="cpubl-payload-decryption-services">
+<h4>CPUBL Payload Decryption Services<a class="headerlink" href="OpTee.html#cpubl-payload-decryption-services" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA provides UEFI payload decryption services, supporting decryption of UEFI payloads during the boot process. The PTA gets the UEFI payload encryption key from the user key linked list and then uses the key to decrypt the UEFI payload.</p>
+</section>
+</section>
+<section id="hwkey-agent-ca-and-ta">
+<h3>HWKEY AGENT CA and TA<a class="headerlink" href="OpTee.html#hwkey-agent-ca-and-ta" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> CA is a command-line program that illustrates how to encrypt and decrypt data using user-defined keys stored in the EKB and get random numbers from the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA is a user space TA that provides two functions for the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> CA: data encryption and decryption, and getting random numbers.</p>
+<section id="data-encryption-and-decryption">
+<h4>Data Encryption and Decryption<a class="headerlink" href="OpTee.html#data-encryption-and-decryption" title="Link to this heading">#</a></h4>
+<p>Typically, the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> CA issues a request to encrypt or decrypt data, and then the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA transparently transmit the request to the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA to get a derived key based on a pre-defined user key stored in EKB, and then <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA uses this key to encrypt or decrypt the data.</p>
+<p>For demonstration only, the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA uses the disk encryption key to derive the encrypt or decrypt key.</p>
+</section>
+<section id="get-a-random-number">
+<h4>Get a Random Number<a class="headerlink" href="OpTee.html#get-a-random-number" title="Link to this heading">#</a></h4>
+<p>Typically, the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> CA issue a request to get a random number, and then the <code class="docutils literal notranslate"><span class="pre">hwkey-agent</span></code> TA does not process the request directly but instead transparently transmit the request to the <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA to get a random number based on hardware RNG.</p>
+</section>
+</section>
+<section id="luks-ca-and-ta">
+<h3>LUKS CA and TA<a class="headerlink" href="OpTee.html#luks-ca-and-ta" title="Link to this heading">#</a></h3>
+<p>This is the disk encryption CA and TA. Typically, the <code class="docutils literal notranslate"><span class="pre">luks</span></code> CA communicates with the <code class="docutils literal notranslate"><span class="pre">luks</span></code> TA to retrieve the passphrase. The <code class="docutils literal notranslate"><span class="pre">luks</span></code> TA supports disk encryption functionality with one-time passphrase generation during boot time to unlock the encrypted disk.</p>
+<p>Refer to <a class="reference internal" href="DiskEncryption.html#sd-security-diskencryption"><span class="std std-ref">Disk Encryption</span></a> for more information about the <code class="docutils literal notranslate"><span class="pre">luks</span></code> CA and TA.</p>
+</section>
+<section id="cpubl-payload-decryption-ca-and-ta">
+<h3>CPUBL Payload Decryption CA and TA<a class="headerlink" href="OpTee.html#cpubl-payload-decryption-ca-and-ta" title="Link to this heading">#</a></h3>
+<p>The L4T launcher takes the role of the <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> CA, and communicates with <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> TA to decrypt the UEFI payloads (Kernel, Kernel-DTB and Initrd).</p>
+<p>Typically, the <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> CA (L4T launcher) sends a decryption request to the <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> TA at boot time. After receiving the request, the <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> TA will not decrypt the images directly but will transparently transmit the request to <code class="docutils literal notranslate"><span class="pre">jetson-user-key</span></code> PTA, which will finally decrypt the image.</p>
+<p>Refer to <a class="reference internal" href="SecureBoot.html#sd-security-secureboot-uefipayloadencryption"><span class="std std-ref">UEFI Payload Encryption</span></a> for more information about the <code class="docutils literal notranslate"><span class="pre">cpubl-payload-dec</span></code> CA and TA.</p>
+</section>
+</section>
+<section id="pkcs-11-support-in-optee">
+<h2>PKCS #11 Support in OPTEE<a class="headerlink" href="OpTee.html#pkcs-11-support-in-optee" title="Link to this heading">#</a></h2>
+<section id="cryptoki-introduction">
+<h3>Cryptoki Introduction<a class="headerlink" href="OpTee.html#cryptoki-introduction" title="Link to this heading">#</a></h3>
+<p>In cryptography, PKCS #11 is one of the Public-Key Cryptography Standards and refers to the programming interface used to create and manipulate cryptographic tokens, where the secret is a cryptographic key.</p>
+<p>The PKCS #11 standard defines a platform-independent API for interacting with cryptographic tokens, such as hardware security modules (HSM) and smart cards. The API is officially named _Cryptoki_ (derived from “cryptographic token interface” and pronounced as “crypto-key”). However, PKCS #11 is often used interchangeably to refer to the API and the standard that defines it.</p>
+<p>This API specifies the most commonly used cryptographic object types (RSA keys, X.509 certificates, DES/Triple DES keys, etc.) and all the functions needed to create, generate, modify, delete, and use these objects.</p>
+<p>The primary goal of PKCS #11 is to allow applications to securely and consistently use the features of cryptographic tokens. This enables developers to focus on their application’s functionality without worrying about the intricacies of token-specific interfaces.</p>
+<p>Some key features of PKCS #11 include token management, key management, encryption, and decryption.</p>
+<section id="token-management">
+<h4>Token Management<a class="headerlink" href="OpTee.html#token-management" title="Link to this heading">#</a></h4>
+<p>The ability to manage and configure cryptographic tokens, such as loading or unloading keys.</p>
+</section>
+<section id="key-management">
+<h4>Key Management<a class="headerlink" href="OpTee.html#key-management" title="Link to this heading">#</a></h4>
+<p>The ability to create, store, and retrieve encryption keys.</p>
+</section>
+<section id="encryption-and-decryption">
+<h4>Encryption and Decryption<a class="headerlink" href="OpTee.html#encryption-and-decryption" title="Link to this heading">#</a></h4>
+<p>The ability to perform various types of encryption and decryption operations.</p>
+<p>For more details about PKCS #11, please refer to <a class="reference external" href="https://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html">PKCS #11 Cryptographic Token Interface Base Specification Version 2.40</a>.</p>
+</section>
+</section>
+<section id="cryptoki-implementation-in-optee">
+<h3>Cryptoki Implementation in OPTEE<a class="headerlink" href="OpTee.html#cryptoki-implementation-in-optee" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Cryptoki</span></code> specific implementation in OP-TEE is located in the <code class="docutils literal notranslate"><span class="pre">libckteec</span></code> directory of <code class="docutils literal notranslate"><span class="pre">optee_client</span></code>, which complies with the <a class="reference external" href="https://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html">PKCS #11 Cryptographic Token Interface Base Specification Version 2.40</a>. The source code is located in the <code class="docutils literal notranslate"><span class="pre">src</span></code> subdirectory, and to build your own PKCS #11 application, you need to include the header files in the <code class="docutils literal notranslate"><span class="pre">include</span></code> subdirectory.</p>
+<p>This diagram shows the relationships among the components:</p>
+<figure class="align-default" style="width: 650px">
+<img alt="Relationship among components in the OPTEE architecture" src="../../_images/Pkcs11InOptee.svg" />
+</figure>
+<p>You can visit <a class="reference external" href="https://optee.readthedocs.io/en/4.2.0/building/userland_integration.html">PKCS #11 Driver</a> to learn how to integrate PKCS #11 in Linux user land with OPTEE.</p>
+</section>
+<section id="pkcs-11-ta">
+<h3>PKCS #11 TA<a class="headerlink" href="OpTee.html#pkcs-11-ta" title="Link to this heading">#</a></h3>
+<p>The PKCS #11 TA is the trusted application that supports PKCS #11 in OPTEE. It serves as the backend of for <code class="docutils literal notranslate"><span class="pre">libteec</span></code>, with its specific implementation located in the <code class="docutils literal notranslate"><span class="pre">ta/pkcs</span></code> directory of <code class="docutils literal notranslate"><span class="pre">optee_os</span></code>. This is a user TA, implemented and maintained by OPTEE. The source code is located in the <code class="docutils literal notranslate"><span class="pre">src</span></code> subdirectory. To call the PKCS #11 TA, you need include the header files in the <code class="docutils literal notranslate"><span class="pre">include</span></code> subdirectory.</p>
+</section>
+<section id="pkcs-11-sample-ca">
+<h3>PKCS #11 SAMPLE CA<a class="headerlink" href="OpTee.html#pkcs-11-sample-ca" title="Link to this heading">#</a></h3>
+<p>For a working example of Cryptoki in action, refer to the <code class="docutils literal notranslate"><span class="pre">PKCS</span> <span class="pre">#11</span> <span class="pre">Sample</span> <span class="pre">Application</span></code> located in the <code class="docutils literal notranslate"><span class="pre">app/samples/pkcs11-sample</span></code> directory. This application primarily demonstrates the usage of <code class="docutils literal notranslate"><span class="pre">C_GenerateKey</span></code> to generate keys and <code class="docutils literal notranslate"><span class="pre">C_WrapKey</span></code> to wrap keys and unwrap keys from the wrapped key object.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="FSKP.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Factory Secure Key and Expansion Key Provisioning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DiskEncryption.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Disk Encryption</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#op-tee-in-jetson-linux">OP-TEE in Jetson Linux</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#architecture">Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#execution-steps">Execution Steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#trusted-application-and-client-application-development">Trusted Application and Client Application Development</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#how-to-cross-compiling-a-trusted-application-and-run-it-on-jetson-devices">How to Cross Compiling a Trusted Application and Run it on Jetson Devices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#how-to-implement-a-new-trusted-application-or-port-an-existing-one">How to Implement a New Trusted Application or Port an Existing One</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#types-of-trusted-applications">Types of Trusted Applications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#subkeys">Subkeys</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-encrypted-key-blob">EKB: Encrypted Key Blob</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#keyslot">Keyslot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-fuse-key">EKB Fuse Key</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-rk">EKB_RK</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-ek">EKB_EK</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-ak">EKB_AK</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#se">SE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#mb2">MB2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#key-derivation-function-kdf">Key Derivation Function (KDF)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-format">EKB Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-header">EKB Header</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-content-header">EKB Content Header</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-key-format">EKB Key Format</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-binary-size-restrictions">EKB Binary Size Restrictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-generation">EKB Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#tool-for-ekb-generation">Tool for EKB Generation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-extraction">EKB Extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-extraction-sample">EKB Extraction Sample</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#se-keyslot-clearing">SE Keyslot Clearing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#sample-applications">Sample Applications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#jetson-user-key-pta">Jetson User Key PTA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#ekb-key-management">EKB Key Management</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#user-key-services">User Key Services</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#random-number-generator">Random Number Generator</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#key-derivation-function">Key Derivation Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#cpubl-payload-decryption-services">CPUBL Payload Decryption Services</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#hwkey-agent-ca-and-ta">HWKEY AGENT CA and TA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#data-encryption-and-decryption">Data Encryption and Decryption</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#get-a-random-number">Get a Random Number</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#luks-ca-and-ta">LUKS CA and TA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#cpubl-payload-decryption-ca-and-ta">CPUBL Payload Decryption CA and TA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#pkcs-11-support-in-optee">PKCS #11 Support in OPTEE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#cryptoki-introduction">Cryptoki Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#token-management">Token Management</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#key-management">Key Management</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#encryption-and-decryption">Encryption and Decryption</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#cryptoki-implementation-in-optee">Cryptoki Implementation in OPTEE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#pkcs-11-ta">PKCS #11 TA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="OpTee.html#pkcs-11-sample-ca">PKCS #11 SAMPLE CA</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js@digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js@digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Feb 03, 2026.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <!-- Invoking Adobe tracking -->
+    <script type="text/javascript">_satellite.pageBottom();</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
