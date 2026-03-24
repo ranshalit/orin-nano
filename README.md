@@ -3,6 +3,10 @@
 This isjetson orin nano kit.
 doc/ folder contains user guide, e.g. flash support can be found in doc/docs.nvidia.com/jetson/archives/r36.5/DeveloperGuide/SD/FlashingSupport.html
 
+The hardware identity is still p3768-0000 + p3767-0005.
+
+
+
 # build
 
 1. used sdk manager for first flash programing
@@ -27,7 +31,9 @@ using .github skills of terminal-command-inject and copy scp-copy-files skill fo
 - Workspace MCP config: `.vscode/mcp.json`
 - Tracked SSH key profile: `.vscode/ssh-mcp.profile.json`
 - Copilot CLI note: put MCP JSON config under `~/.copilot/` so the CLI can load it.
-- For password-based host-to-device command or copy operations, prefer non-interactive `sshpass`/`scp` usage rather than waiting on an interactive `sudo` password prompt.
+- For password-based host-to-device command or copy operations, always use non-interactive `sshpass`/`scp` usage or an equivalent non-interactive SSH password injection path.
+- Do not rely on an interactive password prompt, and do not treat `sudo` as a substitute for SSH authentication, because that can leave the terminal waiting indefinitely.
+- If a pushed file must be installed into a privileged device path such as `/boot` or `/etc`, do the copy with SCP first and then run the `sudo` move or edit through the terminal-command skill; plain `sudo` inside the SCP runner may fail without a TTY.
 
 ### How SSH MCP server was added
 Use this in Copilot CLI: `copilot` -> `/mcp add` (the command is interactive; there is not a documented full inline `/mcp add ...` form).
@@ -105,6 +111,8 @@ change into relative files
 - Validated commands from `nvidia_sdk/JetPack_6.2.2_Linux_JETSON_ORIN_NANO_TARGETS/Linux_for_Tegra`:
 	- `sudo ./flash.sh -k A_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
 	- `sudo ./flash.sh -k B_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
+- `sudo ./nvautoflash.sh --print_boardid` may identify board ID 3767 / SKU 0005 as `jetson-orin-nano-devkit-super`, but the validated direct `jetson-orin-nano-devkit-nvme internal` DTB flow for this workspace still uses the non-super DTB family `tegra234-p3768-0000+p3767-0005-nv.dtb`.
+- When there is doubt, inspect `bootloader/flashcmd.txt` from the successful direct flash path and follow its `--bldtb` selection for DTB-only updates.
 - Success marker to require in the flash log:
 	- `*** The [A_kernel-dtb] has been updated successfully. ***`
 	- `*** The [B_kernel-dtb] has been updated successfully. ***`

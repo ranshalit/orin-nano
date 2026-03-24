@@ -44,6 +44,8 @@ SSH inputs:
 - **password**: default `target_password` from `.github/copilot-instructions.md` (do not print in logs/transcripts)
 - **port (optional)**: default `22`
 
+For this workspace, always use `sshpass`-based SSH/SCP access for password-authenticated device connections. Do not fall back to Paramiko or an interactive password prompt. If `sshpass` is unavailable on the host, stop with a clear host-dependency error and have the user install it before retrying.
+
 If `target_ip`, `target_user`, or `target_password` is missing and not passed via CLI args, ask the user to provide it before running commands.
 
 Do NOT request these values via terminal stdin prompts. Ask in AI chat, then update `.github/copilot-instructions.md` so future runs do not ask again.
@@ -108,7 +110,7 @@ If the user provides a different prompt, adapt `promptRegex` accordingly.
 - Confirm tools exist: `command -v python3`
 - (Optional) Check reachability: `ping -c 1 <target_ip>` where `<target_ip>` comes from `.github/copilot-instructions.md`
 
-Recommended (to avoid repeated dependency installs / PATH issues): use the provided wrapper which creates a workspace-local venv using `/usr/bin/python3` and installs dependencies once:
+Recommended (to avoid repeated dependency installs / PATH issues): use the provided wrapper which creates a workspace-local venv using `/usr/bin/python3` and installs Python dependencies once. SSH still depends on host `sshpass` and `ssh` being present on `PATH`:
 
 - `.github/skills/terminal-command-inject/scripts/run_terminal_command.sh`
 
@@ -171,6 +173,7 @@ Interactive prompt behavior during command execution:
 - For yes/no prompts, prefer affirmative answers by default unless the user asked otherwise.
 - If a TUI/editor takes over (for example `vim`, `less`, `top`), send a safe exit sequence and continue with remaining commands.
 - If the prompt cannot be answered automatically, stop that command and return a short remediation hint.
+- For password-based SSH sessions in this workspace, always establish the session with `sshpass`. Only use `sudo -S` after the remote shell is already open and a command actually needs privilege escalation.
 - For SSH commands that begin with `sudo`, the runner now rewrites them to non-interactive `sudo -S -p '' ...` and proactively sends the configured password. This avoids hanging on a password prompt when the command would otherwise block waiting for terminal input.
 
 Additional output options:
@@ -232,7 +235,7 @@ When `--transcript-file` is provided, include the transcript file path in your h
 
 ## Notes / common issues
 
-- If SSH is flaky, confirm the link (USB gadget ethernet vs. direct Ethernet) and that the device is booted.
+- If SSH is flaky, confirm the link (USB gadget ethernet vs. direct Ethernet), that the device is booted, and that host `sshpass` is installed.
 - Boot logs over serial can be noisy; prompt detection may take time until Linux finishes booting.
 - If serial is disconnected/unresponsive, the runner now exits quickly after active probe attempts with no returned output.
 - On this Jetson serial console, auto-login may fail if the password is sent immediately after the username; allow roughly `2-3s` between those steps.

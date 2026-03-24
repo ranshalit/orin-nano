@@ -101,10 +101,12 @@ def _run(
     argv: List[str],
     *,
     timeout: Optional[float] = None,
+    input_text: Optional[str] = None,
 ) -> Tuple[int, str, str]:
     try:
         proc = subprocess.run(
             argv,
+            input=input_text,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -132,115 +134,116 @@ def _deadline_from_timeout(timeout_s: float) -> float:
     return _now() + timeout_s
 
 
-def _try_import_paramiko():
-    try:
-        import paramiko  # type: ignore
+def _is_ssh_transport_error(transcript: str) -> bool:
+    combined = (transcript or "").lower()
+    signals = (
+        "permission denied",
+        "authentication failed",
+        "connection refused",
+        "connection timed out",
+        "operation timed out",
+        "no route to host",
+        "could not resolve hostname",
+        "host key verification failed",
+        "kex_exchange_identification",
+        "connection closed by remote host",
+        "connection reset by peer",
+    )
+    return any(token in combined for token in signals)
 
-        return paramiko, None
-    except Exception as exc:
-        return None, exc
 
-
-def _try_run_commands_over_ssh(cfg: RunnerConfig, commands: List[str]) -> Tuple[bool, int, str]:
-    paramiko, import_exc = _try_import_paramiko()
-    if paramiko is None:
-        return (
-            False,
-            255,
-            "[terminal-runner] paramiko not available.\n"
-            f"[terminal-runner] python: {sys.executable}\n"
-            "[terminal-runner] recommended: run via the workspace wrapper to bootstrap a per-skill venv:\n"
-            "[terminal-runner]   .github/skills/terminal-command-inject/scripts/run_terminal_command.sh ...\n"
-            "[terminal-runner] alternative: install into THIS interpreter with:\n"
-            f"[terminal-runner]   {sys.executable} -m pip install paramiko\n"
-            + f"[terminal-runner] import error: {type(import_exc).__name__}: {import_exc}",
-        )
-
+def _try_run_commands_over_sshpass(
+    cfg: RunnerConfig,
+    commands: List[str],
+    sshpass_path: str,
+    ssh_path: str,
+) -> Tuple[bool, int, str]:
     overall_deadline = _deadline_from_timeout(cfg.overall_timeout)
 
     transcript: List[str] = []
     transcript.append("[terminal-runner] transport: ssh")
+    transcript.append("[terminal-runner] method: sshpass+openssh")
     transcript.append(f"[terminal-runner] target: {cfg.username}@{cfg.host}:{cfg.port}")
 
-    client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    exit_code = 0
+    connect_timeout = max(1, int(cfg.ssh_connect_timeout))
 
-    try:
-        client.connect(
-            hostname=cfg.host,
-            port=cfg.port,
-            username=cfg.username,
-            password=cfg.password,
-            timeout=cfg.ssh_connect_timeout,
-            banner_timeout=cfg.ssh_connect_timeout,
-            auth_timeout=cfg.ssh_connect_timeout,
-            look_for_keys=False,
-            allow_agent=False,
+    for i, cmd in enumerate(commands, start=1):
+        remaining = max(0.1, overall_deadline - _now())
+        per_cmd_timeout = remaining if cfg.command_timeout <= 0 else min(cfg.command_timeout, remaining)
+
+        if remaining <= 0:
+            transcript.append("[terminal-runner] ERROR: overall timeout exceeded")
+            return True, 5, "\n".join(transcript) + "\n"
+
+        transcript.append(f"===== COMMAND {i}/{len(commands)} =====")
+        transcript.append(f"$ {cmd}")
+
+        remote_cmd, sudo_password_required = _prepare_remote_command(cmd)
+        if sudo_password_required:
+            transcript.append("[terminal-runner] NOTE: auto-supplying sudo password")
+
+        argv = [
+            sshpass_path,
+            "-p",
+            cfg.password,
+            ssh_path,
+            "-o",
+            "StrictHostKeyChecking=no",
+            "-o",
+            "UserKnownHostsFile=/dev/null",
+            "-o",
+            "PreferredAuthentications=password",
+            "-o",
+            "PubkeyAuthentication=no",
+            "-o",
+            f"ConnectTimeout={connect_timeout}",
+            "-p",
+            str(cfg.port),
+            f"{cfg.username}@{cfg.host}",
+            remote_cmd,
+        ]
+
+        stdin_text = cfg.password + "\n" if sudo_password_required else None
+        rc, out, err = _run(argv, timeout=per_cmd_timeout, input_text=stdin_text)
+
+        if out:
+            transcript.append(out.rstrip("\n"))
+        if err:
+            transcript.append(err.rstrip("\n"))
+
+        if rc == 124:
+            transcript.append("[terminal-runner] ERROR: command execution timed out")
+            return True, 124, "\n".join(transcript) + "\n"
+
+        if rc == 255 and _is_ssh_transport_error("\n".join(transcript)):
+            return False, 255, "\n".join(transcript) + "\n"
+
+        if rc != 0:
+            transcript.append(f"[terminal-runner] NOTE: remote exit status {rc}")
+            if exit_code == 0:
+                exit_code = int(rc)
+
+    transcript.append("[terminal-runner] done")
+    return True, int(exit_code), "\n".join(transcript) + "\n"
+
+
+def _try_run_commands_over_ssh(cfg: RunnerConfig, commands: List[str]) -> Tuple[bool, int, str]:
+    sshpass_path = shutil.which("sshpass")
+    ssh_path = shutil.which("ssh")
+
+    transcript: List[str] = []
+    if not sshpass_path:
+        transcript.append("[terminal-runner] SSH unavailable: required host dependency `sshpass` is not installed or not on PATH")
+    if not ssh_path:
+        transcript.append("[terminal-runner] SSH unavailable: required host dependency `ssh` is not installed or not on PATH")
+    if transcript:
+        transcript.append(
+            "[terminal-runner] Install the missing host dependency and retry. This skill requires sshpass-backed OpenSSH for SSH transport."
         )
-    except Exception as exc:
-        msg = str(exc).strip()
-        if msg:
-            transcript.append(f"[terminal-runner] SSH connect failed: {type(exc).__name__}: {msg}")
-        else:
-            transcript.append(f"[terminal-runner] SSH connect failed: {type(exc).__name__}")
         return False, 255, "\n".join(transcript) + "\n"
 
-    try:
-        exit_code = 0
-        for i, cmd in enumerate(commands, start=1):
-            remaining = max(0.1, overall_deadline - _now())
-            per_cmd_timeout = remaining if cfg.command_timeout <= 0 else min(cfg.command_timeout, remaining)
-
-            if remaining <= 0:
-                transcript.append("[terminal-runner] ERROR: overall timeout exceeded")
-                return True, 5, "\n".join(transcript) + "\n"
-
-            transcript.append(f"===== COMMAND {i}/{len(commands)} =====")
-            transcript.append(f"$ {cmd}")
-
-            remote_cmd, sudo_password_required = _prepare_remote_command(cmd)
-            if sudo_password_required:
-                transcript.append("[terminal-runner] NOTE: auto-supplying sudo password")
-
-            try:
-                stdin, stdout, stderr = client.exec_command(
-                    remote_cmd,
-                    get_pty=not sudo_password_required,
-                    timeout=per_cmd_timeout,
-                )
-                if stdin and sudo_password_required:
-                    stdin.write(cfg.password + "\n")
-                    stdin.flush()
-                    if hasattr(stdin, "channel") and stdin.channel is not None:
-                        stdin.channel.shutdown_write()
-                out = stdout.read().decode("utf-8", errors="replace") if stdout else ""
-                err = stderr.read().decode("utf-8", errors="replace") if stderr else ""
-                status = stdout.channel.recv_exit_status() if stdout and stdout.channel else 0
-            except Exception as exc:
-                transcript.append(
-                    f"[terminal-runner] ERROR: command execution failed: {type(exc).__name__}: {str(exc).strip()}"
-                )
-                # SSH is up, but the command failed to execute/read within the requested bounds.
-                # Do not fall back to serial in this case.
-                return True, 124, "\n".join(transcript) + "\n"
-
-            if out:
-                transcript.append(out.rstrip("\n"))
-            if err:
-                transcript.append(err.rstrip("\n"))
-
-            if status != 0:
-                transcript.append(f"[terminal-runner] NOTE: remote exit status {status}")
-                if exit_code == 0:
-                    exit_code = int(status)
-
-        transcript.append("[terminal-runner] done")
-        return True, int(exit_code), "\n".join(transcript) + "\n"
-    finally:
-        try:
-            client.close()
-        except Exception:
-            pass
+    return _try_run_commands_over_sshpass(cfg, commands, sshpass_path, ssh_path)
 
 
 def _serial_runner_path() -> str:

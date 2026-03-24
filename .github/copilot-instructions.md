@@ -36,22 +36,23 @@ this device is using nvme - not mmc !
   - QSPI-only updates: `jetson-orin-nano-devkit-qspi` (`NO_ROOTFS=1`, `EMMC_CFG=flash_t234_qspi.xml`)
   - Rootfs-only APP updates on this NVMe-based Orin Nano: use `flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`.
   - Full device flash on this NVMe-based Orin Nano: use `flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`.
-  - Kernel DTB updates: prefer `flash.sh -k <A_kernel-dtb|B_kernel-dtb>` with non-`-qspi` board profile.
+  - Kernel DTB updates: prefer `flash.sh -k <A_kernel-dtb|B_kernel-dtb>` with the `jetson-orin-nano-devkit-nvme` board profile on this device. Those partitions are part of the board's QSPI boot layout even when the rootfs lives on NVMe, so the NVMe profile is still the correct flash layout selector.
   - On this NVMe-based Orin Nano setup, use `jetson-orin-nano-devkit-nvme internal` for direct `A_kernel-dtb` and `B_kernel-dtb` updates with the non-super DTB file `kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb`.
-  - Avoid manually mixing `-c bootloader/generic/cfg/flash_t234_qspi.xml` with `nvme0n1p1` for this DTB-only flow; it failed here with `Can not find partition type for a_kernel-dtb`.
+  - If `nvautoflash.sh --print_boardid` labels board ID 3767 / SKU 0005 as `jetson-orin-nano-devkit-super`, do not automatically switch DTB families for this workspace; the validated direct NVMe flash path still resolves to the non-super DTB above.
 - Flash command examples from `Linux_for_Tegra`:
-  - QSPI-only flash: `sudo ./flash.sh jetson-orin-nano-devkit-qspi internal`
-  - Rootfs-only APP flash to NVMe: `sudo ./flash.sh -k APP jetson-orin-nano-devkit-nvme nvme0n1p1`
-  - Full NVMe flash: `sudo ./flash.sh jetson-orin-nano-devkit-nvme nvme0n1p1`
-  - Device-tree-only flash to slot A: `sudo ./flash.sh -k A_kernel-dtb jetson-orin-nano-devkit nvme0n1p1`
+  - QSPI-only flash: `sudo ./flash.sh jetson-orin-nano-devkit-nvme internal`
+  - Rootfs-only APP flash to NVMe: `sudo ./flash.sh -k APP jetson-orin-nano-devkit-nvme internal`
+  - Only NVMe flash (no qspi): `sudo ./flash.sh jetson-orin-nano-devkit-nvme internal`
+  - Device-tree-only flash to slot A: `sudo ./flash.sh -k A_kernel-dtb jetson-orin-nano-devkit internal`
   - For slot B device-tree updates, replace `A_kernel-dtb` with `B_kernel-dtb`.
   - Validated NVMe DTB update to slot A: `sudo ./flash.sh -k A_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
   - Validated NVMe DTB update to slot B: `sudo ./flash.sh -k B_kernel-dtb -d kernel/dtb/tegra234-p3768-0000+p3767-0005-nv.dtb jetson-orin-nano-devkit-nvme internal`
-- If a custom kernel DTB should be loaded from rootfs, add `FDT /boot/dtb/kernel_tegra234-p3768-0000+p3767-0005-nv.dtb` to `/boot/extlinux/extlinux.conf` and copy the matching DTB into `/boot/dtb/`; otherwise UEFI falls back to the flashed DTB partition.
+- If a custom kernel DTB should be loaded after a DTB flash, the DTB flash alone is not sufficient on this setup: flashing `A_kernel-dtb` or `B_kernel-dtb` updates the QSPI partition copy, but the running system only used the custom DTB after the same file was copied into `/boot/dtb/` and a matching `FDT /boot/dtb/<custom-dtb>.dtb` entry was added to `/boot/extlinux/extlinux.conf`; otherwise UEFI falls back to the flashed DTB partition or another default boot selection.
 - Treat `Flashing completed` and `has been flashed successfully` as required success markers.
 - After flash, verify board returns to normal boot and network reachability (`192.168.55.1` when applicable).
 - Do not start flashing if APX/recovery is not confirmed.
 - APX visibility check is necessary but not always sufficient: if `flash.sh` reports empty `ECID` or `Error: probing the target board failed`, run `sudo ./nvautoflash.sh --print_boardid` and require successful board detection before flashing.
+- When board naming is ambiguous, inspect `bootloader/flashcmd.txt` from the previously successful direct flash flow and trust its `--bldtb` choice for DTB-only updates.
 
 ## Conventions
 - Keep changes narrowly scoped to the requested area; do not refactor unrelated folders.
@@ -122,8 +123,8 @@ this device is using nvme - not mmc !
 - `target_serial_device` (`/dev/ttyACM0`) is a serial console path and should be treated as the fallback path when SSH-based command execution is not available.
 - Requests that say "on device", "in device", or target `192.168.55.1` should use `.github/skills/terminal-command-inject`, which is SSH-first and can fall back to serial when needed.
 - File copy, deploy, and copy-then-run workflows should use `.github/skills/scp-file-copy`.
+- When a copied file must then be installed or edited under a privileged path on the device, use `.github/skills/terminal-command-inject` for the `sudo` step after the SCP push, because plain `sudo` inside the SCP runner can block or fail without a TTY.
 - For commands requiring privilege (for example `sudo ls /home/ -al`), execute them remotely through the SSH-first skill and return the remote output.
-- When the workspace is using password-based SSH access, prefer non-interactive `sshpass`/`scp` style execution or an equivalent non-interactive password injection path; do not rely on an interactive `sudo` password prompt because it can leave the terminal waiting indefinitely.
 - Host `bash` is only for host-side operations; never use it as a substitute for device-side command requests.
 
 ## Tool availability preflight

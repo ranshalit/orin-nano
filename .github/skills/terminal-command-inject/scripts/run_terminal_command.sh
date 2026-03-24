@@ -28,7 +28,7 @@ ensure_deps() {
   local vpip="${VENV_DIR}/bin/pip"
 
   # Avoid hitting the network on every run.
-  if "${vpy}" -c 'import paramiko, serial' >/dev/null 2>&1; then
+  if "${vpy}" -c 'import serial' >/dev/null 2>&1; then
     return 0
   fi
 
